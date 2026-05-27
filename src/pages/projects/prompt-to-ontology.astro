@@ -1,0 +1,121 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`Prompt-to-Ontology | ${config.site.title}`}
+  description="A public experiment on transforming messy product requirements, prompts, and business concepts into structured ontology assets for enterprise AI systems."
+>
+  <Header />
+
+  <Main pageTitle="Prompt-to-Ontology" class="app-prose">
+    <p class="text-muted-foreground text-lg">
+      A public experiment on transforming messy product requirements, prompts,
+      and business concepts into structured ontology assets for enterprise AI
+      systems.
+    </p>
+
+    <div class="border-border mt-4 flex flex-wrap gap-2">
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Knowledge Graphs
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Neo4j
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        NetworkX
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        ReAct Agent
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        LLM Pair Programming
+      </span>
+    </div>
+
+    <h2 class="mt-8 text-xl font-semibold">The Problem</h2>
+    <p>
+      Enterprise AI systems often fail because the underlying data model doesn't
+      match how the business actually works. Traditional data models show tables
+      and columns, but miss the relationships, constraints, and operations that
+      define real business logic. When you build an AI agent on top of a bad
+      data model, the agent reasons about a fictional version of your business.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Why Ontology Matters</h2>
+    <p>
+      An ontology captures not just entities and attributes, but relationships,
+      constraints, and the actions those entities enable. For enterprise AI, this
+      is the difference between a chatbot that gives generic answers and an agent
+      that can actually operate on your business context.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">What I Built</h2>
+    <p>
+      Prompt-to-Ontology takes raw CSV data and transforms it into an
+      interactive knowledge graph. An LLM infers the ontology schema — entities,
+      relationships, constraints — then writes it into a Neo4j graph database. A
+      ReAct agent sits on top, ready to query the graph and suggest business
+      actions with human-in-the-loop approval.
+    </p>
+    <p>
+      The architecture separates three concerns: <strong>Neo4j</strong> as the data
+      source, <strong>NetworkX</strong> as the compute engine, and the <strong
+        >LLM</strong
+      > as the reasoning layer. Three decoupled systems that can be independently
+      replaced.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Key Insight</h2>
+    <p>
+      Fact tables are nodes, not edges. An order isn't a relationship between a
+      customer and a product — it's an independent entity connected to both via
+      separate edges. Get this wrong and your entire graph topology collapses.
+    </p>
+    <p>
+      A knowledge graph without action buttons is just a pretty picture. Every
+      node type has context-sensitive operations calculated from its current
+      state — a low inventory node lights up a "Create Purchase Order" button.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Vibe Coding Approach</h2>
+    <p>
+      No sprint planning. No stand-ups. No traditional software engineers. Just
+      one product manager defining product intent, architecture boundaries, and
+      design constraints — and one LLM handling code generation, debugging, and
+      iteration.
+    </p>
+    <p>
+      The most valuable output isn't code. It's the cognitive framework for
+      understanding ontology-driven systems: the difference between data models,
+      schemas, and ontologies; the distinction between "viewing a graph" and
+      "operating a business through a graph."
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Status</h2>
+    <p>Public repository, actively being extended.</p>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        href="https://github.com/wenhaoyu-bryan/prompt-to-ontology"
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View on GitHub
+      </a>
+      <a
+        href="/posts/building-ontology-os"
+        class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-accent/10"
+      >
+        Read the Blog Post
+      </a>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

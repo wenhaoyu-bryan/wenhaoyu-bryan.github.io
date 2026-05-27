@@ -1,0 +1,252 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+const posts = await getCollection("posts");
+const sortedPosts = getSortedPosts(posts);
+const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const homePath = getRelativeLocaleUrl(locale, "");
+
+const projects = [
+  {
+    title: "Prompt-to-Ontology",
+    description:
+      "Transforming messy product requirements and business concepts into structured ontology assets for enterprise AI systems.",
+    status: "Public",
+    href: "https://github.com/wenhaoyu-bryan/prompt-to-ontology",
+  },
+  {
+    title: "AI PM Playbook",
+    description:
+      "A living public playbook for AI Product Managers working with agents, prototypes, PRDs, and AI-native workflows.",
+    status: "In progress",
+    href: getRelativeLocaleUrl(locale, "playbook"),
+  },
+  {
+    title: "Vibe Coding Prototype Lab",
+    description:
+      "Experiments showing how AI PMs can use Claude Code, Cursor, and modern AI coding workflows to turn ideas into prototypes.",
+    status: "Public",
+    href: "https://github.com/wenhaoyu-bryan/prompt-to-ontology",
+  },
+  {
+    title: "SEO/GEO Growth Experiments",
+    description:
+      "Experiments on building content systems, B2B websites, and AI-search-aware growth loops.",
+    status: "Ongoing",
+    href: getRelativeLocaleUrl(locale, "growth-lab"),
+  },
+];
+
+const topics = [
+  {
+    title: "Agentic Workflows",
+    description: "Designing agent systems with tools, memory, and governance.",
+  },
+  {
+    title: "Ontology-Driven AI Products",
+    description:
+      "Using knowledge graphs and structured ontologies to make enterprise AI reliable.",
+  },
+  {
+    title: "AI PM Playbooks",
+    description:
+      "Frameworks for evaluating opportunities, writing AI-native PRDs, and shipping.",
+  },
+  {
+    title: "Vibe Coding for PMs",
+    description:
+      "How product managers can use AI coding tools to validate ideas faster.",
+  },
+  {
+    title: "SEO/GEO Growth",
+    description:
+      "Content systems, keyword architecture, and AI search visibility experiments.",
+  },
+  {
+    title: "Industrial & B2B AI",
+    description:
+      "Enterprise AI adoption, industrial operations, and B2B product contexts.",
+  },
+];
+---
+
+<Layout>
+  <Header />
+  <main id="main-content" data-layout="index" data-home-path={homePath} class="app-layout">
+    <!-- Hero -->
+    <section class="border-border border-b pt-8 pb-10 sm:pt-12 sm:pb-14">
+      <h1 class="my-4 text-4xl font-bold tracking-tight sm:my-6 sm:text-5xl">
+        Wenhao Yu
+      </h1>
+      <p class="text-lg font-medium sm:text-xl">
+        AI Product Manager building agentic workflows, ontology systems, and growth experiments.
+      </p>
+      <p class="text-muted-foreground mt-3 max-w-2xl">
+        I explore how product managers can use AI coding tools, ontology thinking, and SEO/GEO growth systems to turn ambiguous business problems into working prototypes and public playbooks.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "projects")}
+          class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        >
+          View Projects
+          <IconArrowRight class="size-4" />
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-accent/10"
+        >
+          Read Playbook
+        </a>
+        <a
+          href="#contact"
+          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-accent/10"
+        >
+          Contact
+        </a>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">Featured Projects</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          projects.map(project => (
+            <a
+              href={project.href}
+              class="border-border group rounded-lg border p-5 transition-colors hover:bg-accent/5"
+              {...(project.href.startsWith("http")
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-medium group-hover:text-accent">
+                  {project.title}
+                </h3>
+                <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs">
+                  {project.status}
+                </span>
+              </div>
+              <p class="text-muted-foreground mt-2 text-sm">
+                {project.description}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- What I Work On -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">What I Work On</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          topics.map(topic => (
+            <div class="border-border rounded-lg border p-5">
+              <h3 class="font-medium">{topic.title}</h3>
+              <p class="text-muted-foreground mt-1.5 text-sm">
+                {topic.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Latest Writing -->
+    {
+      recentPosts.length > 0 && (
+        <section class="border-border border-b py-10 sm:py-14">
+          <h2 class="text-2xl font-semibold tracking-wide">
+            {t.home.recentPosts}
+          </h2>
+          <ul class="mt-4">
+            {recentPosts.slice(0, 3).map(data => (
+              <Card variant="h3" {...data} />
+            ))}
+          </ul>
+          <div class="mt-6">
+            <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
+              {t.home.allPosts}
+              <IconArrowRight class="inline-block rtl:-rotate-180" />
+            </LinkButton>
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Contact CTA -->
+    <section id="contact" class="py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">Connect</h2>
+      <p class="text-muted-foreground mt-2 max-w-xl">
+        Interested in AI product collaboration, ontology-driven systems, or growth experiments? Let's talk.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a
+          href="mailto:bryanyuwh@gmail.com"
+          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+        >
+          Email
+        </a>
+        <a
+          href="https://github.com/wenhaoyu-bryan"
+          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://linkedin.com/in/wenhaoyu-bryan/"
+          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+        <a
+          href="https://x.com/WENHAOYU8"
+          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          X
+        </a>
+        <a
+          href="https://medium.com/@bryanyuwh"
+          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Medium
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+      ?.dataset;
+    const baseRoot = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+    if (indexLayout?.layout) {
+      sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
+    }
+  });
+</script>
