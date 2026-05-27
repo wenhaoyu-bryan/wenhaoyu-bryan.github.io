@@ -21,14 +21,6 @@ Personal brand website for Wenhao Yu (Bryan), an AI Product Manager focused on a
 - [Pagefind](https://pagefind.app) — Static search
 - GitHub Pages — Hosting via GitHub Actions
 
-## Local Development
-
-```bash
-pnpm install
-pnpm run dev       # http://localhost:4321
-pnpm run build     # production build → dist/
-```
-
 ## Deployment
 
 Push to `main` triggers the GitHub Actions deploy workflow automatically.
