@@ -13,7 +13,9 @@ import config from "@/config";
 
 const { site, features } = config;
 
-const locale = Astro.currentLocale ?? config.site.lang;
+const locale = Astro.url.pathname.startsWith("/zh/") || Astro.url.pathname === "/zh"
+  ? "zh"
+  : "en";
 const t = useTranslations(locale);
 
 // Strip the base prefix so isActive comparisons work regardless of deploy subdirectory.
@@ -25,6 +27,12 @@ const pathWithoutTrailingSlash =
     : relativePath;
 
 const currentPath = stripLocale(pathWithoutTrailingSlash, locale);
+
+const isZh = locale === "zh";
+const langSwitchHref = isZh
+  ? getRelativeLocaleUrl("en", currentPath === "/" ? "" : currentPath)
+  : getRelativeLocaleUrl("zh", currentPath === "/" ? "" : currentPath);
+const langSwitchLabel = isZh ? "EN" : "中文";
 
 const isActive = (path: string) => {
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
@@ -71,7 +79,7 @@ const isActive = (path: string) => {
       </button>
       <ul
         id="menu-items"
-        class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1 [&>li>a]:whitespace-nowrap"
+        class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium [&>li>a]:whitespace-nowrap sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"
       >
         <li class="col-span-2">
           <a
@@ -111,6 +119,16 @@ const isActive = (path: string) => {
             class:list={{ "active-nav": isActive("/about") }}
           >
             {t.nav.about}
+          </a>
+        </li>
+        <li class="col-span-1 flex items-center justify-center">
+          <a
+            href={langSwitchHref}
+            class="focus-outline hover:text-accent inline-flex size-8 items-center justify-center text-sm font-medium"
+            title={langSwitchLabel}
+            aria-label={`Switch to ${langSwitchLabel}`}
+          >
+            {langSwitchLabel}
           </a>
         </li>
         {

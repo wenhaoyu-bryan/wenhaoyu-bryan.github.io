@@ -6,68 +6,65 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
-const locale = Astro.currentLocale ?? config.site.lang;
-
 const projects = [
   {
     title: "Prompt-to-Ontology",
     description:
-      "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems.",
+      "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。",
     status: "Public",
-    href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
+    href: getRelativeLocaleUrl("zh", "projects/prompt-to-ontology"),
     tags: ["Ontology", "Knowledge Graphs", "Neo4j", "NetworkX", "ReAct Agent"],
   },
   {
     title: "AI PM Playbook",
     description:
-      "A living operating system for AI Product Managers: frameworks for AI-native PRDs, agent product design, PRD-to-prototype workflows, and growth thinking.",
+      "面向 AI 产品经理的持续更新方法论，包括 AI-native PRD、Agent 产品设计、PRD-to-Prototype 和增长思维。",
     status: "In progress",
-    href: getRelativeLocaleUrl(locale, "playbook"),
+    href: getRelativeLocaleUrl("zh", "playbook"),
     tags: ["AI PM", "PRD", "Agent Design", "Frameworks"],
   },
   {
     title: "Vibe Coding Prototype Lab",
     description:
-      "A public lab showing how PM-led LLM pair programming can turn ambiguous ideas into prototypes, specs, and reusable product workflows.",
+      "展示 AI 产品经理如何借助 Claude Code、Cursor 和 LLM Pair Programming 把想法转化为原型和可复用流程。",
     status: "Public",
-    href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
+    href: getRelativeLocaleUrl("zh", "projects/vibe-coding-prototype-lab"),
     tags: ["Claude Code", "Cursor", "Prototyping", "LLM Pair Programming"],
   },
   {
     title: "SEO/GEO Growth Experiments",
     description:
-      "Experiments on content systems, B2B websites, and AI-search-aware growth loops — connecting SEO fundamentals with GEO visibility.",
+      "关于内容系统、B2B 网站增长和 AI 搜索可见性的长期笔记与实验空间。",
     status: "Ongoing",
-    href: getRelativeLocaleUrl(locale, "growth-lab"),
+    href: getRelativeLocaleUrl("zh", "growth-lab"),
     tags: ["SEO", "GEO", "B2B", "Content Systems"],
   },
 ];
 ---
 
 <Layout
-  title={`Projects | ${config.site.title}`}
-  description="Public projects and experiments around AI product management, Prompt-to-Ontology, vibe coding prototypes, and SEO/GEO growth systems."
+  title={`项目 | ${config.site.title}`}
+  description="公开项目与实验：Prompt-to-Ontology、AI PM Playbook、Vibe Coding Prototype Lab 和 SEO/GEO Growth Lab。"
 >
   <Header />
 
-  <Main pageTitle="Projects" class="app-prose">
+  <Main pageTitle="项目" class="app-prose">
     <p class="text-muted-foreground text-sm">
       <a
-        href={getRelativeLocaleUrl("zh", "projects")}
+        href={getRelativeLocaleUrl("en", "projects")}
         class="text-accent hover:underline"
       >
-        阅读中文版
+        Read in English
       </a>
     </p>
 
     <p>
-      A collection of public projects, prototypes, and experiments around AI
-      product management, ontology-driven systems, vibe coding, and growth.
+      这里整理了我公开展示的项目、原型和方法论实验，主要围绕 AI
+      产品管理、本体驱动系统、Vibe Coding 和 SEO/GEO 增长展开。
     </p>
 
     <p class="text-muted-foreground text-sm">
-      Some work is private due to data and permission constraints. These pages
-      abstract the product methodology rather than exposing internal systems.
+      部分工作来自真实业务实践，但出于数据权限和商业保密要求，网站只展示抽象后的方法论和可公开项目，不展示内部系统、客户数据或公司机密。
     </p>
 
     <div class="mt-8 grid gap-6">

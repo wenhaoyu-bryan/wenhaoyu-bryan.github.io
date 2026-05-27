@@ -1,0 +1,102 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`关于 | ${config.site.title}`}
+  description="关于余文豪：AI 产品经理，关注工业 AI、本体系统、Agent 产品设计、Vibe Coding 和增长方法论。"
+>
+  <Header />
+
+  <Main pageTitle="关于" class="app-prose">
+    <h2 class="mt-8 text-xl font-semibold">简短介绍</h2>
+    <p>我关注 AI 产品管理、工业 AI、本体驱动系统和增长。</p>
+    <p>
+      我不只是写
+      PRD，更关注如何把模糊业务问题转化为可验证的产品原型、可复用的方法论和可持续迭代的工作流，尤其是在
+      AI 系统需要真正连接业务场景的时候。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">这个网站是什么</h2>
+    <p>这不是传统意义上的在线简历。</p>
+    <p>
+      它更像我的 AI PM 公共工作台，用来展示我如何思考、构建和包装 AI
+      产品想法。部分经验来自真实的产品实践，但涉及公司、客户、内部数据和系统细节的内容都会被抽象化和脱敏处理。
+    </p>
+    <p>目标是分享可复用的方法，而不是暴露私有实现。</p>
+
+    <h2 class="mt-8 text-xl font-semibold">我在构建什么</h2>
+    <ul class="mt-2 space-y-2">
+      <li>本体驱动的 AI 系统</li>
+      <li>带工具、记忆和人工审核机制的 Agent 工作流</li>
+      <li>面向 AI 产品经理的方法论和 Playbook</li>
+      <li>基于 Claude Code / Cursor 的 PM-led 原型实验</li>
+      <li>面向 B2B 和 AI 搜索场景的 SEO/GEO 增长系统</li>
+    </ul>
+
+    <h2 class="mt-8 text-xl font-semibold">当前关注方向</h2>
+    <ul class="mt-2 space-y-2">
+      <li>Ontology 和知识图谱如何提升企业 AI 的可靠性</li>
+      <li>AI 产品经理如何用 Vibe Coding 更快验证想法</li>
+      <li>GEO / AI Search 如何改变产品和内容的分发方式</li>
+      <li>如何把个人项目和产品思考沉淀为长期资产</li>
+    </ul>
+
+    <h2 class="mt-8 text-xl font-semibold">工具栈</h2>
+    <p>
+      Claude Code, Cursor, Astro, Tailwind, React, FastAPI, Neo4j, NetworkX,
+      WordPress, GitHub Pages, SEO/GEO 研究工具
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">联系方式</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href="https://github.com/wenhaoyu-bryan"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.linkedin.com/in/wenhaoyu-bryan/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://x.com/WENHAOYU8"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          X / Twitter
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://medium.com/@bryanyuwh"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Medium
+        </a>
+      </li>
+      <li>Email: bryanyuwh@gmail.com</li>
+    </ul>
+  </Main>
+
+  <Footer />
+</Layout>

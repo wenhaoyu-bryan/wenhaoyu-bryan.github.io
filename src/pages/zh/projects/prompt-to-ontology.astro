@@ -1,0 +1,130 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`Prompt-to-Ontology | ${config.site.title}`}
+  description="一个公开实验：探索如何把模糊的产品需求、业务概念和表格数据转化为结构化本体资产和知识图谱，服务于企业 AI 系统。"
+>
+  <Header />
+
+  <Main pageTitle="Prompt-to-Ontology" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "projects/prompt-to-ontology")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      一个公开实验：探索如何把模糊的产品需求、业务概念和表格数据转化为结构化本体资产和知识图谱，服务于企业
+      AI 系统。
+    </p>
+
+    <div class="border-border mt-4 flex flex-wrap gap-2">
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Knowledge Graphs
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Neo4j
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        NetworkX
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        ReAct Agent
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        LLM Pair Programming
+      </span>
+    </div>
+
+    <h2 class="mt-8 text-xl font-semibold">问题背景</h2>
+    <p>
+      企业 AI
+      系统经常失败，根本原因在于底层数据模型与真实业务逻辑不匹配。传统数据模型只展示表和列，但忽略了定义真实业务逻辑的关系、约束和操作。当
+      AI Agent 构建在一个失真的数据模型之上时，它推理的是一个虚构的业务版本。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">为什么本体很重要</h2>
+    <p>
+      本体（Ontology）不仅捕获实体和属性，还捕获关系、约束以及这些实体所能支撑的业务动作。对企业
+      AI
+      而言，这决定了你是拥有一个只会给通用答案的聊天机器人，还是一个能真正基于业务上下文进行操作的
+      Agent。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">我构建了什么</h2>
+    <p>
+      Prompt-to-Ontology 接收原始 CSV 数据，将其转化为可交互的知识图谱。LLM
+      推断本体 Schema —— 实体、关系、约束 —— 然后写入 Neo4j 图数据库。顶层是一个
+      ReAct
+      Agent，可以查询图谱并建议业务动作，所有操作都需要人工确认（Human-in-the-loop）。
+    </p>
+    <p>
+      架构关注点分离：<strong>Neo4j</strong> 作为数据源，<strong
+        >NetworkX</strong
+      > 作为计算引擎，<strong>LLM</strong>
+      作为推理层。三个解耦的系统，可以独立替换。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">关键洞察</h2>
+    <p>
+      事实表是节点，不是边。订单不是客户和产品之间的关系 ——
+      它是一个独立实体，通过两条独立的边分别连接到客户和产品。搞错这一点，整个图拓扑就会崩塌。
+    </p>
+    <p>
+      没有 Action
+      按钮的知识图谱只是一张好看的图。每种节点类型都有基于当前状态计算的上下文敏感操作
+      —— 一个低库存节点会触发「创建采购单」按钮。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">PM-led 开发方式</h2>
+    <p>
+      这是一个 PM
+      主导的快速原型实验：我定义产品意图、架构边界和设计约束，同时使用 LLM Pair
+      Programming 来加速实现、调试和迭代。
+    </p>
+    <p>
+      最有价值的产出不是代码，而是理解本体驱动系统的认知框架：数据模型、Schema
+      和本体之间的区别；「看一个图」和「通过图来运营业务」之间的本质差异。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">架构 / 工作流</h2>
+    <p>公开架构图将展示以下数据流转过程：</p>
+    <p class="text-muted-foreground mt-2 text-sm">
+      原始 CSV / 需求文档 &rarr; LLM Schema 推断 &rarr; 本体 Schema &rarr; Neo4j
+      图数据库 &rarr; NetworkX 计算层 &rarr; ReAct Agent &rarr; HITL
+      业务动作建议
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">当前状态</h2>
+    <p>公开仓库，持续迭代中。</p>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        href="https://github.com/wenhaoyu-bryan/prompt-to-ontology"
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        在 GitHub 上查看
+      </a>
+      <a
+        href="/posts/building-ontology-os"
+        class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+      >
+        阅读相关博文
+      </a>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

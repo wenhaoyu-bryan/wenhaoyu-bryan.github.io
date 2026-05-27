@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
@@ -13,6 +14,15 @@ import config from "@/config";
   <Header />
 
   <Main pageTitle="Prompt-to-Ontology" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("zh", "projects/prompt-to-ontology")}
+        class="text-accent hover:underline"
+      >
+        阅读中文版
+      </a>
+    </p>
+
     <p class="text-muted-foreground text-lg">
       A public experiment on transforming messy product requirements, prompts,
       and business concepts into structured ontology assets for enterprise AI
@@ -93,6 +103,14 @@ import config from "@/config";
       understanding ontology-driven systems: the difference between data models,
       schemas, and ontologies; the distinction between "viewing a graph" and
       "operating a business through a graph."
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Architecture / Workflow</h2>
+    <p>A public architecture diagram will be added here to explain the flow:</p>
+    <p class="text-muted-foreground mt-2 text-sm">
+      Raw CSV / requirements &rarr; LLM schema inference &rarr; ontology schema
+      &rarr; Neo4j graph &rarr; NetworkX computation &rarr; ReAct agent &rarr;
+      HITL action suggestions.
     </p>
 
     <h2 class="mt-6 text-xl font-semibold">Status</h2>

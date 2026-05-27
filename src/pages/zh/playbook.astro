@@ -1,0 +1,134 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const categories = [
+  {
+    title: "AI PM 基础",
+    items: [
+      {
+        label: "AI-Native PRD",
+        href: getRelativeLocaleUrl("en", "playbook/ai-native-prd"),
+      },
+      { label: "AI PM 和传统 PM 有什么不同", href: null },
+      { label: "如何评估 AI 产品机会", href: null },
+    ],
+  },
+  {
+    title: "PRD 到原型",
+    items: [
+      {
+        label: "PRD 到原型工作流",
+        href: getRelativeLocaleUrl("en", "playbook/prd-to-prototype"),
+      },
+      { label: "使用 Claude Code / Cursor", href: null },
+      { label: "PM 如何负责任地使用 Vibe Coding", href: null },
+    ],
+  },
+  {
+    title: "Agent 产品设计",
+    items: [
+      {
+        label: "Agent 产品设计框架",
+        href: getRelativeLocaleUrl("en", "playbook/agent-product-design"),
+      },
+      { label: "Human-in-the-loop 设计", href: null },
+      { label: "工具权限与边界设计", href: null },
+    ],
+  },
+  {
+    title: "本体与知识系统",
+    items: [
+      {
+        label: "Prompt-to-Ontology 方法",
+        href: getRelativeLocaleUrl("en", "playbook/prompt-to-ontology"),
+      },
+      { label: "为什么本体对企业 AI 很重要", href: null },
+      { label: "面向 PM 的知识图谱与概念建模", href: null },
+    ],
+  },
+  {
+    title: "增长与分发",
+    items: [
+      {
+        label: "SEO 到 GEO",
+        href: getRelativeLocaleUrl("en", "playbook/seo-to-geo"),
+      },
+      { label: "AI 搜索可见性", href: null },
+      { label: "B2B 内容系统", href: null },
+      { label: "产品驱动的内容", href: null },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`AI PM Playbook | ${config.site.title}`}
+  description="AI PM Playbook：沉淀 AI-native PRD、Agent 产品设计、PRD 到原型、本体系统和增长分发方法论。"
+>
+  <Header />
+
+  <Main pageTitle="AI PM Playbook" class="app-prose">
+    <p>
+      AI PM Playbook 是我持续更新的 AI 产品经理工作方法论，整理我对 Agent
+      产品设计、AI-native PRD、PRD-to-Prototype、本体系统和增长分发的理解。
+    </p>
+    <p>它不是一本完整教材，而是一个持续迭代的个人操作系统。</p>
+
+    <div class="mt-8 space-y-8">
+      {
+        categories.map(category => (
+          <section>
+            <h2 class="text-xl font-semibold">{category.title}</h2>
+            <ul class="mt-3 space-y-2">
+              {category.items.map(item => (
+                <li class="text-muted-foreground flex items-start gap-2">
+                  <span class="text-accent mt-1">&#x2022;</span>
+                  {item.href ? (
+                    <a href={item.href} class="text-accent hover:underline">
+                      {item.label}
+                    </a>
+                  ) : (
+                    <span>{item.label}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <div class="border-border mt-10 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关链接</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl("zh", "projects")}
+          class="text-accent hover:underline"
+        >
+          项目
+        </a>
+        <a
+          href={getRelativeLocaleUrl("zh", "posts")}
+          class="text-accent hover:underline"
+        >
+          文章
+        </a>
+        <a
+          href="https://github.com/wenhaoyu-bryan/prompt-to-ontology"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Prompt-to-Ontology on GitHub
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

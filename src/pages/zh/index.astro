@@ -1,0 +1,213 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = "zh";
+
+const projects = [
+  {
+    title: "Prompt-to-Ontology",
+    description:
+      "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。",
+    status: "Public",
+    href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
+  },
+  {
+    title: "AI PM Playbook",
+    description:
+      "面向 AI 产品经理的持续更新方法论，包括 AI-native PRD、Agent 产品设计、PRD-to-Prototype 和增长思维。",
+    status: "In progress",
+    href: getRelativeLocaleUrl(locale, "playbook"),
+  },
+  {
+    title: "Vibe Coding Prototype Lab",
+    description:
+      "展示 AI 产品经理如何借助 Claude Code、Cursor 和 LLM Pair Programming 把想法转化为原型和可复用流程。",
+    status: "Public",
+    href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
+  },
+  {
+    title: "SEO/GEO Growth Experiments",
+    description:
+      "关于内容系统、B2B 网站增长和 AI 搜索可见性的长期笔记与实验空间。",
+    status: "Ongoing",
+    href: getRelativeLocaleUrl(locale, "growth-lab"),
+  },
+];
+
+const featured = [
+  {
+    title: "Prompt-to-Ontology",
+    description: "本体驱动的 AI 产品实验",
+    href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
+  },
+  {
+    title: "AI PM Playbook",
+    description: "AI 产品经理方法论",
+    href: getRelativeLocaleUrl(locale, "playbook"),
+  },
+  {
+    title: "Vibe Coding Prototype Lab",
+    description: "PM-led 原型实验",
+    href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
+  },
+  {
+    title: "SEO/GEO Growth Lab",
+    description: "增长思维与实验",
+    href: getRelativeLocaleUrl(locale, "growth-lab"),
+  },
+];
+---
+
+<Layout
+  title={`${config.site.title}`}
+  description="余文豪的 AI 产品经理个人网站，关注 Agent 工作流、本体驱动系统、Vibe Coding 和 SEO/GEO 增长。"
+>
+  <Header />
+  <main id="main-content" data-layout="index" class="app-layout">
+    <!-- Hero -->
+    <section class="border-border border-b pt-8 pb-10 sm:pt-12 sm:pb-14">
+      <h1 class="my-4 text-4xl font-bold tracking-tight sm:my-6 sm:text-5xl">
+        余文豪
+      </h1>
+      <p class="text-lg font-medium sm:text-xl">
+        我是一名 AI 产品经理，关注 Agent 工作流、本体驱动系统、Vibe Coding 与
+        SEO/GEO 增长。
+      </p>
+      <p class="text-muted-foreground mt-3 max-w-2xl">
+        我擅长把模糊的业务问题转化为可验证的 AI
+        产品原型、结构化方法论和可复用的增长实验。
+      </p>
+      <p class="text-muted-foreground mt-3 text-sm">
+        这个网站不是简历页，而是我的 AI PM
+        公共工作台，用来沉淀项目、方法论、产品思考和增长笔记。
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "projects")}
+          class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        >
+          查看项目
+          <IconArrowRight class="size-4" />
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+        >
+          阅读 Playbook
+        </a>
+        <a
+          href="#contact"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+        >
+          联系我
+        </a>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">精选内容</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          featured.map(item => (
+            <a
+              href={item.href}
+              class="border-border group hover:bg-accent/5 rounded-lg border p-5 transition-colors"
+            >
+              <h3 class="group-hover:text-accent text-lg font-medium">
+                {item.title}
+              </h3>
+              <p class="text-muted-foreground mt-1.5 text-sm">
+                {item.description}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">项目</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          projects.map(project => (
+            <a
+              href={project.href}
+              class="border-border group hover:bg-accent/5 rounded-lg border p-5 transition-colors"
+              {...(project.href.startsWith("http")
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="group-hover:text-accent text-lg font-medium">
+                  {project.title}
+                </h3>
+                <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs">
+                  {project.status}
+                </span>
+              </div>
+              <p class="text-muted-foreground mt-2 text-sm">
+                {project.description}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">联系方式</h2>
+      <p class="text-muted-foreground mt-2 max-w-xl">
+        如果你对 AI 产品协作、本体驱动系统或增长实验感兴趣，欢迎联系。
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a
+          href="mailto:bryanyuwh@gmail.com"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+        >
+          Email
+        </a>
+        <a
+          href="https://github.com/wenhaoyu-bryan"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://linkedin.com/in/wenhaoyu-bryan/"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+        <a
+          href="https://x.com/WENHAOYU8"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          X
+        </a>
+        <a
+          href="https://medium.com/@bryanyuwh"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Medium
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

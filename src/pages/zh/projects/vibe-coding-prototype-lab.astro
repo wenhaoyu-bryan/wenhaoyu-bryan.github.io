@@ -1,0 +1,127 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`Vibe Coding Prototype Lab | ${config.site.title}`}
+  description="探索 AI 产品经理如何借助 Claude Code、Cursor 和 LLM Pair Programming 把产品想法转化为原型、规格和可复用流程。"
+>
+  <Header />
+
+  <Main pageTitle="Vibe Coding Prototype Lab" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "projects/vibe-coding-prototype-lab")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      探索 AI 产品经理如何借助 Claude Code、Cursor 和 LLM Pair Programming
+      把产品想法转化为原型、规格和可复用流程。
+    </p>
+
+    <div class="border-border mt-4 flex flex-wrap gap-2">
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Claude Code
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Cursor
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        LLM Pair Programming
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        原型验证
+      </span>
+    </div>
+
+    <h2 class="mt-8 text-xl font-semibold">为什么这件事很重要</h2>
+    <p>
+      AI
+      产品经理越来越需要从写抽象需求文档，转向能直接塑造可运行的产品行为。Vibe
+      Coding 让 PM
+      可以在要求工程团队投入全部资源之前，先验证产品逻辑、交互流程和技术假设。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">我用它来做什么</h2>
+    <ul class="mt-2 space-y-2">
+      <li>把粗糙的产品想法转化为可点击的原型</li>
+      <li>将 PRD 转化为面向实现的规格说明</li>
+      <li>探索架构边界和可行性</li>
+      <li>测试 Agent 工作流和工具调用逻辑</li>
+      <li>从私有产品实践中提取脱敏后的公开实验</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">我的工作流</h2>
+    <ol class="mt-2 list-inside list-decimal space-y-2">
+      <li>定义产品意图</li>
+      <li>明确约束条件和非目标</li>
+      <li>生成可运行的小型原型</li>
+      <li>审查产品行为，而不只是代码</li>
+      <li>重构为可复用的模式</li>
+      <li>将学习沉淀为 Playbook</li>
+    </ol>
+
+    <h2 class="mt-6 text-xl font-semibold">这不是什么</h2>
+    <p>
+      Vibe Coding
+      不是为了替代专业工程团队，而是让产品经理能更早地澄清产品行为、减少需求歧义，并以更具体的原型和规格与工程团队协作。部分公司相关工作因数据权限约束无法公开，本站只展示脱敏后的实验和可复用流程。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">公开实验</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href={getRelativeLocaleUrl("zh", "projects/prompt-to-ontology")}
+          class="text-accent hover:underline"
+        >
+          Prompt-to-Ontology
+        </a> — 本体驱动的企业 AI 原型
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook")}
+          class="text-accent hover:underline"
+        >
+          AI PM Playbook
+        </a> — 方法论与工作流
+      </li>
+      <li>更多脱敏原型（持续更新中）</li>
+    </ul>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        href="https://github.com/wenhaoyu-bryan/prompt-to-ontology"
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        在 GitHub 查看 Prompt-to-Ontology
+      </a>
+      <a
+        href={getRelativeLocaleUrl("zh", "playbook")}
+        class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+      >
+        阅读 Playbook
+      </a>
+      <a
+        href="https://github.com/wenhaoyu-bryan"
+        class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub 主页
+      </a>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>
