@@ -12,31 +12,31 @@ const projects = [
   {
     title: "Prompt-to-Ontology",
     description:
-      "A public experiment on transforming messy product requirements, prompts, and business concepts into structured ontology assets for enterprise AI systems.",
+      "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems.",
     status: "Public",
     href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
-    tags: ["Knowledge Graphs", "Neo4j", "Ontology", "ReAct Agent"],
+    tags: ["Ontology", "Knowledge Graphs", "Neo4j", "NetworkX", "ReAct Agent"],
   },
   {
     title: "AI PM Playbook",
     description:
-      "A living public playbook for AI Product Managers working with agents, prototypes, PRDs, ontology, and AI-native workflows.",
+      "A living operating system for AI Product Managers: frameworks for AI-native PRDs, agent product design, PRD-to-prototype workflows, and growth thinking.",
     status: "In progress",
     href: getRelativeLocaleUrl(locale, "playbook"),
-    tags: ["Frameworks", "Playbook", "AI PM"],
+    tags: ["AI PM", "PRD", "Agent Design", "Frameworks"],
   },
   {
     title: "Vibe Coding Prototype Lab",
     description:
-      "A collection of public and sanitized experiments showing how AI PMs can use Claude Code, Cursor, and modern AI coding workflows to turn ideas into prototypes.",
+      "A public lab showing how PM-led LLM pair programming can turn ambiguous ideas into prototypes, specs, and reusable product workflows.",
     status: "Public",
-    href: "https://github.com/wenhaoyu-bryan/prompt-to-ontology",
-    tags: ["Claude Code", "Cursor", "Prototyping"],
+    href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
+    tags: ["Claude Code", "Cursor", "Prototyping", "LLM Pair Programming"],
   },
   {
     title: "SEO/GEO Growth Experiments",
     description:
-      "Experiments on building content systems, B2B websites, and AI-search-aware growth loops.",
+      "Experiments on content systems, B2B websites, and AI-search-aware growth loops — connecting SEO fundamentals with GEO visibility.",
     status: "Ongoing",
     href: getRelativeLocaleUrl(locale, "growth-lab"),
     tags: ["SEO", "GEO", "B2B", "Content Systems"],
@@ -66,13 +66,13 @@ const projects = [
         projects.map(project => (
           <a
             href={project.href}
-            class="border-border group rounded-lg border p-6 transition-colors hover:bg-accent/5"
+            class="border-border group hover:bg-accent/5 rounded-lg border p-6 transition-colors"
             {...(project.href.startsWith("http")
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
           >
             <div class="flex items-center justify-between">
-              <h2 class="text-xl font-semibold group-hover:text-accent">
+              <h2 class="group-hover:text-accent text-xl font-semibold">
                 {project.title}
               </h2>
               <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs">

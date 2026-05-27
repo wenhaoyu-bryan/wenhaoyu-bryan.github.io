@@ -23,28 +23,28 @@ const projects = [
   {
     title: "Prompt-to-Ontology",
     description:
-      "Transforming messy product requirements and business concepts into structured ontology assets for enterprise AI systems.",
+      "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems.",
     status: "Public",
-    href: "https://github.com/wenhaoyu-bryan/prompt-to-ontology",
+    href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
   },
   {
     title: "AI PM Playbook",
     description:
-      "A living public playbook for AI Product Managers working with agents, prototypes, PRDs, and AI-native workflows.",
+      "A living operating system for AI Product Managers: frameworks for AI-native PRDs, agent product design, PRD-to-prototype workflows, and growth thinking.",
     status: "In progress",
     href: getRelativeLocaleUrl(locale, "playbook"),
   },
   {
     title: "Vibe Coding Prototype Lab",
     description:
-      "Experiments showing how AI PMs can use Claude Code, Cursor, and modern AI coding workflows to turn ideas into prototypes.",
+      "A public lab showing how PM-led LLM pair programming can turn ambiguous ideas into prototypes, specs, and reusable product workflows.",
     status: "Public",
-    href: "https://github.com/wenhaoyu-bryan/prompt-to-ontology",
+    href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
   },
   {
     title: "SEO/GEO Growth Experiments",
     description:
-      "Experiments on building content systems, B2B websites, and AI-search-aware growth loops.",
+      "Experiments on content systems, B2B websites, and AI-search-aware growth loops — connecting SEO fundamentals with GEO visibility.",
     status: "Ongoing",
     href: getRelativeLocaleUrl(locale, "growth-lab"),
   },
@@ -85,17 +85,29 @@ const topics = [
 
 <Layout>
   <Header />
-  <main id="main-content" data-layout="index" data-home-path={homePath} class="app-layout">
+  <main
+    id="main-content"
+    data-layout="index"
+    data-home-path={homePath}
+    class="app-layout"
+  >
     <!-- Hero -->
     <section class="border-border border-b pt-8 pb-10 sm:pt-12 sm:pb-14">
       <h1 class="my-4 text-4xl font-bold tracking-tight sm:my-6 sm:text-5xl">
         Wenhao Yu
       </h1>
       <p class="text-lg font-medium sm:text-xl">
-        AI Product Manager building agentic workflows, ontology systems, and growth experiments.
+        AI Product Manager building agentic workflows, ontology systems, and
+        growth experiments.
       </p>
       <p class="text-muted-foreground mt-3 max-w-2xl">
-        I explore how product managers can use AI coding tools, ontology thinking, and SEO/GEO growth systems to turn ambiguous business problems into working prototypes and public playbooks.
+        I write and build around AI product management, agentic workflows,
+        ontology systems, vibe coding, and SEO/GEO growth — turning private
+        practice into public playbooks and reusable frameworks.
+      </p>
+      <p class="text-muted-foreground mt-3 text-sm">
+        Currently building public experiments around Prompt-to-Ontology, AI PM
+        workflows, and growth systems.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
         <a
@@ -107,13 +119,13 @@ const topics = [
         </a>
         <a
           href={getRelativeLocaleUrl(locale, "playbook")}
-          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-accent/10"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
         >
           Read Playbook
         </a>
         <a
           href="#contact"
-          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-accent/10"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
         >
           Contact
         </a>
@@ -128,13 +140,13 @@ const topics = [
           projects.map(project => (
             <a
               href={project.href}
-              class="border-border group rounded-lg border p-5 transition-colors hover:bg-accent/5"
+              class="border-border group hover:bg-accent/5 rounded-lg border p-5 transition-colors"
               {...(project.href.startsWith("http")
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
             >
               <div class="flex items-center justify-between">
-                <h3 class="text-lg font-medium group-hover:text-accent">
+                <h3 class="group-hover:text-accent text-lg font-medium">
                   {project.title}
                 </h3>
                 <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs">
@@ -193,18 +205,19 @@ const topics = [
     <section id="contact" class="py-10 sm:py-14">
       <h2 class="text-2xl font-semibold tracking-wide">Connect</h2>
       <p class="text-muted-foreground mt-2 max-w-xl">
-        Interested in AI product collaboration, ontology-driven systems, or growth experiments? Let's talk.
+        Interested in AI product collaboration, ontology-driven systems, or
+        growth experiments? Let's talk.
       </p>
       <div class="mt-5 flex flex-wrap gap-3">
         <a
           href="mailto:bryanyuwh@gmail.com"
-          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
         >
           Email
         </a>
         <a
           href="https://github.com/wenhaoyu-bryan"
-          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -212,7 +225,7 @@ const topics = [
         </a>
         <a
           href="https://linkedin.com/in/wenhaoyu-bryan/"
-          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -220,7 +233,7 @@ const topics = [
         </a>
         <a
           href="https://x.com/WENHAOYU8"
-          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -228,7 +241,7 @@ const topics = [
         </a>
         <a
           href="https://medium.com/@bryanyuwh"
-          class="border-border text-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/10"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >

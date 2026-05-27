@@ -13,7 +13,7 @@ tags:
   - Knowledge Graphs
   - Vibe Coding
   - Palantir
-description: "How a product manager built a full-stack ontology platform using only LLM pair programming — no traditional software engineers involved."
+description: "How a product manager used LLM pair programming to build and understand a full-stack ontology platform."
 ---
 
 ## The Question That Started It All
@@ -30,7 +30,7 @@ The key architectural insight: **Neo4j is the data source, NetworkX is the compu
 
 ## The Vibe Coding Experiment
 
-No sprint planning. No stand-ups. No traditional software engineers. Just one product manager defining product intent, architecture boundaries, and design constraints — and one LLM (Claude) handling code generation, debugging, and iteration.
+This was a PM-led rapid prototyping experiment: I defined product intent, architecture boundaries, and design constraints, while using LLM pair programming (Claude) to accelerate implementation, debugging, and iteration.
 
 The most valuable output isn't code. It's the cognitive framework for understanding ontology-driven systems: the difference between data models, schemas, and ontologies; the distinction between "viewing a graph" and "operating a business through a graph."
 

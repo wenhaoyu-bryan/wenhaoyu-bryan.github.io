@@ -1,13 +1,23 @@
 ---
 title: "About"
-description: "About Wenhao Yu, an AI Product Manager focused on agentic workflows, ontology-driven AI products, vibe coding, and growth experiments."
+description: "About Wenhao Yu — AI Product Manager building agentic workflows, ontology-driven systems, vibe coding prototypes, and SEO/GEO growth experiments."
 ---
 
 ## Short Intro
 
-I am an AI Product Manager interested in agentic workflows, ontology-driven AI systems, and growth experiments. My work sits between product strategy, technical prototyping, enterprise AI adoption, and distribution.
+I work at the intersection of AI product management, industrial AI, ontology-driven systems, and growth.
 
-I explore how product managers can use AI coding tools, ontology thinking, and SEO/GEO growth systems to turn ambiguous business problems into working prototypes and public playbooks.
+My focus is not just writing PRDs. I care about turning ambiguous business problems into prototypes, playbooks, and repeatable workflows — especially in contexts where AI systems need to connect with real business operations.
+
+This site is my public workspace for AI PM thinking, prototype experiments, and growth notes.
+
+## What This Site Is
+
+This is not a traditional resume page.
+
+It is a public display page for how I think, build, and package AI product ideas. Some work comes from private product practice, but confidential details, internal data, and company systems are intentionally abstracted.
+
+The goal is to share reusable methods, not expose private implementation.
 
 ## What I Build
 

@@ -1,0 +1,133 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+---
+
+<Layout
+  title={`SEO to GEO | ${config.site.title}`}
+  description="How AI search changes growth strategy: from search engine ranking to AI visibility, entity clarity, structured content, and source-like writing."
+>
+  <Header />
+
+  <Main pageTitle="SEO to GEO" class="app-prose">
+    <p class="text-muted-foreground text-lg">
+      SEO is about visibility in search engines. GEO (Generative Engine
+      Optimization) is about being understood, cited, and recommended by AI
+      answer engines.
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">
+      From Search Ranking to AI Visibility
+    </h2>
+    <p>
+      Traditional SEO optimizes for ranking position on a search results page.
+      GEO optimizes for something different: being the source that an AI engine
+      selects, cites, and recommends when answering a user's question. The
+      mechanics are different, and the content requirements shift.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">What Changes</h2>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>Entity clarity</strong> — AI engines need to understand who you are
+        and what you know. Ambiguous brands get ignored; clear entities get cited.
+      </li>
+      <li>
+        <strong>Structured content</strong> — Content that's organized with clear
+        headings, definitions, and relationships is easier for AI to parse and reference.
+      </li>
+      <li>
+        <strong>Topical authority</strong> — AI engines look for depth, not breadth.
+        A site that covers one topic thoroughly gets more citations than one that
+        covers ten topics shallowly.
+      </li>
+      <li>
+        <strong>Clear definitions</strong> — If your content defines terms, explains
+        concepts, and provides frameworks, AI engines treat it as a source rather
+        than noise.
+      </li>
+      <li>
+        <strong>Source-like writing</strong> — Write like you're building a reference,
+        not a marketing page. AI engines prefer authoritative, factual content over
+        promotional copy.
+      </li>
+      <li>
+        <strong>Brand and product context</strong> — AI engines need to understand
+        your brand's positioning to recommend you in the right contexts.
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">My Growth Experiment Stack</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>Keyword architecture</strong> — Mapping search intent to content clusters
+        and page types.
+      </li>
+      <li>
+        <strong>Content clusters</strong> — Building topical depth through interconnected
+        content around core themes.
+      </li>
+      <li>
+        <strong>B2B landing pages</strong> — Structuring product pages for both human
+        readability and AI parseability.
+      </li>
+      <li>
+        <strong>AI search monitoring</strong> — Tracking how AI engines cite and recommend
+        content across different queries.
+      </li>
+      <li>
+        <strong>Distribution loops</strong> — Connecting content production to measurable
+        demand generation outcomes.
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">Current Questions</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        How should products be written so both humans and AI answer engines
+        understand them?
+      </li>
+      <li>
+        How do B2B companies build topical authority without a large content
+        team?
+      </li>
+      <li>What does GEO change compared with traditional SEO?</li>
+      <li>How can AI PMs connect product thinking with growth loops?</li>
+    </ul>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "growth-lab")}
+          class="text-accent hover:underline"
+        >
+          Growth Lab
+        </a>
+        <a
+          href={getRelativeLocaleUrl(
+            locale,
+            "posts/seo-to-geo-how-ai-search-changes-growth"
+          )}
+          class="text-accent hover:underline"
+        >
+          SEO to GEO Blog Post
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook Index
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

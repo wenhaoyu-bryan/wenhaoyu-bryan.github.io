@@ -38,8 +38,8 @@ export default {
     allPosts: "All Posts",
   },
   footer: {
-    copyright: "Bryan Yu. Copyright",
-    allRightsReserved: "All rights reserved.",
+    copyright: "WenhaoYu-Bryan @",
+    allRightsReserved: "",
   },
   pages: {
     tagTitle: "Tag",

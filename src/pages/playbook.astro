@@ -12,42 +12,57 @@ const categories = [
   {
     title: "AI PM Foundations",
     items: [
-      "What makes AI PM different from traditional PM",
-      "How to evaluate AI product opportunities",
-      "How to write AI-native PRDs",
+      {
+        label: "AI-Native PRD",
+        href: getRelativeLocaleUrl(locale, "playbook/ai-native-prd"),
+      },
+      { label: "What makes AI PM different from traditional PM", href: null },
+      { label: "How to evaluate AI product opportunities", href: null },
     ],
   },
   {
     title: "PRD to Prototype",
     items: [
-      "Turning requirements into prototype specs",
-      "Working with Claude Code / Cursor",
-      "How PMs can use vibe coding responsibly",
+      {
+        label: "PRD to Prototype workflow",
+        href: getRelativeLocaleUrl(locale, "playbook/prd-to-prototype"),
+      },
+      { label: "Working with Claude Code / Cursor", href: null },
+      { label: "How PMs can use vibe coding responsibly", href: null },
     ],
   },
   {
     title: "Agent Product Design",
     items: [
-      "Agent = model + tools + memory + workflow + governance",
-      "Human-in-the-loop design",
-      "Tool permission and boundary design",
+      {
+        label: "Agent product design framework",
+        href: getRelativeLocaleUrl(locale, "playbook/agent-product-design"),
+      },
+      { label: "Human-in-the-loop design", href: null },
+      { label: "Tool permission and boundary design", href: null },
     ],
   },
   {
     title: "Ontology and Knowledge Systems",
     items: [
-      "Why ontology matters for enterprise AI",
-      "Prompt-to-Ontology",
-      "Knowledge graph and concept modeling for PMs",
+      {
+        label: "Prompt-to-Ontology method",
+        href: getRelativeLocaleUrl(locale, "playbook/prompt-to-ontology"),
+      },
+      { label: "Why ontology matters for enterprise AI", href: null },
+      { label: "Knowledge graph and concept modeling for PMs", href: null },
     ],
   },
   {
     title: "Growth and Distribution",
     items: [
-      "SEO to GEO",
-      "AI search visibility",
-      "B2B content systems",
-      "Product-led content",
+      {
+        label: "SEO to GEO",
+        href: getRelativeLocaleUrl(locale, "playbook/seo-to-geo"),
+      },
+      { label: "AI search visibility", href: null },
+      { label: "B2B content systems", href: null },
+      { label: "Product-led content", href: null },
     ],
   },
 ];
@@ -74,31 +89,36 @@ const categories = [
     <div class="border-border mt-6 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">AI PM Playbook Skills</h2>
       <p class="text-muted-foreground mt-2">
-        The playbook is built around four core skills that define the AI PM operating system:
+        The playbook is built around four core skills that define the AI PM
+        operating system:
       </p>
       <div class="mt-4 grid gap-3 sm:grid-cols-2">
         <div class="border-border rounded-md border p-4">
           <h3 class="font-medium">Signal Detector</h3>
           <p class="text-muted-foreground mt-1 text-sm">
-            Evaluating AI product opportunities and separating signal from noise.
+            Evaluating AI product opportunities and separating signal from
+            noise.
           </p>
         </div>
         <div class="border-border rounded-md border p-4">
           <h3 class="font-medium">Brain Ops</h3>
           <p class="text-muted-foreground mt-1 text-sm">
-            Designing agent workflows with tools, memory, and human-in-the-loop governance.
+            Designing agent workflows with tools, memory, and human-in-the-loop
+            governance.
           </p>
         </div>
         <div class="border-border rounded-md border p-4">
           <h3 class="font-medium">Conventions</h3>
           <p class="text-muted-foreground mt-1 text-sm">
-            AI-native PRDs, prototype specs, and working agreements for LLM-assisted development.
+            AI-native PRDs, prototype specs, and working agreements for
+            LLM-assisted development.
           </p>
         </div>
         <div class="border-border rounded-md border p-4">
           <h3 class="font-medium">Prompt-to-Ontology</h3>
           <p class="text-muted-foreground mt-1 text-sm">
-            Transforming messy requirements into structured ontology assets for enterprise AI.
+            Transforming messy requirements into structured ontology assets for
+            enterprise AI.
           </p>
         </div>
       </div>
@@ -123,7 +143,13 @@ const categories = [
               {category.items.map(item => (
                 <li class="text-muted-foreground flex items-start gap-2">
                   <span class="text-accent mt-1">&#x2022;</span>
-                  <span>{item}</span>
+                  {item.href ? (
+                    <a href={item.href} class="text-accent hover:underline">
+                      {item.label}
+                    </a>
+                  ) : (
+                    <span>{item.label}</span>
+                  )}
                 </li>
               ))}
             </ul>

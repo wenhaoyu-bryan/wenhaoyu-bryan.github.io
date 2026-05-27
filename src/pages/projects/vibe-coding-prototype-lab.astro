@@ -1,0 +1,127 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`Vibe Coding Prototype Lab | ${config.site.title}`}
+  description="A public lab for how AI Product Managers use Claude Code, Cursor, and LLM pair programming to turn product ideas into prototypes, specs, and reusable workflows."
+>
+  <Header />
+
+  <Main pageTitle="Vibe Coding Prototype Lab" class="app-prose">
+    <p class="text-muted-foreground text-lg">
+      A public lab for how AI Product Managers can use Claude Code, Cursor, and
+      LLM pair programming to turn product ideas into prototypes, specs, and
+      reusable workflows.
+    </p>
+
+    <div class="border-border mt-4 flex flex-wrap gap-2">
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Claude Code
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Cursor
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        LLM Pair Programming
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Prototyping
+      </span>
+    </div>
+
+    <h2 class="mt-8 text-xl font-semibold">Why This Matters</h2>
+    <p>
+      AI PMs increasingly need to move from writing abstract requirements to
+      shaping working product behavior. Vibe coding gives PMs a way to test
+      product logic, interaction flows, and technical assumptions before asking
+      engineering teams to commit full resources.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">What I Use It For</h2>
+    <ul class="mt-2 space-y-2">
+      <li>Turning rough product ideas into clickable prototypes</li>
+      <li>Converting PRDs into implementation-ready specs</li>
+      <li>Exploring architecture boundaries</li>
+      <li>Testing agent workflows and tool-use logic</li>
+      <li>
+        Building sanitized public experiments from private product learning
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">My Workflow</h2>
+    <ol class="mt-2 list-inside list-decimal space-y-2">
+      <li>Define the product intent</li>
+      <li>Write constraints and non-goals</li>
+      <li>Generate a small working prototype</li>
+      <li>Review behavior, not just code</li>
+      <li>Refactor into reusable patterns</li>
+      <li>Document the learning as a playbook</li>
+    </ol>
+
+    <h2 class="mt-6 text-xl font-semibold">What This Is Not</h2>
+    <p>
+      This is not a replacement for professional engineering. It is a way for
+      PMs to clarify product behavior, reduce ambiguity, and collaborate with
+      engineering from a stronger starting point. Some company-related work
+      cannot be shared due to data and permission constraints — the public lab
+      contains sanitized experiments and reusable workflows.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Public Experiments</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href={getRelativeLocaleUrl(
+            config.site.lang,
+            "projects/prompt-to-ontology"
+          )}
+          class="text-accent hover:underline"
+        >
+          Prompt-to-Ontology
+        </a> — ontology-driven enterprise AI prototype
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl(config.site.lang, "playbook")}
+          class="text-accent hover:underline"
+        >
+          AI PM Playbook
+        </a> — frameworks and workflows
+      </li>
+      <li>Future sanitized prototypes</li>
+    </ul>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        href="https://github.com/wenhaoyu-bryan/prompt-to-ontology"
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View Prompt-to-Ontology on GitHub
+      </a>
+      <a
+        href={getRelativeLocaleUrl(config.site.lang, "playbook")}
+        class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+      >
+        Read the Playbook
+      </a>
+      <a
+        href="https://github.com/wenhaoyu-bryan"
+        class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub Profile
+      </a>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

@@ -26,3 +26,6 @@ pnpm-debug.log*
 # pagefind
 public/pagefind
 .gstack/
+
+# development process files
+phases/

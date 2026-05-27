@@ -8,40 +8,6 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
-const sections = [
-  {
-    title: "SEO / GEO Notes",
-    description:
-      "Keyword research, content architecture, AI search visibility, LLM-friendly content structure, and programmatic SEO ideas.",
-    topics: [
-      "Keyword architecture for B2B SaaS",
-      "LLM-friendly content structure",
-      "From SEO to GEO: adapting for AI search",
-      "Programmatic SEO patterns",
-    ],
-  },
-  {
-    title: "B2B Website Experiments",
-    description:
-      "Hands-on experiments with B2B content systems, product-site structure, and technical SEO.",
-    topics: [
-      "B2B packaging SEO",
-      "SaaS tool-site exploration",
-      "Technical SEO for static sites",
-    ],
-  },
-  {
-    title: "Independent Site Exploration",
-    description:
-      "Side projects around Shopify, independent e-commerce, and personal site as a growth experiment.",
-    topics: [
-      "Shopify / independent e-commerce",
-      "Personal site as SEO/GEO experiment",
-      "Content-driven growth loops",
-    ],
-  },
-];
-
 const experiments = [
   {
     hypothesis:
@@ -56,69 +22,75 @@ const experiments = [
 
 <Layout
   title={`Growth Lab | ${config.site.title}`}
-  description="Experiments and notes on SEO, GEO, AI search visibility, B2B websites, SaaS tool sites, and independent growth systems."
+  description="A public notebook for SEO, GEO, B2B content systems, and AI-search-aware growth experiments by an AI Product Manager."
 >
   <Header />
 
   <Main pageTitle="Growth Lab" class="app-prose">
     <p>
-      Growth Lab is where I document experiments around SEO, GEO, AI search
-      visibility, B2B websites, SaaS tool sites, and independent growth
-      systems.
+      A public notebook for SEO, GEO, B2B content systems, and AI-search-aware
+      growth experiments.
     </p>
 
-    <p class="text-muted-foreground text-sm">
-      I care not only about building AI products, but also about how products
-      are discovered, trusted, and adopted.
+    <h2 class="mt-8 text-xl font-semibold">Why Growth Matters for AI PMs</h2>
+    <p>
+      AI products do not win only because the model is good. They also need
+      distribution, positioning, trust, and repeatable demand generation. An AI
+      PM who understands growth can connect product decisions to adoption
+      outcomes.
     </p>
 
-    <div class="mt-8 space-y-8">
-      {
-        sections.map(section => (
-          <section>
-            <h2 class="text-xl font-semibold">{section.title}</h2>
-            <p class="text-muted-foreground mt-2">{section.description}</p>
-            <ul class="mt-3 space-y-2">
-              {section.topics.map(topic => (
-                <li class="text-muted-foreground flex items-start gap-2">
-                  <span class="text-accent mt-1">&#x2022;</span>
-                  <span>{topic}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
-    </div>
+    <h2 class="mt-6 text-xl font-semibold">What I Experiment With</h2>
+    <ul class="mt-2 space-y-2">
+      <li>SEO keyword architecture</li>
+      <li>GEO / AI search visibility</li>
+      <li>B2B content systems</li>
+      <li>SaaS tool site ideas</li>
+      <li>Shopify and independent site experiments</li>
+      <li>Personal site as SEO/GEO experiment</li>
+    </ul>
 
-    <h2 class="mt-10 text-xl font-semibold">Experiment Log</h2>
+    <h2 class="mt-6 text-xl font-semibold">Current Questions</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        How should products be written so both humans and AI answer engines
+        understand them?
+      </li>
+      <li>How do B2B companies build topical authority?</li>
+      <li>What does GEO change compared with traditional SEO?</li>
+      <li>How can AI PMs connect product thinking with growth loops?</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">Experiment Log</h2>
     <div class="mt-4 space-y-6">
       {
         experiments.map(exp => (
           <div class="border-border rounded-lg border p-6">
             <div class="space-y-3">
               <div>
-                <span class="text-sm font-medium text-accent">Hypothesis</span>
+                <span class="text-accent text-sm font-medium">Hypothesis</span>
                 <p class="text-muted-foreground mt-1">{exp.hypothesis}</p>
               </div>
               <div>
-                <span class="text-sm font-medium text-accent">What I built</span>
+                <span class="text-accent text-sm font-medium">
+                  What I built
+                </span>
                 <p class="text-muted-foreground mt-1">{exp.built}</p>
               </div>
               <div>
-                <span class="text-sm font-medium text-accent">
+                <span class="text-accent text-sm font-medium">
                   What I measured
                 </span>
                 <p class="text-muted-foreground mt-1">{exp.measured}</p>
               </div>
               <div>
-                <span class="text-sm font-medium text-accent">
+                <span class="text-accent text-sm font-medium">
                   What I learned
                 </span>
                 <p class="text-muted-foreground mt-1">{exp.learned}</p>
               </div>
               <div>
-                <span class="text-sm font-medium text-accent">Next step</span>
+                <span class="text-accent text-sm font-medium">Next step</span>
                 <p class="text-muted-foreground mt-1">{exp.next}</p>
               </div>
             </div>
@@ -141,6 +113,12 @@ const experiments = [
           class="text-accent hover:underline"
         >
           Projects
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/seo-to-geo")}
+          class="text-accent hover:underline"
+        >
+          SEO to GEO Playbook
         </a>
       </div>
     </div>
