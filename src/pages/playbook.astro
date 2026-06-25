@@ -8,178 +8,122 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
+const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/";
+
 const categories = [
   {
-    title: "AI PM Foundations",
+    title: "AI-Native Product Delivery",
     items: [
-      {
-        label: "AI-Native PRD",
-        href: getRelativeLocaleUrl(locale, "playbook/ai-native-prd"),
-      },
-      { label: "What makes AI PM different from traditional PM", href: null },
-      { label: "How to evaluate AI product opportunities", href: null },
-    ],
-  },
-  {
-    title: "PRD to Prototype",
-    items: [
-      {
-        label: "PRD to Prototype workflow",
-        href: getRelativeLocaleUrl(locale, "playbook/prd-to-prototype"),
-      },
-      { label: "Working with Claude Code / Cursor", href: null },
-      { label: "How PMs can use vibe coding responsibly", href: null },
+      { label: "Vibe Coding for Product Discovery", href: getRelativeLocaleUrl(locale, "playbook/vibe-coding"), status: "live" },
+      { label: "Harness Engineering", href: getRelativeLocaleUrl(locale, "playbook/harness-engineering"), status: "live" },
+      { label: "Loop Engineering", href: getRelativeLocaleUrl(locale, "playbook/loop-engineering"), status: "live" },
+      { label: "AI-Native PRD", href: getRelativeLocaleUrl(locale, "playbook/ai-native-prd"), status: "live" },
+      { label: "PRD to Prototype Workflow", href: getRelativeLocaleUrl(locale, "playbook/prd-to-prototype"), status: "live" },
     ],
   },
   {
     title: "Agent Product Design",
     items: [
-      {
-        label: "Agent product design framework",
-        href: getRelativeLocaleUrl(locale, "playbook/agent-product-design"),
-      },
-      { label: "Human-in-the-loop design", href: null },
-      { label: "Tool permission and boundary design", href: null },
+      { label: "Agent Product Design Framework", href: getRelativeLocaleUrl(locale, "playbook/agent-product-design"), status: "live" },
+      { label: "Human-in-the-Loop Design", href: null, status: "planned" },
+      { label: "Autonomy and Tool Boundaries", href: null, status: "planned" },
+      { label: "Agent Evaluation", href: null, status: "planned" },
     ],
   },
   {
     title: "Ontology and Knowledge Systems",
     items: [
-      {
-        label: "Prompt-to-Ontology method",
-        href: getRelativeLocaleUrl(locale, "playbook/prompt-to-ontology"),
-      },
-      { label: "Why ontology matters for enterprise AI", href: null },
-      { label: "Knowledge graph and concept modeling for PMs", href: null },
+      { label: "Prompt-to-Ontology", href: getRelativeLocaleUrl(locale, "playbook/prompt-to-ontology"), status: "live" },
+      { label: "Ontology for RAG and Agents", href: null, status: "planned" },
+      { label: "Objects, Relationships, States, and Actions", href: null, status: "planned" },
     ],
   },
   {
-    title: "Growth and Distribution",
+    title: "Building in Public",
     items: [
-      {
-        label: "SEO to GEO",
-        href: getRelativeLocaleUrl(locale, "playbook/seo-to-geo"),
-      },
-      { label: "AI search visibility", href: null },
-      { label: "B2B content systems", href: null },
-      { label: "Product-led content", href: null },
+      { label: "Building AI PM Operating Playbook", href: null, status: "planned" },
+      { label: "Lessons from PM-Led Prototyping", href: null, status: "planned" },
     ],
   },
 ];
 ---
 
 <Layout
-  title={`AI PM Playbook | ${config.site.title}`}
-  description="A living AI PM playbook for agent product design, PRD-to-prototype workflows, ontology thinking, vibe coding, and growth."
+  title={`AI PM Operating Playbook | ${config.site.title}`}
+  description="Frameworks, field notes, and practical patterns for designing, evaluating, and delivering AI-native products."
 >
   <Header />
 
-  <Main pageTitle="AI PM Playbook" class="app-prose">
+  <Main pageTitle="AI PM Operating Playbook" class="app-prose">
     <p>
-      The AI PM Playbook is my living operating system for product work in the
-      AI-native era. It collects frameworks, workflows, and notes on agents,
-      ontology, PRD-to-prototype, vibe coding, and growth.
+      Frameworks, field notes, and practical patterns for designing,
+      evaluating, and delivering AI-native products.
     </p>
 
-    <p>
-      This playbook evolves as I learn. Each section links to related writing
-      and projects.
-    </p>
-
-    <div class="border-border mt-6 rounded-lg border p-6">
-      <h2 class="text-lg font-semibold">AI PM Playbook Skills</h2>
-      <p class="text-muted-foreground mt-2">
-        The playbook is built around four core skills that define the AI PM
-        operating system:
-      </p>
-      <div class="mt-4 grid gap-3 sm:grid-cols-2">
-        <div class="border-border rounded-md border p-4">
-          <h3 class="font-medium">Signal Detector</h3>
-          <p class="text-muted-foreground mt-1 text-sm">
-            Evaluating AI product opportunities and separating signal from
-            noise.
-          </p>
-        </div>
-        <div class="border-border rounded-md border p-4">
-          <h3 class="font-medium">Brain Ops</h3>
-          <p class="text-muted-foreground mt-1 text-sm">
-            Designing agent workflows with tools, memory, and human-in-the-loop
-            governance.
-          </p>
-        </div>
-        <div class="border-border rounded-md border p-4">
-          <h3 class="font-medium">Conventions</h3>
-          <p class="text-muted-foreground mt-1 text-sm">
-            AI-native PRDs, prototype specs, and working agreements for
-            LLM-assisted development.
-          </p>
-        </div>
-        <div class="border-border rounded-md border p-4">
-          <h3 class="font-medium">Prompt-to-Ontology</h3>
-          <p class="text-muted-foreground mt-1 text-sm">
-            Transforming messy requirements into structured ontology assets for
-            enterprise AI.
-          </p>
-        </div>
-      </div>
-      <div class="mt-4">
-        <a
-          href="https://github.com/wenhaoyu-bryan/AI-PM-Playbook"
-          class="text-accent hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View the AI PM Playbook on GitHub &rarr;
-        </a>
-      </div>
+    <div class="mt-6 mb-8">
+      <a
+        href={PLAYBOOK_BASE}
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Open Interactive Tools ↗
+      </a>
     </div>
 
     <div class="mt-8 space-y-8">
-      {
-        categories.map(category => (
-          <section>
-            <h2 class="text-xl font-semibold">{category.title}</h2>
-            <ul class="mt-3 space-y-2">
-              {category.items.map(item => (
-                <li class="text-muted-foreground flex items-start gap-2">
-                  <span class="text-accent mt-1">&#x2022;</span>
-                  {item.href ? (
-                    <a href={item.href} class="text-accent hover:underline">
-                      {item.label}
-                    </a>
-                  ) : (
-                    <span>{item.label}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
+      {categories.map(category => (
+        <section>
+          <h2 class="text-xl font-semibold">{category.title}</h2>
+          <ul class="mt-3 space-y-2">
+            {category.items.map(item => (
+              <li class="text-muted-foreground flex items-start gap-2">
+                <span class="text-accent mt-1">&#x2022;</span>
+                {item.href ? (
+                  <a href={item.href} class="text-accent hover:underline">
+                    {item.label}
+                  </a>
+                ) : (
+                  <span>{item.label}</span>
+                )}
+                {item.status === "planned" && (
+                  <span class="text-muted-foreground text-xs mt-0.5">(coming soon)</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </div>
 
     <div class="border-border mt-10 rounded-lg border p-6">
-      <h2 class="text-lg font-semibold">Related</h2>
-      <div class="mt-3 flex flex-wrap gap-3">
-        <a
-          href={getRelativeLocaleUrl(locale, "projects")}
-          class="text-accent hover:underline"
-        >
-          Projects
-        </a>
+      <h2 class="text-lg font-semibold">Methodology and Tools</h2>
+      <p class="text-muted-foreground mt-2 text-sm">
+        This website contains the essays and frameworks.
+        AI PM Operating Playbook provides the interactive tools that apply them.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
         <a
           href={getRelativeLocaleUrl(locale, "posts")}
           class="text-accent hover:underline"
         >
-          Writing
+          Browse Articles
         </a>
         <a
-          href="https://github.com/wenhaoyu-bryan/prompt-to-ontology"
+          href={PLAYBOOK_BASE}
           class="text-accent hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Prompt-to-Ontology on GitHub
+          Open Quick Tools ↗
+        </a>
+        <a
+          href="https://github.com/wenhaoyu-bryan/AI-PM-Operating-Playbook"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Source ↗
         </a>
       </div>
     </div>

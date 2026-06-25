@@ -6,125 +6,123 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
+const locale = "zh";
+
+const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/";
+
 const categories = [
   {
-    title: "AI PM 基础",
+    title: "AI 原生产品交付",
     items: [
-      {
-        label: "AI-Native PRD",
-        href: getRelativeLocaleUrl("en", "playbook/ai-native-prd"),
-      },
-      { label: "AI PM 和传统 PM 有什么不同", href: null },
-      { label: "如何评估 AI 产品机会", href: null },
+      { label: "Vibe Coding for Product Discovery", href: getRelativeLocaleUrl(locale, "playbook/vibe-coding"), status: "live" },
+      { label: "Harness Engineering", href: getRelativeLocaleUrl(locale, "playbook/harness-engineering"), status: "live" },
+      { label: "Loop Engineering", href: getRelativeLocaleUrl(locale, "playbook/loop-engineering"), status: "live" },
+      { label: "AI-Native PRD", href: getRelativeLocaleUrl(locale, "playbook/ai-native-prd"), status: "live" },
+      { label: "PRD 到原型工作流", href: getRelativeLocaleUrl(locale, "playbook/prd-to-prototype"), status: "live" },
     ],
   },
   {
-    title: "PRD 到原型",
+    title: "智能体产品设计",
     items: [
-      {
-        label: "PRD 到原型工作流",
-        href: getRelativeLocaleUrl("en", "playbook/prd-to-prototype"),
-      },
-      { label: "使用 Claude Code / Cursor", href: null },
-      { label: "PM 如何负责任地使用 Vibe Coding", href: null },
-    ],
-  },
-  {
-    title: "Agent 产品设计",
-    items: [
-      {
-        label: "Agent 产品设计框架",
-        href: getRelativeLocaleUrl("en", "playbook/agent-product-design"),
-      },
-      { label: "Human-in-the-loop 设计", href: null },
-      { label: "工具权限与边界设计", href: null },
+      { label: "Agent 产品设计框架", href: getRelativeLocaleUrl(locale, "playbook/agent-product-design"), status: "live" },
+      { label: "Human-in-the-Loop 设计", href: null, status: "planned" },
+      { label: "自主性与工具边界", href: null, status: "planned" },
+      { label: "智能体评估", href: null, status: "planned" },
     ],
   },
   {
     title: "本体与知识系统",
     items: [
-      {
-        label: "Prompt-to-Ontology 方法",
-        href: getRelativeLocaleUrl("en", "playbook/prompt-to-ontology"),
-      },
-      { label: "为什么本体对企业 AI 很重要", href: null },
-      { label: "面向 PM 的知识图谱与概念建模", href: null },
+      { label: "Prompt-to-Ontology", href: getRelativeLocaleUrl(locale, "playbook/prompt-to-ontology"), status: "live" },
+      { label: "本体用于 RAG 和智能体", href: null, status: "planned" },
+      { label: "对象、关系、状态与动作", href: null, status: "planned" },
     ],
   },
   {
-    title: "增长与分发",
+    title: "公开构建",
     items: [
-      {
-        label: "SEO 到 GEO",
-        href: getRelativeLocaleUrl("en", "playbook/seo-to-geo"),
-      },
-      { label: "AI 搜索可见性", href: null },
-      { label: "B2B 内容系统", href: null },
-      { label: "产品驱动的内容", href: null },
+      { label: "构建 AI PM Operating Playbook", href: null, status: "planned" },
+      { label: "PM 主导原型开发的经验", href: null, status: "planned" },
     ],
   },
 ];
 ---
 
 <Layout
-  title={`AI PM Playbook | ${config.site.title}`}
-  description="AI PM Playbook：沉淀 AI-native PRD、Agent 产品设计、PRD 到原型、本体系统和增长分发方法论。"
+  title={`AI PM Operating Playbook | ${config.site.title}`}
+  description="设计、评估和交付 AI 原生产品的框架、实践笔记和实用模式。"
 >
   <Header />
 
-  <Main pageTitle="AI PM Playbook" class="app-prose">
+  <Main pageTitle="AI PM Operating Playbook" class="app-prose">
     <p>
-      AI PM Playbook 是我持续更新的 AI 产品经理工作方法论，整理我对 Agent
-      产品设计、AI-native PRD、PRD-to-Prototype、本体系统和增长分发的理解。
+      设计、评估和交付 AI 原生产品的框架、实践笔记和实用模式。
     </p>
-    <p>它不是一本完整教材，而是一个持续迭代的个人操作系统。</p>
+
+    <div class="mt-6 mb-8">
+      <a
+        href={PLAYBOOK_BASE}
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        打开交互工具 ↗
+      </a>
+    </div>
 
     <div class="mt-8 space-y-8">
-      {
-        categories.map(category => (
-          <section>
-            <h2 class="text-xl font-semibold">{category.title}</h2>
-            <ul class="mt-3 space-y-2">
-              {category.items.map(item => (
-                <li class="text-muted-foreground flex items-start gap-2">
-                  <span class="text-accent mt-1">&#x2022;</span>
-                  {item.href ? (
-                    <a href={item.href} class="text-accent hover:underline">
-                      {item.label}
-                    </a>
-                  ) : (
-                    <span>{item.label}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
+      {categories.map(category => (
+        <section>
+          <h2 class="text-xl font-semibold">{category.title}</h2>
+          <ul class="mt-3 space-y-2">
+            {category.items.map(item => (
+              <li class="text-muted-foreground flex items-start gap-2">
+                <span class="text-accent mt-1">&#x2022;</span>
+                {item.href ? (
+                  <a href={item.href} class="text-accent hover:underline">
+                    {item.label}
+                  </a>
+                ) : (
+                  <span>{item.label}</span>
+                )}
+                {item.status === "planned" && (
+                  <span class="text-muted-foreground text-xs mt-0.5">(即将推出)</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </div>
 
     <div class="border-border mt-10 rounded-lg border p-6">
-      <h2 class="text-lg font-semibold">相关链接</h2>
-      <div class="mt-3 flex flex-wrap gap-3">
+      <h2 class="text-lg font-semibold">方法论与工具</h2>
+      <p class="text-muted-foreground mt-2 text-sm">
+        本站包含文章和框架。
+        AI PM Operating Playbook 提供将这些方法论落地的交互工具。
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
         <a
-          href={getRelativeLocaleUrl("zh", "projects")}
+          href={getRelativeLocaleUrl(locale, "posts")}
           class="text-accent hover:underline"
         >
-          项目
+          浏览文章
         </a>
         <a
-          href={getRelativeLocaleUrl("zh", "posts")}
-          class="text-accent hover:underline"
-        >
-          文章
-        </a>
-        <a
-          href="https://github.com/wenhaoyu-bryan/prompt-to-ontology"
+          href={PLAYBOOK_BASE}
           class="text-accent hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Prompt-to-Ontology on GitHub
+          打开快捷工具 ↗
+        </a>
+        <a
+          href="https://github.com/wenhaoyu-bryan/AI-PM-Operating-Playbook"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          查看源码 ↗
         </a>
       </div>
     </div>

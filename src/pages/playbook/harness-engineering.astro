@@ -1,0 +1,210 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+
+const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
+---
+
+<Layout
+  title={`Harness Engineering | ${config.site.title}`}
+  description="Designing the context, tools, constraints, tests, and feedback systems that guide AI coding agents — rather than writing code yourself."
+>
+  <Header />
+
+  <Main pageTitle="Harness Engineering for AI-Assisted Product Delivery" class="app-prose">
+    <p class="text-muted-foreground text-lg">
+      Harness Engineering means designing the environment around an AI coding
+      agent — the context it receives, the tools it can use, the boundaries it
+      must respect, and the feedback it gets — rather than writing code yourself.
+      The agent generates code. The harness makes sure it generates the right
+      code.
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">Model vs. Agent Loop vs. Harness</h2>
+    <p>
+      These three layers are easy to confuse, and confusing them leads to poor
+      outcomes.
+    </p>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>The model</strong> generates text and code. It is a general-purpose
+        reasoning engine. You do not control its internal weights; you control what
+        you put in front of it.
+      </li>
+      <li>
+        <strong>The agent loop</strong> decides what to do next: read a file, run a
+        test, edit code, ask for clarification. Frameworks like Claude Code or Cursor
+        implement this loop. You configure it, but you do not usually write it from
+        scratch.
+      </li>
+      <li>
+        <strong>The harness</strong> defines the environment the agent operates in:
+        what it sees, what it can touch, what rules it must follow, and how it learns
+        whether its output was good. This is the layer you design.
+      </li>
+    </ul>
+    <p class="mt-3">
+      Most frustration with AI coding agents comes from neglecting the harness.
+      A good model in a bad harness produces unreliable results.
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">Context</h2>
+    <p>
+      Context is the information the agent receives before and during a task.
+      This includes project structure, coding conventions, existing patterns,
+      domain terminology, and the specific goal of the current request.
+    </p>
+    <p class="mt-2">
+      <strong>What the PM defines:</strong> which parts of the product landscape
+      matter for this task. Which user stories are relevant. What business rules
+      constrain the solution. What existing code or documentation the agent
+      should read before starting. A CLAUDE.md file, project README, or a
+      structured handoff document are all mechanisms for injecting context.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Tools</h2>
+    <p>
+      Tools are the actions available to the agent: reading and writing files,
+      running commands, calling APIs, executing tests. Every tool is a
+      capability and a risk. An agent with unrestricted file write access and
+      shell access can build things fast — and break things fast.
+    </p>
+    <p class="mt-2">
+      <strong>What the PM defines:</strong> the scope of tool access needed for
+      the task. Does the agent need to modify the database schema, or only the
+      frontend? Should it run tests, or only generate code? Scoping tool access
+      is not a technical detail — it is a product safety decision.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Constraints</h2>
+    <p>
+      Constraints are the rules the agent must not violate. Security policies,
+      code style guides, architectural boundaries, naming conventions, scope
+      limits. Without explicit constraints, agents will generate code that works
+      but does not fit the project.
+    </p>
+    <p class="mt-2">
+      <strong>What the PM defines:</strong> guardrails at the product level.
+      Which features are out of scope for this iteration. Which third-party
+      services are approved. What data the agent must never expose. Engineers
+      define implementation-level constraints (type systems, linting rules,
+      security policies); PMs define product-level constraints.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Tests and Feedback</h2>
+    <p>
+      The agent needs a way to know if it succeeded. Without feedback loops, it
+      generates code in the dark. Feedback can be automated: linting, type
+      checks, unit tests, integration tests, CI pipelines. It can also be
+      human: code review, product review, acceptance testing.
+    </p>
+    <p class="mt-2">
+      <strong>What the PM defines:</strong> acceptance criteria. Not just "does
+      the code compile" but "does the product do what the user needs." Defining
+      clear, testable acceptance criteria is the most leveraged thing a PM can
+      do to improve agent output quality.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">State and Handoff</h2>
+    <p>
+      AI agents do not remember what happened in a previous session unless you
+      give them a way to. State must be persisted in artifacts: CLAUDE.md files,
+      project documentation, structured task descriptions, Git history.
+    </p>
+    <p class="mt-2">
+      The CLAUDE.md pattern — a project-level file that documents conventions,
+      architecture decisions, and current context — is a practical example of
+      harness engineering. It turns implicit knowledge into explicit context
+      that the agent can read on every invocation. When work passes between
+      team members or sessions, structured handoff documents serve the same
+      purpose.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">What the PM Owns vs. What Requires Engineering Judgment</h2>
+    <p>
+      Harness engineering is not a replacement for engineering. It is a
+      complementary discipline.
+    </p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>PMs define:</strong> the product goal, acceptance criteria,
+        scope boundaries, context that matters, and the definition of "done."
+      </li>
+      <li>
+        <strong>Engineers define:</strong> architecture decisions, performance
+        requirements, security policies, testing strategies, and implementation
+        patterns.
+      </li>
+      <li>
+        <strong>They share:</strong> the harness design. PMs bring product
+        clarity. Engineers bring technical rigor. Together they create an
+        environment where AI agents produce reliable, useful output.
+      </li>
+    </ul>
+    <p class="mt-3">
+      A PM who designs harnesses without engineering input builds agents that
+      are product-correct but technically fragile. An engineer who builds
+      harnesses without PM input creates technically sound agents that solve the
+      wrong problems.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Connection to AI PM Operating Playbook</h2>
+    <p>
+      The AI PM Operating Playbook's Coding-Agent Handoff tool operationalizes
+      harness engineering. It generates structured documents that define
+      context, constraints, acceptance criteria, and test expectations — the
+      exact inputs an agent needs to work productively. If you are new to
+      harness engineering, starting with a generated handoff is a practical
+      way to see what a well-defined harness looks like.
+    </p>
+
+    <div class="mt-8 mb-8">
+      <a
+        href={PLAYBOOK_BASE}
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Generate a coding-agent handoff with AI PM Operating Playbook ↗
+      </a>
+    </div>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/loop-engineering")}
+          class="text-accent hover:underline"
+        >
+          Loop Engineering
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/vibe-coding")}
+          class="text-accent hover:underline"
+        >
+          Vibe Coding for Product Discovery
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/agent-product-design")}
+          class="text-accent hover:underline"
+        >
+          Agent Product Design
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook Index
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

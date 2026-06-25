@@ -8,6 +8,33 @@ import config from "@/config";
 
 const locale = "zh";
 
+const topics = [
+  {
+    title: "智能体工作流",
+    description: "设计具备工具、记忆和治理能力的智能体系统。",
+  },
+  {
+    title: "本体驱动 AI 产品",
+    description: "使用知识图谱和结构化本体提升企业 AI 可靠性。",
+  },
+  {
+    title: "Harness Engineering",
+    description: "设计上下文、工具、约束和反馈系统，引导 AI 编码智能体。",
+  },
+  {
+    title: "Loop Engineering",
+    description: "设计反馈循环，使 AI 产品、团队和交付物在迭代中持续改进。",
+  },
+  {
+    title: "面向 PM 的 Vibe Coding",
+    description: "PM 主导、编码智能体辅助的原型开发，用于早期发现和工作流验证。",
+  },
+  {
+    title: "工业与 B2B AI",
+    description: "企业 AI 落地、工业运营和 B2B 产品场景。",
+  },
+];
+
 const projects = [
   {
     title: "Prompt-to-Ontology",
@@ -17,11 +44,11 @@ const projects = [
     href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
   },
   {
-    title: "AI PM Playbook",
+    title: "AI PM Operating Playbook",
     description:
-      "面向 AI 产品经理的持续更新方法论，包括 AI-native PRD、Agent 产品设计、PRD-to-Prototype 和增长思维。",
-    status: "In progress",
-    href: getRelativeLocaleUrl(locale, "playbook"),
+      "面向 AI 产品经理的方法论工具集，将模糊的 AI 产品想法转化为结构化产品简报、工作流规格、评估计划和编码智能体交接材料。",
+    status: "Public Tool",
+    href: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
   },
   {
     title: "Vibe Coding Prototype Lab",
@@ -41,14 +68,24 @@ const projects = [
 
 const featured = [
   {
-    title: "Prompt-to-Ontology",
+    title: "Building Ontology OS",
     description: "本体驱动的 AI 产品实验",
-    href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
+    href: getRelativeLocaleUrl(locale, "posts/building-ontology-os"),
   },
   {
-    title: "AI PM Playbook",
-    description: "AI 产品经理方法论",
-    href: getRelativeLocaleUrl(locale, "playbook"),
+    title: "Harness Engineering",
+    description: "上下文、工具与约束设计",
+    href: getRelativeLocaleUrl(locale, "playbook/harness-engineering"),
+  },
+  {
+    title: "AI-Native PRD",
+    description: "AI 原生产品需求文档",
+    href: getRelativeLocaleUrl(locale, "playbook/ai-native-prd"),
+  },
+  {
+    title: "Loop Engineering",
+    description: "反馈循环与迭代设计",
+    href: getRelativeLocaleUrl(locale, "playbook/loop-engineering"),
   },
   {
     title: "Vibe Coding Prototype Lab",
@@ -56,9 +93,14 @@ const featured = [
     href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
   },
   {
-    title: "SEO/GEO Growth Lab",
-    description: "增长思维与实验",
-    href: getRelativeLocaleUrl(locale, "growth-lab"),
+    title: "SEO to GEO",
+    description: "搜索与 AI 可见性",
+    href: getRelativeLocaleUrl(locale, "playbook/seo-to-geo"),
+  },
+  {
+    title: "Prompt-to-Ontology",
+    description: "本体驱动知识系统",
+    href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
   },
 ];
 ---
@@ -75,16 +117,10 @@ const featured = [
         余文豪
       </h1>
       <p class="text-lg font-medium sm:text-xl">
-        我是一名 AI 产品经理，关注 Agent 工作流、本体驱动系统、Vibe Coding 与
-        SEO/GEO 增长。
+        我是一名 AI 产品经理，专注于智能体工作流、本体驱动系统和 AI 原生产品工具。
       </p>
       <p class="text-muted-foreground mt-3 max-w-2xl">
-        我擅长把模糊的业务问题转化为可验证的 AI
-        产品原型、结构化方法论和可复用的增长实验。
-      </p>
-      <p class="text-muted-foreground mt-3 text-sm">
-        这个网站不是简历页，而是我的 AI PM
-        公共工作台，用来沉淀项目、方法论、产品思考和增长笔记。
+        我擅长把模糊的业务问题转化为结构化产品概念、交互式原型和可复用交付系统。
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
         <a
@@ -95,16 +131,18 @@ const featured = [
           <IconArrowRight class="size-4" />
         </a>
         <a
-          href={getRelativeLocaleUrl(locale, "playbook")}
+          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
+          target="_blank"
+          rel="noopener noreferrer"
           class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
         >
-          阅读 Playbook
+          打开 AI PM Operating Playbook ↗
         </a>
         <a
-          href="#contact"
+          href={getRelativeLocaleUrl(locale, "posts")}
           class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
         >
-          联系我
+          阅读文章
         </a>
       </div>
     </section>
@@ -156,6 +194,23 @@ const featured = [
                 {project.description}
               </p>
             </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- What I Work On -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">研究方向</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          topics.map(topic => (
+            <div class="border-border rounded-lg border p-5">
+              <h3 class="font-medium">{topic.title}</h3>
+              <p class="text-muted-foreground mt-1.5 text-sm">
+                {topic.description}
+              </p>
+            </div>
           ))
         }
       </div>

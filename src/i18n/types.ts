@@ -4,7 +4,7 @@ export interface UIStrings {
     projects: string;
     playbook: string;
     writing: string;
-    growthLab: string;
+    tools: string;
     about: string;
     posts: string;
     tags: string;

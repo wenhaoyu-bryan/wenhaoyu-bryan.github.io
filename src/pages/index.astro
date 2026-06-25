@@ -28,11 +28,11 @@ const projects = [
     href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
   },
   {
-    title: "AI PM Playbook",
+    title: "AI PM Operating Playbook",
     description:
-      "A living operating system for AI Product Managers: frameworks for AI-native PRDs, agent product design, PRD-to-prototype workflows, and growth thinking.",
-    status: "In progress",
-    href: getRelativeLocaleUrl(locale, "playbook"),
+      "A methodology-driven toolkit that turns ambiguous AI product ideas into structured product briefs, workflow specifications, evaluation plans, and coding-agent handoff materials.",
+    status: "Public Tool",
+    href: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
   },
   {
     title: "Vibe Coding Prototype Lab",
@@ -61,19 +61,19 @@ const topics = [
       "Using knowledge graphs and structured ontologies to make enterprise AI reliable.",
   },
   {
-    title: "AI PM Playbooks",
+    title: "Harness Engineering",
     description:
-      "Frameworks for evaluating opportunities, writing AI-native PRDs, and shipping.",
+      "Designing the context, tools, constraints, and feedback systems that guide AI coding agents.",
+  },
+  {
+    title: "Loop Engineering",
+    description:
+      "Designing the feedback loops through which AI products, teams, and delivery artifacts improve over iterations.",
   },
   {
     title: "Vibe Coding for PMs",
     description:
-      "How product managers can use AI coding tools to validate ideas faster.",
-  },
-  {
-    title: "SEO/GEO Growth",
-    description:
-      "Content systems, keyword architecture, and AI search visibility experiments.",
+      "PM-led, coding-agent-assisted prototyping for early discovery and workflow validation.",
   },
   {
     title: "Industrial & B2B AI",
@@ -97,17 +97,12 @@ const topics = [
         Wenhao Yu
       </h1>
       <p class="text-lg font-medium sm:text-xl">
-        I turn ambiguous business problems into AI product prototypes,
-        ontology-driven systems, and growth experiments.
+        AI Product Manager building agentic workflows, ontology-driven systems,
+        and AI-native product tools.
       </p>
       <p class="text-muted-foreground mt-3 max-w-2xl">
-        I write and build around AI product management, agentic workflows,
-        ontology systems, vibe coding, and SEO/GEO growth — turning private
-        practice into public playbooks and reusable frameworks.
-      </p>
-      <p class="text-muted-foreground mt-3 text-sm">
-        Currently building public experiments around Prompt-to-Ontology, AI PM
-        workflows, and growth systems.
+        I turn ambiguous business problems into structured product concepts,
+        interactive prototypes, and reusable delivery systems.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
         <a
@@ -118,16 +113,18 @@ const topics = [
           <IconArrowRight class="size-4" />
         </a>
         <a
-          href={getRelativeLocaleUrl(locale, "playbook")}
+          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
+          target="_blank"
+          rel="noopener noreferrer"
           class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
         >
-          Read Playbook
+          Open AI PM Operating Playbook ↗
         </a>
         <a
-          href="#contact"
+          href={getRelativeLocaleUrl(locale, "posts")}
           class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
         >
-          Contact
+          Read My Writing
         </a>
       </div>
     </section>
@@ -176,10 +173,22 @@ const topics = [
           Building Ontology OS
         </a>
         <a
+          href={getRelativeLocaleUrl(locale, "playbook/harness-engineering")}
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+        >
+          Harness Engineering
+        </a>
+        <a
           href={getRelativeLocaleUrl(locale, "playbook/ai-native-prd")}
           class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
         >
           AI-Native PRD
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/loop-engineering")}
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+        >
+          Loop Engineering
         </a>
         <a
           href={getRelativeLocaleUrl(
