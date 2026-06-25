@@ -261,12 +261,13 @@ const topics = [
         growth experiments? Let's talk.
       </p>
       <div class="mt-5 flex flex-wrap gap-3">
-        <a
-          href="mailto:bryanyuwh@gmail.com"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+        <button
+          type="button"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors cursor-pointer"
+          data-copy-email="wenhaoyu.bryan@gmail.com"
         >
           Email
-        </a>
+        </button>
         <a
           href="https://github.com/wenhaoyu-bryan"
           class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
@@ -313,5 +314,20 @@ const topics = [
     if (indexLayout?.layout) {
       sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
     }
+
+    document.querySelectorAll<HTMLButtonElement>("[data-copy-email]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const email = btn.dataset.copyEmail;
+        if (!email) return;
+        try {
+          await navigator.clipboard.writeText(email);
+          const original = btn.textContent;
+          btn.textContent = "Copied!";
+          setTimeout(() => { btn.textContent = original; }, 2000);
+        } catch {
+          window.location.href = `mailto:${email}`;
+        }
+      });
+    });
   });
 </script>

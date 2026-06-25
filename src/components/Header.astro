@@ -107,11 +107,10 @@ const isActive = (path: string) => {
         </li>
         <li class="col-span-2">
           <a
-            href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={getRelativeLocaleUrl(locale, "growth-lab")}
+            class:list={{ "active-nav": isActive("/growth-lab") }}
           >
-            {t.nav.tools} ↗
+            {t.nav.growthLab}
           </a>
         </li>
         <li class="col-span-2">

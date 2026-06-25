@@ -32,7 +32,7 @@ export default defineAstroPaperConfig({
     { name: "x",        url: "https://x.com/WENHAOYU8" },
     { name: "linkedin", url: "https://www.linkedin.com/in/wenhaoyu-bryan/" },
     { name: "medium",   url: "https://medium.com/@bryanyuwh" },
-    { name: "mail",     url: "mailto:bryanyuwh@gmail.com" },
+    { name: "mail",     url: "mailto:wenhaoyu.bryan@gmail.com" },
   ],
   shareLinks: [
     { name: "x",        url: "https://x.com/intent/post?url=" },

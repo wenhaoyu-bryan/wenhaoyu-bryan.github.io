@@ -6,7 +6,7 @@ export default {
     projects: "Projects",
     playbook: "Playbook",
     writing: "Writing",
-    tools: "Tools",
+    growthLab: "Growth Lab",
     about: "About",
     posts: "Posts",
     tags: "Tags",
