@@ -18,6 +18,15 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  @keyframes slideIn {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 }
 
 @utility max-w-app {

@@ -10,6 +10,7 @@ import LinkButton from "@/components/LinkButton.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
+import { Network, Book, Code, TrendingUp, Bot, Database, Settings, RefreshCw, Wand2, Building2, Mail, Github, Linkedin, Twitter, BookOpen } from "lucide-astro";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
@@ -25,6 +26,7 @@ const projects = [
     description:
       "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems.",
     status: "Public",
+    icon: "Network",
     href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
   },
   {
@@ -32,6 +34,7 @@ const projects = [
     description:
       "A methodology-driven toolkit that turns ambiguous AI product ideas into structured product briefs, workflow specifications, evaluation plans, and coding-agent handoff materials.",
     status: "Public Tool",
+    icon: "Book",
     href: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
   },
   {
@@ -39,6 +42,7 @@ const projects = [
     description:
       "A public lab showing how PM-led LLM pair programming can turn ambiguous ideas into prototypes, specs, and reusable product workflows.",
     status: "Public",
+    icon: "Code",
     href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
   },
   {
@@ -46,6 +50,7 @@ const projects = [
     description:
       "Experiments on content systems, B2B websites, and AI-search-aware growth loops — connecting SEO fundamentals with GEO visibility.",
     status: "Ongoing",
+    icon: "TrendingUp",
     href: getRelativeLocaleUrl(locale, "growth-lab"),
   },
 ];
@@ -54,31 +59,37 @@ const topics = [
   {
     title: "Agentic Workflows",
     description: "Designing agent systems with tools, memory, and governance.",
+    icon: "Bot",
   },
   {
     title: "Ontology-Driven AI Products",
     description:
       "Using knowledge graphs and structured ontologies to make enterprise AI reliable.",
+    icon: "Database",
   },
   {
     title: "Harness Engineering",
     description:
       "Designing the context, tools, constraints, and feedback systems that guide AI coding agents.",
+    icon: "Settings",
   },
   {
     title: "Loop Engineering",
     description:
       "Designing the feedback loops through which AI products, teams, and delivery artifacts improve over iterations.",
+    icon: "RefreshCw",
   },
   {
     title: "Vibe Coding for PMs",
     description:
       "PM-led, coding-agent-assisted prototyping for early discovery and workflow validation.",
+    icon: "Wand2",
   },
   {
     title: "Industrial & B2B AI",
     description:
       "Enterprise AI adoption, industrial operations, and B2B product contexts.",
+    icon: "Building2",
   },
 ];
 ---
@@ -96,7 +107,8 @@ const topics = [
       <h1 class="my-4 text-4xl font-bold tracking-tight sm:my-6 sm:text-5xl">
         Wenhao Yu
       </h1>
-      <p class="text-lg font-medium sm:text-xl">
+      <div class="h-0.5 w-16 bg-accent animate-[slideIn_600ms_ease-out_200ms_forwards] origin-left" style="transform: scaleX(0);"></div>
+      <p class="text-lg font-medium sm:text-xl mt-4">
         AI Product Manager building agentic workflows, ontology-driven systems,
         and AI-native product tools.
       </p>
@@ -104,10 +116,11 @@ const topics = [
         I turn ambiguous business problems into structured product concepts,
         interactive prototypes, and reusable delivery systems.
       </p>
-      <div class="mt-6 flex flex-wrap gap-3">
+      <p class="text-muted-foreground text-sm mt-4">Start here →</p>
+      <div class="mt-2 flex flex-wrap gap-3">
         <a
           href={getRelativeLocaleUrl(locale, "projects")}
-          class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+          class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
         >
           View Projects
           <IconArrowRight class="size-4" />
@@ -134,27 +147,41 @@ const topics = [
       <h2 class="text-2xl font-semibold tracking-wide">Featured Projects</h2>
       <div class="mt-6 grid gap-4 sm:grid-cols-2">
         {
-          projects.map(project => (
-            <a
-              href={project.href}
-              class="border-border group hover:bg-accent/5 rounded-lg border p-5 transition-colors"
-              {...(project.href.startsWith("http")
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-            >
-              <div class="flex items-center justify-between">
-                <h3 class="group-hover:text-accent text-lg font-medium">
-                  {project.title}
-                </h3>
-                <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs">
-                  {project.status}
-                </span>
-              </div>
-              <p class="text-muted-foreground mt-2 text-sm">
-                {project.description}
-              </p>
-            </a>
-          ))
+          projects.map(project => {
+            const IconComponent = project.icon === "Network" ? Network :
+                                  project.icon === "Book" ? Book :
+                                  project.icon === "Code" ? Code : TrendingUp;
+            const statusColor = project.status === "Public" ? "border-green-500 text-green-600" :
+                               project.status === "Public Tool" ? "border-blue-500 text-blue-600" :
+                               "border-orange-500 text-orange-600";
+            return (
+              <a
+                href={project.href}
+                class="border-border group hover:bg-accent/5 hover:border-accent hover:-translate-y-1 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)] rounded-lg border p-5 transition-all duration-200"
+                {...(project.href.startsWith("http")
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                <div class="flex items-start gap-3">
+                  <IconComponent size={24} strokeWidth={2} class="text-foreground group-hover:text-accent transition-colors flex-shrink-0 mt-0.5" />
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between gap-2">
+                      <h3 class="group-hover:text-accent text-lg font-medium transition-colors">
+                        {project.title}
+                      </h3>
+                      <span class={`rounded-full border px-2.5 py-0.5 text-xs flex items-center gap-1 flex-shrink-0 ${statusColor}`}>
+                        <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                        {project.status}
+                      </span>
+                    </div>
+                    <p class="text-muted-foreground mt-2 text-sm">
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            );
+          })
         }
       </div>
     </section>
@@ -219,15 +246,67 @@ const topics = [
       <h2 class="text-2xl font-semibold tracking-wide">What I Work On</h2>
       <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {
-          topics.map(topic => (
-            <div class="border-border rounded-lg border p-5">
-              <h3 class="font-medium">{topic.title}</h3>
-              <p class="text-muted-foreground mt-1.5 text-sm">
-                {topic.description}
-              </p>
-            </div>
-          ))
+          topics.map(topic => {
+            const IconComponent = topic.icon === "Bot" ? Bot :
+                                  topic.icon === "Database" ? Database :
+                                  topic.icon === "Settings" ? Settings :
+                                  topic.icon === "RefreshCw" ? RefreshCw :
+                                  topic.icon === "Wand2" ? Wand2 : Building2;
+            return (
+              <div class="border-border rounded-lg border p-5 hover:bg-accent/5 hover:border-accent/30 transition-all duration-200 group">
+                <div class="flex items-start gap-3">
+                  <IconComponent size={24} strokeWidth={2} class="text-foreground group-hover:text-accent transition-colors flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h3 class="font-medium">{topic.title}</h3>
+                    <p class="text-muted-foreground mt-1.5 text-sm">
+                      {topic.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })
         }
+      </div>
+    </section>
+
+    <!-- Skills & Tools -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">Skills & Tools</h2>
+      <div class="mt-6 space-y-6">
+        <!-- Product Skills -->
+        <div>
+          <h3 class="text-sm font-medium text-muted-foreground mb-3">Product Skills</h3>
+          <div class="flex flex-wrap gap-2">
+            {["Ontology Design", "Agentic Workflows", "PRD Writing", "Vibe Coding", "Loop Engineering", "Harness Engineering"].map(skill => (
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm border border-border rounded-full bg-muted/30 hover:bg-accent/10 hover:border-accent hover:scale-105 transition-all cursor-default">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+        <!-- Technical Stack -->
+        <div>
+          <h3 class="text-sm font-medium text-muted-foreground mb-3">Technical Stack</h3>
+          <div class="flex flex-wrap gap-2">
+            {["JavaScript", "TypeScript", "Python", "Neo4j", "Astro", "React", "Node.js"].map(skill => (
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm border border-border rounded-full bg-muted/30 hover:bg-accent/10 hover:border-accent hover:scale-105 transition-all cursor-default">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+        <!-- Tools & Platforms -->
+        <div>
+          <h3 class="text-sm font-medium text-muted-foreground mb-3">Tools & Platforms</h3>
+          <div class="flex flex-wrap gap-2">
+            {["Claude Code", "GitHub", "Figma", "Notion", "Obsidian", "VS Code"].map(skill => (
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm border border-border rounded-full bg-muted/30 hover:bg-accent/10 hover:border-accent hover:scale-105 transition-all cursor-default">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
 
@@ -266,38 +345,43 @@ const topics = [
           class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors cursor-pointer"
           data-copy-email="wenhaoyu.bryan@gmail.com"
         >
+          <Mail size={20} strokeWidth={2} />
           Email
         </button>
         <a
           href="https://github.com/wenhaoyu-bryan"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+          class="border-border text-foreground hover:bg-gray-100 dark:hover:bg-gray-800 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
+          <Github size={20} strokeWidth={2} />
           GitHub
         </a>
         <a
           href="https://linkedin.com/in/wenhaoyu-bryan/"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+          class="border-border text-foreground hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
+          <Linkedin size={20} strokeWidth={2} />
           LinkedIn
         </a>
         <a
           href="https://x.com/WENHAOYU8"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+          class="border-border text-foreground hover:bg-black/5 dark:hover:bg-white/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
+          <Twitter size={20} strokeWidth={2} />
           X
         </a>
         <a
           href="https://medium.com/@bryanyuwh"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+          class="border-border text-foreground hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-600 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
+          <BookOpen size={20} strokeWidth={2} />
           Medium
         </a>
       </div>
