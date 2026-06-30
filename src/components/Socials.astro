@@ -25,6 +25,7 @@ const items = await Promise.all(
 ---
 
 <div class="flex flex-wrap items-center gap-1">
+  <span class="text-sm text-muted-foreground mr-2">Find me</span>
   {
     items.map(({ url, title, Icon, isMail, email }) =>
       Icon ? (
