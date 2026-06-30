@@ -3,7 +3,7 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://wenhaoyu-bryan.github.io",
-    title: "Wenhao Yu — AI PM",
+    title: "Wenhao Yu",
     description: "AI Product Manager building agentic workflows, ontology systems, AI PM playbooks, and SEO/GEO growth experiments.",
     author: "Wenhao Yu",
     profile: "https://wenhaoyu-bryan.github.io",
