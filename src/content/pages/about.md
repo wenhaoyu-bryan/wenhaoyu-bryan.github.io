@@ -44,10 +44,8 @@ Some work is private due to data and permission constraints. These pages abstrac
 
 Claude Code, Cursor, Astro, Tailwind, React, FastAPI, Neo4j, NetworkX, WordPress, GitHub Pages, SEO/GEO research tools
 
-## Contact
+## Let's Connect
 
-- [GitHub](https://github.com/wenhaoyu-bryan)
-- [LinkedIn](https://www.linkedin.com/in/wenhaoyu-bryan/)
-- [X / Twitter](https://x.com/WENHAOYU8)
-- [Medium](https://medium.com/@bryanyuwh)
-- Email: bryanyuwh@gmail.com
+Interested in collaborating on AI product projects, ontology systems, or growth experiments? I'm open to consulting, speaking, and building together.
+
+[Email me](mailto:wenhaoyu.bryan@gmail.com) or find me on [GitHub](https://github.com/wenhaoyu-bryan) / [LinkedIn](https://www.linkedin.com/in/wenhaoyu-bryan/) / [X](https://x.com/WENHAOYU8) / [Medium](https://medium.com/@bryanyuwh)
