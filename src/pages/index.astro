@@ -162,7 +162,7 @@ const topics = [
                 <div class="flex items-start gap-3">
                   <IconComponent size={24} strokeWidth={2} class="text-foreground group-hover:text-accent transition-colors flex-shrink-0 mt-0.5" />
                   <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-start justify-between gap-2">
                       <h3 class="group-hover:text-accent text-lg font-medium transition-colors">
                         {project.title}
                       </h3>
@@ -340,5 +340,37 @@ const topics = [
     if (indexLayout?.layout) {
       sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
     }
+
+    // Add fade-in animation to cards
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          const delay = index * 50; // Stagger delay
+          setTimeout(() => {
+            entry.target.classList.add("animate-fadeInUp");
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all cards and sections
+    document.querySelectorAll("section > div > a, section > div > div").forEach((card) => {
+      if (card.classList.contains("border") || card.parentElement?.classList.contains("grid")) {
+        card.classList.add("opacity-0");
+        observer.observe(card);
+      }
+    });
   });
 </script>
+
+<style>
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+</style>
