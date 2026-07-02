@@ -113,37 +113,52 @@ const featured = [
   <main id="main-content" data-layout="index" class="app-layout">
     <!-- Hero -->
     <section class="border-border border-b pt-8 pb-10 sm:pt-12 sm:pb-14">
-      <h1 class="my-4 text-4xl font-bold tracking-tight sm:my-6 sm:text-5xl">
-        余文豪
-      </h1>
-      <p class="text-lg font-medium sm:text-xl">
-        我是一名 AI 产品经理，专注于智能体工作流、本体驱动系统和 AI 原生产品工具。
-      </p>
-      <p class="text-muted-foreground mt-3 max-w-2xl">
-        我擅长把模糊的业务问题转化为结构化产品概念、交互式原型和可复用交付系统。
-      </p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a
-          href={getRelativeLocaleUrl(locale, "projects")}
-          class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        >
-          查看项目
-          <IconArrowRight class="size-4" />
-        </a>
-        <a
-          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
-        >
-          打开 AI PM Operating Playbook ↗
-        </a>
-        <a
-          href={getRelativeLocaleUrl(locale, "posts")}
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
-        >
-          阅读文章
-        </a>
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div class="max-w-2xl">
+          <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
+            余文豪
+          </h1>
+          <div class="mt-5 h-0.5 w-16 origin-left animate-[slideIn_600ms_ease-out_200ms_forwards] bg-accent" style="transform: scaleX(0);"></div>
+          <p class="mt-4 text-lg font-medium sm:text-xl">
+            我是一名 AI 产品经理，专注于智能体工作流、本体驱动系统和 AI 原生产品工具。
+          </p>
+          <p class="text-muted-foreground mt-3 max-w-2xl">
+            我擅长把模糊的业务问题转化为结构化产品概念、交互式原型和可复用交付系统。
+          </p>
+          <p class="text-muted-foreground mt-4 text-sm">从这里开始 →</p>
+          <div class="mt-2 flex flex-wrap gap-3">
+            <a
+              href={getRelativeLocaleUrl(locale, "projects")}
+              class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+            >
+              查看项目
+              <IconArrowRight class="size-4" />
+            </a>
+            <a
+              href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+            >
+              打开 AI PM Operating Playbook ↗
+            </a>
+            <a
+              href={getRelativeLocaleUrl(locale, "posts")}
+              class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+            >
+              阅读文章
+            </a>
+          </div>
+        </div>
+        <img
+          src="/profile-avatar.jpg"
+          alt="余文豪 - AI 产品经理"
+          width="152"
+          height="152"
+          class="border-border bg-muted/30 size-28 rounded-full border object-cover sm:size-36"
+          loading="eager"
+          decoding="async"
+        />
       </div>
     </section>
 

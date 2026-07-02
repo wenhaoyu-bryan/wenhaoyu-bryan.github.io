@@ -29,6 +29,17 @@ const { Content } = await render(about);
   <Breadcrumb />
 
   <Main pageTitle={about.data.title} class="app-prose">
+    <figure class="not-prose border-border my-6 overflow-hidden rounded-lg border">
+      <img
+        src="/about-banner.jpg"
+        alt="Ocean waves and a sailboat"
+        width="1600"
+        height="1199"
+        class="h-auto w-full object-cover object-top sm:aspect-[16/7]"
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
     <Content />
   </Main>
 

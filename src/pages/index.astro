@@ -10,7 +10,7 @@ import LinkButton from "@/components/LinkButton.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
-import { Network, Book, Code, TrendingUp, Bot, Database, Settings, RefreshCw, Wand2, Building2, Mail, Github, Linkedin, Twitter, BookOpen } from "lucide-astro";
+import { Network, Book, Code, TrendingUp, Bot, Database, Settings, RefreshCw, Wand2, Building2 } from "lucide-astro";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
@@ -104,38 +104,54 @@ const topics = [
   >
     <!-- Hero -->
     <section class="border-border border-b pt-8 pb-10 sm:pt-12 sm:pb-14">
-      <div class="h-0.5 w-16 bg-accent animate-[slideIn_600ms_ease-out_200ms_forwards] origin-left" style="transform: scaleX(0);"></div>
-      <p class="text-lg font-medium sm:text-xl mt-4">
-        AI Product Manager building agentic workflows, ontology-driven systems,
-        and AI-native product tools.
-      </p>
-      <p class="text-muted-foreground mt-3 max-w-2xl">
-        I turn ambiguous business problems into structured product concepts,
-        interactive prototypes, and reusable delivery systems.
-      </p>
-      <p class="text-muted-foreground text-sm mt-4">Start here →</p>
-      <div class="mt-2 flex flex-wrap gap-3">
-        <a
-          href={getRelativeLocaleUrl(locale, "projects")}
-          class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-        >
-          View Projects
-          <IconArrowRight class="size-4" />
-        </a>
-        <a
-          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
-        >
-          Open AI PM Operating Playbook ↗
-        </a>
-        <a
-          href={getRelativeLocaleUrl(locale, "posts")}
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
-        >
-          Read My Writing
-        </a>
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div class="max-w-2xl">
+          <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
+            Wenhao Yu
+          </h1>
+          <div class="mt-5 h-0.5 w-16 origin-left animate-[slideIn_600ms_ease-out_200ms_forwards] bg-accent" style="transform: scaleX(0);"></div>
+          <p class="mt-4 text-lg font-medium sm:text-xl">
+            AI Product Manager building agentic workflows, ontology-driven
+            systems, and AI-native product tools.
+          </p>
+          <p class="text-muted-foreground mt-3 max-w-2xl">
+            I turn ambiguous business problems into structured product concepts,
+            interactive prototypes, and reusable delivery systems.
+          </p>
+          <p class="text-muted-foreground mt-4 text-sm">Start here →</p>
+          <div class="mt-2 flex flex-wrap gap-3">
+            <a
+              href={getRelativeLocaleUrl(locale, "projects")}
+              class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+            >
+              View Projects
+              <IconArrowRight class="size-4" />
+            </a>
+            <a
+              href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+            >
+              Open AI PM Operating Playbook ↗
+            </a>
+            <a
+              href={getRelativeLocaleUrl(locale, "posts")}
+              class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
+            >
+              Read My Writing
+            </a>
+          </div>
+        </div>
+        <img
+          src="/profile-avatar.jpg"
+          alt="Wenhao Yu - AI Product Manager"
+          width="152"
+          height="152"
+          class="border-border bg-muted/30 size-28 rounded-full border object-cover sm:size-36"
+          loading="eager"
+          decoding="async"
+        />
       </div>
     </section>
 

@@ -5,19 +5,19 @@ description: "About Wenhao Yu — AI Product Manager building agentic workflows,
 
 ## Short Intro
 
-I work at the intersection of AI product management, industrial AI, ontology-driven systems, and growth.
+I'm Wenhao Yu, an AI product manager interested in the messy middle between business problems, product systems, and working software.
 
-My focus is not just writing PRDs. I care about turning ambiguous business problems into prototypes, playbooks, and repeatable workflows — especially in contexts where AI systems need to connect with real business operations.
+Most of my work starts with ambiguity: a vague business need, a half-formed AI idea, a workflow that people do manually, or a dataset that has value but no clear product shape yet. I like turning that kind of material into prototypes, product briefs, playbooks, and systems that other people can actually use.
 
-This site is my public workspace for AI PM thinking, prototype experiments, and growth notes.
+This site is where I keep the public side of that work: notes on AI product management, ontology-driven systems, vibe coding, and growth experiments.
 
 ## What This Site Is
 
 This is not a traditional resume page.
 
-It is a public display page for how I think, build, and package AI product ideas. Some work comes from private product practice, but confidential details, internal data, and company systems are intentionally abstracted.
+It is closer to a public notebook and portfolio for how I think, build, and package AI product ideas. Some of the thinking comes from real product practice, but confidential details, internal data, and company systems are intentionally abstracted.
 
-The goal is to share reusable methods, not expose private implementation.
+The goal is to share reusable methods and artifacts without pretending every real-world problem can be neatly summarized in a case study.
 
 ## What I Build
 
@@ -36,9 +36,13 @@ The goal is to share reusable methods, not expose private implementation.
 
 ## Selected Background
 
-My background combines AI product work, industrial operations, data-driven growth, and engineering-oriented education. I have worked across industrial AI, SEO growth, product investment analysis, and B2B product contexts. I hold a Master of Engineering from Cornell University and a Bachelor of Engineering from Rensselaer Polytechnic Institute.
+My background combines AI product work, industrial operations, data-driven growth, and engineering-oriented education. I have worked across industrial AI, SEO growth, product investment analysis, and B2B product contexts.
+
+I hold a Master of Engineering from Cornell University and a Bachelor of Engineering from Rensselaer Polytechnic Institute. That engineering training still shapes how I work as a PM: I care about structure, constraints, feedback loops, and whether an idea can survive contact with implementation.
 
 Some work is private due to data and permission constraints. These pages abstract the product methodology rather than exposing internal systems.
+
+Outside the work itself, I like tools, long walks, good notebooks, and occasionally overthinking how a personal website should feel.
 
 ## Tool Stack
 
