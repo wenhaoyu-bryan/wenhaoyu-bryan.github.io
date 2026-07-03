@@ -4,12 +4,30 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
 import config from "@/config";
+
+const architectureSteps = [
+  { label: "Raw CSV / Requirements", note: "messy input" },
+  { label: "LLM Schema Inference", note: "reasoning layer", emphasis: true },
+  { label: "Ontology Schema", note: "entities · relations · constraints" },
+  { label: "Neo4j Graph", note: "data source" },
+  { label: "NetworkX", note: "compute engine" },
+  { label: "ReAct Agent", note: "queries + suggestions", emphasis: true },
+  { label: "Human-in-the-Loop", note: "approved actions" },
+];
+
+const snapshot = [
+  { label: "Role", value: "Product Manager & solo builder" },
+  { label: "Type", value: "Public case study / working prototype" },
+  { label: "Stack", value: "Neo4j · NetworkX · LLM · ReAct Agent" },
+  { label: "Status", value: "Public repo, actively extended" },
+];
 ---
 
 <Layout
   title={`Prompt-to-Ontology | ${config.site.title}`}
-  description="A public experiment on transforming messy product requirements, prompts, and business concepts into structured ontology assets for enterprise AI systems."
+  description="Case study: turning messy requirements and raw CSV data into an operational knowledge graph with an agent layer — ontology schema inference, Neo4j, and human-in-the-loop actions."
 >
   <Header />
 
@@ -47,6 +65,21 @@ import config from "@/config";
       </span>
     </div>
 
+    <div
+      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+    >
+      {
+        snapshot.map(item => (
+          <div class="bg-background p-4">
+            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+              {item.label}
+            </p>
+            <p class="mt-1 text-sm">{item.value}</p>
+          </div>
+        ))
+      }
+    </div>
+
     <h2 class="mt-8 text-xl font-semibold">The Problem</h2>
     <p>
       Enterprise AI systems often fail because the underlying data model doesn't
@@ -55,8 +88,6 @@ import config from "@/config";
       define real business logic. When you build an AI agent on top of a bad
       data model, the agent reasons about a fictional version of your business.
     </p>
-
-    <h2 class="mt-6 text-xl font-semibold">Why Ontology Matters</h2>
     <p>
       An ontology captures not just entities and attributes, but relationships,
       constraints, and the actions those entities enable. For enterprise AI,
@@ -64,7 +95,17 @@ import config from "@/config";
       agent that can actually operate on your business context.
     </p>
 
-    <h2 class="mt-6 text-xl font-semibold">What I Built</h2>
+    <h2 class="mt-6 text-xl font-semibold">My Role</h2>
+    <p>
+      I ran this as a PM-led build: I defined the product intent, the
+      architecture boundaries, and the design constraints, then used LLM pair
+      programming (Claude Code) to accelerate implementation, debugging, and
+      iteration. Every architectural decision — what the graph models, where
+      compute lives, what the agent is allowed to do — was a product decision I
+      made and can defend.
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">Approach: What I Built</h2>
     <p>
       Prompt-to-Ontology takes raw CSV data and transforms it into an
       interactive knowledge graph. An LLM infers the ontology schema — entities,
@@ -79,8 +120,12 @@ import config from "@/config";
       > as the reasoning layer. Three decoupled systems that can be independently
       replaced.
     </p>
+    <FlowDiagram
+      steps={architectureSteps}
+      caption="End-to-end pipeline: from raw tabular data to human-approved business actions. Highlighted stages are where the LLM does the reasoning."
+    />
 
-    <h2 class="mt-6 text-xl font-semibold">Key Insight</h2>
+    <h2 class="mt-6 text-xl font-semibold">Key Insights</h2>
     <p>
       Fact tables are nodes, not edges. An order isn't a relationship between a
       customer and a product — it's an independent entity connected to both via
@@ -92,29 +137,35 @@ import config from "@/config";
       state — a low inventory node lights up a "Create Purchase Order" button.
     </p>
 
-    <h2 class="mt-6 text-xl font-semibold">Vibe Coding Approach</h2>
-    <p>
-      This was a PM-led rapid prototyping experiment: I defined product intent,
-      architecture boundaries, and design constraints, while using LLM pair
-      programming to accelerate implementation, debugging, and iteration.
-    </p>
-    <p>
-      The most valuable output isn't code. It's the cognitive framework for
-      understanding ontology-driven systems: the difference between data models,
-      schemas, and ontologies; the distinction between "viewing a graph" and
-      "operating a business through a graph."
-    </p>
-
-    <h2 class="mt-6 text-xl font-semibold">Architecture / Workflow</h2>
-    <p>A public architecture diagram will be added here to explain the flow:</p>
-    <p class="text-muted-foreground mt-2 text-sm">
-      Raw CSV / requirements &rarr; LLM schema inference &rarr; ontology schema
-      &rarr; Neo4j graph &rarr; NetworkX computation &rarr; ReAct agent &rarr;
-      HITL action suggestions.
-    </p>
-
-    <h2 class="mt-6 text-xl font-semibold">Status</h2>
-    <p>Public repository, actively being extended.</p>
+    <h2 class="mt-6 text-xl font-semibold">Outcome & Signals</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        A working full-stack prototype: CSV in, operational knowledge graph with
+        agent-suggested actions out — in a public GitHub repository.
+      </li>
+      <li>
+        A reusable cognitive framework: the difference between data models,
+        schemas, and ontologies; the distinction between "viewing a graph" and
+        "operating a business through a graph."
+      </li>
+      <li>
+        The methodology was extracted into the
+        <a
+          href={getRelativeLocaleUrl(
+            config.site.lang,
+            "playbook/prompt-to-ontology"
+          )}
+          class="text-accent hover:underline">Prompt-to-Ontology playbook</a
+        > and documented in a
+        <a
+          href={getRelativeLocaleUrl(
+            config.site.lang,
+            "posts/building-ontology-os"
+          )}
+          class="text-accent hover:underline">long-form write-up</a
+        >.
+      </li>
+    </ul>
 
     <div class="mt-6 flex flex-wrap gap-3">
       <a
@@ -126,7 +177,10 @@ import config from "@/config";
         View on GitHub
       </a>
       <a
-        href="/posts/building-ontology-os"
+        href={getRelativeLocaleUrl(
+          config.site.lang,
+          "posts/building-ontology-os"
+        )}
         class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
       >
         Read the Blog Post

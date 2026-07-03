@@ -8,23 +8,49 @@ import config from "@/config";
 
 const locale = "zh";
 
-const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/";
+const PLAYBOOK_BASE =
+  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/";
 
+// Playbook 方法论页面目前只有英文版，链接指向 en 路由，避免 404
 const categories = [
   {
     title: "AI 原生产品交付",
     items: [
-      { label: "Vibe Coding for Product Discovery", href: getRelativeLocaleUrl(locale, "playbook/vibe-coding"), status: "live" },
-      { label: "Harness Engineering", href: getRelativeLocaleUrl(locale, "playbook/harness-engineering"), status: "live" },
-      { label: "Loop Engineering", href: getRelativeLocaleUrl(locale, "playbook/loop-engineering"), status: "live" },
-      { label: "AI-Native PRD", href: getRelativeLocaleUrl(locale, "playbook/ai-native-prd"), status: "live" },
-      { label: "PRD 到原型工作流", href: getRelativeLocaleUrl(locale, "playbook/prd-to-prototype"), status: "live" },
+      {
+        label: "Vibe Coding for Product Discovery",
+        href: getRelativeLocaleUrl("en", "playbook/vibe-coding"),
+        status: "live",
+      },
+      {
+        label: "Harness Engineering",
+        href: getRelativeLocaleUrl("en", "playbook/harness-engineering"),
+        status: "live",
+      },
+      {
+        label: "Loop Engineering",
+        href: getRelativeLocaleUrl("en", "playbook/loop-engineering"),
+        status: "live",
+      },
+      {
+        label: "AI-Native PRD",
+        href: getRelativeLocaleUrl("en", "playbook/ai-native-prd"),
+        status: "live",
+      },
+      {
+        label: "PRD 到原型工作流",
+        href: getRelativeLocaleUrl("en", "playbook/prd-to-prototype"),
+        status: "live",
+      },
     ],
   },
   {
     title: "智能体产品设计",
     items: [
-      { label: "Agent 产品设计框架", href: getRelativeLocaleUrl(locale, "playbook/agent-product-design"), status: "live" },
+      {
+        label: "Agent 产品设计框架",
+        href: getRelativeLocaleUrl("en", "playbook/agent-product-design"),
+        status: "live",
+      },
       { label: "Human-in-the-Loop 设计", href: null, status: "planned" },
       { label: "自主性与工具边界", href: null, status: "planned" },
       { label: "智能体评估", href: null, status: "planned" },
@@ -33,7 +59,11 @@ const categories = [
   {
     title: "本体与知识系统",
     items: [
-      { label: "Prompt-to-Ontology", href: getRelativeLocaleUrl(locale, "playbook/prompt-to-ontology"), status: "live" },
+      {
+        label: "Prompt-to-Ontology",
+        href: getRelativeLocaleUrl("en", "playbook/prompt-to-ontology"),
+        status: "live",
+      },
       { label: "本体用于 RAG 和智能体", href: null, status: "planned" },
       { label: "对象、关系、状态与动作", href: null, status: "planned" },
     ],
@@ -55,9 +85,7 @@ const categories = [
   <Header />
 
   <Main pageTitle="AI PM Operating Playbook" class="app-prose">
-    <p>
-      设计、评估和交付 AI 原生产品的框架、实践笔记和实用模式。
-    </p>
+    <p>设计、评估和交付 AI 原生产品的框架、实践笔记和实用模式。</p>
 
     <div class="mt-6 mb-8">
       <a
@@ -71,35 +99,44 @@ const categories = [
     </div>
 
     <div class="mt-8 space-y-8">
-      {categories.map(category => (
-        <section>
-          <h2 class="text-xl font-semibold">{category.title}</h2>
-          <ul class="mt-3 space-y-2">
-            {category.items.map(item => (
-              <li class="text-muted-foreground flex items-start gap-2">
-                <span class="text-accent mt-1">&#x2022;</span>
-                {item.href ? (
-                  <a href={item.href} class="text-accent hover:underline">
-                    {item.label}
-                  </a>
-                ) : (
-                  <span>{item.label}</span>
-                )}
-                {item.status === "planned" && (
-                  <span class="text-muted-foreground text-xs mt-0.5">(即将推出)</span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+      {
+        categories.map(category => (
+          <section>
+            <h2 class="text-xl font-semibold">{category.title}</h2>
+            <ul class="mt-3 space-y-2">
+              {category.items.map(item => (
+                <li class="text-muted-foreground flex items-start gap-2">
+                  <span class="text-accent mt-1">&#x2022;</span>
+                  {item.href ? (
+                    <a href={item.href} class="text-accent hover:underline">
+                      {item.label}
+                    </a>
+                  ) : (
+                    <span>{item.label}</span>
+                  )}
+                  {item.status === "live" && item.href && (
+                    <span class="text-muted-foreground mt-0.5 text-xs">
+                      (英文)
+                    </span>
+                  )}
+                  {item.status === "planned" && (
+                    <span class="text-muted-foreground mt-0.5 text-xs">
+                      (即将推出)
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
     </div>
 
     <div class="border-border mt-10 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">方法论与工具</h2>
       <p class="text-muted-foreground mt-2 text-sm">
-        本站包含文章和框架。
-        AI PM Operating Playbook 提供将这些方法论落地的交互工具。
+        本站包含文章和框架。 AI PM Operating Playbook
+        提供将这些方法论落地的交互工具。
       </p>
       <div class="mt-4 flex flex-wrap gap-3">
         <a

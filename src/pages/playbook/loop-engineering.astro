@@ -8,7 +8,8 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
-const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
+const PLAYBOOK_BASE =
+  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
 ---
 
 <Layout
@@ -17,7 +18,10 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
 >
   <Header />
 
-  <Main pageTitle="Loop Engineering for AI Product Development" class="app-prose">
+  <Main
+    pageTitle="Loop Engineering for AI Product Development"
+    class="app-prose"
+  >
     <p class="text-muted-foreground text-lg">
       Loop Engineering is a personal working concept, not an established
       industry term. It describes a practical way to design the feedback loops
@@ -27,7 +31,9 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
       evolves.
     </p>
 
-    <h2 class="mt-8 text-xl font-semibold">Why One-Shot Prompting Is Insufficient</h2>
+    <h2 class="mt-8 text-xl font-semibold">
+      Why One-Shot Prompting Is Insufficient
+    </h2>
     <p>
       A single prompt to an AI agent produces a first draft — of code, of a
       spec, of a prototype. First drafts are useful, but they are never the
@@ -44,9 +50,7 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
     </p>
 
     <h2 class="mt-8 text-xl font-semibold">The Product Loop</h2>
-    <p>
-      The highest-level loop spans the entire product development cycle:
-    </p>
+    <p>The highest-level loop spans the entire product development cycle:</p>
     <p class="mt-2">
       <strong>Idea</strong> &rarr; <strong>Structured Framing</strong> &rarr;
       <strong>Prototype</strong> &rarr; <strong>Evaluation</strong> &rarr;
@@ -61,8 +65,8 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
 
     <h2 class="mt-6 text-xl font-semibold">The Implementation Loop</h2>
     <p>
-      At the code level, the implementation loop is what coding agents
-      naturally do:
+      At the code level, the implementation loop is what coding agents naturally
+      do:
     </p>
     <p class="mt-2">
       <strong>Code Generation</strong> &rarr; <strong>Test</strong> &rarr;
@@ -71,8 +75,8 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
     </p>
     <p class="mt-2">
       This loop works when the agent has good test coverage and clear feedback.
-      It fails when tests are missing, error messages are vague, or the agent
-      is fixing the wrong thing. The harness (context, tools, constraints)
+      It fails when tests are missing, error messages are vague, or the agent is
+      fixing the wrong thing. The harness (context, tools, constraints)
       determines how tight this loop runs.
     </p>
 
@@ -87,8 +91,8 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
     </p>
     <p class="mt-2">
       For an AI product, this might mean tracking output accuracy, user
-      acceptance rate, hallucination frequency, or task completion rate. The
-      key is that evaluation results become input to the next iteration — they
+      acceptance rate, hallucination frequency, or task completion rate. The key
+      is that evaluation results become input to the next iteration — they
       update the context, constraints, or acceptance criteria.
     </p>
 
@@ -131,58 +135,59 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
         reports, user research notes.
       </li>
       <li>
-        <strong>Implementation loop:</strong> code commits, test results, PR
-        reviews, bug reports.
+        <strong>Implementation loop:</strong> code commits, test results, PR reviews,
+        bug reports.
       </li>
       <li>
-        <strong>Evaluation loop:</strong> metric dashboards, comparison reports,
-        quality trend data.
+        <strong>Evaluation loop:</strong> metric dashboards, comparison reports, quality
+        trend data.
       </li>
       <li>
-        <strong>User-feedback loop:</strong> usage analytics, support tickets,
-        user interview summaries, feature requests.
+        <strong>User-feedback loop:</strong> usage analytics, support tickets, user
+        interview summaries, feature requests.
       </li>
       <li>
-        <strong>Context update loop:</strong> updated CLAUDE.md, refined
-        architecture docs, revised conventions, knowledge base entries.
+        <strong>Context update loop:</strong> updated CLAUDE.md, refined architecture
+        docs, revised conventions, knowledge base entries.
       </li>
     </ul>
     <p class="mt-3">
-      The value of loop engineering is not any single artifact — it is that
-      each artifact becomes input to the next cycle. Orphaned artifacts are
-      wasted work.
+      The value of loop engineering is not any single artifact — it is that each
+      artifact becomes input to the next cycle. Orphaned artifacts are wasted
+      work.
     </p>
 
     <h2 class="mt-6 text-xl font-semibold">Failure Modes</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Loops that do not close.</strong> The team generates output but
-        never feeds results back. Each iteration starts from scratch.
+        <strong>Loops that do not close.</strong> The team generates output but never
+        feeds results back. Each iteration starts from scratch.
       </li>
       <li>
-        <strong>Feedback that is ignored.</strong> Evaluation or user feedback
-        exists but does not change behavior. The team repeats the same patterns
-        expecting different outcomes.
+        <strong>Feedback that is ignored.</strong> Evaluation or user feedback exists
+        but does not change behavior. The team repeats the same patterns expecting
+        different outcomes.
       </li>
       <li>
-        <strong>Context that goes stale.</strong> Project documentation reflects
-        an earlier state of the product. The agent makes decisions based on
-        outdated information.
+        <strong>Context that goes stale.</strong> Project documentation reflects an
+        earlier state of the product. The agent makes decisions based on outdated
+        information.
       </li>
       <li>
-        <strong>Optimizing the wrong loop.</strong> The team runs fast
-        implementation loops but has no evaluation loop. They ship quickly but
-        ship the wrong thing.
+        <strong>Optimizing the wrong loop.</strong> The team runs fast implementation
+        loops but has no evaluation loop. They ship quickly but ship the wrong thing.
       </li>
     </ul>
 
-    <h2 class="mt-6 text-xl font-semibold">Connection to AI PM Operating Playbook</h2>
+    <h2 class="mt-6 text-xl font-semibold">
+      Connection to AI PM Operating Playbook
+    </h2>
     <p>
       The AI PM Operating Playbook's Evaluation and Risk step is a direct
       application of the evaluation loop. It helps PMs define what to measure,
       how to measure it, and what to do with the results. The generated
-      artifacts — evaluation plans, risk assessments, acceptance criteria —
-      are designed to feed back into subsequent iterations.
+      artifacts — evaluation plans, risk assessments, acceptance criteria — are
+      designed to feed back into subsequent iterations.
     </p>
 
     <div class="mt-8 mb-8">

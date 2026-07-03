@@ -5,43 +5,11 @@ import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
+import { getProjects } from "@/data/projects";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
-const projects = [
-  {
-    title: "Prompt-to-Ontology",
-    description:
-      "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems.",
-    status: "Public",
-    href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
-    tags: ["Ontology", "Knowledge Graphs", "Neo4j", "NetworkX", "ReAct Agent"],
-  },
-  {
-    title: "AI PM Operating Playbook",
-    description:
-      "A methodology-driven toolkit that turns ambiguous AI product ideas into structured product briefs, workflow specifications, evaluation plans, and coding-agent handoff materials.",
-    status: "Public Tool",
-    href: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
-    tags: ["AI PM", "Methodology", "Interactive Tools", "Frameworks"],
-  },
-  {
-    title: "Vibe Coding Prototype Lab",
-    description:
-      "A public lab showing how PM-led LLM pair programming can turn ambiguous ideas into prototypes, specs, and reusable product workflows.",
-    status: "Public",
-    href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
-    tags: ["Claude Code", "Cursor", "Prototyping", "LLM Pair Programming"],
-  },
-  {
-    title: "SEO/GEO Growth Experiments",
-    description:
-      "Experiments on content systems, B2B websites, and AI-search-aware growth loops — connecting SEO fundamentals with GEO visibility.",
-    status: "Ongoing",
-    href: getRelativeLocaleUrl(locale, "growth-lab"),
-    tags: ["SEO", "GEO", "B2B", "Content Systems"],
-  },
-];
+const projects = getProjects(locale);
 ---
 
 <Layout

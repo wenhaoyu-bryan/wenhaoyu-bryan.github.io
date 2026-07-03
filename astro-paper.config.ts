@@ -19,7 +19,7 @@ export default defineAstroPaperConfig({
   },
   features: {
     lightAndDarkMode: true,
-    dynamicOgImage: false, // temporarily disabled for offline build; re-enable when fonts are reachable
+    dynamicOgImage: true, // requires Google Fonts reachable at build time (satori)
     showArchives: true,
     showBackButton: true,
     editPost: {

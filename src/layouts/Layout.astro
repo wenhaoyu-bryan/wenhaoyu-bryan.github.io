@@ -29,6 +29,43 @@ const rssHref = getRelativeLocaleUrl(
   Astro.currentLocale ?? config.site.lang,
   "rss.xml"
 );
+
+// Person schema: establishes the author entity for search engines and AI search
+const personJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.author,
+  url: site.url,
+  jobTitle: "AI Product Manager",
+  sameAs: config.socials
+    .map(s => s.url)
+    .filter(url => !url.startsWith("mailto:")),
+});
+
+// Routes that exist in both locales (en unprefixed, zh under /zh/).
+// Keep in sync with src/pages/zh/ — only list pages that actually have a mirror.
+const MIRRORED_ROUTES = [
+  "/",
+  "/about/",
+  "/projects/",
+  "/projects/prompt-to-ontology/",
+  "/projects/vibe-coding-prototype-lab/",
+  "/playbook/",
+  "/growth-lab/",
+  "/posts/",
+  "/search/",
+];
+const normalizedPath = Astro.url.pathname.replace(/\/?$/, "/");
+const basePath = normalizedPath.startsWith("/zh/")
+  ? normalizedPath.slice(3) || "/"
+  : normalizedPath;
+const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
+  ? [
+      { lang: "en", href: new URL(basePath, Astro.site).href },
+      { lang: "zh", href: new URL(`/zh${basePath}`, Astro.site).href },
+      { lang: "x-default", href: new URL(basePath, Astro.site).href },
+    ]
+  : [];
 ---
 
 <!doctype html>
@@ -79,6 +116,16 @@ const rssHref = getRelativeLocaleUrl(
       title={site.title}
       href={new URL(rssHref, Astro.site)}
     />
+
+    <!-- Language alternates for bilingual pages -->
+    {
+      hreflangAlternates.map(alt => (
+        <link rel="alternate" hreflang={alt.lang} href={alt.href} />
+      ))
+    }
+
+    <!-- Author entity -->
+    <script is:inline type="application/ld+json" set:html={personJsonLd} />
 
     <!-- Filled at runtime by theme.ts to match the current background colour -->
     <meta name="theme-color" content="" />

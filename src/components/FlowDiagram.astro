@@ -1,0 +1,58 @@
+---
+/**
+ * A flat, theme-aware flow diagram: bordered step boxes joined by arrows,
+ * wrapping on small screens. Use for architecture / workflow visuals instead
+ * of raster images (see DESIGN.md — content visuals in line-art style).
+ */
+interface Step {
+  label: string;
+  note?: string;
+  emphasis?: boolean;
+}
+
+interface Props {
+  steps: Step[];
+  caption?: string;
+}
+
+const { steps, caption } = Astro.props;
+---
+
+<figure class="border-border mt-4 rounded-lg border p-4 sm:p-5">
+  <div class="flex flex-wrap items-stretch gap-2">
+    {
+      steps.map((step, i) => (
+        <>
+          <div
+            class:list={[
+              "border-border flex min-w-28 flex-1 basis-32 flex-col justify-center rounded-md border px-3 py-2 text-center",
+              step.emphasis ? "bg-muted/40" : "bg-background",
+            ]}
+          >
+            <span class="text-sm font-medium">{step.label}</span>
+            {step.note && (
+              <span class="text-muted-foreground mt-0.5 text-xs">
+                {step.note}
+              </span>
+            )}
+          </div>
+          {i < steps.length - 1 && (
+            <div
+              class="text-muted-foreground flex items-center text-sm"
+              aria-hidden="true"
+            >
+              &rarr;
+            </div>
+          )}
+        </>
+      ))
+    }
+  </div>
+  {
+    caption && (
+      <figcaption class="text-muted-foreground mt-3 text-xs">
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>

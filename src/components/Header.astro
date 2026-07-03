@@ -13,9 +13,10 @@ import config from "@/config";
 
 const { site, features } = config;
 
-const locale = Astro.url.pathname.startsWith("/zh/") || Astro.url.pathname === "/zh"
-  ? "zh"
-  : "en";
+const locale =
+  Astro.url.pathname.startsWith("/zh/") || Astro.url.pathname === "/zh"
+    ? "zh"
+    : "en";
 const t = useTranslations(locale);
 
 // Strip the base prefix so isActive comparisons work regardless of deploy subdirectory.

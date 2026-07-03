@@ -8,7 +8,8 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
-const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
+const PLAYBOOK_BASE =
+  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
 ---
 
 <Layout
@@ -35,85 +36,81 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
     </p>
     <p class="mt-2">
       This is not about replacing engineering. It is about adding a capability
-      that traditional PM tooling — wireframes, slide decks, written PRDs —
-      does not provide: the ability to produce something you can click through,
-      test with stakeholders, and evaluate for technical feasibility before
+      that traditional PM tooling — wireframes, slide decks, written PRDs — does
+      not provide: the ability to produce something you can click through, test
+      with stakeholders, and evaluate for technical feasibility before
       committing engineering resources.
     </p>
 
     <h2 class="mt-6 text-xl font-semibold">Suitable Scenarios</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Early-stage ideas.</strong> You have a concept but need to see
-        it as a working interface to know if it makes sense.
+        <strong>Early-stage ideas.</strong> You have a concept but need to see it
+        as a working interface to know if it makes sense.
       </li>
       <li>
-        <strong>Workflow validation.</strong> You need to test whether a
-        multi-step user flow works before writing a detailed spec.
+        <strong>Workflow validation.</strong> You need to test whether a multi-step
+        user flow works before writing a detailed spec.
       </li>
       <li>
-        <strong>Stakeholder communication.</strong> A clickable prototype
-        communicates product intent more precisely than a slide deck.
+        <strong>Stakeholder communication.</strong> A clickable prototype communicates
+        product intent more precisely than a slide deck.
       </li>
       <li>
-        <strong>Technical feasibility checks.</strong> You want to know whether
-        an API integration or data flow is practical before requesting
-        engineering time.
+        <strong>Technical feasibility checks.</strong> You want to know whether an
+        API integration or data flow is practical before requesting engineering time.
       </li>
     </ul>
 
     <h2 class="mt-6 text-xl font-semibold">What PM-Led Prototyping Improves</h2>
     <ul class="mt-2 space-y-3">
       <li>
-        <strong>Speed of iteration.</strong> A prototype that takes a PM hours
-        with a coding agent might take weeks in a traditional sprint cycle.
-        This speed changes how you explore ideas — you can test more hypotheses
-        before committing.
+        <strong>Speed of iteration.</strong> A prototype that takes a PM hours with
+        a coding agent might take weeks in a traditional sprint cycle. This speed
+        changes how you explore ideas — you can test more hypotheses before committing.
       </li>
       <li>
-        <strong>Quality of specifications.</strong> When you have built a
-        working prototype, your PRDs become more concrete. You specify data
-        models, API contracts, and interaction patterns because you have
-        thought through them already.
+        <strong>Quality of specifications.</strong> When you have built a working
+        prototype, your PRDs become more concrete. You specify data models, API contracts,
+        and interaction patterns because you have thought through them already.
       </li>
       <li>
-        <strong>Stakeholder alignment.</strong> Clickable prototypes reduce
-        ambiguity. Stakeholders react to what they see, not what they imagine.
-        Feedback becomes more specific and actionable.
+        <strong>Stakeholder alignment.</strong> Clickable prototypes reduce ambiguity.
+        Stakeholders react to what they see, not what they imagine. Feedback becomes
+        more specific and actionable.
       </li>
     </ul>
 
     <h2 class="mt-6 text-xl font-semibold">What It Does NOT Replace</h2>
-    <p>
-      Vibe coding for discovery has clear limits. It does not replace:
-    </p>
+    <p>Vibe coding for discovery has clear limits. It does not replace:</p>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Production engineering.</strong> Discovery prototypes are not
-        production-ready. They are disposable by design. The value is in the
-        learning, not the code.
+        <strong>Production engineering.</strong> Discovery prototypes are not production-ready.
+        They are disposable by design. The value is in the learning, not the code.
       </li>
       <li>
-        <strong>Architecture decisions.</strong> A PM can prototype a UI flow,
-        but system architecture decisions — database design, service
-        boundaries, scaling strategy — require engineering judgment.
+        <strong>Architecture decisions.</strong> A PM can prototype a UI flow, but
+        system architecture decisions — database design, service boundaries, scaling
+        strategy — require engineering judgment.
       </li>
       <li>
-        <strong>Security review.</strong> Generated code does not go through
-        threat modeling or security audit. Discovery prototypes must not
-        handle real user data.
+        <strong>Security review.</strong> Generated code does not go through threat
+        modeling or security audit. Discovery prototypes must not handle real user
+        data.
       </li>
       <li>
-        <strong>Scalability and performance.</strong> A prototype that works
-        for one user with sample data may not work for thousands of users
-        with real data. These are engineering problems, not discovery problems.
+        <strong>Scalability and performance.</strong> A prototype that works for one
+        user with sample data may not work for thousands of users with real data.
+        These are engineering problems, not discovery problems.
       </li>
     </ul>
 
-    <h2 class="mt-6 text-xl font-semibold">Product Intent and Acceptance Criteria</h2>
+    <h2 class="mt-6 text-xl font-semibold">
+      Product Intent and Acceptance Criteria
+    </h2>
     <p>
-      The most important skill in PM-led vibe coding is not prompt crafting —
-      it is product definition. Before you prompt the agent, you need to know:
+      The most important skill in PM-led vibe coding is not prompt crafting — it
+      is product definition. Before you prompt the agent, you need to know:
     </p>
     <ul class="mt-2 space-y-2">
       <li>What user problem does this solve?</li>
@@ -122,10 +119,10 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
       <li>What is "good enough" for a discovery prototype?</li>
     </ul>
     <p class="mt-2">
-      The PM defines the "what" and the "why." The agent builds the "how."
-      When you have clear acceptance criteria, the agent produces better output.
-      When you do not, it produces something that looks right but does not
-      solve the problem.
+      The PM defines the "what" and the "why." The agent builds the "how." When
+      you have clear acceptance criteria, the agent produces better output. When
+      you do not, it produces something that looks right but does not solve the
+      problem.
     </p>
 
     <h2 class="mt-6 text-xl font-semibold">Prototype-to-Production Boundary</h2>
@@ -145,41 +142,41 @@ const PLAYBOOK_BASE = "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook
       </li>
       <li>
         The handoff from discovery to engineering should include the validated
-        user flow, data model, and acceptance criteria — not the prototype
-        code itself.
+        user flow, data model, and acceptance criteria — not the prototype code
+        itself.
       </li>
     </ul>
 
     <h2 class="mt-6 text-xl font-semibold">Common Failure Patterns</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Over-trusting generated code.</strong> A prototype that runs
-        without errors is not necessarily correct. Verify product logic, not
-        just syntax.
+        <strong>Over-trusting generated code.</strong> A prototype that runs without
+        errors is not necessarily correct. Verify product logic, not just syntax.
       </li>
       <li>
-        <strong>Skipping validation.</strong> A prototype that the PM built and
-        tested alone is not validated. Put it in front of stakeholders and
-        potential users.
+        <strong>Skipping validation.</strong> A prototype that the PM built and tested
+        alone is not validated. Put it in front of stakeholders and potential users.
       </li>
       <li>
-        <strong>Scope creep.</strong> Discovery prototypes should be small and
-        focused. If you find yourself adding authentication, databases, and
-        deployment pipelines, you have crossed into engineering work.
+        <strong>Scope creep.</strong> Discovery prototypes should be small and focused.
+        If you find yourself adding authentication, databases, and deployment pipelines,
+        you have crossed into engineering work.
       </li>
       <li>
-        <strong>Confusing prototypes with products.</strong> The prototype's
-        purpose is to generate learning. If the learning says "do not build
-        this," that is a successful outcome.
+        <strong>Confusing prototypes with products.</strong> The prototype's purpose
+        is to generate learning. If the learning says "do not build this," that is
+        a successful outcome.
       </li>
     </ul>
 
-    <h2 class="mt-6 text-xl font-semibold">Connection to the Interactive Tool</h2>
+    <h2 class="mt-6 text-xl font-semibold">
+      Connection to the Interactive Tool
+    </h2>
     <p>
       The AI PM Operating Playbook helps you go from an idea to a structured
       product brief and a coding-agent handoff document. For vibe coding, this
-      means you start with a structured framing instead of an open-ended
-      prompt — which produces better prototypes, faster.
+      means you start with a structured framing instead of an open-ended prompt
+      — which produces better prototypes, faster.
     </p>
 
     <div class="mt-8 mb-8">

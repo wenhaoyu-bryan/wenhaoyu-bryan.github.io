@@ -4,12 +4,30 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
 import config from "@/config";
+
+const architectureSteps = [
+  { label: "原始 CSV / 需求", note: "非结构化输入" },
+  { label: "LLM Schema 推断", note: "推理层", emphasis: true },
+  { label: "本体 Schema", note: "实体 · 关系 · 约束" },
+  { label: "Neo4j 图数据库", note: "数据源" },
+  { label: "NetworkX", note: "计算引擎" },
+  { label: "ReAct Agent", note: "查询 + 动作建议", emphasis: true },
+  { label: "人工确认", note: "HITL 业务动作" },
+];
+
+const snapshot = [
+  { label: "角色", value: "产品经理 & 独立构建者" },
+  { label: "类型", value: "公开案例 / 可运行原型" },
+  { label: "技术栈", value: "Neo4j · NetworkX · LLM · ReAct Agent" },
+  { label: "状态", value: "公开仓库，持续迭代" },
+];
 ---
 
 <Layout
   title={`Prompt-to-Ontology | ${config.site.title}`}
-  description="一个公开实验：探索如何把模糊的产品需求、业务概念和表格数据转化为结构化本体资产和知识图谱，服务于企业 AI 系统。"
+  description="案例研究：把模糊需求和原始 CSV 数据转化为可运营的知识图谱与 Agent 层 —— 本体 Schema 推断、Neo4j 与人工确认的业务动作。"
 >
   <Header />
 
@@ -46,14 +64,27 @@ import config from "@/config";
       </span>
     </div>
 
+    <div
+      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+    >
+      {
+        snapshot.map(item => (
+          <div class="bg-background p-4">
+            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+              {item.label}
+            </p>
+            <p class="mt-1 text-sm">{item.value}</p>
+          </div>
+        ))
+      }
+    </div>
+
     <h2 class="mt-8 text-xl font-semibold">问题背景</h2>
     <p>
       企业 AI
       系统经常失败，根本原因在于底层数据模型与真实业务逻辑不匹配。传统数据模型只展示表和列，但忽略了定义真实业务逻辑的关系、约束和操作。当
       AI Agent 构建在一个失真的数据模型之上时，它推理的是一个虚构的业务版本。
     </p>
-
-    <h2 class="mt-6 text-xl font-semibold">为什么本体很重要</h2>
     <p>
       本体（Ontology）不仅捕获实体和属性，还捕获关系、约束以及这些实体所能支撑的业务动作。对企业
       AI
@@ -61,7 +92,15 @@ import config from "@/config";
       Agent。
     </p>
 
-    <h2 class="mt-6 text-xl font-semibold">我构建了什么</h2>
+    <h2 class="mt-6 text-xl font-semibold">我的角色</h2>
+    <p>
+      这是一个 PM 主导的构建实验：我定义产品意图、架构边界和设计约束，使用 LLM
+      Pair Programming（Claude
+      Code）加速实现、调试和迭代。图谱建模什么、计算放在哪一层、Agent
+      被允许做什么 —— 每一个架构决策本质上都是我做出并能够解释的产品决策。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">构建方式</h2>
     <p>
       Prompt-to-Ontology 接收原始 CSV 数据，将其转化为可交互的知识图谱。LLM
       推断本体 Schema —— 实体、关系、约束 —— 然后写入 Neo4j 图数据库。顶层是一个
@@ -74,6 +113,10 @@ import config from "@/config";
       > 作为计算引擎，<strong>LLM</strong>
       作为推理层。三个解耦的系统，可以独立替换。
     </p>
+    <FlowDiagram
+      steps={architectureSteps}
+      caption="端到端数据流：从原始表格数据到人工确认的业务动作。高亮阶段为 LLM 负责推理的环节。"
+    />
 
     <h2 class="mt-6 text-xl font-semibold">关键洞察</h2>
     <p>
@@ -86,27 +129,28 @@ import config from "@/config";
       —— 一个低库存节点会触发「创建采购单」按钮。
     </p>
 
-    <h2 class="mt-6 text-xl font-semibold">PM-led 开发方式</h2>
-    <p>
-      这是一个 PM
-      主导的快速原型实验：我定义产品意图、架构边界和设计约束，同时使用 LLM Pair
-      Programming 来加速实现、调试和迭代。
-    </p>
-    <p>
-      最有价值的产出不是代码，而是理解本体驱动系统的认知框架：数据模型、Schema
-      和本体之间的区别；「看一个图」和「通过图来运营业务」之间的本质差异。
-    </p>
-
-    <h2 class="mt-6 text-xl font-semibold">架构 / 工作流</h2>
-    <p>公开架构图将展示以下数据流转过程：</p>
-    <p class="text-muted-foreground mt-2 text-sm">
-      原始 CSV / 需求文档 &rarr; LLM Schema 推断 &rarr; 本体 Schema &rarr; Neo4j
-      图数据库 &rarr; NetworkX 计算层 &rarr; ReAct Agent &rarr; HITL
-      业务动作建议
-    </p>
-
-    <h2 class="mt-6 text-xl font-semibold">当前状态</h2>
-    <p>公开仓库，持续迭代中。</p>
+    <h2 class="mt-6 text-xl font-semibold">成果与信号</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        一个可运行的全栈原型：输入 CSV，输出带有 Agent
+        动作建议的可运营知识图谱，代码在公开 GitHub 仓库中。
+      </li>
+      <li>
+        一套可复用的认知框架：数据模型、Schema
+        和本体之间的区别；「看一个图」和「通过图来运营业务」之间的本质差异。
+      </li>
+      <li>
+        方法论被提炼为
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook")}
+          class="text-accent hover:underline">Playbook 方法论页面</a
+        >，并整理成一篇
+        <a
+          href="/posts/building-ontology-os"
+          class="text-accent hover:underline">长文复盘</a
+        >。
+      </li>
+    </ul>
 
     <div class="mt-6 flex flex-wrap gap-3">
       <a

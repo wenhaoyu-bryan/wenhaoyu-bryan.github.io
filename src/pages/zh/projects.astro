@@ -5,41 +5,9 @@ import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
+import { getProjects } from "@/data/projects";
 
-const projects = [
-  {
-    title: "Prompt-to-Ontology",
-    description:
-      "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。",
-    status: "Public",
-    href: getRelativeLocaleUrl("zh", "projects/prompt-to-ontology"),
-    tags: ["Ontology", "Knowledge Graphs", "Neo4j", "NetworkX", "ReAct Agent"],
-  },
-  {
-    title: "AI PM Operating Playbook",
-    description:
-      "面向 AI 产品经理的方法论工具集，将模糊的 AI 产品想法转化为结构化产品简报、工作流规格、评估计划和编码智能体交接材料。",
-    status: "Public Tool",
-    href: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
-    tags: ["AI PM", "方法论", "交互工具", "框架"],
-  },
-  {
-    title: "Vibe Coding Prototype Lab",
-    description:
-      "展示 AI 产品经理如何借助 Claude Code、Cursor 和 LLM Pair Programming 把想法转化为原型和可复用流程。",
-    status: "Public",
-    href: getRelativeLocaleUrl("zh", "projects/vibe-coding-prototype-lab"),
-    tags: ["Claude Code", "Cursor", "Prototyping", "LLM Pair Programming"],
-  },
-  {
-    title: "SEO/GEO Growth Experiments",
-    description:
-      "关于内容系统、B2B 网站增长和 AI 搜索可见性的长期笔记与实验空间。",
-    status: "Ongoing",
-    href: getRelativeLocaleUrl("zh", "growth-lab"),
-    tags: ["SEO", "GEO", "B2B", "Content Systems"],
-  },
-];
+const projects = getProjects("zh");
 ---
 
 <Layout

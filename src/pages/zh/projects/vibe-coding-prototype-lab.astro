@@ -4,7 +4,24 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
 import config from "@/config";
+
+const workflowSteps = [
+  { label: "产品意图", note: "明确为什么" },
+  { label: "约束与非目标", note: "圈定范围" },
+  { label: "可运行原型", note: "小步生成", emphasis: true },
+  { label: "行为审查", note: "不只看代码" },
+  { label: "可复用模式", note: "重构沉淀" },
+  { label: "Playbook", note: "记录学习", emphasis: true },
+];
+
+const snapshot = [
+  { label: "角色", value: "产品经理，主导 PM-led 原型开发" },
+  { label: "类型", value: "持续更新的公开实验室" },
+  { label: "工具", value: "Claude Code · Cursor · LLM Pair Programming" },
+  { label: "状态", value: "活跃 — 持续新增实验" },
+];
 ---
 
 <Layout
@@ -43,6 +60,21 @@ import config from "@/config";
       </span>
     </div>
 
+    <div
+      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+    >
+      {
+        snapshot.map(item => (
+          <div class="bg-background p-4">
+            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+              {item.label}
+            </p>
+            <p class="mt-1 text-sm">{item.value}</p>
+          </div>
+        ))
+      }
+    </div>
+
     <h2 class="mt-8 text-xl font-semibold">为什么这件事很重要</h2>
     <p>
       AI
@@ -61,14 +93,39 @@ import config from "@/config";
     </ul>
 
     <h2 class="mt-6 text-xl font-semibold">我的工作流</h2>
-    <ol class="mt-2 list-inside list-decimal space-y-2">
-      <li>定义产品意图</li>
-      <li>明确约束条件和非目标</li>
-      <li>生成可运行的小型原型</li>
-      <li>审查产品行为，而不只是代码</li>
-      <li>重构为可复用的模式</li>
-      <li>将学习沉淀为 Playbook</li>
-    </ol>
+    <FlowDiagram
+      steps={workflowSteps}
+      caption="每一轮循环都以文档化、可复用的模式收尾 —— 原型是副产品，Playbook 才是资产。"
+    />
+
+    <h2 class="mt-6 text-xl font-semibold">成果与信号</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href={getRelativeLocaleUrl("zh", "projects/prompt-to-ontology")}
+          class="text-accent hover:underline">Prompt-to-Ontology</a
+        > — 用这套工作流从零构建的全栈本体原型。
+      </li>
+      <li>
+        <a
+          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer">AI PM Operating Playbook</a
+        > — 交互式工具集，本身也是 Vibe Coding 的产物。
+      </li>
+      <li>
+        本网站 — 通过 PM 主导的 LLM Pair Programming 在 Astro
+        上设计、构建和迭代。
+      </li>
+      <li>
+        工作流已沉淀为
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook")}
+          class="text-accent hover:underline">Playbook 方法论</a
+        >。
+      </li>
+    </ul>
 
     <h2 class="mt-6 text-xl font-semibold">这不是什么</h2>
     <p>

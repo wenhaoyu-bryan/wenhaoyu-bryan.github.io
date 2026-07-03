@@ -5,6 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
+import { getProjects } from "@/data/projects";
 
 const locale = "zh";
 
@@ -27,7 +28,8 @@ const topics = [
   },
   {
     title: "面向 PM 的 Vibe Coding",
-    description: "PM 主导、编码智能体辅助的原型开发，用于早期发现和工作流验证。",
+    description:
+      "PM 主导、编码智能体辅助的原型开发，用于早期发现和工作流验证。",
   },
   {
     title: "工业与 B2B AI",
@@ -35,57 +37,28 @@ const topics = [
   },
 ];
 
-const projects = [
-  {
-    title: "Prompt-to-Ontology",
-    description:
-      "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。",
-    status: "Public",
-    href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
-  },
-  {
-    title: "AI PM Operating Playbook",
-    description:
-      "面向 AI 产品经理的方法论工具集，将模糊的 AI 产品想法转化为结构化产品简报、工作流规格、评估计划和编码智能体交接材料。",
-    status: "Public Tool",
-    href: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
-  },
-  {
-    title: "Vibe Coding Prototype Lab",
-    description:
-      "展示 AI 产品经理如何借助 Claude Code、Cursor 和 LLM Pair Programming 把想法转化为原型和可复用流程。",
-    status: "Public",
-    href: getRelativeLocaleUrl(locale, "projects/vibe-coding-prototype-lab"),
-  },
-  {
-    title: "SEO/GEO Growth Experiments",
-    description:
-      "关于内容系统、B2B 网站增长和 AI 搜索可见性的长期笔记与实验空间。",
-    status: "Ongoing",
-    href: getRelativeLocaleUrl(locale, "growth-lab"),
-  },
-];
+const projects = getProjects(locale);
 
 const featured = [
   {
     title: "Building Ontology OS",
-    description: "本体驱动的 AI 产品实验",
-    href: getRelativeLocaleUrl(locale, "posts/building-ontology-os"),
+    description: "本体驱动的 AI 产品实验（英文）",
+    href: getRelativeLocaleUrl("en", "posts/building-ontology-os"),
   },
   {
     title: "Harness Engineering",
-    description: "上下文、工具与约束设计",
-    href: getRelativeLocaleUrl(locale, "playbook/harness-engineering"),
+    description: "上下文、工具与约束设计（英文）",
+    href: getRelativeLocaleUrl("en", "playbook/harness-engineering"),
   },
   {
     title: "AI-Native PRD",
-    description: "AI 原生产品需求文档",
-    href: getRelativeLocaleUrl(locale, "playbook/ai-native-prd"),
+    description: "AI 原生产品需求文档（英文）",
+    href: getRelativeLocaleUrl("en", "playbook/ai-native-prd"),
   },
   {
     title: "Loop Engineering",
-    description: "反馈循环与迭代设计",
-    href: getRelativeLocaleUrl(locale, "playbook/loop-engineering"),
+    description: "反馈循环与迭代设计（英文）",
+    href: getRelativeLocaleUrl("en", "playbook/loop-engineering"),
   },
   {
     title: "Vibe Coding Prototype Lab",
@@ -94,8 +67,8 @@ const featured = [
   },
   {
     title: "SEO to GEO",
-    description: "搜索与 AI 可见性",
-    href: getRelativeLocaleUrl(locale, "playbook/seo-to-geo"),
+    description: "搜索与 AI 可见性（英文）",
+    href: getRelativeLocaleUrl("en", "playbook/seo-to-geo"),
   },
   {
     title: "Prompt-to-Ontology",
@@ -113,14 +86,31 @@ const featured = [
   <main id="main-content" data-layout="index" class="app-layout">
     <!-- Hero -->
     <section class="border-border border-b pt-8 pb-10 sm:pt-12 sm:pb-14">
-      <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <div
+        class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between"
+      >
         <div class="max-w-2xl">
-          <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
-            余文豪
-          </h1>
-          <div class="mt-5 h-0.5 w-16 origin-left animate-[slideIn_600ms_ease-out_200ms_forwards] bg-accent" style="transform: scaleX(0);"></div>
+          <p
+            class="border-border text-muted-foreground mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium"
+          >
+            <span class="inline-block size-1.5 rounded-full bg-green-500"
+            ></span>
+            开放 AI PM 职位机会、产品合作与早期想法交流 —
+            <a
+              href="#contact"
+              class="text-foreground hover:text-accent underline decoration-dashed underline-offset-4"
+              >联系我</a
+            >
+          </p>
+          <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">余文豪</h1>
+          <div
+            class="bg-accent mt-5 h-0.5 w-16 origin-left animate-[slideIn_600ms_ease-out_200ms_forwards]"
+            style="transform: scaleX(0);"
+          >
+          </div>
           <p class="mt-4 text-lg font-medium sm:text-xl">
-            我是一名 AI 产品经理，专注于智能体工作流、本体驱动系统和 AI 原生产品工具。
+            我是一名 AI 产品经理，专注于智能体工作流、本体驱动系统和 AI
+            原生产品工具。
           </p>
           <p class="text-muted-foreground mt-3 max-w-2xl">
             我擅长把模糊的业务问题转化为结构化产品概念、交互式原型和可复用交付系统。
@@ -240,7 +230,7 @@ const featured = [
       <div class="mt-5 flex flex-wrap gap-3">
         <button
           type="button"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors cursor-pointer"
+          class="border-border text-foreground hover:bg-accent/10 inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           data-copy-email="wenhaoyu.bryan@gmail.com"
         >
           Email
@@ -285,19 +275,23 @@ const featured = [
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    document.querySelectorAll<HTMLButtonElement>("[data-copy-email]").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const email = btn.dataset.copyEmail;
-        if (!email) return;
-        try {
-          await navigator.clipboard.writeText(email);
-          const original = btn.textContent;
-          btn.textContent = "已复制!";
-          setTimeout(() => { btn.textContent = original; }, 2000);
-        } catch {
-          window.location.href = `mailto:${email}`;
-        }
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-copy-email]")
+      .forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const email = btn.dataset.copyEmail;
+          if (!email) return;
+          try {
+            await navigator.clipboard.writeText(email);
+            const original = btn.textContent;
+            btn.textContent = "已复制!";
+            setTimeout(() => {
+              btn.textContent = original;
+            }, 2000);
+          } catch {
+            window.location.href = `mailto:${email}`;
+          }
+        });
       });
-    });
   });
 </script>
