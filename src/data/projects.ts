@@ -1,6 +1,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import ontologyThumb from "@/assets/projects/prompt-to-ontology/dashboard.png";
 import playbookThumb from "@/assets/projects/ai-pm-operating-playbook/homepage.png";
+import manifestoThumb from "@/assets/projects/ai-pm-manifesto/hero.png";
 
 type Locale = "en" | "zh";
 
@@ -63,6 +64,22 @@ const defs: ProjectDef[] = [
     tags: {
       en: ["AI PM", "Methodology", "Interactive Tools", "Frameworks"],
       zh: ["AI PM", "方法论", "交互工具", "框架"],
+    },
+  },
+  {
+    title: "AI PM Manifesto",
+    icon: "Code",
+    status: "Public",
+    url: "https://wenhaoyu-bryan.github.io/AI-PM-Manifesto/",
+    thumbnail: manifestoThumb,
+    thumbnailAlt: "AI PM Manifesto — dark cinematic scroll page hero",
+    description: {
+      en: "A dark, cinematic single-page manifesto on building AI products with AI — and a frontend / UI-UX craft showcase. Built with Astro, GSAP, and Lenis.",
+      zh: "一个暗色电影感的单页宣言：用 AI 构建 AI 产品，同时展示前端 / UI-UX 设计能力。基于 Astro、GSAP、Lenis 构建。",
+    },
+    tags: {
+      en: ["Frontend", "Motion", "GSAP", "Astro", "UI/UX"],
+      zh: ["前端", "动效", "GSAP", "Astro", "UI/UX"],
     },
   },
   {
