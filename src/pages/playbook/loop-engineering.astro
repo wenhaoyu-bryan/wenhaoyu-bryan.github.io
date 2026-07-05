@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
@@ -17,6 +18,7 @@ const PLAYBOOK_BASE =
   description="Designing the feedback loops through which an AI product, its team, and its delivery artifacts improve over repeated iterations."
 >
   <Header />
+  <Breadcrumb />
 
   <Main
     pageTitle="Loop Engineering for AI Product Development"

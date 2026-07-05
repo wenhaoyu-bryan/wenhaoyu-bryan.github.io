@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import FlowDiagram from "@/components/FlowDiagram.astro";
@@ -29,6 +30,7 @@ const snapshot = [
   description="探索 AI 产品经理如何借助 Claude Code、Cursor 和 LLM Pair Programming 把产品想法转化为原型、规格和可复用流程。"
 >
   <Header />
+  <Breadcrumb />
 
   <Main pageTitle="Vibe Coding Prototype Lab" class="app-prose">
     <p class="text-muted-foreground text-sm">

@@ -1,0 +1,168 @@
+---
+import { Image, getImage } from "astro:assets";
+
+export interface Shot {
+  src: ImageMetadata;
+  alt: string;
+  caption: string;
+}
+
+interface Props {
+  images: Shot[];
+}
+
+const { images } = Astro.props;
+
+// Pre-generate optimized full-size (WebP) sources for the lightbox view.
+const fulls = await Promise.all(
+  images.map(shot =>
+    getImage({
+      src: shot.src,
+      width: Math.min(shot.src.width, 1600),
+      format: "webp",
+    })
+  )
+);
+---
+
+<div class="mt-4 grid gap-4 sm:grid-cols-2">
+  {
+    images.map((shot, i) => (
+      <button
+        type="button"
+        class="gallery-item group block w-full cursor-zoom-in text-left"
+        data-full={fulls[i].src}
+        data-caption={shot.caption}
+        aria-label={`Enlarge screenshot: ${shot.caption}`}
+      >
+        <Image
+          src={shot.src}
+          alt={shot.alt}
+          widths={[400, 800]}
+          sizes="(min-width: 640px) 45vw, 90vw"
+          class="aspect-video w-full rounded-lg object-cover object-top transition-opacity group-hover:opacity-90"
+          loading="lazy"
+        />
+        <span class="text-muted-foreground group-hover:text-accent mt-2 block text-xs">
+          {shot.caption}
+        </span>
+      </button>
+    ))
+  }
+</div>
+
+<dialog id="screenshot-lightbox" class="screenshot-lightbox">
+  <div class="lightbox-inner">
+    <img id="screenshot-lightbox-img" src="" alt="" />
+    <p id="screenshot-lightbox-caption" class="lightbox-caption"></p>
+  </div>
+  <button
+    id="screenshot-lightbox-close"
+    type="button"
+    aria-label="Close"
+    class="lightbox-close"
+  >
+    &#x2715;
+  </button>
+</dialog>
+
+<style>
+  dialog.screenshot-lightbox {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    border: none;
+    background: transparent;
+    color: rgb(255 255 255 / 0.9);
+  }
+
+  dialog.screenshot-lightbox::backdrop {
+    background: rgb(0 0 0 / 0.85);
+  }
+
+  .lightbox-inner {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+  }
+
+  .lightbox-inner img {
+    max-height: 82vh;
+    max-width: 100%;
+    width: auto;
+    border-radius: 0.5rem;
+    object-fit: contain;
+  }
+
+  .lightbox-caption {
+    margin: 0;
+    text-align: center;
+    font-size: 0.875rem;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    height: 2.25rem;
+    width: 2.25rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.4);
+    background: rgb(0 0 0 / 0.4);
+    color: rgb(255 255 255 / 0.9);
+    line-height: 1;
+  }
+
+  .lightbox-close:hover {
+    border-color: rgb(255 255 255 / 0.9);
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const dialog = document.getElementById("screenshot-lightbox");
+    if (!(dialog instanceof HTMLDialogElement)) return;
+
+    const img = document.getElementById(
+      "screenshot-lightbox-img"
+    ) as HTMLImageElement | null;
+    const caption = document.getElementById("screenshot-lightbox-caption");
+    const closeBtn = document.getElementById("screenshot-lightbox-close");
+    if (!img || !caption) return;
+
+    document
+      .querySelectorAll<HTMLButtonElement>(".gallery-item")
+      .forEach(btn => {
+        btn.addEventListener("click", () => {
+          const full = btn.dataset.full;
+          const text = btn.dataset.caption ?? "";
+          if (!full) return;
+          img.src = full;
+          img.alt = text;
+          caption.textContent = text;
+          dialog.showModal();
+        });
+      });
+
+    closeBtn?.addEventListener("click", () => dialog.close());
+
+    // Click anywhere on the backdrop (outside the image) to close.
+    dialog.addEventListener("click", event => {
+      if (!(event.target instanceof Element)) return;
+      if (event.target === img) return;
+      dialog.close();
+    });
+  });
+</script>

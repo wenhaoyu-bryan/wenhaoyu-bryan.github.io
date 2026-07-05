@@ -2,10 +2,57 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import FlowDiagram from "@/components/FlowDiagram.astro";
+import ScreenshotGallery from "@/components/ScreenshotGallery.astro";
+import type { Shot } from "@/components/ScreenshotGallery.astro";
 import config from "@/config";
+
+import dashboard from "@/assets/projects/prompt-to-ontology/dashboard.png";
+import dataPipeline from "@/assets/projects/prompt-to-ontology/data-pipeline.png";
+import ontologyManager from "@/assets/projects/prompt-to-ontology/ontology-manager.png";
+import graph from "@/assets/projects/prompt-to-ontology/graph.png";
+import analystAgent from "@/assets/projects/prompt-to-ontology/analyst-agent.png";
+import reviewQueue from "@/assets/projects/prompt-to-ontology/review-queue.png";
+
+const walkthrough: Shot[] = [
+  {
+    src: dashboard,
+    alt: "运营本体运行时仪表盘",
+    caption:
+      "运营运行时 —— 46 个本体对象、116 条关系、5 条风险规则、324 条待审项。",
+  },
+  {
+    src: dataPipeline,
+    alt: "数据管线：选择、剖析、映射、校验、导入",
+    caption:
+      "数据管线 —— 剖析原始 CSV，将字段映射到本体类型，生成可审查的导入计划。",
+  },
+  {
+    src: ontologyManager,
+    alt: "本体 Schema 管理：对象类型、关系、规则、动作",
+    caption: "本体 Schema —— 6 种对象类型、关系类型、校验规则与业务动作定义。",
+  },
+  {
+    src: graph,
+    alt: "交互式知识图谱浏览器",
+    caption: "图谱浏览器 —— 推断出的知识图谱以带类型的对象和关系呈现。",
+  },
+  {
+    src: analystAgent,
+    alt: "分析 Agent 通过本体工具回答问题",
+    caption:
+      "分析 Agent —— 通过调用本体工具回答，而非凭空猜测；只提出可审查的动作建议。",
+  },
+  {
+    src: reviewQueue,
+    alt: "人工确认审查队列",
+    caption:
+      "审查队列 —— 低置信度候选项与 Agent 建议在写入图谱前等待人工确认。",
+  },
+];
 
 const architectureSteps = [
   { label: "原始 CSV / 需求", note: "非结构化输入" },
@@ -30,6 +77,7 @@ const snapshot = [
   description="案例研究：把模糊需求和原始 CSV 数据转化为可运营的知识图谱与 Agent 层 —— 本体 Schema 推断、Neo4j 与人工确认的业务动作。"
 >
   <Header />
+  <Breadcrumb />
 
   <Main pageTitle="Prompt-to-Ontology" class="app-prose">
     <p class="text-muted-foreground text-sm">
@@ -118,7 +166,15 @@ const snapshot = [
       caption="端到端数据流：从原始表格数据到人工确认的业务动作。高亮阶段为 LLM 负责推理的环节。"
     />
 
-    <h2 class="mt-6 text-xl font-semibold">关键洞察</h2>
+    <h2 class="mt-8 text-xl font-semibold">产品实景</h2>
+    <p>
+      一个真实可运行的原型，端到端构建完成。点击任意截图可放大查看 ——
+      这是宠物食品本体演示，跑通了从原始数据到 Agent
+      建议、再到人工确认动作的完整流程。
+    </p>
+    <ScreenshotGallery images={walkthrough} />
+
+    <h2 class="mt-8 text-xl font-semibold">关键洞察</h2>
     <p>
       事实表是节点，不是边。订单不是客户和产品之间的关系 ——
       它是一个独立实体，通过两条独立的边分别连接到客户和产品。搞错这一点，整个图拓扑就会崩塌。

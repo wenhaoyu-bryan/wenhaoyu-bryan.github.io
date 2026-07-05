@@ -1,4 +1,6 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
+import ontologyThumb from "@/assets/projects/prompt-to-ontology/dashboard.png";
+import playbookThumb from "@/assets/projects/ai-pm-operating-playbook/homepage.png";
 
 type Locale = "en" | "zh";
 
@@ -10,6 +12,8 @@ export interface Project {
   href: string;
   external: boolean;
   tags: string[];
+  thumbnail?: ImageMetadata;
+  thumbnailAlt?: string;
 }
 
 interface ProjectDef {
@@ -22,6 +26,8 @@ interface ProjectDef {
   url?: string;
   description: Record<Locale, string>;
   tags: Record<Locale, string[]>;
+  thumbnail?: ImageMetadata;
+  thumbnailAlt?: string;
 }
 
 const defs: ProjectDef[] = [
@@ -30,6 +36,8 @@ const defs: ProjectDef[] = [
     icon: "Network",
     status: "Public",
     path: "projects/prompt-to-ontology",
+    thumbnail: ontologyThumb,
+    thumbnailAlt: "Prompt-to-Ontology operational runtime dashboard",
     description: {
       en: "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems.",
       zh: "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。",
@@ -44,6 +52,8 @@ const defs: ProjectDef[] = [
     icon: "Book",
     status: "Public Tool",
     url: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
+    thumbnail: playbookThumb,
+    thumbnailAlt: "AI PM Operating Playbook landing page and workbench",
     description: {
       en: "A methodology-driven toolkit that turns ambiguous AI product ideas into structured product briefs, workflow specifications, evaluation plans, and coding-agent handoff materials.",
       zh: "面向 AI 产品经理的方法论工具集，将模糊的 AI 产品想法转化为结构化产品简报、工作流规格、评估计划和编码智能体交接材料。",
@@ -93,5 +103,7 @@ export function getProjects(locale: string): Project[] {
     tags: def.tags[loc],
     href: def.url ?? getRelativeLocaleUrl(loc, def.path),
     external: Boolean(def.url),
+    thumbnail: def.thumbnail,
+    thumbnailAlt: def.thumbnailAlt,
   }));
 }

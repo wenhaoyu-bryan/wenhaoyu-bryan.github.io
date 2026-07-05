@@ -1,7 +1,9 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
@@ -17,6 +19,7 @@ const projects = getProjects(locale);
   description="Public projects and experiments around AI product management, Prompt-to-Ontology, vibe coding prototypes, and SEO/GEO growth systems."
 >
   <Header />
+  <Breadcrumb />
 
   <Main pageTitle="Projects" class="app-prose">
     <p class="text-muted-foreground text-sm">
@@ -48,6 +51,16 @@ const projects = getProjects(locale);
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
           >
+            {project.thumbnail && (
+              <Image
+                src={project.thumbnail}
+                alt={project.thumbnailAlt ?? project.title}
+                widths={[400, 800]}
+                sizes="(min-width: 640px) 700px, 90vw"
+                class="mb-4 aspect-video w-full rounded-md object-cover object-top"
+                loading="lazy"
+              />
+            )}
             <div class="flex items-center justify-between">
               <h2 class="group-hover:text-accent text-xl font-semibold">
                 {project.title}

@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
@@ -15,6 +16,7 @@ const projects = getProjects("zh");
   description="公开项目与实验：Prompt-to-Ontology、AI PM Operating Playbook、Vibe Coding Prototype Lab 和 SEO/GEO Growth Lab。"
 >
   <Header />
+  <Breadcrumb />
 
   <Main pageTitle="项目" class="app-prose">
     <p class="text-muted-foreground text-sm">

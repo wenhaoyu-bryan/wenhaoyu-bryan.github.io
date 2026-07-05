@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
@@ -94,6 +95,7 @@ const categories = [
   description="Frameworks, field notes, and practical patterns for designing, evaluating, and delivering AI-native products."
 >
   <Header />
+  <Breadcrumb />
 
   <Main pageTitle="AI PM Operating Playbook" class="app-prose">
     <p>

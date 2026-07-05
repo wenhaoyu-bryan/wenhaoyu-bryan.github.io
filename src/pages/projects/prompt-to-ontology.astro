@@ -2,10 +2,59 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import FlowDiagram from "@/components/FlowDiagram.astro";
+import ScreenshotGallery from "@/components/ScreenshotGallery.astro";
+import type { Shot } from "@/components/ScreenshotGallery.astro";
 import config from "@/config";
+
+import dashboard from "@/assets/projects/prompt-to-ontology/dashboard.png";
+import dataPipeline from "@/assets/projects/prompt-to-ontology/data-pipeline.png";
+import ontologyManager from "@/assets/projects/prompt-to-ontology/ontology-manager.png";
+import graph from "@/assets/projects/prompt-to-ontology/graph.png";
+import analystAgent from "@/assets/projects/prompt-to-ontology/analyst-agent.png";
+import reviewQueue from "@/assets/projects/prompt-to-ontology/review-queue.png";
+
+const walkthrough: Shot[] = [
+  {
+    src: dashboard,
+    alt: "Operational ontology runtime dashboard",
+    caption:
+      "Operational runtime — 46 ontology objects, 116 relations, 5 risk rules, 324 review items live.",
+  },
+  {
+    src: dataPipeline,
+    alt: "Data pipeline: select, profile, map, validate, import",
+    caption:
+      "Data pipeline — profile raw CSV, map fields to ontology types, and stage reviewable import plans.",
+  },
+  {
+    src: ontologyManager,
+    alt: "Ontology schema manager with object types, relations, rules, actions",
+    caption:
+      "Ontology schema — 6 object types, relationship types, validation rules, and action definitions.",
+  },
+  {
+    src: graph,
+    alt: "Interactive knowledge graph explorer",
+    caption:
+      "Graph explorer — the inferred knowledge graph rendered as typed objects and relationships.",
+  },
+  {
+    src: analystAgent,
+    alt: "Analyst agent answering questions via ontology tools",
+    caption:
+      "Analyst agent — answers by calling ontology tools, not guessing; proposes reviewable actions only.",
+  },
+  {
+    src: reviewQueue,
+    alt: "Human-in-the-loop review queue",
+    caption:
+      "Review queue — low-confidence candidates and agent suggestions wait for human approval before write.",
+  },
+];
 
 const architectureSteps = [
   { label: "Raw CSV / Requirements", note: "messy input" },
@@ -30,6 +79,7 @@ const snapshot = [
   description="Case study: turning messy requirements and raw CSV data into an operational knowledge graph with an agent layer — ontology schema inference, Neo4j, and human-in-the-loop actions."
 >
   <Header />
+  <Breadcrumb />
 
   <Main pageTitle="Prompt-to-Ontology" class="app-prose">
     <p class="text-muted-foreground text-sm">
@@ -125,7 +175,15 @@ const snapshot = [
       caption="End-to-end pipeline: from raw tabular data to human-approved business actions. Highlighted stages are where the LLM does the reasoning."
     />
 
-    <h2 class="mt-6 text-xl font-semibold">Key Insights</h2>
+    <h2 class="mt-8 text-xl font-semibold">Product Walkthrough</h2>
+    <p>
+      A working prototype, built end-to-end. Click any screen to enlarge — this
+      is the pet-food ontology demo running the full pipeline from raw data to
+      agent-suggested, human-approved actions.
+    </p>
+    <ScreenshotGallery images={walkthrough} />
+
+    <h2 class="mt-8 text-xl font-semibold">Key Insights</h2>
     <p>
       Fact tables are nodes, not edges. An order isn't a relationship between a
       customer and a product — it's an independent entity connected to both via

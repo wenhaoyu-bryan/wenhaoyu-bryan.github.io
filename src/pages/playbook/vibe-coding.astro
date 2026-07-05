@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
@@ -17,6 +18,7 @@ const PLAYBOOK_BASE =
   description="PM-led, coding-agent-assisted prototyping for early discovery, workflow validation, and executable product communication."
 >
   <Header />
+  <Breadcrumb />
 
   <Main pageTitle="Vibe Coding for Product Discovery" class="app-prose">
     <p class="text-muted-foreground text-lg">

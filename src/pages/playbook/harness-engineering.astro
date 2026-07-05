@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
@@ -17,6 +18,7 @@ const PLAYBOOK_BASE =
   description="Designing the context, tools, constraints, tests, and feedback systems that guide AI coding agents — rather than writing code yourself."
 >
   <Header />
+  <Breadcrumb />
 
   <Main
     pageTitle="Harness Engineering for AI-Assisted Product Delivery"
