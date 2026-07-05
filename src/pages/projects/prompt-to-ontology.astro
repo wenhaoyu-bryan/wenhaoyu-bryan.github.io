@@ -183,6 +183,24 @@ const snapshot = [
     </p>
     <ScreenshotGallery images={walkthrough} />
 
+    <div
+      class="border-border bg-muted/30 mt-6 flex flex-col gap-3 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div>
+        <p class="font-medium">See the ontology come alive</p>
+        <p class="text-muted-foreground text-sm">
+          Explore the knowledge graph as an interactive 3D scene — orbit, zoom,
+          and inspect every entity and relationship.
+        </p>
+      </div>
+      <a
+        href={getRelativeLocaleUrl("en", "projects/ontology-graph")}
+        class="bg-accent text-accent-foreground inline-flex shrink-0 items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+      >
+        Explore in 3D &rarr;
+      </a>
+    </div>
+
     <h2 class="mt-8 text-xl font-semibold">Key Insights</h2>
     <p>
       Fact tables are nodes, not edges. An order isn't a relationship between a

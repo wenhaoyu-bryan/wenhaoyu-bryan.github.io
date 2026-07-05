@@ -24,6 +24,8 @@ interface ProjectDef {
   path?: string;
   /** External URL */
   url?: string;
+  /** Page exists only in English; zh listings link to the en route. */
+  enOnly?: boolean;
   description: Record<Locale, string>;
   tags: Record<Locale, string[]>;
   thumbnail?: ImageMetadata;
@@ -101,7 +103,7 @@ export function getProjects(locale: string): Project[] {
     status: def.status,
     description: def.description[loc],
     tags: def.tags[loc],
-    href: def.url ?? getRelativeLocaleUrl(loc, def.path),
+    href: def.url ?? getRelativeLocaleUrl(def.enOnly ? "en" : loc, def.path),
     external: Boolean(def.url),
     thumbnail: def.thumbnail,
     thumbnailAlt: def.thumbnailAlt,

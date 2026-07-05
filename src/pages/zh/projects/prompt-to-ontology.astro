@@ -174,6 +174,24 @@ const snapshot = [
     </p>
     <ScreenshotGallery images={walkthrough} />
 
+    <div
+      class="border-border bg-muted/30 mt-6 flex flex-col gap-3 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div>
+        <p class="font-medium">在 3D 中探索这套本体</p>
+        <p class="text-muted-foreground text-sm">
+          将知识图谱作为可交互的 3D 场景来探索 ——
+          自由旋转、缩放，并查看每一个实体与关系（英文界面）。
+        </p>
+      </div>
+      <a
+        href={getRelativeLocaleUrl("en", "projects/ontology-graph")}
+        class="bg-accent text-accent-foreground inline-flex shrink-0 items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+      >
+        进入 3D 图谱 &rarr;
+      </a>
+    </div>
+
     <h2 class="mt-8 text-xl font-semibold">关键洞察</h2>
     <p>
       事实表是节点，不是边。订单不是客户和产品之间的关系 ——

@@ -1,0 +1,121 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import config from "@/config";
+import OntologyGraph from "@/components/graph/OntologyGraph.tsx";
+
+const backUrl = getRelativeLocaleUrl(
+  config.site.lang,
+  "projects/prompt-to-ontology"
+);
+---
+
+<Layout
+  title={`Interactive Ontology Graph | ${config.site.title}`}
+  description="A real-time, explorable 3D knowledge graph of the Prompt-to-Ontology pet-food ontology — built with React Three Fiber and WebGL."
+>
+  <div class="graph-page">
+    <OntologyGraph client:only="react" />
+
+    <!-- Top-left: identity + back -->
+    <div class="graph-overlay graph-overlay--tl">
+      <a href={backUrl} class="graph-back">&larr; Prompt-to-Ontology</a>
+      <h1 class="graph-title">Interactive Ontology Graph</h1>
+      <p class="graph-sub">
+        The Prompt-to-Ontology knowledge graph, rendered in real-time 3D.
+      </p>
+    </div>
+
+    <!-- Top-right: controls hint -->
+    <div class="graph-overlay graph-overlay--tr">
+      <span class="graph-hint">Drag to orbit</span>
+      <span class="graph-hint">Scroll to zoom</span>
+      <span class="graph-hint">Click a node</span>
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  /* Full-bleed dark surface that deliberately departs from the flat portfolio
+     theme — this page is a frontend/WebGL showcase. */
+  .graph-page {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: #05060a;
+    overflow: hidden;
+  }
+
+  .graph-overlay {
+    position: absolute;
+    z-index: 50;
+    pointer-events: none;
+    color: #e8ecf4;
+  }
+
+  .graph-overlay--tl {
+    top: 1.25rem;
+    left: 1.25rem;
+    max-width: min(24rem, calc(100vw - 2.5rem));
+  }
+
+  .graph-overlay--tr {
+    top: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    text-align: right;
+  }
+
+  /* When a detail panel is open (top-right in the React layer), push the hint
+     column down is unnecessary — hints are short; keep them subtle instead. */
+  .graph-back {
+    pointer-events: auto;
+    display: inline-block;
+    font-size: 0.8rem;
+    color: #9aa6bd;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 9999px;
+    padding: 0.25rem 0.7rem;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
+  }
+
+  .graph-back:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .graph-title {
+    margin: 0.75rem 0 0;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .graph-sub {
+    margin: 0.35rem 0 0;
+    font-size: 0.85rem;
+    color: #9aa6bd;
+    max-width: 22rem;
+  }
+
+  .graph-hint {
+    font-size: 0.72rem;
+    color: #8b97ad;
+    background: rgba(10, 12, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    padding: 0.15rem 0.6rem;
+  }
+
+  /* Hide the global BackToTop button on this immersive page. */
+  .graph-page ~ #back-to-top,
+  body:has(.graph-page) #back-to-top {
+    display: none;
+  }
+</style>
