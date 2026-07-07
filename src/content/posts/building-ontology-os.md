@@ -18,7 +18,7 @@ description: "How a product manager used LLM pair programming to build and under
 
 ## The Question That Started It All
 
-As an AI Product Manager entering the semiconductor industry at TCL, I needed to understand how enterprise AI platforms like Palantir AIP and Foundry actually work under the hood. Not the whitepaper version — the real version.
+As an AI Product Manager working in advanced manufacturing, I needed to understand how enterprise AI platforms like Palantir AIP and Foundry actually work under the hood. Not the whitepaper version — the real version.
 
 So I decided to build one myself.
 

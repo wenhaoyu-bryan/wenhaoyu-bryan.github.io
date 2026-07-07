@@ -47,6 +47,8 @@ const personJsonLd = JSON.stringify({
 const MIRRORED_ROUTES = [
   "/",
   "/about/",
+  "/ai-stack/",
+  "/now/",
   "/projects/",
   "/projects/prompt-to-ontology/",
   "/projects/vibe-coding-prototype-lab/",
@@ -126,6 +128,18 @@ const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
 
     <!-- Author entity -->
     <script is:inline type="application/ld+json" set:html={personJsonLd} />
+
+    <!-- Privacy-friendly analytics (only when a GoatCounter code is configured) -->
+    {
+      site.goatCounterCode && (
+        <script
+          is:inline
+          data-goatcounter={`https://${site.goatCounterCode}.goatcounter.com/count`}
+          async
+          src="//gc.zgo.at/count.js"
+        />
+      )
+    }
 
     <!-- Filled at runtime by theme.ts to match the current background colour -->
     <meta name="theme-color" content="" />

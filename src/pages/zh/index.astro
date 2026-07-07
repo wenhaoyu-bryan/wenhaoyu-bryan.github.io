@@ -6,6 +6,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
 import { getProjects } from "@/data/projects";
+import AskAI from "@/components/AskAI.astro";
 
 const locale = "zh";
 
@@ -114,6 +115,14 @@ const featured = [
           </p>
           <p class="text-muted-foreground mt-3 max-w-2xl">
             我擅长把模糊的业务问题转化为结构化产品概念、交互式原型和可复用交付系统。
+          </p>
+          <p class="mt-3 text-sm">
+            <a
+              href={getRelativeLocaleUrl(locale, "now")}
+              class="text-accent hover:underline"
+            >
+              → 我现在在做什么
+            </a>
           </p>
           <p class="text-muted-foreground mt-4 text-sm">从这里开始 →</p>
           <div class="mt-2 flex flex-wrap gap-3">
@@ -235,6 +244,9 @@ const featured = [
       <p class="text-muted-foreground mt-2 max-w-xl">
         如果你对 AI 产品协作、本体驱动系统或增长实验感兴趣，欢迎联系。
       </p>
+      <div class="mt-5 max-w-xl">
+        <AskAI locale={locale} />
+      </div>
       <div class="mt-5 flex flex-wrap gap-3">
         <button
           type="button"
