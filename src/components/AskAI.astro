@@ -1,0 +1,56 @@
+---
+/**
+ * "Ask an AI about me" buttons. Deep-links to Claude and ChatGPT with a prompt
+ * pre-filled to read the site's llms-full.txt. Zero backend: the conversation
+ * happens on the AI provider's own site.
+ */
+import config from "@/config";
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = "en" } = Astro.props;
+const base = config.site.url.replace(/\/$/, "");
+const fullTxt = `${base}/llms-full.txt`;
+
+const zh = locale === "zh";
+
+const prompt = zh
+  ? `请阅读 ${fullTxt} ，然后回答我关于 Wenhao Yu (Bryan)（一位 AI 产品经理）的问题。首先：作为 AI PM，他最强的领域是什么？`
+  : `Please read ${fullTxt} and answer my questions about Wenhao Yu (Bryan), an AI Product Manager. To start: what are his strongest areas as an AI PM?`;
+
+const encoded = encodeURIComponent(prompt);
+const claudeUrl = `https://claude.ai/new?q=${encoded}`;
+const chatgptUrl = `https://chatgpt.com/?q=${encoded}`;
+
+const heading = zh ? "用 AI 了解我" : "Ask an AI about me";
+const blurb = zh
+  ? "在 Claude 或 ChatGPT 里打开一段已经预填好的对话——它会读取本站的完整内容，然后回答你关于我的任何问题。"
+  : "Open a pre-filled chat in Claude or ChatGPT — it reads this site's full content, then answers whatever you want to know about me.";
+const claudeLabel = zh ? "在 Claude 中了解我 ↗" : "Ask Claude about me ↗";
+const chatgptLabel = zh ? "在 ChatGPT 中了解我 ↗" : "Ask ChatGPT about me ↗";
+---
+
+<div class="border-border bg-muted/20 rounded-lg border p-5">
+  <h3 class="font-medium">{heading}</h3>
+  <p class="text-muted-foreground mt-1.5 text-sm">{blurb}</p>
+  <div class="mt-4 flex flex-wrap gap-3">
+    <a
+      href={claudeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="border-border text-foreground hover:bg-accent/10 hover:border-accent inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+    >
+      {claudeLabel}
+    </a>
+    <a
+      href={chatgptUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="border-border text-foreground hover:bg-accent/10 hover:border-accent inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+    >
+      {chatgptLabel}
+    </a>
+  </div>
+</div>

@@ -19,6 +19,12 @@ interface SiteConfig {
   dir?: "ltr" | "rtl" | "auto";
   /** Google Search Console verification meta tag value */
   googleVerification?: string;
+  /**
+   * GoatCounter site code (the subdomain part of your goatcounter.com URL,
+   * e.g. "wenhaoyu" for wenhaoyu.goatcounter.com). When empty, no analytics
+   * script is emitted. Privacy-friendly, no cookies, no consent banner needed.
+   */
+  goatCounterCode?: string;
 }
 
 interface PostsConfig {
@@ -115,7 +121,7 @@ type ResolvedSiteConfig = Required<
     | "ogImage"
   >
 > &
-  Pick<SiteConfig, "profile" | "googleVerification">;
+  Pick<SiteConfig, "profile" | "googleVerification" | "goatCounterCode">;
 
 export interface ResolvedAstroPaperConfig {
   site: ResolvedSiteConfig;

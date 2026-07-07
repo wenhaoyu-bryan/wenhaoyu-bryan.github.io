@@ -151,9 +151,9 @@ const boundaries = [
     <h2 class="mt-10 text-xl font-semibold">Coding Tools</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Claude Code CLI — primary.</strong> Runs most frontend and
-        backend work with an 80+ skill setup and a structured
-        brainstorm-plan-implement-review workflow. This site, the
+        <strong>Claude Code CLI — primary.</strong> Runs most frontend and backend
+        work with an 80+ skill setup and a structured brainstorm-plan-implement-review
+        workflow. This site, the
         <a
           href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
           class="text-accent hover:underline">AI PM Operating Playbook</a
@@ -195,24 +195,24 @@ const boundaries = [
     <h2 class="mt-10 text-xl font-semibold">Build Stack</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Frontend (primary):</strong> Astro + React, Tailwind CSS,
-        shadcn/ui on Radix primitives
+        <strong>Frontend (primary):</strong> Astro + React, Tailwind CSS, shadcn/ui
+        on Radix primitives
       </li>
       <li>
-        <strong>Enterprise admin:</strong> Vue 3 on a pnpm-monorepo admin
-        framework (turborepo tooling chain)
+        <strong>Enterprise admin:</strong> Vue 3 on a pnpm-monorepo admin framework
+        (turborepo tooling chain)
       </li>
       <li>
-        <strong>Backend:</strong> Python + FastAPI, Neo4j + NetworkX for
-        graph/ontology work, Node.js for API automation
+        <strong>Backend:</strong> Python + FastAPI, Neo4j + NetworkX for graph/ontology
+        work, Node.js for API automation
       </li>
       <li>
-        <strong>Motion & 3D:</strong> GSAP + Lenis for scroll-driven
-        storytelling, React Three Fiber for 3D
+        <strong>Motion & 3D:</strong> GSAP + Lenis for scroll-driven storytelling,
+        React Three Fiber for 3D
       </li>
       <li>
-        <strong>Deploy:</strong> GitHub Pages and Vercel via CI, Docker Compose
-        where a real backend is involved
+        <strong>Deploy:</strong> GitHub Pages and Vercel via CI, Docker Compose where
+        a real backend is involved
       </li>
     </ul>
 
@@ -220,67 +220,64 @@ const boundaries = [
       Agent Platform Product Design (0 → 1)
     </h2>
     <p>
-      The heaviest proof of this stack is not a side project. At my current
-      job I took an enterprise agent platform from zero to launch as its
-      product manager: day-one ideation, PRDs, competitor analysis, customer
-      feedback loops, and vibe-coded prototypes that became the blueprint the
-      engineering team built from. The product belongs to my employer, so no
-      names or specifics here — only the design patterns, which are the
-      transferable part anyway.
+      The heaviest proof of this stack is not a side project. At my current job
+      I took an enterprise agent platform from zero to launch as its product
+      manager: day-one ideation, PRDs, competitor analysis, customer feedback
+      loops, and vibe-coded prototypes that became the blueprint the engineering
+      team built from. The product belongs to my employer, so no names or
+      specifics here — only the design patterns, which are the transferable part
+      anyway.
     </p>
     <p>Agentic design decisions I owned:</p>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Dual-mode architecture:</strong> a business workspace for
-        frontline users and a developer console for builders, one click apart —
-        the same platform has to read completely differently to each audience
+        <strong>Dual-mode architecture:</strong> a business workspace for frontline
+        users and a developer console for builders, one click apart — the same platform
+        has to read completely differently to each audience
       </li>
       <li>
-        <strong>Layered asset model:</strong> tools (atomic calls) → skills
-        (smallest executable capability) → agents (model + prompt + knowledge +
-        data + tools + skills), each versioned so expertise survives staff
-        turnover
+        <strong>Layered asset model:</strong> tools (atomic calls) → skills (smallest
+        executable capability) → agents (model + prompt + knowledge + data + tools
+        + skills), each versioned so expertise survives staff turnover
       </li>
       <li>
-        <strong>Conversational skill creation:</strong> business users describe
-        a need in natural language; the system asks clarifying questions,
-        renders a live logic blueprint of the execution steps, then generates
-        code, configuration, and documentation together
+        <strong>Conversational skill creation:</strong> business users describe a
+        need in natural language; the system asks clarifying questions, renders a
+        live logic blueprint of the execution steps, then generates code, configuration,
+        and documentation together
       </li>
       <li>
-        <strong>Governance by design:</strong> dev/prod sandbox isolation,
-        simulated execution, human-in-the-loop approval for high-risk actions,
-        capability switches, and release reviews — unchecked AI output never
-        touches production systems
+        <strong>Governance by design:</strong> dev/prod sandbox isolation, simulated
+        execution, human-in-the-loop approval for high-risk actions, capability switches,
+        and release reviews — unchecked AI output never touches production systems
       </li>
       <li>
-        <strong>Grounded configuration:</strong> agents draw on knowledge bases
-        plus terminology glossaries so outputs match enterprise vocabulary,
-        with per-skill confirm-before-execute options and explicit switches for
-        clarifying questions and web search
+        <strong>Grounded configuration:</strong> agents draw on knowledge bases plus
+        terminology glossaries so outputs match enterprise vocabulary, with per-skill
+        confirm-before-execute options and explicit switches for clarifying questions
+        and web search
       </li>
       <li>
-        <strong>Automation orchestration:</strong> webhook, message-queue, and
-        scheduled triggers on a visual flow canvas, with low-confidence
-        branches routed to human approval instead of guessing
+        <strong>Automation orchestration:</strong> webhook, message-queue, and scheduled
+        triggers on a visual flow canvas, with low-confidence branches routed to human
+        approval instead of guessing
       </li>
     </ul>
 
     <h2 class="mt-10 text-xl font-semibold">Beyond Coding</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Dual-track knowledge management:</strong> a locally deployed
-        long-document knowledge base (MCP-connected) plus a markdown wiki that
-        threads together daily fragments — screenshots, papers, prompts
+        <strong>Dual-track knowledge management:</strong> a locally deployed long-document
+        knowledge base (MCP-connected) plus a markdown wiki that threads together
+        daily fragments — screenshots, papers, prompts
       </li>
       <li>
-        <strong>MCP integrations:</strong> browser automation and web-crawling
-        tools wired into the agent loop
+        <strong>MCP integrations:</strong> browser automation and web-crawling tools
+        wired into the agent loop
       </li>
       <li>
-        <strong>Enterprise AI enablement:</strong> ran 4 internal training
-        sessions bringing agent workflows to non-technical teams (strategy,
-        finance, legal)
+        <strong>Enterprise AI enablement:</strong> ran 4 internal training sessions
+        bringing agent workflows to non-technical teams (strategy, finance, legal)
       </li>
     </ul>
 
