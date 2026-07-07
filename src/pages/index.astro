@@ -432,9 +432,19 @@ const topics = [
       sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
     }
 
+    // Respect users who prefer reduced motion: skip the opacity-0 reveal
+    // entirely so content is never hidden behind an animation for them.
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
     // Initial page load animation (only on first visit to homepage)
     const isHomepage = indexLayout?.layout === "index";
-    if (isHomepage && !sessionStorage.getItem("homeAnimated")) {
+    if (
+      !prefersReducedMotion &&
+      isHomepage &&
+      !sessionStorage.getItem("homeAnimated")
+    ) {
       sessionStorage.setItem("homeAnimated", "true");
 
       const sections = document.querySelectorAll("#main-content > section");
@@ -462,7 +472,10 @@ const topics = [
     }, observerOptions);
 
     // Observe individual cards within sections (only if not already animated from page load)
-    if (!isHomepage || sessionStorage.getItem("homeAnimated")) {
+    if (
+      !prefersReducedMotion &&
+      (!isHomepage || sessionStorage.getItem("homeAnimated"))
+    ) {
       document
         .querySelectorAll("section > div > a, section > div > div")
         .forEach(card => {
