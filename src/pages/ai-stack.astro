@@ -32,8 +32,8 @@ const workflow = [
   },
   {
     stage: "Daily operations",
-    tools: "Self-built personal agent + MCP tools",
-    note: "Task management, research, notes, and automation live in an agent loop, not in my head.",
+    tools: "Agent workflows + MCP tools",
+    note: "Research, notes, and repetitive tasks run through agent loops rather than living in my head.",
   },
 ];
 
@@ -216,12 +216,58 @@ const boundaries = [
       </li>
     </ul>
 
-    <h2 class="mt-10 text-xl font-semibold">Beyond Coding</h2>
+    <h2 class="mt-10 text-xl font-semibold">
+      Agent Platform Product Design (0 → 1)
+    </h2>
+    <p>
+      The heaviest proof of this stack is not a side project. At my current
+      job I took an enterprise agent platform from zero to launch as its
+      product manager: day-one ideation, PRDs, competitor analysis, customer
+      feedback loops, and vibe-coded prototypes that became the blueprint the
+      engineering team built from. The product belongs to my employer, so no
+      names or specifics here — only the design patterns, which are the
+      transferable part anyway.
+    </p>
+    <p>Agentic design decisions I owned:</p>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Self-built personal agent</strong> with 30+ skills handling
-        daily task management, research, and knowledge-base automation
+        <strong>Dual-mode architecture:</strong> a business workspace for
+        frontline users and a developer console for builders, one click apart —
+        the same platform has to read completely differently to each audience
       </li>
+      <li>
+        <strong>Layered asset model:</strong> tools (atomic calls) → skills
+        (smallest executable capability) → agents (model + prompt + knowledge +
+        data + tools + skills), each versioned so expertise survives staff
+        turnover
+      </li>
+      <li>
+        <strong>Conversational skill creation:</strong> business users describe
+        a need in natural language; the system asks clarifying questions,
+        renders a live logic blueprint of the execution steps, then generates
+        code, configuration, and documentation together
+      </li>
+      <li>
+        <strong>Governance by design:</strong> dev/prod sandbox isolation,
+        simulated execution, human-in-the-loop approval for high-risk actions,
+        capability switches, and release reviews — unchecked AI output never
+        touches production systems
+      </li>
+      <li>
+        <strong>Grounded configuration:</strong> agents draw on knowledge bases
+        plus terminology glossaries so outputs match enterprise vocabulary,
+        with per-skill confirm-before-execute options and explicit switches for
+        clarifying questions and web search
+      </li>
+      <li>
+        <strong>Automation orchestration:</strong> webhook, message-queue, and
+        scheduled triggers on a visual flow canvas, with low-confidence
+        branches routed to human approval instead of guessing
+      </li>
+    </ul>
+
+    <h2 class="mt-10 text-xl font-semibold">Beyond Coding</h2>
+    <ul class="mt-2 space-y-2">
       <li>
         <strong>Dual-track knowledge management:</strong> a locally deployed
         long-document knowledge base (MCP-connected) plus a markdown wiki that
