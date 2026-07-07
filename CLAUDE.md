@@ -51,14 +51,17 @@ src/
     playbook.astro  + playbook/<slug>.astro   # methodology pages (hand-authored .astro)
     growth-lab.astro
     posts/          # blog routes driven by the posts collection
-    zh/             # Chinese mirror of the above (partial — see i18n notes)
+    zh/             # Chinese mirror — complete for all non-blog pages (home,
+                    # about, projects + case studies, all playbook pages,
+                    # growth-lab). Blog posts are en-only (see i18n notes).
   content/
     posts/          # blog posts (markdown, posts collection)
     pages/about.md
   components/       # AstroPaper components (Card, Header, Footer, ...)
   layouts/          # Layout.astro (head/meta), PostLayout.astro
   data/             # shared page data (projects list, etc.)
-  i18n/             # locale strings (en only so far; zh pages hand-translate inline)
+  i18n/             # site-chrome locale strings; page copy is hand-translated
+                    # inline in each src/pages/zh/ file (mirrors the en page)
 ```
 
 **Content model:** blog posts are a content collection
