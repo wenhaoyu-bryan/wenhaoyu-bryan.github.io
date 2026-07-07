@@ -27,7 +27,9 @@
   --background: #212737;
   --foreground: #eaedf3;
   --accent: #ff6b01;
-  --accent-foreground: #ffffff;
+  /* Dark ink on the bright orange accent: white failed WCAG AA (2.85:1);
+     this warm near-black clears it (~6.5:1). Light theme keeps white on blue. */
+  --accent-foreground: #241a0f;
   --muted: #343f60;
   --muted-foreground: #afb9ca;
   --border: #ab4b08;
