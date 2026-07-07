@@ -1,0 +1,214 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = "zh";
+
+const PLAYBOOK_BASE =
+  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
+---
+
+<Layout
+  title={`Vibe Coding for Product Discovery | ${config.site.title}`}
+  description="PM 主导、编码智能体辅助的原型开发，用于早期发现、工作流验证，以及「可运行的产品沟通」。"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="面向产品发现的 Vibe Coding" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "playbook/vibe-coding")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      在本 Playbook 里，Vibe Coding 指的是 PM
+      主导、编码智能体辅助的原型开发。你与 Claude Code 或 Cursor
+      这样的工具结对，用自然语言构建可运行的原型 ——
+      目的不是交付生产代码，而是更快地发现、验证和沟通产品想法。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">它在本 Playbook 里的含义</h2>
+    <p>
+      「Vibe Coding」这个词常被泛泛地用来指代任何 LLM
+      辅助的编码。在这里，它有一个具体的含义：PM
+      用编码智能体，通过可运行的原型来探索产品想法。PM
+      定义产品意图、架构约束和设计边界，智能体负责生成代码。
+    </p>
+    <p class="mt-2">
+      这不是要取代工程，而是要补上一种传统 PM 工具（线框图、幻灯片、书面
+      PRD）无法提供的能力：在投入工程资源之前，就能做出一个你可以点击体验、能与相关方一起测试、并能评估技术可行性的东西。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">适用场景</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>早期想法。</strong
+        >你有一个概念，但需要把它看成一个可运行的界面，才能判断它是否说得通。
+      </li>
+      <li>
+        <strong>工作流验证。</strong
+        >你需要在写详细规格之前，先测试一个多步骤的用户流程是否走得通。
+      </li>
+      <li>
+        <strong>相关方沟通。</strong
+        >一个可点击的原型，比一份幻灯片更精确地传达产品意图。
+      </li>
+      <li>
+        <strong>技术可行性检查。</strong>在请求工程投入时间之前，你想知道某个
+        API 集成或数据流是否切实可行。
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">PM 主导的原型开发能改善什么</h2>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>迭代速度。</strong>一个 PM
+        借助编码智能体几小时就能做出的原型，在传统 Sprint
+        周期里可能要花上几周。这种速度改变了你探索想法的方式 ——
+        你可以在投入之前测试更多假设。
+      </li>
+      <li>
+        <strong>规格质量。</strong>当你已经做出一个可运行的原型，你的 PRD
+        会变得更具体。你会去明确数据模型、API
+        契约和交互模式，因为你已经把它们想通了。
+      </li>
+      <li>
+        <strong>相关方对齐。</strong
+        >可点击的原型能减少歧义。相关方对他们看到的东西作出反应，而不是对他们想象的东西。反馈会变得更具体、更可执行。
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">它并不替代什么</h2>
+    <p>面向发现的 Vibe Coding 有清晰的边界。它不替代：</p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>生产工程。</strong
+        >发现阶段的原型并非可上线的产品，它们在设计上就是一次性的。价值在于学到的东西，而不是代码。
+      </li>
+      <li>
+        <strong>架构决策。</strong>PM 可以做出一个 UI 流程原型，但系统架构决策
+        —— 数据库设计、服务边界、扩展策略 —— 需要工程判断。
+      </li>
+      <li>
+        <strong>安全评审。</strong
+        >生成的代码没有经过威胁建模或安全审计。发现阶段的原型绝不能处理真实用户数据。
+      </li>
+      <li>
+        <strong>可扩展性与性能。</strong
+        >一个在样例数据下服务单个用户可用的原型，未必能在真实数据下服务成千上万用户。这些是工程问题，不是发现问题。
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">产品意图与验收标准</h2>
+    <p>
+      PM 主导的 Vibe Coding
+      里，最重要的技能不是提示词工艺，而是产品定义。在你向智能体提示之前，你需要知道：
+    </p>
+    <ul class="mt-2 space-y-2">
+      <li>这解决了用户的什么问题？</li>
+      <li>Happy path（顺利路径）长什么样？</li>
+      <li>输入什么数据、产出什么？</li>
+      <li>对一个发现阶段的原型来说，怎样算「足够好」？</li>
+    </ul>
+    <p class="mt-2">
+      PM
+      定义「是什么」和「为什么」，智能体构建「怎么做」。当你有清晰的验收标准时，智能体会产出更好的输出；当你没有时，它会产出一个看起来对、却并没有解决问题的东西。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">原型到生产的边界</h2>
+    <p>
+      发现阶段的原型回答的是一个问题：「这个想法值得投入吗？」一旦答案是肯定的，工作就从发现转向交付。这条边界之所以重要，是因为：
+    </p>
+    <ul class="mt-2 space-y-2">
+      <li>发现代码为速度和学习而优化；生产代码为可靠性和可维护性而优化。</li>
+      <li>
+        发现原型使用样例数据、跳过边界情况；生产系统必须处理真实数据和失败模式。
+      </li>
+      <li>
+        从发现到工程的交接，应该包含经过验证的用户流程、数据模型和验收标准 ——
+        而不是原型代码本身。
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">常见失败模式</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>过度信任生成的代码。</strong
+        >一个能无报错运行的原型，未必就是正确的。要验证产品逻辑，而不只是语法。
+      </li>
+      <li>
+        <strong>跳过验证。</strong>一个只由 PM
+        独自构建和测试过的原型，并没有被验证。把它放到相关方和潜在用户面前。
+      </li>
+      <li>
+        <strong>范围蔓延。</strong
+        >发现原型应该小而聚焦。如果你发现自己在加认证、数据库和部署流水线，那你已经跨进了工程工作。
+      </li>
+      <li>
+        <strong>把原型和产品混为一谈。</strong
+        >原型的目的是产生认知。如果认知是「不要做这个」，那也是一个成功的结果。
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">与交互工具的关联</h2>
+    <p>
+      AI PM Operating Playbook
+      帮助你从一个想法走到结构化的产品简报和编码智能体交接文档。对 Vibe Coding
+      来说，这意味着你从一个结构化的界定出发，而不是一个开放式的提示 ——
+      这会更快地产出更好的原型。
+    </p>
+
+    <div class="mt-8 mb-8">
+      <a
+        href={PLAYBOOK_BASE}
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        把一个想法变成结构化的产品简报与交接文档 ↗
+      </a>
+    </div>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/harness-engineering")}
+          class="text-accent hover:underline"
+        >
+          Harness Engineering
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/loop-engineering")}
+          class="text-accent hover:underline"
+        >
+          Loop Engineering
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/agent-product-design")}
+          class="text-accent hover:underline"
+        >
+          智能体产品设计
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook 索引
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

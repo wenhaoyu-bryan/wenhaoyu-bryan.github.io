@@ -12,14 +12,14 @@ const locale = "zh";
 const PLAYBOOK_BASE =
   "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/";
 
-// Playbook 方法论页面目前只有英文版，链接指向 en 路由，避免 404
+// Playbook 方法论页面均已有中文版，链接指向 zh 路由
 const categories = [
   {
     title: "AI 原生产品交付",
     items: [
       {
         label: "Vibe Coding for Product Discovery",
-        href: getRelativeLocaleUrl("en", "playbook/vibe-coding"),
+        href: getRelativeLocaleUrl("zh", "playbook/vibe-coding"),
         status: "live",
       },
       {
@@ -30,17 +30,17 @@ const categories = [
       },
       {
         label: "Loop Engineering",
-        href: getRelativeLocaleUrl("en", "playbook/loop-engineering"),
+        href: getRelativeLocaleUrl("zh", "playbook/loop-engineering"),
         status: "live",
       },
       {
         label: "AI-Native PRD",
-        href: getRelativeLocaleUrl("en", "playbook/ai-native-prd"),
+        href: getRelativeLocaleUrl("zh", "playbook/ai-native-prd"),
         status: "live",
       },
       {
         label: "PRD 到原型工作流",
-        href: getRelativeLocaleUrl("en", "playbook/prd-to-prototype"),
+        href: getRelativeLocaleUrl("zh", "playbook/prd-to-prototype"),
         status: "live",
       },
     ],
@@ -50,7 +50,7 @@ const categories = [
     items: [
       {
         label: "Agent 产品设计框架",
-        href: getRelativeLocaleUrl("en", "playbook/agent-product-design"),
+        href: getRelativeLocaleUrl("zh", "playbook/agent-product-design"),
         status: "live",
       },
       { label: "Human-in-the-Loop 设计", href: null, status: "planned" },
@@ -63,7 +63,7 @@ const categories = [
     items: [
       {
         label: "Prompt-to-Ontology",
-        href: getRelativeLocaleUrl("en", "playbook/prompt-to-ontology"),
+        href: getRelativeLocaleUrl("zh", "playbook/prompt-to-ontology"),
         status: "live",
       },
       { label: "本体用于 RAG 和智能体", href: null, status: "planned" },
@@ -117,13 +117,6 @@ const categories = [
                   ) : (
                     <span>{item.label}</span>
                   )}
-                  {item.status === "live" &&
-                    item.href &&
-                    !(item as { zh?: boolean }).zh && (
-                      <span class="text-muted-foreground mt-0.5 text-xs">
-                        (英文)
-                      </span>
-                    )}
                   {item.status === "planned" && (
                     <span class="text-muted-foreground mt-0.5 text-xs">
                       (即将推出)

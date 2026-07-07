@@ -1,0 +1,122 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = "zh";
+---
+
+<Layout
+  title={`SEO to GEO | ${config.site.title}`}
+  description="AI 搜索如何改变增长策略：从搜索引擎排名，转向 AI 可见性、实体清晰度、结构化内容与「像信源一样」的写作。"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="从 SEO 到 GEO" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "playbook/seo-to-geo")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      SEO 关注的是在搜索引擎里的可见性。GEO（Generative Engine
+      Optimization，生成式引擎优化）关注的是：被 AI 回答引擎理解、引用和推荐。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">从搜索排名到 AI 可见性</h2>
+    <p>
+      传统 SEO 优化的是在搜索结果页上的排名位置。GEO 优化的是另一件事：当 AI
+      引擎回答用户问题时，成为它所选择、引用和推荐的那个信源。两者的机制不同，对内容的要求也随之改变。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">变化了什么</h2>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>实体清晰度</strong> —— AI 引擎需要理解你是谁、你懂什么。模糊的品牌会被忽略；清晰的实体会被引用。
+      </li>
+      <li>
+        <strong>结构化内容</strong> —— 用清晰的标题、定义和关系组织起来的内容，更容易被
+        AI 解析和引用。
+      </li>
+      <li>
+        <strong>主题权威性</strong> —— AI 引擎看重深度，而非广度。把一个主题讲透的站点，比浅尝十个主题的站点获得更多引用。
+      </li>
+      <li>
+        <strong>清晰的定义</strong> —— 如果你的内容会定义术语、解释概念、提供框架，AI
+        引擎就会把它当作信源，而不是噪声。
+      </li>
+      <li>
+        <strong>像信源一样写作</strong> —— 写得像在建一份参考资料，而不是一个营销页面。相比推广文案，AI
+        引擎更偏好权威、事实性的内容。
+      </li>
+      <li>
+        <strong>品牌与产品语境</strong> —— AI 引擎需要理解你品牌的定位，才能在正确的语境里推荐你。
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">我的增长实验组合</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>关键词架构</strong> —— 把搜索意图映射到内容集群和页面类型。
+      </li>
+      <li>
+        <strong>内容集群</strong> —— 围绕核心主题，用相互关联的内容建立主题深度。
+      </li>
+      <li>
+        <strong>B2B 落地页</strong> —— 让产品页同时具备「人类可读」和「AI 可解析」两种属性。
+      </li>
+      <li>
+        <strong>AI 搜索监测</strong> —— 追踪 AI 引擎在不同查询下如何引用和推荐内容。
+      </li>
+      <li>
+        <strong>分发回路</strong> —— 把内容生产与可衡量的需求生成结果连接起来。
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">当下的问题</h2>
+    <ul class="mt-2 space-y-2">
+      <li>产品该如何撰写，才能让人类和 AI 回答引擎都理解它？</li>
+      <li>B2B 公司如何在没有庞大内容团队的情况下建立主题权威？</li>
+      <li>相比传统 SEO，GEO 改变了什么？</li>
+      <li>AI PM 如何把产品思维与增长回路连接起来？</li>
+    </ul>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl("en", "growth-lab")}
+          class="text-accent hover:underline"
+        >
+          Growth Lab（英文）
+        </a>
+        <a
+          href={getRelativeLocaleUrl(
+            "en",
+            "posts/seo-to-geo-how-ai-search-changes-growth"
+          )}
+          class="text-accent hover:underline"
+        >
+          SEO to GEO 博文（英文）
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook 索引
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

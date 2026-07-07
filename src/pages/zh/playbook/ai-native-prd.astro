@@ -1,0 +1,125 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = "zh";
+---
+
+<Layout
+  title={`AI-Native PRD | ${config.site.title}`}
+  description="如何为 AI 产品撰写 PRD：模型行为、工具边界、评估标准、Human-in-the-Loop 检查点，以及失败模式。"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="AI 原生 PRD（AI-Native PRD）" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "playbook/ai-native-prd")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      传统 PRD 描述的是静态功能。AI 原生 PRD
+      还必须描述不确定性、模型行为、评估逻辑、工具边界、兜底流程，以及
+      Human-in-the-Loop 规则。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">AI 产品带来了什么变化</h2>
+    <p>
+      在传统软件里，系统会严格照着指令执行。在 AI
+      产品里，系统会推理、会生成，有时也会出错。这改变了 PM
+      写需求的方式：你定义的是边界和护栏，而不只是一份功能清单。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">AI 原生 PRD 检查清单</h2>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>用户目标</strong> —— 用户需要什么样的结果？不是 AI 做了什么，而是「成功」长什么样。
+      </li>
+      <li>
+        <strong>AI 能力边界</strong> —— 模型擅长做什么？在哪里会失败？把能力的边界（capability
+        envelope）明确地定义出来。
+      </li>
+      <li>
+        <strong>输入 / 输出契约</strong> —— 输入哪些数据，产出什么样的结构化输出？定义
+        Schema，而不只是「AI 给出建议」。
+      </li>
+      <li>
+        <strong>模型行为</strong> —— temperature、推理深度、确定性 vs. 创造性模式。把预期的行为区间记录下来。
+      </li>
+      <li>
+        <strong>工具权限</strong> —— AI 能调用哪些外部工具？只读还是可写？影响半径的上限是多少？
+      </li>
+      <li>
+        <strong>评估标准</strong> —— 你如何衡量 AI 的输出是否合格？自动化评估、人工评审，还是两者结合？
+      </li>
+      <li>
+        <strong>Human-in-the-Loop 检查点</strong> —— AI 在什么时候请求审批？如果人说「不行」，会发生什么？
+      </li>
+      <li>
+        <strong>失败模式</strong> —— 最可能出现的 3–5 种失败场景是什么？用户会看到什么？系统如何恢复？
+      </li>
+      <li>
+        <strong>可观测性与反馈回路</strong> —— 哪些内容会被记录？你如何收集信号，随时间不断改进系统？
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">常见错误</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        在没有定义 AI 能力边界的情况下写功能规格 ——
+        模型并非无所不能，假装它可以，只会做出破碎的产品。
+      </li>
+      <li>
+        跳过失败模式 —— AI
+        产品的失败方式和传统软件不同。如果你不为失败做设计，用户就会走进死胡同。
+      </li>
+      <li>
+        把提示词当作实现细节 —— 每一条提示词都是一个有可衡量结果的产品决策。
+      </li>
+      <li>没有评估计划 —— 在不知道如何衡量质量的情况下发布，就是在盲发。</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">我如何使用它</h2>
+    <p>
+      我把这份清单当作任何 AI
+      产品规格的主干。在写线框图或用户故事之前，我会先把能力边界、失败模式和
+      HITL 检查点填好。这会逼着我在设计开始之前就把事情想清楚。
+    </p>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/prd-to-prototype")}
+          class="text-accent hover:underline"
+        >
+          PRD 到原型工作流
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/agent-product-design")}
+          class="text-accent hover:underline"
+        >
+          智能体产品设计
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook 索引
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

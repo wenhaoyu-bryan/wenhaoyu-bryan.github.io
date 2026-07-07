@@ -1,0 +1,220 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = "zh";
+
+const PLAYBOOK_BASE =
+  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
+---
+
+<Layout
+  title={`Loop Engineering | ${config.site.title}`}
+  description="设计反馈回路：让 AI 产品、团队和交付物在一次次迭代中不断改进。"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="面向 AI 产品开发的 Loop Engineering" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "playbook/loop-engineering")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      Loop Engineering
+      是我个人的一个工作概念，并非既有的行业术语。它描述的是一种实用做法：设计反馈回路，让
+      AI 产品、团队和交付物在一次次迭代中不断改进。如果说 Harness Engineering
+      定义的是单次智能体运行的环境，那么 Loop Engineering
+      定义的就是这个环境如何演化。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">为什么「一次性提示」是不够的</h2>
+    <p>
+      对 AI 智能体的单次提示，产出的是一个初稿 ——
+      代码的初稿、规格的初稿、原型的初稿。初稿是有用的，但它们从来不是最终产品。AI
+      产品通过迭代来改进：每一轮循环都增添知识、纠正错误，并缩小「已有」与「所需」之间的差距。
+    </p>
+    <p class="mt-2">
+      问题在于，大多数团队使用 AI
+      工具时，并没有设计他们的迭代过程。他们提示、拿到输出、然后就过去了。输出并没有反哺到下一轮循环。知识留在了某个人的脑子里，而不是留在系统可以使用的产物中。这正是
+      Loop Engineering 要解决的。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">产品循环（Product Loop）</h2>
+    <p>最高层的循环，贯穿整个产品开发周期：</p>
+    <p class="mt-2">
+      <strong>想法</strong> &rarr; <strong>结构化界定</strong> &rarr;
+      <strong>原型</strong> &rarr; <strong>评估</strong> &rarr;
+      <strong>反馈</strong> &rarr; <strong>更新上下文</strong> &rarr;
+      <strong>下一轮迭代</strong>
+    </p>
+    <p class="mt-2">
+      每一次走完这个循环，都应该产出产物：更精炼的
+      PRD、更准确的原型、评估结果、更新后的约束。没有产物，循环每一次都会归零。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">实现循环（Implementation Loop）</h2>
+    <p>在代码层面，实现循环正是编码智能体天然在做的事：</p>
+    <p class="mt-2">
+      <strong>代码生成</strong> &rarr; <strong>测试</strong> &rarr;
+      <strong>评审</strong> &rarr; <strong>修复</strong> &rarr;
+      <strong>提交</strong>
+    </p>
+    <p class="mt-2">
+      当智能体拥有良好的测试覆盖和清晰的反馈时，这个循环就能运转；当测试缺失、错误信息含糊，或智能体在修错东西时，它就会失效。Harness（上下文、工具、约束）决定了这个循环跑得有多紧。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">评估循环（Evaluation Loop）</h2>
+    <p>
+      AI 产品需要的评估，超出了传统 QA
+      的范畴。评估循环衡量的是产品质量，而不只是代码是否正确：
+    </p>
+    <p class="mt-2">
+      <strong>指标</strong> &rarr; <strong>度量</strong> &rarr;
+      <strong>分析</strong> &rarr; <strong>调整</strong>
+    </p>
+    <p class="mt-2">
+      对一个 AI
+      产品而言，这可能意味着追踪输出准确率、用户接受率、幻觉频率或任务完成率。关键在于：评估结果要成为下一轮迭代的输入
+      —— 它们会更新上下文、约束或验收标准。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">
+      用户反馈循环（User-Feedback Loop）
+    </h2>
+    <p>
+      用户反馈是外部信号，它告诉你产品的各个循环是否正收敛到有价值的东西上：
+    </p>
+    <p class="mt-2">
+      <strong>使用</strong> &rarr; <strong>观察</strong> &rarr;
+      <strong>洞察</strong> &rarr; <strong>产品更新</strong>
+    </p>
+    <p class="mt-2">
+      这个循环最慢，也最重要。它把内部开发循环与外部现实连接起来。一个跑着飞快的内部循环、却忽视用户反馈的产品团队，是在为错误的目标做优化。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">
+      上下文更新循环（Context Update Loop）
+    </h2>
+    <p>
+      每个循环都会产生认知。上下文更新循环把这些认知捕捉下来，并让它们可供下一轮迭代使用：
+    </p>
+    <p class="mt-2">
+      <strong>认知</strong> &rarr; <strong>更新项目文档</strong> &rarr;
+      <strong>更好的下一轮迭代</strong>
+    </p>
+    <p class="mt-2">
+      这正是 CLAUDE.md 模式、项目 README
+      和结构化交接文档发挥作用的地方。它们是让累积的知识在会话、团队成员和智能体调用之间持续存在的机制。没有这个循环，每一次迭代都从同一个起点开始。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">每个循环产出的产物</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>产品循环：</strong>更精炼的
+        PRD、更新后的路线图、评估报告、用户研究笔记。
+      </li>
+      <li>
+        <strong>实现循环：</strong>代码提交、测试结果、PR 评审、缺陷报告。
+      </li>
+      <li>
+        <strong>评估循环：</strong>指标看板、对比报告、质量趋势数据。
+      </li>
+      <li>
+        <strong>用户反馈循环：</strong
+        >使用分析、支持工单、用户访谈摘要、功能请求。
+      </li>
+      <li>
+        <strong>上下文更新循环：</strong>更新后的
+        CLAUDE.md、精炼后的架构文档、修订后的规范、知识库条目。
+      </li>
+    </ul>
+    <p class="mt-3">
+      Loop Engineering 的价值不在于任何单个产物 ——
+      而在于每个产物都成为下一轮循环的输入。被遗弃的产物，就是被浪费掉的工作。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">失败模式</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>循环闭不上。</strong
+        >团队产出了输出，却从不把结果反哺回去。每一次迭代都从零开始。
+      </li>
+      <li>
+        <strong>反馈被无视。</strong
+        >评估或用户反馈存在，却没有改变行为。团队重复着同样的模式，却期待不同的结果。
+      </li>
+      <li>
+        <strong>上下文变陈旧。</strong
+        >项目文档反映的是产品更早的状态。智能体基于过时的信息做决策。
+      </li>
+      <li>
+        <strong>优化了错误的循环。</strong
+        >团队跑着飞快的实现循环，却没有评估循环。他们发布得很快，却发布了错误的东西。
+      </li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">
+      与 AI PM Operating Playbook 的关联
+    </h2>
+    <p>
+      AI PM Operating Playbook
+      中的「评估与风险」步骤，正是评估循环的直接应用。它帮助 PM
+      定义要衡量什么、如何衡量，以及拿结果做什么。它生成的产物 ——
+      评估计划、风险评估、验收标准 —— 都是为反哺后续迭代而设计的。
+    </p>
+
+    <div class="mt-8 mb-8">
+      <a
+        href={PLAYBOOK_BASE}
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        在 AI PM Operating Playbook 中构建一套评估与反馈计划 ↗
+      </a>
+    </div>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/harness-engineering")}
+          class="text-accent hover:underline"
+        >
+          Harness Engineering
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/vibe-coding")}
+          class="text-accent hover:underline"
+        >
+          面向产品发现的 Vibe Coding
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/ai-native-prd")}
+          class="text-accent hover:underline"
+        >
+          AI-Native PRD
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook 索引
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

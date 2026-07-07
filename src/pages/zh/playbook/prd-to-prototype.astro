@@ -1,0 +1,115 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = "zh";
+---
+
+<Layout
+  title={`PRD to Prototype | ${config.site.title}`}
+  description="AI PM 用 LLM Pair Programming 把产品需求转化为可运行原型的工作流 —— 从意图，到行为审查，再到规格打磨。"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="从 PRD 到原型（PRD to Prototype）" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "playbook/prd-to-prototype")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      AI PM 的工作流正在从「写完 PRD 然后等」转变为「写
+      PRD、生成原型、测试产品行为，再打磨规格」。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">为什么原型在 AI 产品里更重要</h2>
+    <p>
+      AI 产品具有非确定性的行为。一份静态的 PRD
+      无法完整描述模型会如何推理、会遇到哪些边界情况，或用户会如何与生成的输出交互。原型让
+      PM 能在投入工程资源之前，先把行为测试一遍。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">工作流</h2>
+    <ol class="mt-2 list-inside list-decimal space-y-3">
+      <li>
+        <strong>产品意图</strong> —— 定义用户问题和期望的结果。不是功能，而是结果。
+      </li>
+      <li>
+        <strong>约束与非目标</strong> —— 系统绝不该做什么？本轮迭代中哪些不在范围内？
+      </li>
+      <li>
+        <strong>交互流程</strong> —— 用户如何与 AI 交互？审批流程是怎样的？失败时会发生什么？
+      </li>
+      <li>
+        <strong>数据假设</strong> —— 存在哪些数据？Schema 是什么？现有数据与模型所需之间，缺口在哪里？
+      </li>
+      <li>
+        <strong>原型生成</strong> —— 用 LLM Pair Programming（Claude Code、Cursor）生成一个可运行的原型。审查的是行为，而不只是代码。
+      </li>
+      <li>
+        <strong>行为审查</strong> —— 把原型对照最初的意图来测试。它解决了用户问题吗？它在哪里会崩？
+      </li>
+      <li>
+        <strong>规格打磨</strong> —— 用原型中得到的认知去更新 PRD。因为你已经测过行为，规格会变得更紧致。
+      </li>
+    </ol>
+
+    <h2 class="mt-6 text-xl font-semibold">PM 该审查什么</h2>
+    <ul class="mt-2 space-y-2">
+      <li>输出是否符合用户的心智模型？</li>
+      <li>AI 在哪里会产出出人意料或错误的结果？</li>
+      <li>Human-in-the-Loop 流程是否清晰、顺畅无摩擦？</li>
+      <li>如果面向 100 倍的用户上线，什么会崩？</li>
+      <li>哪些信号能告诉你这个产品是有效的？</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">常见错误</h2>
+    <ul class="mt-2 space-y-2">
+      <li>把原型当成生产代码 —— 它是一个思考工具，而不是可交付上线的产物。</li>
+      <li>
+        审查代码质量，而不是产品行为 —— PM
+        应该评估的是「是否解决了正确的问题」，而不是代码是否优雅。
+      </li>
+      <li>跳过规格打磨这一步 —— 原型的价值，在于它让你对需求学到了什么。</li>
+    </ul>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/ai-native-prd")}
+          class="text-accent hover:underline"
+        >
+          AI-Native PRD
+        </a>
+        <a
+          href={getRelativeLocaleUrl(
+            locale,
+            "projects/vibe-coding-prototype-lab"
+          )}
+          class="text-accent hover:underline"
+        >
+          Vibe Coding Prototype Lab
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook 索引
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

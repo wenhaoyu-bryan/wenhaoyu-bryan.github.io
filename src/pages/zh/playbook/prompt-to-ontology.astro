@@ -1,0 +1,124 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = "zh";
+---
+
+<Layout
+  title={`Prompt-to-Ontology | ${config.site.title}`}
+  description="一套方法：把杂乱的业务语言、需求和流程概念，转化为面向企业 AI 的结构化实体、关系、约束与动作。"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="Prompt-to-Ontology 方法论" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "playbook/prompt-to-ontology")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      Prompt-to-Ontology
+      是一套方法：把杂乱的业务语言、需求和流程概念，转化为结构化的实体、关系、约束与动作。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">为什么本体很重要</h2>
+    <p>
+      大多数企业 AI
+      项目，都失败在数据建模这一层。不是因为模型不好，而是因为系统并不理解业务。本体（ontology）会逼你定义：存在什么、事物之间如何连接、可以进行哪些操作。没有这一步，智能体推理的就是一个虚构版本的你的业务。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">从需求到本体</h2>
+    <ol class="mt-2 list-inside list-decimal space-y-3">
+      <li>
+        <strong>抽取实体</strong> —— 名词有哪些？订单、客户、产品、机器、事件。把它们明确命名出来。
+      </li>
+      <li>
+        <strong>识别关系</strong> —— 实体之间如何连接？客户下订单，订单包含产品，机器生产批次。
+      </li>
+      <li>
+        <strong>定义属性</strong> —— 每个实体有哪些属性？状态、时间戳、数量、优先级、负责人。
+      </li>
+      <li>
+        <strong>加上约束</strong> —— 哪些规则支配这个领域？订单不能在付款前发货；一台机器不能同时跑两个批次。
+      </li>
+      <li>
+        <strong>映射可能的动作</strong> —— 每个实体上可以执行哪些操作？创建、更新、审批、取消、升级。
+      </li>
+      <li>
+        <strong>接入智能体工作流</strong> —— 本体如何驱动智能体推理？实体成为工具的输入，动作成为工具的输出，约束成为护栏。
+      </li>
+    </ol>
+
+    <h2 class="mt-6 text-xl font-semibold">示例模式</h2>
+    <p>一条杂乱的需求，比如「系统应该帮助管理库存」，会变成：</p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>实体：</strong
+        >InventoryItem、Warehouse、PurchaseOrder、Supplier、ReorderRule
+      </li>
+      <li>
+        <strong>关系：</strong>InventoryItem stored_in Warehouse；PurchaseOrder
+        supplied_by Supplier
+      </li>
+      <li>
+        <strong>约束：</strong>InventoryItem.quantity 低于阈值时触发 ReorderRule
+      </li>
+      <li>
+        <strong>动作：</strong
+        >CreatePurchaseOrder、UpdateInventoryCount、EscalateToManager
+      </li>
+    </ul>
+    <p>
+      这种结构化的表示，才是智能体真正在其上进行推理的东西。把它做对，智能体几乎能自己把自己搭起来。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">常见错误</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        把事实表当作边 ——
+        订单并不是客户和产品之间的关系。它是一个独立实体，通过两条独立的边分别连接到客户和产品。
+      </li>
+      <li>
+        只做可视化、不做动作 —— 没有 Action 按钮的知识图谱，只是一张好看的图。
+      </li>
+      <li>跳过约束 —— 没有规则的实体，会让智能体产生不可能的状态。</li>
+    </ul>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
+          class="text-accent hover:underline"
+        >
+          Prompt-to-Ontology 项目
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/agent-product-design")}
+          class="text-accent hover:underline"
+        >
+          智能体产品设计
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook 索引
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>
