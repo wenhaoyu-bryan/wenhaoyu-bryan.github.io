@@ -24,8 +24,9 @@ const categories = [
       },
       {
         label: "Harness Engineering",
-        href: getRelativeLocaleUrl("en", "playbook/harness-engineering"),
+        href: getRelativeLocaleUrl("zh", "playbook/harness-engineering"),
         status: "live",
+        zh: true,
       },
       {
         label: "Loop Engineering",
@@ -116,11 +117,13 @@ const categories = [
                   ) : (
                     <span>{item.label}</span>
                   )}
-                  {item.status === "live" && item.href && (
-                    <span class="text-muted-foreground mt-0.5 text-xs">
-                      (英文)
-                    </span>
-                  )}
+                  {item.status === "live" &&
+                    item.href &&
+                    !(item as { zh?: boolean }).zh && (
+                      <span class="text-muted-foreground mt-0.5 text-xs">
+                        (英文)
+                      </span>
+                    )}
                   {item.status === "planned" && (
                     <span class="text-muted-foreground mt-0.5 text-xs">
                       (即将推出)

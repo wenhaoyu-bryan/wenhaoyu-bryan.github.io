@@ -1,0 +1,199 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = "zh";
+
+const PLAYBOOK_BASE =
+  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
+---
+
+<Layout
+  title={`Harness Engineering | ${config.site.title}`}
+  description="设计 AI 编码智能体所处的上下文、工具、约束、测试与反馈系统，而不是自己动手写代码。"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main
+    pageTitle="面向 AI 辅助产品交付的 Harness Engineering"
+    class="app-prose"
+  >
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "playbook/harness-engineering")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      Harness Engineering 指的是设计 AI 编码智能体所处的整个环境 ——
+      它接收到的上下文、可以使用的工具、必须遵守的边界，以及它获得的反馈 ——
+      而不是自己动手写代码。智能体负责生成代码，Harness
+      负责确保它生成的是正确的代码。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">模型 vs. 智能体循环 vs. Harness</h2>
+    <p>这三层很容易混淆，而混淆它们会导致糟糕的结果。</p>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>模型</strong>
+        负责生成文本和代码，它是一个通用推理引擎。你无法控制它的内部权重，你能控制的是你放在它面前的东西。
+      </li>
+      <li>
+        <strong>智能体循环</strong>
+        决定下一步做什么：读取文件、运行测试、编辑代码、请求澄清。Claude Code 或 Cursor
+        这类框架实现了这个循环。你去配置它，但通常不需要从零编写它。
+      </li>
+      <li>
+        <strong>Harness</strong>
+        定义了智能体运作的环境：它能看到什么、能触碰什么、必须遵守哪些规则，以及它如何得知自己的输出是否合格。这一层，是由你来设计的。
+      </li>
+    </ul>
+    <p class="mt-3">
+      人们对 AI 编码智能体的大部分挫败感，都来自忽视了 Harness。
+      再好的模型，放进糟糕的 Harness 里，也只会产出不可靠的结果。
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">上下文（Context）</h2>
+    <p>
+      上下文是智能体在任务开始前和进行中接收到的信息，包括项目结构、编码规范、既有模式、领域术语，以及当前请求的具体目标。
+    </p>
+    <p class="mt-2">
+      <strong>PM 需要定义：</strong
+      >本次任务中，产品全局里哪些部分是相关的；哪些用户故事是相关的；哪些业务规则约束着解决方案；智能体在动手之前应该先读哪些现有代码或文档。CLAUDE.md
+      文件、项目 README，或一份结构化的交接文档，都是注入上下文的手段。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">工具（Tools）</h2>
+    <p>
+      工具是智能体可执行的动作：读写文件、运行命令、调用 API、执行测试。
+      每一个工具既是一种能力，也是一种风险。一个拥有不受限的文件写入权限和 Shell
+      权限的智能体，能很快地把东西搭起来 —— 也能很快地把东西弄坏。
+    </p>
+    <p class="mt-2">
+      <strong>PM 需要定义：</strong
+      >本次任务所需的工具权限范围。智能体是需要修改数据库
+      Schema，还是只动前端？它应该运行测试，还是只生成代码？
+      界定工具权限不是一个技术细节 —— 它是一个产品安全决策。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">约束（Constraints）</h2>
+    <p>
+      约束是智能体绝不能违反的规则：安全策略、代码风格指南、架构边界、命名规范、范围限制。没有明确的约束，智能体会生成能跑、但并不契合项目的代码。
+    </p>
+    <p class="mt-2">
+      <strong>PM 需要定义：</strong
+      >产品层面的护栏。本轮迭代中哪些功能不在范围内；哪些第三方服务是被批准的；哪些数据智能体绝不能暴露。工程师定义实现层面的约束（类型系统、Lint
+      规则、安全策略），PM 定义产品层面的约束。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">测试与反馈</h2>
+    <p>
+      智能体需要一种方式来判断自己是否成功。没有反馈回路，它就是在黑暗中生成代码。反馈可以是自动化的：Lint、类型检查、单元测试、集成测试、CI
+      流水线；也可以是人工的：代码评审、产品评审、验收测试。
+    </p>
+    <p class="mt-2">
+      <strong>PM 需要定义：</strong
+      >验收标准。不只是「代码能否编译」，而是「产品是否做到了用户需要的事」。定义清晰、可测试的验收标准，是
+      PM 能为提升智能体输出质量所做的、杠杆率最高的一件事。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">状态与交接</h2>
+    <p>
+      除非你给它一种办法，否则 AI
+      智能体不会记得上一次会话发生了什么。状态必须被持久化到产物中：CLAUDE.md
+      文件、项目文档、结构化的任务描述、Git 历史。
+    </p>
+    <p class="mt-2">
+      CLAUDE.md 模式 —— 一份记录了规范、架构决策和当前上下文的项目级文件 —— 正是
+      Harness Engineering
+      的一个实用例子。它把隐性知识转化为智能体每次被调用时都能读到的显性上下文。当工作在团队成员之间或不同会话之间传递时，结构化的交接文档也起到同样的作用。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">哪些由 PM 负责，哪些需要工程判断</h2>
+    <p>Harness Engineering 不是要取代工程，而是一门与之互补的学科。</p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>PM 定义：</strong
+        >产品目标、验收标准、范围边界、真正重要的上下文，以及「完成」的定义。
+      </li>
+      <li>
+        <strong>工程师定义：</strong
+        >架构决策、性能要求、安全策略、测试策略，以及实现模式。
+      </li>
+      <li>
+        <strong>双方共有：</strong>Harness 的设计。PM
+        带来产品上的清晰度，工程师带来技术上的严谨。两者共同创造出一个让 AI
+        智能体能产出可靠、有用输出的环境。
+      </li>
+    </ul>
+    <p class="mt-3">
+      一个在没有工程输入的情况下设计 Harness 的
+      PM，会造出「产品正确但技术脆弱」的智能体；一个在没有 PM 输入的情况下搭建
+      Harness 的工程师，会造出「技术扎实却在解决错误问题」的智能体。
+    </p>
+
+    <h2 class="mt-6 text-xl font-semibold">
+      与 AI PM Operating Playbook 的关联
+    </h2>
+    <p>
+      AI PM Operating Playbook 中的 Coding-Agent Handoff 工具，把 Harness
+      Engineering
+      落到了实处。它会生成结构化文档，定义上下文、约束、验收标准和测试预期 ——
+      也就是智能体高效工作所需要的那些输入。如果你刚接触 Harness
+      Engineering，从一份生成好的交接文档入手，是直观理解「一个定义良好的
+      Harness 长什么样」的实用方式。
+    </p>
+
+    <div class="mt-8 mb-8">
+      <a
+        href={PLAYBOOK_BASE}
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        用 AI PM Operating Playbook 生成一份编码智能体交接文档 ↗
+      </a>
+    </div>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl("en", "playbook/loop-engineering")}
+          class="text-accent hover:underline"
+        >
+          Loop Engineering（英文）
+        </a>
+        <a
+          href={getRelativeLocaleUrl("en", "playbook/vibe-coding")}
+          class="text-accent hover:underline"
+        >
+          面向产品发现的 Vibe Coding（英文）
+        </a>
+        <a
+          href={getRelativeLocaleUrl("en", "playbook/agent-product-design")}
+          class="text-accent hover:underline"
+        >
+          Agent 产品设计（英文）
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook")}
+          class="text-accent hover:underline"
+        >
+          Playbook 索引
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>
