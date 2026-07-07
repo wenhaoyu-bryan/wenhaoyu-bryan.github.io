@@ -1,0 +1,296 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+
+const workflow = [
+  {
+    stage: "Ideation",
+    tools: "ChatGPT (primary) + Gemini (divergent exploration)",
+    note: "Product framing, brainstorming, structuring ambiguous ideas before any code exists.",
+  },
+  {
+    stage: "Prototyping",
+    tools: "Claude Code CLI (primary) + Cursor (secondary)",
+    note: "Spec-driven builds: brainstorm → written plan → implementation → review, mostly inside Claude Code with a structured skill workflow.",
+  },
+  {
+    stage: "Hard debugging",
+    tools: "Claude Opus / frontier reasoning models",
+    note: "When a bug survives two rounds, I switch to the strongest code model available instead of brute-forcing.",
+  },
+  {
+    stage: "Frontend & CMS pages",
+    tools: "Codex app",
+    note: "Marketing pages and CMS-flavored work where fast visual iteration beats deep reasoning.",
+  },
+  {
+    stage: "Daily operations",
+    tools: "Self-built personal agent + MCP tools",
+    note: "Task management, research, notes, and automation live in an agent loop, not in my head.",
+  },
+];
+
+const models = [
+  {
+    model: "ChatGPT",
+    role: "Product ideation (primary)",
+    why: "Strongest at divergent thinking and structuring fuzzy product ideas.",
+  },
+  {
+    model: "Gemini",
+    role: "Ideation (secondary)",
+    why: "A second, differently-biased opinion for exploration.",
+  },
+  {
+    model: "Claude (Opus-class)",
+    role: "Hard debugging & code review",
+    why: "Best code quality when the problem is genuinely difficult.",
+  },
+  {
+    model: "DeepSeek",
+    role: "Cost-efficient code generation",
+    why: "Excellent output at a fraction of frontier pricing — good default for routine coding.",
+  },
+  {
+    model: "Kimi",
+    role: "Long-context assistance",
+    why: "Cost-effective for large-codebase or long-document scenarios.",
+  },
+  {
+    model: "Fast lightweight models",
+    role: "Agent daily loop",
+    why: "My personal agent's conversational layer prioritizes speed and stability over peak IQ.",
+  },
+];
+
+const boundaries = [
+  {
+    area: "Frontend prototyping",
+    current:
+      "Fluent with the Astro + React + shadcn/Radix system; an interactive prototype in 1–2 days.",
+    next: "Backend integration and real data flows.",
+  },
+  {
+    area: "Enterprise admin (Vue)",
+    current:
+      "Can maintain and extend a Vue 3 monorepo admin stack; not my primary lane.",
+    next: "Deeper component customization.",
+  },
+  {
+    area: "Animation & 3D",
+    current:
+      "GSAP + Lenis scroll-driven animation fluently; Three.js (R3F) at a working-basics level.",
+    next: "Complex interactive 3D scenes.",
+  },
+  {
+    area: "AI tool orchestration",
+    current:
+      "Seamless switching across 3 coding tools, several agent platforms, and 7+ models.",
+    next: "Automated routing policies and cost-effectiveness tracking.",
+  },
+  {
+    area: "Knowledge management",
+    current:
+      "A dual-track system: a persistent long-document knowledge base plus a daily markdown wiki.",
+    next: "Periodic linting to keep both healthy.",
+  },
+];
+---
+
+<Layout
+  title={`My AI Stack | ${config.site.title}`}
+  description="How an AI Product Manager orchestrates coding agents, chat models, and self-built tools — the actual stack, the routing logic, and the honest capability boundaries."
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="My AI Stack" class="app-prose">
+    <p>
+      I don't use one AI tool for everything. The operating principle is
+      <strong>harness engineering</strong>: give every tool the job it is best
+      at, and design the handoffs between them. This page documents the actual
+      stack I run day to day — and where its edges are.
+    </p>
+    <p class="text-muted-foreground text-sm">
+      Employer and client work is intentionally abstracted here; only publicly
+      shipped projects are named. Model names are product lines, not versions —
+      the routing logic outlives any release cycle.
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">The Workflow</h2>
+    <p>
+      Every project moves through the same pipeline. Different tools own
+      different stages:
+    </p>
+    <div class="mt-4 space-y-3">
+      {
+        workflow.map((step, i) => (
+          <div class="border-border rounded-lg border p-5">
+            <div class="flex items-baseline gap-3">
+              <span class="text-accent font-mono text-sm">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 class="font-medium">{step.stage}</h3>
+                <p class="text-accent mt-0.5 text-sm">{step.tools}</p>
+                <p class="text-muted-foreground mt-1.5 text-sm">{step.note}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <h2 class="mt-10 text-xl font-semibold">Coding Tools</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>Claude Code CLI — primary.</strong> Runs most frontend and
+        backend work with an 80+ skill setup and a structured
+        brainstorm-plan-implement-review workflow. This site, the
+        <a
+          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
+          class="text-accent hover:underline">AI PM Operating Playbook</a
+        >, the
+        <a
+          href="https://wenhaoyu-bryan.github.io/AI-PM-Manifesto/"
+          class="text-accent hover:underline">AI PM Manifesto</a
+        >, and
+        <a
+          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
+          class="text-accent hover:underline">Prompt-to-Ontology</a
+        > were all built primarily with it.
+      </li>
+      <li>
+        <strong>Cursor — secondary.</strong> Auto mode for quick prototype passes,
+        with manual model switching when a scenario needs a specific strength.
+      </li>
+      <li>
+        <strong>Codex app — situational.</strong> Frontend and CMS page work where
+        visual iteration speed matters more than architectural depth.
+      </li>
+    </ul>
+
+    <h2 class="mt-10 text-xl font-semibold">Model Routing</h2>
+    <div class="mt-4 space-y-3">
+      {
+        models.map(m => (
+          <div class="border-border rounded-lg border p-5">
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h3 class="font-medium">{m.model}</h3>
+              <span class="text-accent text-sm">{m.role}</span>
+            </div>
+            <p class="text-muted-foreground mt-1.5 text-sm">{m.why}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <h2 class="mt-10 text-xl font-semibold">Build Stack</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>Frontend (primary):</strong> Astro + React, Tailwind CSS,
+        shadcn/ui on Radix primitives
+      </li>
+      <li>
+        <strong>Enterprise admin:</strong> Vue 3 on a pnpm-monorepo admin
+        framework (turborepo tooling chain)
+      </li>
+      <li>
+        <strong>Backend:</strong> Python + FastAPI, Neo4j + NetworkX for
+        graph/ontology work, Node.js for API automation
+      </li>
+      <li>
+        <strong>Motion & 3D:</strong> GSAP + Lenis for scroll-driven
+        storytelling, React Three Fiber for 3D
+      </li>
+      <li>
+        <strong>Deploy:</strong> GitHub Pages and Vercel via CI, Docker Compose
+        where a real backend is involved
+      </li>
+    </ul>
+
+    <h2 class="mt-10 text-xl font-semibold">Beyond Coding</h2>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>Self-built personal agent</strong> with 30+ skills handling
+        daily task management, research, and knowledge-base automation
+      </li>
+      <li>
+        <strong>Dual-track knowledge management:</strong> a locally deployed
+        long-document knowledge base (MCP-connected) plus a markdown wiki that
+        threads together daily fragments — screenshots, papers, prompts
+      </li>
+      <li>
+        <strong>MCP integrations:</strong> browser automation and web-crawling
+        tools wired into the agent loop
+      </li>
+      <li>
+        <strong>Enterprise AI enablement:</strong> ran 4 internal training
+        sessions bringing agent workflows to non-technical teams (strategy,
+        finance, legal)
+      </li>
+      <li>
+        <strong>API automation:</strong> data pipelines connecting e-commerce
+        platform APIs and collaboration-suite tables for sourcing and operations
+      </li>
+    </ul>
+
+    <h2 class="mt-10 text-xl font-semibold">Honest Capability Boundaries</h2>
+    <p>
+      A stack page that only lists strengths is marketing. Here is where the
+      edges actually are:
+    </p>
+    <div class="mt-4 space-y-3">
+      {
+        boundaries.map(b => (
+          <div class="border-border rounded-lg border p-5">
+            <h3 class="font-medium">{b.area}</h3>
+            <p class="text-muted-foreground mt-1.5 text-sm">{b.current}</p>
+            <p class="mt-1.5 text-sm">
+              <span class="text-accent font-medium">Next: </span>
+              <span class="text-muted-foreground">{b.next}</span>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="text-muted-foreground mt-8 text-sm">
+      Core principle: find the combination that actually works for you, keep
+      using it, and make sure it keeps earning its place.
+    </p>
+
+    <div class="border-border mt-10 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">Related</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/harness-engineering")}
+          class="text-accent hover:underline"
+        >
+          Harness Engineering Playbook
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "playbook/vibe-coding")}
+          class="text-accent hover:underline"
+        >
+          Vibe Coding Playbook
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "projects")}
+          class="text-accent hover:underline"
+        >
+          Projects
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

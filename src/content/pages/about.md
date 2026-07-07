@@ -48,6 +48,8 @@ Outside the work itself, I like tools, long walks, good notebooks, and occasiona
 
 Claude Code, Cursor, Astro, Tailwind, React, FastAPI, Neo4j, NetworkX, WordPress, GitHub Pages, SEO/GEO research tools
 
+Curious how these fit together day to day — which model does what, and where the edges are? See [My AI Stack](/ai-stack).
+
 ## Let's Connect
 
 Interested in collaborating on AI product projects, ontology systems, or growth experiments? I'm open to consulting, speaking, and building together.
