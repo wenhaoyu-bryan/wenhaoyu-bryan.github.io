@@ -166,12 +166,14 @@ const topics = [
                   : project.icon === "Code"
                     ? Code
                     : TrendingUp;
+            // Shades chosen to meet WCAG AA contrast in both themes:
+            // *-700 on the light card bg, *-400 on the dark card bg.
             const statusColor =
               project.status === "Public"
-                ? "border-green-500 text-green-600"
+                ? "border-green-500 text-green-700 dark:text-green-400"
                 : project.status === "Public Tool"
-                  ? "border-blue-500 text-blue-600"
-                  : "border-orange-500 text-orange-600";
+                  ? "border-blue-500 text-blue-700 dark:text-blue-400"
+                  : "border-orange-500 text-orange-700 dark:text-orange-400";
             return (
               <a
                 href={project.href}
