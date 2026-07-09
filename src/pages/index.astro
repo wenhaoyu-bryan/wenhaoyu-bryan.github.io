@@ -128,7 +128,7 @@ const topics = [
           <div class="mt-2 flex flex-wrap gap-3">
             <a
               href={getRelativeLocaleUrl(locale, "projects")}
-              class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+              class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
             >
               View Projects
               <IconArrowRight class="size-4" />
@@ -186,7 +186,7 @@ const topics = [
             return (
               <a
                 href={project.href}
-                class="border-border group hover:bg-accent/5 hover:border-accent rounded-lg border p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
+                class="border-border group hover:bg-accent/5 hover:border-accent/30 rounded-lg border p-5 transition-colors"
                 {...(project.href.startsWith("http")
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
@@ -295,7 +295,7 @@ const topics = [
                         ? Wand2
                         : Building2;
             return (
-              <div class="border-border hover:bg-accent/5 hover:border-accent/30 group rounded-lg border p-5 transition-all duration-200">
+              <div class="border-border hover:bg-accent/5 hover:border-accent/30 group rounded-lg border p-5 transition-colors">
                 <div class="flex items-start gap-3">
                   <IconComponent
                     size={24}
@@ -330,7 +330,7 @@ const topics = [
               "Notion",
               "Obsidian",
             ].map(skill => (
-              <span class="border-border bg-muted/30 hover:bg-accent/10 hover:border-accent inline-flex cursor-default items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-all hover:scale-105">
+              <span class="border-border bg-muted/30 hover:bg-accent/10 hover:border-accent inline-flex cursor-default items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors">
                 {skill}
               </span>
             ))
