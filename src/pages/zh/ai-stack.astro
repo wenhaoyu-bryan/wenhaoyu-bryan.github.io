@@ -37,6 +37,9 @@ const workflow = [
   },
 ];
 
+// 工作流卡片上方 line-art 流水线总览的简短节点标签。
+const flowNodes = ["构思", "原型", "调试", "前端 / CMS", "日常运转"];
+
 const models = [
   {
     model: "ChatGPT",
@@ -125,6 +128,34 @@ const boundaries = [
 
     <h2 class="mt-8 text-xl font-semibold">工作流</h2>
     <p>每个项目都经过同一条流水线，不同工具负责不同阶段：</p>
+    <figure
+      role="img"
+      aria-label="流水线总览：构思 → 原型 → 调试 → 前端与 CMS → 日常运转。"
+      class="border-border mt-4 rounded-lg border p-4"
+    >
+      <div
+        class="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-0"
+      >
+        {
+          flowNodes.map((node, i) => (
+            <Fragment>
+              <div class="border-border text-foreground flex-1 rounded-md border px-3 py-2 text-center text-sm font-medium">
+                {node}
+              </div>
+              {i < flowNodes.length - 1 && (
+                <span
+                  aria-hidden="true"
+                  class="text-accent flex flex-shrink-0 justify-center sm:px-2"
+                >
+                  <span class="sm:hidden">↓</span>
+                  <span class="hidden sm:inline">→</span>
+                </span>
+              )}
+            </Fragment>
+          ))
+        }
+      </div>
+    </figure>
     <div class="mt-4 space-y-3">
       {
         workflow.map((step, i) => (
