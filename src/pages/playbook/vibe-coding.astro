@@ -5,12 +5,22 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
 const PLAYBOOK_BASE =
   "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
+
+const workflowSteps = [
+  { label: "Product Intent", note: "define the why" },
+  { label: "Constraints & Non-Goals", note: "scope the box" },
+  { label: "Working Prototype", note: "generate small", emphasis: true },
+  { label: "Behavior Review", note: "not just code" },
+  { label: "Reusable Patterns", note: "refactor" },
+  { label: "Playbook", note: "document learning", emphasis: true },
+];
 ---
 
 <Layout
@@ -43,6 +53,16 @@ const PLAYBOOK_BASE =
       with stakeholders, and evaluate for technical feasibility before
       committing engineering resources.
     </p>
+
+    <h2 class="mt-6 text-xl font-semibold">The Prototyping Loop</h2>
+    <p>
+      In practice the work runs as a repeatable loop. The prototype is the
+      byproduct; the reusable pattern you document at the end is the asset:
+    </p>
+    <FlowDiagram
+      steps={workflowSteps}
+      caption="Each cycle ends in a documented, reusable pattern — the prototype is the byproduct, the playbook is the asset."
+    />
 
     <h2 class="mt-6 text-xl font-semibold">Suitable Scenarios</h2>
     <ul class="mt-2 space-y-2">
@@ -170,6 +190,36 @@ const PLAYBOOK_BASE =
         a successful outcome.
       </li>
     </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">Built With This Workflow</h2>
+    <p>
+      This is not just theory — it is how the public work on this site was
+      built:
+    </p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
+          class="text-accent hover:underline">Prompt-to-Ontology</a
+        > — a full-stack ontology prototype built end-to-end with this loop.
+      </li>
+      <li>
+        The <a
+          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer">AI PM Operating Playbook</a
+        > — an interactive tool suite, itself vibe-coded.
+      </li>
+      <li>
+        This website — designed, built, and iterated through PM-led LLM pair
+        programming on Astro.
+      </li>
+    </ul>
+    <p class="text-muted-foreground mt-3 text-sm">
+      The public prototyping experiments once kept in a separate "Prototype Lab"
+      now live here, in the methodology itself.
+    </p>
 
     <h2 class="mt-6 text-xl font-semibold">
       Connection to the Interactive Tool
