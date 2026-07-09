@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
@@ -38,12 +39,12 @@ const workflow = [
 ];
 
 // Short labels for the line-art pipeline overview above the workflow cards.
-const flowNodes = [
-  "Ideation",
-  "Prototyping",
-  "Debugging",
-  "Frontend / CMS",
-  "Daily ops",
+const flowSteps = [
+  { label: "Ideation", note: "frame" },
+  { label: "Prototyping", note: "build", emphasis: true },
+  { label: "Debugging", note: "hard bugs" },
+  { label: "Frontend / CMS", note: "iterate" },
+  { label: "Daily ops", note: "automate" },
 ];
 
 const models = [
@@ -138,34 +139,7 @@ const boundaries = [
       Every project moves through the same pipeline. Different tools own
       different stages:
     </p>
-    <figure
-      role="img"
-      aria-label="Pipeline overview: Ideation, then Prototyping, then Debugging, then Frontend and CMS, then Daily operations."
-      class="border-border mt-4 rounded-lg border p-4"
-    >
-      <div
-        class="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-0"
-      >
-        {
-          flowNodes.map((node, i) => (
-            <Fragment>
-              <div class="border-border text-foreground flex-1 rounded-md border px-3 py-2 text-center text-sm font-medium">
-                {node}
-              </div>
-              {i < flowNodes.length - 1 && (
-                <span
-                  aria-hidden="true"
-                  class="text-accent flex flex-shrink-0 justify-center sm:px-2"
-                >
-                  <span class="sm:hidden">↓</span>
-                  <span class="hidden sm:inline">→</span>
-                </span>
-              )}
-            </Fragment>
-          ))
-        }
-      </div>
-    </figure>
+    <FlowDiagram steps={flowSteps} />
     <div class="mt-4 space-y-3">
       {
         workflow.map((step, i) => (
