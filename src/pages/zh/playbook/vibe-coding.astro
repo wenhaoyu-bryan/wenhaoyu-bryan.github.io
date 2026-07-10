@@ -5,12 +5,22 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
 import config from "@/config";
 
 const locale = "zh";
 
 const PLAYBOOK_BASE =
   "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
+
+const workflowSteps = [
+  { label: "产品意图", note: "定义为什么" },
+  { label: "约束与非目标", note: "圈定范围" },
+  { label: "可运行原型", note: "小步生成", emphasis: true },
+  { label: "行为评审", note: "不只看代码" },
+  { label: "可复用模式", note: "重构沉淀" },
+  { label: "Playbook", note: "文档化学习", emphasis: true },
+];
 ---
 
 <Layout
@@ -48,6 +58,15 @@ const PLAYBOOK_BASE =
       这不是要取代工程，而是要补上一种传统 PM 工具（线框图、幻灯片、书面
       PRD）无法提供的能力：在投入工程资源之前，就能做出一个你可以点击体验、能与相关方一起测试、并能评估技术可行性的东西。
     </p>
+
+    <h2 class="mt-6 text-xl font-semibold">原型开发循环</h2>
+    <p>
+      实际工作是一条可重复的循环。原型是副产品，循环末尾沉淀的可复用模式才是资产：
+    </p>
+    <FlowDiagram
+      steps={workflowSteps}
+      caption="每一轮循环都以文档化、可复用的模式收尾 —— 原型是副产品，Playbook 才是资产。"
+    />
 
     <h2 class="mt-6 text-xl font-semibold">适用场景</h2>
     <ul class="mt-2 space-y-2">
@@ -159,6 +178,32 @@ const PLAYBOOK_BASE =
         >原型的目的是产生认知。如果认知是「不要做这个」，那也是一个成功的结果。
       </li>
     </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">用这套工作流构建的成果</h2>
+    <p>这不只是理论 —— 本站的公开工作正是这样构建出来的：</p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
+          class="text-accent hover:underline">Prompt-to-Ontology</a
+        > —— 用这套循环从零到一构建的全栈本体原型。
+      </li>
+      <li>
+        <a
+          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer">AI PM Operating Playbook</a
+        > —— 交互式工具集，本身也是 Vibe Coding 的产物。
+      </li>
+      <li>
+        本网站 —— 通过 PM 主导的 LLM Pair Programming 在 Astro
+        上设计、构建和迭代。
+      </li>
+    </ul>
+    <p class="text-muted-foreground mt-3 text-sm">
+      过去单独放在「Prototype Lab」里的公开原型实验，现已并入这套方法论本身。
+    </p>
 
     <h2 class="mt-6 text-xl font-semibold">与交互工具的关联</h2>
     <p>

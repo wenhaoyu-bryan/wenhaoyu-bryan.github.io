@@ -23,6 +23,12 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  // Vibe Coding Prototype Lab was folded into the Vibe Coding playbook page;
+  // keep old inbound links alive.
+  redirects: {
+    "/projects/vibe-coding-prototype-lab": "/playbook/vibe-coding",
+    "/zh/projects/vibe-coding-prototype-lab": "/zh/playbook/vibe-coding",
+  },
   integrations: [
     mdx(),
     react(),

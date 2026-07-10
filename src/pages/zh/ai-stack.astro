@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
@@ -35,6 +36,15 @@ const workflow = [
     tools: "Agent 工作流 + MCP 工具",
     note: "调研、笔记和重复性任务都跑在 Agent 循环里，而不是靠脑子记。",
   },
+];
+
+// 工作流卡片上方 line-art 流水线总览的简短节点标签。
+const flowSteps = [
+  { label: "构思", note: "立意" },
+  { label: "原型", note: "构建", emphasis: true },
+  { label: "调试", note: "攻坚" },
+  { label: "前端 / CMS", note: "迭代" },
+  { label: "日常运转", note: "自动化" },
 ];
 
 const models = [
@@ -125,6 +135,7 @@ const boundaries = [
 
     <h2 class="mt-8 text-xl font-semibold">工作流</h2>
     <p>每个项目都经过同一条流水线，不同工具负责不同阶段：</p>
+    <FlowDiagram steps={flowSteps} />
     <div class="mt-4 space-y-3">
       {
         workflow.map((step, i) => (
@@ -144,7 +155,7 @@ const boundaries = [
       }
     </div>
 
-    <h2 class="mt-10 text-xl font-semibold">编程工具</h2>
+    <h2 class="mt-8 text-xl font-semibold">编程工具</h2>
     <ul class="mt-2 space-y-2">
       <li>
         <strong>Claude Code CLI —— 主力。</strong>
@@ -174,7 +185,7 @@ const boundaries = [
       </li>
     </ul>
 
-    <h2 class="mt-10 text-xl font-semibold">模型分工</h2>
+    <h2 class="mt-8 text-xl font-semibold">模型分工</h2>
     <div class="mt-4 space-y-3">
       {
         models.map(m => (
@@ -189,7 +200,7 @@ const boundaries = [
       }
     </div>
 
-    <h2 class="mt-10 text-xl font-semibold">构建栈</h2>
+    <h2 class="mt-8 text-xl font-semibold">构建栈</h2>
     <ul class="mt-2 space-y-2">
       <li>
         <strong>前端（主力）：</strong>Astro + React、Tailwind CSS、基于 Radix
@@ -213,7 +224,7 @@ const boundaries = [
       </li>
     </ul>
 
-    <h2 class="mt-10 text-xl font-semibold">Agent 平台产品设计（0 → 1）</h2>
+    <h2 class="mt-8 text-xl font-semibold">Agent 平台产品设计（0 → 1）</h2>
     <p>
       这套工具栈最重的证明不是业余项目。在现在的工作中，我作为产品经理把一个企业级
       Agent
@@ -251,7 +262,7 @@ const boundaries = [
       </li>
     </ul>
 
-    <h2 class="mt-10 text-xl font-semibold">编码之外</h2>
+    <h2 class="mt-8 text-xl font-semibold">编码之外</h2>
     <ul class="mt-2 space-y-2">
       <li>
         <strong>双轨知识管理：</strong>本地部署的长文档知识库（MCP 接入）+
@@ -266,7 +277,7 @@ const boundaries = [
       </li>
     </ul>
 
-    <h2 class="mt-10 text-xl font-semibold">诚实的能力边界</h2>
+    <h2 class="mt-8 text-xl font-semibold">诚实的能力边界</h2>
     <p>只列长处的工具栈页面是营销。真实的边界在这里：</p>
     <div class="mt-4 space-y-3">
       {

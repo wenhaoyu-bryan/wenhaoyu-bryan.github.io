@@ -83,20 +83,6 @@ const defs: ProjectDef[] = [
     },
   },
   {
-    title: "Vibe Coding Prototype Lab",
-    icon: "Code",
-    status: "Public",
-    path: "projects/vibe-coding-prototype-lab",
-    description: {
-      en: "A public lab showing how PM-led LLM pair programming can turn ambiguous ideas into prototypes, specs, and reusable product workflows.",
-      zh: "展示 AI 产品经理如何借助 Claude Code、Cursor 和 LLM Pair Programming 把想法转化为原型和可复用流程。",
-    },
-    tags: {
-      en: ["Claude Code", "Cursor", "Prototyping", "LLM Pair Programming"],
-      zh: ["Claude Code", "Cursor", "Prototyping", "LLM Pair Programming"],
-    },
-  },
-  {
     title: "SEO/GEO Growth Experiments",
     icon: "TrendingUp",
     status: "Ongoing",

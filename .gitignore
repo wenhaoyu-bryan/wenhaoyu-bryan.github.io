@@ -29,3 +29,8 @@ public/pagefind
 
 # development process files
 phases/
+
+# Local reference assets (screenshots, source images) — not part of the build
+docs/banner.jpg
+docs/profile.JPG
+docs/projects-screenshots/
