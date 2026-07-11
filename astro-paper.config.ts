@@ -13,7 +13,7 @@ export default defineAstroPaperConfig({
     dir: "ltr",
     // Set to your goatcounter.com site code to enable privacy-friendly
     // analytics (e.g. "wenhaoyu"). Empty = no analytics script emitted.
-    goatCounterCode: "",
+    goatCounterCode: "bryanyu",
   },
   posts: {
     perPage: 4,
