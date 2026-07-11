@@ -424,6 +424,8 @@ const topics = [
 </Layout>
 
 <script>
+  import "@/scripts/homeReveal";
+
   document.addEventListener("astro:page-load", () => {
     document
       .querySelectorAll<HTMLButtonElement>("[data-copy-email]")
@@ -450,68 +452,5 @@ const topics = [
     if (indexLayout?.layout) {
       sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
     }
-
-    // Respect users who prefer reduced motion: skip the opacity-0 reveal
-    // entirely so content is never hidden behind an animation for them.
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    // Initial page load animation (only on first visit to homepage)
-    const isHomepage = indexLayout?.layout === "index";
-    if (
-      !prefersReducedMotion &&
-      isHomepage &&
-      !sessionStorage.getItem("homeAnimated")
-    ) {
-      sessionStorage.setItem("homeAnimated", "true");
-
-      const sections = document.querySelectorAll("#main-content > section");
-      sections.forEach((section, index) => {
-        section.classList.add("opacity-0");
-        setTimeout(() => {
-          section.classList.add("animate-fadeInUp");
-        }, index * 100); // Stagger by 100ms per section
-      });
-    }
-
-    // Scroll-triggered animation for cards
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    };
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fadeInUp");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // Observe individual cards within sections (only if not already animated from page load)
-    if (
-      !prefersReducedMotion &&
-      (!isHomepage || sessionStorage.getItem("homeAnimated"))
-    ) {
-      document
-        .querySelectorAll("section > div > a, section > div > div")
-        .forEach(card => {
-          if (
-            card.classList.contains("border") ||
-            card.parentElement?.classList.contains("grid")
-          ) {
-            card.classList.add("opacity-0");
-            observer.observe(card);
-          }
-        });
-    }
   });
 </script>
-
-<style>
-  .animate-fadeInUp {
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-</style>

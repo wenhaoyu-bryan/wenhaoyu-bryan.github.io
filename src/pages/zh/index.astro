@@ -294,6 +294,8 @@ const featured = [
 </Layout>
 
 <script>
+  import "@/scripts/homeReveal";
+
   document.addEventListener("astro:page-load", () => {
     document
       .querySelectorAll<HTMLButtonElement>("[data-copy-email]")
