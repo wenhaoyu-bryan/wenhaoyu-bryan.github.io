@@ -24,7 +24,10 @@ const { page } = Astro.props;
 
   <Breadcrumb />
 
-  <Main pageTitle="文章" pageDesc="所有已发布的文章。">
+  <Main
+    pageTitle="文章"
+    pageDesc="关于 AI 产品管理的文章 —— 智能体、本体，以及 PM 如何借助编码智能体交付产品。"
+  >
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>

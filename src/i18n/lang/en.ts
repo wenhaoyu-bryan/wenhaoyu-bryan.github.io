@@ -49,7 +49,8 @@ export default {
     tagsDesc: "All the tags used in posts.",
 
     postsTitle: "Posts",
-    postsDesc: "All the articles I've posted.",
+    postsDesc:
+      "Essays on AI product management — agents, ontology, and how PMs ship with coding agents.",
 
     archivesTitle: "Archives",
     archivesDesc: "All the articles I've archived.",
