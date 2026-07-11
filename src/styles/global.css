@@ -38,6 +38,16 @@
       transform: translateY(0);
     }
   }
+
+  /* Global (unscoped) on purpose: applied via classList.add() from
+     src/scripts/homeReveal.ts, which runs against whichever homepage
+     (en or zh) is currently mounted. A page-scoped <style> here would only
+     match elements authored directly in one page's own template — it
+     can't reach child components (e.g. AskAI.astro) and won't match the
+     other locale's homepage at all. */
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
 }
 
 @utility max-w-app {
