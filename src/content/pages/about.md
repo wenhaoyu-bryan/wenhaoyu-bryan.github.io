@@ -36,6 +36,10 @@ The goal is to share reusable methods and artifacts without pretending every rea
 
 ## Selected Background
 
+**Now — Product Manager, enterprise agent platform (semiconductor manufacturing).** Leading it from 0 to 1: ideation, PRDs, competitor analysis, customer feedback, and vibe-coded prototypes that become the engineering blueprint.
+
+**Education — M.Eng, Cornell University · B.Eng, Rensselaer Polytechnic Institute.**
+
 My background combines AI product work, industrial operations, data-driven growth, and engineering-oriented education. I have worked across industrial AI, SEO growth, product investment analysis, and B2B product contexts.
 
 I hold a Master of Engineering from Cornell University and a Bachelor of Engineering from Rensselaer Polytechnic Institute. That engineering training still shapes how I work as a PM: I care about structure, constraints, feedback loops, and whether an idea can survive contact with implementation.
