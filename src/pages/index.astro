@@ -377,23 +377,9 @@ const topics = [
       <div class="mt-5 max-w-xl">
         <AskAI locale={locale} />
       </div>
-      <div class="mt-5 flex flex-wrap gap-3">
-        <button
-          type="button"
-          class="bg-accent text-accent-foreground inline-flex cursor-pointer items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-          data-copy-email="wenhaoyu.bryan@gmail.com"
-        >
-          Copy Email
-        </button>
-        <a
-          href="https://medium.com/@bryanyuwh"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Medium
-        </a>
-      </div>
+      <p class="text-muted-foreground mt-5 text-sm">
+        Email, GitHub, LinkedIn, X, and Medium are all in the footer below.
+      </p>
     </section>
   </main>
   <Footer />
@@ -403,25 +389,6 @@ const topics = [
   import "@/scripts/homeReveal";
 
   document.addEventListener("astro:page-load", () => {
-    document
-      .querySelectorAll<HTMLButtonElement>("[data-copy-email]")
-      .forEach(btn => {
-        btn.addEventListener("click", async () => {
-          const email = btn.dataset.copyEmail;
-          if (!email) return;
-          try {
-            await navigator.clipboard.writeText(email);
-            const original = btn.textContent;
-            btn.textContent = "Copied!";
-            setTimeout(() => {
-              btn.textContent = original;
-            }, 2000);
-          } catch {
-            window.location.href = `mailto:${email}`;
-          }
-        });
-      });
-
     const indexLayout = (document.querySelector("#main-content") as HTMLElement)
       ?.dataset;
     const baseRoot = import.meta.env.BASE_URL.replace(/\/?$/, "/");
