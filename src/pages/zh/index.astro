@@ -161,28 +161,6 @@ const featured = [
       </div>
     </section>
 
-    <!-- Featured -->
-    <section class="border-border border-b py-10 sm:py-14">
-      <h2 class="text-2xl font-semibold tracking-wide">精选内容</h2>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2">
-        {
-          featured.map(item => (
-            <a
-              href={item.href}
-              class="border-border group hover:bg-accent/5 rounded-lg border p-5 transition-colors"
-            >
-              <h3 class="group-hover:text-accent text-lg font-medium">
-                {item.title}
-              </h3>
-              <p class="text-muted-foreground mt-1.5 text-sm">
-                {item.description}
-              </p>
-            </a>
-          ))
-        }
-      </div>
-    </section>
-
     <!-- Featured Projects -->
     <section class="border-border border-b py-10 sm:py-14">
       <h2 class="text-2xl font-semibold tracking-wide">项目</h2>
@@ -206,6 +184,28 @@ const featured = [
               </div>
               <p class="text-muted-foreground mt-2 text-sm">
                 {project.description}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <h2 class="text-2xl font-semibold tracking-wide">精选内容</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          featured.map(item => (
+            <a
+              href={item.href}
+              class="border-border group hover:bg-accent/5 rounded-lg border p-5 transition-colors"
+            >
+              <h3 class="group-hover:text-accent text-lg font-medium">
+                {item.title}
+              </h3>
+              <p class="text-muted-foreground mt-1.5 text-sm">
+                {item.description}
               </p>
             </a>
           ))
