@@ -13,7 +13,6 @@ const experiments = [
       "一个结构良好、meta、sitemap 和内容架构都到位的静态站点，能够在小众的 AI PM 关键词上取得排名。",
     built: "这个基于 Astro + GitHub Pages 的个人网站。",
     measured: "自然流量、被索引的页面数、AI 搜索引用。",
-    learned: "进行中。",
     next: "发布更多内容，追踪 GEO 表现。",
   },
   {
@@ -22,7 +21,6 @@ const experiments = [
     built:
       "构建时生成 llms.txt（索引）和 llms-full.txt（全量内容）两个端点，从站点渲染的同一数据源拼装；并提供预填该内容的「在 Claude / ChatGPT 中了解我」深链。",
     measured: "AI 搜索引用、来自 AI 聊天工具的引荐流量。",
-    learned: "进行中。",
     next: "观察 AI 引擎是否随时间更准确地引用本站。",
   },
 ];
@@ -90,9 +88,6 @@ const experiments = [
       <li>我学到了什么</li>
       <li>可复用方法论</li>
     </ul>
-    <p class="text-muted-foreground mt-2 text-sm">
-      详细实验卡片暂时不做，等案例和素材整理成熟后再补充。
-    </p>
 
     <h2 class="mt-6 text-xl font-semibold">实验日志</h2>
     <div class="mt-4 space-y-6">
@@ -115,12 +110,6 @@ const experiments = [
                   我衡量了什么
                 </span>
                 <p class="text-muted-foreground mt-1">{exp.measured}</p>
-              </div>
-              <div>
-                <span class="text-accent text-sm font-medium">
-                  我学到了什么
-                </span>
-                <p class="text-muted-foreground mt-1">{exp.learned}</p>
               </div>
               <div>
                 <span class="text-accent text-sm font-medium">下一步</span>
