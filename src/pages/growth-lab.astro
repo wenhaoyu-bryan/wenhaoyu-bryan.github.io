@@ -15,7 +15,6 @@ const experiments = [
       "A well-structured static site with proper meta, sitemap, and content architecture can rank for niche AI PM keywords.",
     built: "This personal site on Astro + GitHub Pages.",
     measured: "Organic traffic, indexed pages, AI search citations.",
-    learned: "In progress.",
     next: "Publish more content, track GEO performance.",
   },
   {
@@ -24,7 +23,6 @@ const experiments = [
     built:
       "Build-time llms.txt (index) and llms-full.txt (complete content) endpoints, assembled from the same data the site renders from, plus 'Ask Claude / ChatGPT about me' deep-links that pre-load that content.",
     measured: "AI-search citations, referral traffic from AI chat tools.",
-    learned: "In progress.",
     next: "Watch whether AI engines cite the site more accurately over time.",
   },
 ];
@@ -98,10 +96,6 @@ const experiments = [
       <li>What I learned</li>
       <li>Reusable framework</li>
     </ul>
-    <p class="text-muted-foreground mt-2 text-sm">
-      Detailed experiment cards will be added later when the cases are mature
-      and properly sanitized.
-    </p>
 
     <h2 class="mt-6 text-xl font-semibold">Experiment Log</h2>
     <div class="mt-4 space-y-6">
@@ -124,12 +118,6 @@ const experiments = [
                   What I measured
                 </span>
                 <p class="text-muted-foreground mt-1">{exp.measured}</p>
-              </div>
-              <div>
-                <span class="text-accent text-sm font-medium">
-                  What I learned
-                </span>
-                <p class="text-muted-foreground mt-1">{exp.learned}</p>
               </div>
               <div>
                 <span class="text-accent text-sm font-medium">Next step</span>
