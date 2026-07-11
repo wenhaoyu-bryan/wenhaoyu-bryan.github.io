@@ -42,8 +42,8 @@ const defs: ProjectDef[] = [
     thumbnail: ontologyThumb,
     thumbnailAlt: "Prompt-to-Ontology operational runtime dashboard",
     description: {
-      en: "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems.",
-      zh: "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。",
+      en: "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems. The working demo runs a live pipeline of 46 ontology objects, 116 relations, and 324 review items.",
+      zh: "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。可运行的 Demo 跑通完整流程：46 个本体对象、116 条关系、324 条待审项。",
     },
     tags: {
       en: ["Ontology", "Knowledge Graphs", "Neo4j", "NetworkX", "ReAct Agent"],
