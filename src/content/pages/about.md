@@ -54,4 +54,4 @@ Curious how these fit together day to day — which model does what, and where t
 
 Interested in collaborating on AI product projects, ontology systems, or growth experiments? I'm open to consulting, speaking, and building together.
 
-[Email me](mailto:wenhaoyu.bryan@gmail.com) or find me on [GitHub](https://github.com/wenhaoyu-bryan) / [LinkedIn](https://www.linkedin.com/in/wenhaoyu-bryan/) / [X](https://x.com/WENHAOYU8) / [Medium](https://medium.com/@bryanyuwh)
+You'll find every way to reach me — email, GitHub, LinkedIn, X, and Medium — in the footer below.

@@ -247,23 +247,9 @@ const featured = [
       <div class="mt-5 max-w-xl">
         <AskAI locale={locale} />
       </div>
-      <div class="mt-5 flex flex-wrap gap-3">
-        <button
-          type="button"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
-          data-copy-email="wenhaoyu.bryan@gmail.com"
-        >
-          Email
-        </button>
-        <a
-          href="https://medium.com/@bryanyuwh"
-          class="border-border text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Medium
-        </a>
-      </div>
+      <p class="text-muted-foreground mt-5 text-sm">
+        邮箱、GitHub、LinkedIn、X 和 Medium 都在下方页脚里。
+      </p>
     </section>
   </main>
   <Footer />
@@ -271,25 +257,4 @@ const featured = [
 
 <script>
   import "@/scripts/homeReveal";
-
-  document.addEventListener("astro:page-load", () => {
-    document
-      .querySelectorAll<HTMLButtonElement>("[data-copy-email]")
-      .forEach(btn => {
-        btn.addEventListener("click", async () => {
-          const email = btn.dataset.copyEmail;
-          if (!email) return;
-          try {
-            await navigator.clipboard.writeText(email);
-            const original = btn.textContent;
-            btn.textContent = "已复制!";
-            setTimeout(() => {
-              btn.textContent = original;
-            }, 2000);
-          } catch {
-            window.location.href = `mailto:${email}`;
-          }
-        });
-      });
-  });
 </script>
