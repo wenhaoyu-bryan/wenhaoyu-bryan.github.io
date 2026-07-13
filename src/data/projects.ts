@@ -2,17 +2,20 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import ontologyThumb from "@/assets/projects/prompt-to-ontology/dashboard.png";
 import playbookThumb from "@/assets/projects/ai-pm-operating-playbook/homepage.png";
 import manifestoThumb from "@/assets/projects/ai-pm-manifesto/hero.png";
+import agentAnatomyThumb from "@/assets/projects/agent-anatomy/hero.png";
 
 type Locale = "en" | "zh";
 
 export interface Project {
   title: string;
   description: string;
-  status: "Public" | "Public Tool" | "Ongoing";
-  icon: "Network" | "Book" | "Code" | "TrendingUp";
+  status: "Public" | "Public Tool" | "Ongoing" | "Public · Ep. 01";
+  icon: "Network" | "Book" | "Code" | "TrendingUp" | "Activity";
   href: string;
   external: boolean;
   tags: string[];
+  /** Source repository, surfaced in llms.txt / structured data */
+  repo?: string;
   thumbnail?: ImageMetadata;
   thumbnailAlt?: string;
 }
@@ -27,6 +30,8 @@ interface ProjectDef {
   url?: string;
   /** Page exists only in English; zh listings link to the en route. */
   enOnly?: boolean;
+  /** Source repository, surfaced in llms.txt / structured data */
+  repo?: string;
   description: Record<Locale, string>;
   tags: Record<Locale, string[]>;
   thumbnail?: ImageMetadata;
@@ -34,6 +39,29 @@ interface ProjectDef {
 }
 
 const defs: ProjectDef[] = [
+  {
+    title: "Agent Anatomy",
+    icon: "Activity",
+    status: "Public · Ep. 01",
+    url: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
+    repo: "https://github.com/wenhaoyu-bryan/agent-anatomy",
+    thumbnail: agentAnatomyThumb,
+    thumbnailAlt: "Agent Anatomy — interactive explainer series landing page",
+    description: {
+      en: "An interactive visual essay series on how AI systems actually work. Episode 01 replays an agent run — the loop, the context window filling in real time, a broken page healing fix by fix. Ships with an open trace format anyone can write to. Built with React Three Fiber and GSAP.",
+      zh: "一个关于 AI 系统如何真正运作的交互式视觉长文系列。Episode 01 回放一次 agent 运行：循环、实时填充的上下文窗口、一个被逐步修复的破损页面。附带一个任何人都能编写的开放 trace 格式。基于 React Three Fiber 与 GSAP 构建。",
+    },
+    tags: {
+      en: [
+        "Interactive Explainer",
+        "React Three Fiber",
+        "GSAP",
+        "WebGL",
+        "Trace Format",
+      ],
+      zh: ["交互式解释", "React Three Fiber", "GSAP", "WebGL", "Trace 格式"],
+    },
+  },
   {
     title: "Prompt-to-Ontology",
     icon: "Network",
@@ -108,6 +136,7 @@ export function getProjects(locale: string): Project[] {
     tags: def.tags[loc],
     href: def.url ?? getRelativeLocaleUrl(def.enOnly ? "en" : loc, def.path),
     external: Boolean(def.url),
+    repo: def.repo,
     thumbnail: def.thumbnail,
     thumbnailAlt: def.thumbnailAlt,
   }));

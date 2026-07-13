@@ -54,7 +54,8 @@ export const GET: APIRoute = async () => {
   lines.push("## Projects");
   for (const p of projects) {
     const url = p.external ? p.href : `${base}${p.href}`;
-    lines.push(`- [${p.title}](${url}): ${p.description}`);
+    const repo = p.repo ? ` Source: ${p.repo}` : "";
+    lines.push(`- [${p.title}](${url}): ${p.description}${repo}`);
   }
   lines.push("");
 

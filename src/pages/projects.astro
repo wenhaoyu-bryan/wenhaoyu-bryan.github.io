@@ -12,12 +12,40 @@ import { getProjects } from "@/data/projects";
 const locale = Astro.currentLocale ?? config.site.lang;
 
 const projects = getProjects(locale);
+
+// ItemList schema: exposes the project portfolio (incl. repo links) to
+// search engines and AI crawlers, mirroring llms.txt.
+const base = config.site.url.replace(/\/$/, "");
+const projectsJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Projects — Wenhao Yu",
+  itemListElement: projects.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "CreativeWork",
+      name: p.title,
+      description: p.description,
+      url: p.external ? p.href : `${base}${p.href}`,
+      ...(p.repo ? { sameAs: [p.repo] } : {}),
+      keywords: p.tags.join(", "),
+      author: { "@type": "Person", name: config.site.author, url: base },
+    },
+  })),
+});
 ---
 
 <Layout
   title={`Projects | ${config.site.title}`}
   description="Public projects and experiments around AI product management, Prompt-to-Ontology, vibe coding prototypes, and SEO/GEO growth systems."
 >
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={projectsJsonLd}
+    slot="head"
+  />
   <Header />
   <Breadcrumb />
 

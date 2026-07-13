@@ -15,6 +15,7 @@ import {
   Book,
   Code,
   TrendingUp,
+  Activity,
   Bot,
   Database,
   Settings,
@@ -164,7 +165,7 @@ const topics = [
       <h2 class="text-2xl font-semibold tracking-wide">Featured Projects</h2>
       <div class="mt-6 grid gap-4 sm:grid-cols-2">
         {
-          projects.map(project => {
+          projects.map((project, index) => {
             const IconComponent =
               project.icon === "Network"
                 ? Network
@@ -172,19 +173,20 @@ const topics = [
                   ? Book
                   : project.icon === "Code"
                     ? Code
-                    : TrendingUp;
+                    : project.icon === "Activity"
+                      ? Activity
+                      : TrendingUp;
             // Shades chosen to meet WCAG AA contrast in both themes:
             // *-700 on the light card bg, *-400 on the dark card bg.
-            const statusColor =
-              project.status === "Public"
+            const statusColor = project.status.startsWith("Public Tool")
+              ? "border-blue-500 text-blue-700 dark:text-blue-400"
+              : project.status.startsWith("Public")
                 ? "border-green-500 text-green-700 dark:text-green-400"
-                : project.status === "Public Tool"
-                  ? "border-blue-500 text-blue-700 dark:text-blue-400"
-                  : "border-orange-500 text-orange-700 dark:text-orange-400";
+                : "border-orange-500 text-orange-700 dark:text-orange-400";
             return (
               <a
                 href={project.href}
-                class="border-border group hover:bg-accent/5 hover:border-accent/30 rounded-lg border p-5 transition-colors"
+                class={`border-border group hover:bg-accent/5 hover:border-accent/30 rounded-lg border p-5 transition-colors ${index === 0 ? "sm:col-span-2" : ""}`}
                 {...(project.href.startsWith("http")
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}

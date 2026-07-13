@@ -87,6 +87,7 @@ export const GET: APIRoute = async () => {
     out.push(`### ${p.title}`);
     out.push(`Status: ${p.status}`);
     out.push(`URL: ${url}`);
+    if (p.repo) out.push(`Repo: ${p.repo}`);
     if (p.tags?.length) out.push(`Tags: ${p.tags.join(", ")}`);
     out.push("");
     out.push(p.description);
