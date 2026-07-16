@@ -102,8 +102,8 @@ const defs: ProjectDef[] = [
     thumbnail: manifestoThumb,
     thumbnailAlt: "AI PM Manifesto — dark cinematic scroll page hero",
     description: {
-      en: "A dark, cinematic single-page manifesto on building AI products with AI — and a frontend / UI-UX craft showcase. Built with Astro, GSAP, and Lenis.",
-      zh: "一个暗色电影感的单页宣言：用 AI 构建 AI 产品，同时展示前端 / UI-UX 设计能力。基于 Astro、GSAP、Lenis 构建。",
+      en: "A cinematic single-page manifesto on how AI products should be built — the point of view behind everything else here. Built with Astro, GSAP, and Lenis.",
+      zh: "一个电影感的单页宣言，讲述 AI 产品应该如何被构建——这里其他一切背后的观点。基于 Astro、GSAP、Lenis 构建。",
     },
     tags: {
       en: ["Frontend", "Motion", "GSAP", "Astro", "UI/UX"],

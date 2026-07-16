@@ -140,8 +140,22 @@ const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
       )
     }
 
-    <!-- Filled at runtime by theme.ts to match the current background colour -->
-    <meta name="theme-color" content="" />
+    <!-- Static defaults so browser chrome matches the background on first paint
+         (before JS runs), keyed to the OS scheme. theme.ts then fills the
+         id="theme-color" tag with the actually-selected background so a manual
+         toggle that disagrees with the OS preference still matches. An empty
+         content value is ignored by browsers, so the media tags win pre-JS. -->
+    <meta
+      name="theme-color"
+      content="#fdfdfd"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#212737"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta id="theme-color" name="theme-color" content="" />
 
     <!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->
     <slot name="head" />

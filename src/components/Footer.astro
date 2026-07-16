@@ -28,7 +28,9 @@ const nowLabel = locale === "zh" ? "Now · 我在做什么" : "Now";
     <div
       class="my-2 flex flex-col items-center gap-x-3 gap-y-1 text-sm sm:flex-row"
     >
-      <span class="whitespace-nowrap">{t.footer.copyright}{currentYear}</span>
+      <span class="whitespace-nowrap"
+        >{t.footer.copyright}{currentYear} {config.site.author}</span
+      >
       <a
         href={getRelativeLocaleUrl(locale, "now")}
         class="text-accent hover:underline"
