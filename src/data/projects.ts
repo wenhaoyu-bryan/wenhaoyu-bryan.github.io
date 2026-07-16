@@ -42,7 +42,7 @@ const defs: ProjectDef[] = [
   {
     title: "Agent Anatomy",
     icon: "Activity",
-    status: "Public · Ep. 01",
+    status: "Public",
     url: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
     repo: "https://github.com/wenhaoyu-bryan/agent-anatomy",
     thumbnail: agentAnatomyThumb,
