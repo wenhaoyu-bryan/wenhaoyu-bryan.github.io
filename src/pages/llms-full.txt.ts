@@ -79,6 +79,35 @@ export const GET: APIRoute = async () => {
   out.push("=".repeat(72));
   out.push("");
 
+  // What I Work On — mirrors the four pillars on the homepage.
+  out.push("## What I Work On");
+  out.push("");
+  out.push(
+    "Four focus areas, each backed by a concrete artifact:"
+  );
+  out.push("");
+  out.push(
+    "1. Agentic Workflows — designing agent systems with tools, memory, and " +
+      "governance. Proof: Agent Anatomy (https://wenhaoyu-bryan.github.io/agent-anatomy/)."
+  );
+  out.push(
+    "2. Ontology-Driven AI Products — knowledge graphs and structured ontologies " +
+      `that make enterprise AI reliable. Proof: ${base}/projects/prompt-to-ontology.`
+  );
+  out.push(
+    "3. AI-Assisted Delivery — Harness Engineering, Loop Engineering, and Vibe " +
+      "Coding: the systems through which PMs ship with coding agents. Details: " +
+      `${base}/playbook/harness-engineering, ${base}/playbook/loop-engineering, ` +
+      `${base}/playbook/vibe-coding. Proof: ${base}/posts/three-frameworks-ai-assisted-product-delivery, ${base}/playbook.`
+  );
+  out.push(
+    "4. Industrial & B2B AI — enterprise adoption, industrial operations, and " +
+      `B2B product contexts. Proof: ${base}/growth-lab.`
+  );
+  out.push("");
+  out.push("=".repeat(72));
+  out.push("");
+
   // Projects
   out.push("## Projects");
   out.push("");

@@ -51,6 +51,22 @@ export const GET: APIRoute = async () => {
   lines.push(`- [Now](${base}/now): What Wenhao is focused on right now.`);
   lines.push("");
 
+  // Focus areas — mirrors the "What I Work On" pillars on the homepage.
+  lines.push("## Focus Areas");
+  lines.push(
+    `- Agentic Workflows: Designing agent systems with tools, memory, and governance. Proof: Agent Anatomy (https://wenhaoyu-bryan.github.io/agent-anatomy/).`
+  );
+  lines.push(
+    `- Ontology-Driven AI Products: Knowledge graphs and structured ontologies that make enterprise AI reliable. Proof: ${base}/projects/prompt-to-ontology.`
+  );
+  lines.push(
+    `- AI-Assisted Delivery: Harness Engineering, Loop Engineering, and Vibe Coding — the systems through which PMs ship with coding agents. Proof: ${base}/posts/three-frameworks-ai-assisted-product-delivery, ${base}/playbook.`
+  );
+  lines.push(
+    `- Industrial & B2B AI: Enterprise adoption, industrial operations, and B2B product contexts. Proof: ${base}/growth-lab.`
+  );
+  lines.push("");
+
   lines.push("## Projects");
   for (const p of projects) {
     const url = p.external ? p.href : `${base}${p.href}`;

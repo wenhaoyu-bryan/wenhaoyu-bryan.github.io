@@ -37,6 +37,17 @@ const personJsonLd = JSON.stringify({
   name: site.author,
   url: site.url,
   jobTitle: "AI Product Manager",
+  description:
+    "AI Product Manager building agentic workflows, ontology-driven systems, and AI-native product tools.",
+  knowsAbout: [
+    "Agentic Workflows",
+    "Ontology-Driven AI Products",
+    "AI-Assisted Delivery",
+    "Harness Engineering",
+    "Loop Engineering",
+    "Vibe Coding",
+    "Industrial & B2B AI",
+  ],
   sameAs: config.socials
     .map(s => s.url)
     .filter(url => !url.startsWith("mailto:")),
