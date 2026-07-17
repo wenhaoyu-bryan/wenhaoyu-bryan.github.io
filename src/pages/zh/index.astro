@@ -10,31 +10,78 @@ import AskAI from "@/components/AskAI.astro";
 
 const locale = "zh";
 
-const topics = [
+type Proof = { label: string; href: string; external?: boolean };
+type Topic = {
+  title: string;
+  description: string;
+  subLinks?: { label: string; href: string }[];
+  proofs: Proof[];
+};
+
+const topics: Topic[] = [
   {
     title: "智能体工作流",
     description: "设计具备工具、记忆和治理能力的智能体系统。",
+    proofs: [
+      {
+        label: "Agent Anatomy",
+        href: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
+        external: true,
+      },
+    ],
   },
   {
     title: "本体驱动 AI 产品",
-    description: "使用知识图谱和结构化本体提升企业 AI 可靠性。",
+    description: "用知识图谱和结构化本体让企业 AI 更可靠。",
+    proofs: [
+      {
+        label: "Prompt-to-Ontology",
+        href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
+      },
+    ],
   },
   {
-    title: "Harness Engineering",
-    description: "设计上下文、工具、约束和反馈系统，引导 AI 编码智能体。",
-  },
-  {
-    title: "Loop Engineering",
-    description: "设计反馈循环，使 AI 产品、团队和交付物在迭代中持续改进。",
-  },
-  {
-    title: "面向 PM 的 Vibe Coding",
+    title: "AI 辅助交付",
     description:
-      "PM 主导、编码智能体辅助的原型开发，用于早期发现和工作流验证。",
+      "Harness Engineering、Loop Engineering 与 Vibe Coding——产品经理借助编码智能体交付的系统方法。",
+    subLinks: [
+      {
+        label: "Harness Engineering",
+        href: getRelativeLocaleUrl(locale, "playbook/harness-engineering"),
+      },
+      {
+        label: "Loop Engineering",
+        href: getRelativeLocaleUrl(locale, "playbook/loop-engineering"),
+      },
+      {
+        label: "Vibe Coding",
+        href: getRelativeLocaleUrl(locale, "playbook/vibe-coding"),
+      },
+    ],
+    proofs: [
+      {
+        label: "Three Frameworks",
+        // 博客文章仅有英文版本，始终链接英文路由。
+        href: getRelativeLocaleUrl(
+          "en",
+          "posts/three-frameworks-ai-assisted-product-delivery"
+        ),
+      },
+      {
+        label: "AI PM Playbook",
+        href: getRelativeLocaleUrl(locale, "playbook"),
+      },
+    ],
   },
   {
     title: "工业与 B2B AI",
-    description: "企业 AI 落地、工业运营和 B2B 产品场景。",
+    description: "企业落地、工业运营与 B2B 产品场景。",
+    proofs: [
+      {
+        label: "SEO/GEO 增长实验",
+        href: getRelativeLocaleUrl(locale, "growth-lab"),
+      },
+    ],
   },
 ];
 
@@ -153,14 +200,39 @@ const projects = getProjects(locale);
     <!-- What I Work On -->
     <section class="border-border border-b py-10 sm:py-14">
       <h2 class="text-2xl font-semibold tracking-wide">研究方向</h2>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
         {
           topics.map(topic => (
-            <div class="border-border rounded-lg border p-5">
-              <h3 class="font-medium">{topic.title}</h3>
-              <p class="text-muted-foreground mt-1.5 text-sm">
-                {topic.description}
-              </p>
+            <div class="border-border hover:bg-accent/5 hover:border-accent/30 flex flex-col rounded-lg border p-5 transition-colors">
+              <div>
+                <h3 class="font-medium">{topic.title}</h3>
+                <p class="text-muted-foreground mt-1.5 text-sm">
+                  {topic.description}
+                </p>
+                {topic.subLinks && (
+                  <div class="mt-2.5 flex flex-wrap gap-x-3 gap-y-1 text-sm">
+                    {topic.subLinks.map(s => (
+                      <a href={s.href} class="text-accent hover:underline">
+                        {s.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-4 text-sm">
+                {topic.proofs.map(p => (
+                  <a
+                    href={p.href}
+                    class="text-accent inline-flex items-center gap-1 hover:underline"
+                    {...(p.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
+                    → {p.label}
+                    {p.external ? " ↗" : ""}
+                  </a>
+                ))}
+              </div>
             </div>
           ))
         }

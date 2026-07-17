@@ -19,8 +19,6 @@ import {
   Bot,
   Database,
   Settings,
-  RefreshCw,
-  Wand2,
   Building2,
 } from "lucide-astro";
 import { getProjects } from "@/data/projects";
@@ -36,41 +34,85 @@ const homePath = getRelativeLocaleUrl(locale, "");
 
 const projects = getProjects(locale);
 
-const topics = [
+type Proof = { label: string; href: string; external?: boolean };
+type Topic = {
+  title: string;
+  description: string;
+  icon: string;
+  subLinks?: { label: string; href: string }[];
+  proofs: Proof[];
+};
+
+const topics: Topic[] = [
   {
     title: "Agentic Workflows",
     description: "Designing agent systems with tools, memory, and governance.",
     icon: "Bot",
+    proofs: [
+      {
+        label: "Agent Anatomy",
+        href: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
+        external: true,
+      },
+    ],
   },
   {
     title: "Ontology-Driven AI Products",
     description:
-      "Using knowledge graphs and structured ontologies to make enterprise AI reliable.",
+      "Knowledge graphs and structured ontologies that make enterprise AI reliable.",
     icon: "Database",
+    proofs: [
+      {
+        label: "Prompt-to-Ontology",
+        href: getRelativeLocaleUrl(locale, "projects/prompt-to-ontology"),
+      },
+    ],
   },
   {
-    title: "Harness Engineering",
+    title: "AI-Assisted Delivery",
     description:
-      "Designing the context, tools, constraints, and feedback systems that guide AI coding agents.",
+      "Harness Engineering, Loop Engineering, and Vibe Coding — the systems through which PMs ship with coding agents.",
     icon: "Settings",
-  },
-  {
-    title: "Loop Engineering",
-    description:
-      "Designing the feedback loops through which AI products, teams, and delivery artifacts improve over iterations.",
-    icon: "RefreshCw",
-  },
-  {
-    title: "Vibe Coding for PMs",
-    description:
-      "PM-led, coding-agent-assisted prototyping for early discovery and workflow validation.",
-    icon: "Wand2",
+    subLinks: [
+      {
+        label: "Harness Engineering",
+        href: getRelativeLocaleUrl(locale, "playbook/harness-engineering"),
+      },
+      {
+        label: "Loop Engineering",
+        href: getRelativeLocaleUrl(locale, "playbook/loop-engineering"),
+      },
+      {
+        label: "Vibe Coding",
+        href: getRelativeLocaleUrl(locale, "playbook/vibe-coding"),
+      },
+    ],
+    proofs: [
+      {
+        label: "Three Frameworks",
+        // Blog posts are en-only — always link the en route.
+        href: getRelativeLocaleUrl(
+          "en",
+          "posts/three-frameworks-ai-assisted-product-delivery"
+        ),
+      },
+      {
+        label: "AI PM Playbook",
+        href: getRelativeLocaleUrl(locale, "playbook"),
+      },
+    ],
   },
   {
     title: "Industrial & B2B AI",
     description:
-      "Enterprise AI adoption, industrial operations, and B2B product contexts.",
+      "Enterprise adoption, industrial operations, and B2B product contexts.",
     icon: "Building2",
+    proofs: [
+      {
+        label: "SEO/GEO Growth Experiments",
+        href: getRelativeLocaleUrl(locale, "growth-lab"),
+      },
+    ],
   },
 ];
 ---
@@ -224,7 +266,7 @@ const topics = [
     <!-- What I Work On -->
     <section class="border-border border-b py-10 sm:py-14">
       <h2 class="text-2xl font-semibold tracking-wide">What I Work On</h2>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
         {
           topics.map(topic => {
             const IconComponent =
@@ -234,25 +276,44 @@ const topics = [
                   ? Database
                   : topic.icon === "Settings"
                     ? Settings
-                    : topic.icon === "RefreshCw"
-                      ? RefreshCw
-                      : topic.icon === "Wand2"
-                        ? Wand2
-                        : Building2;
+                    : Building2;
             return (
-              <div class="border-border hover:bg-accent/5 hover:border-accent/30 group rounded-lg border p-5 transition-colors">
+              <div class="border-border hover:bg-accent/5 hover:border-accent/30 group flex flex-col rounded-lg border p-5 transition-colors">
                 <div class="flex items-start gap-3">
                   <IconComponent
                     size={24}
                     strokeWidth={2}
                     class="text-foreground group-hover:text-accent mt-0.5 flex-shrink-0 transition-colors"
                   />
-                  <div>
+                  <div class="min-w-0">
                     <h3 class="font-medium">{topic.title}</h3>
                     <p class="text-muted-foreground mt-1.5 text-sm">
                       {topic.description}
                     </p>
+                    {topic.subLinks && (
+                      <div class="mt-2.5 flex flex-wrap gap-x-3 gap-y-1 text-sm">
+                        {topic.subLinks.map(s => (
+                          <a href={s.href} class="text-accent hover:underline">
+                            {s.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
+                </div>
+                <div class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-4 pl-9 text-sm">
+                  {topic.proofs.map(p => (
+                    <a
+                      href={p.href}
+                      class="text-accent inline-flex items-center gap-1 hover:underline"
+                      {...(p.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      → {p.label}
+                      {p.external ? " ↗" : ""}
+                    </a>
+                  ))}
                 </div>
               </div>
             );
