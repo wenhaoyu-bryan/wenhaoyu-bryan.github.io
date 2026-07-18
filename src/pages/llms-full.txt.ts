@@ -82,9 +82,7 @@ export const GET: APIRoute = async () => {
   // What I Work On — mirrors the four pillars on the homepage.
   out.push("## What I Work On");
   out.push("");
-  out.push(
-    "Four focus areas, each backed by a concrete artifact:"
-  );
+  out.push("Four focus areas, each backed by a concrete artifact:");
   out.push("");
   out.push(
     "1. Agentic Workflows — designing agent systems with tools, memory, and " +
