@@ -37,6 +37,17 @@ const personJsonLd = JSON.stringify({
   name: site.author,
   url: site.url,
   jobTitle: "AI Product Manager",
+  description:
+    "AI Product Manager building agentic workflows, ontology-driven systems, and AI-native product tools.",
+  knowsAbout: [
+    "Agentic Workflows",
+    "Ontology-Driven AI Products",
+    "AI-Assisted Delivery",
+    "Harness Engineering",
+    "Loop Engineering",
+    "Vibe Coding",
+    "Industrial & B2B AI",
+  ],
   sameAs: config.socials
     .map(s => s.url)
     .filter(url => !url.startsWith("mailto:")),
@@ -79,6 +90,8 @@ const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
+    <link rel="apple-touch-icon" href={getAssetPath("apple-touch-icon.png")} />
+    <link rel="manifest" href={getAssetPath("site.webmanifest")} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
@@ -140,8 +153,22 @@ const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
       )
     }
 
-    <!-- Filled at runtime by theme.ts to match the current background colour -->
-    <meta name="theme-color" content="" />
+    <!-- Static defaults so browser chrome matches the background on first paint
+         (before JS runs), keyed to the OS scheme. theme.ts then fills the
+         id="theme-color" tag with the actually-selected background so a manual
+         toggle that disagrees with the OS preference still matches. An empty
+         content value is ignored by browsers, so the media tags win pre-JS. -->
+    <meta
+      name="theme-color"
+      content="#fdfdfd"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#212737"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta id="theme-color" name="theme-color" content="" />
 
     <!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->
     <slot name="head" />

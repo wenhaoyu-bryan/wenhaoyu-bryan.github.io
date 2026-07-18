@@ -58,8 +58,33 @@ const isActive = (path: string) => {
   >
     <a
       href={getRelativeLocaleUrl(locale, "")}
-      class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
+      class="absolute inline-flex items-center gap-2 py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
+      <svg
+        viewBox="0 0 128 128"
+        aria-hidden="true"
+        class="size-5 shrink-0 sm:size-6"
+      >
+        <line
+          x1="28"
+          y1="82"
+          x2="64"
+          y2="46"
+          stroke="currentColor"
+          stroke-width="11"
+          stroke-linecap="round"></line>
+        <line
+          x1="64"
+          y1="46"
+          x2="100"
+          y2="82"
+          stroke="currentColor"
+          stroke-width="11"
+          stroke-linecap="round"></line>
+        <circle cx="28" cy="82" r="12" fill="currentColor"></circle>
+        <circle cx="100" cy="82" r="12" fill="currentColor"></circle>
+        <circle cx="64" cy="46" r="17" class="fill-accent"></circle>
+      </svg>
       {site.title}
     </a>
     <nav

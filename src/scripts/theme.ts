@@ -27,9 +27,7 @@ function reflect(): void {
   // Fill <meta name="theme-color"> with the computed background colour so
   // Android's browser chrome matches the page background.
   const bg = window.getComputedStyle(document.body).backgroundColor;
-  document
-    .querySelector("meta[name='theme-color']")
-    ?.setAttribute("content", bg);
+  document.querySelector("meta#theme-color")?.setAttribute("content", bg);
 }
 
 function setup(): void {
@@ -49,11 +47,11 @@ document.addEventListener("astro:after-swap", setup);
 // Android navigation bar from flashing during page transitions.
 document.addEventListener("astro:before-swap", event => {
   const color = document
-    .querySelector("meta[name='theme-color']")
+    .querySelector("meta#theme-color")
     ?.getAttribute("content");
   if (color) {
     (event as { newDocument: Document }).newDocument
-      .querySelector("meta[name='theme-color']")
+      .querySelector("meta#theme-color")
       ?.setAttribute("content", color);
   }
 });

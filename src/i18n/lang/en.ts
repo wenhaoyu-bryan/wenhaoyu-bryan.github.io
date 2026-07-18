@@ -38,7 +38,7 @@ export default {
     allPosts: "All Posts",
   },
   footer: {
-    copyright: "WenhaoYu-Bryan @",
+    copyright: "© ",
     allRightsReserved: "",
   },
   pages: {

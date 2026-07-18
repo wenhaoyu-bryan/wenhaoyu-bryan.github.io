@@ -1,13 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" rx="20" fill="#006cac"/>
-  <text
-    x="64"
-    y="85"
-    font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
-    font-size="48"
-    font-weight="700"
-    fill="#ffffff"
-    text-anchor="middle"
-    letter-spacing="-1"
-  >WY</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wenhao Yu">
+  <style>
+    .edge { stroke: #282728; stroke-width: 11; stroke-linecap: round; }
+    .node { fill: #282728; }
+    .hub  { fill: #006cac; }
+    @media (prefers-color-scheme: dark) {
+      .edge { stroke: #eaedf3; }
+      .node { fill: #eaedf3; }
+      .hub  { fill: #ff6b01; }
+    }
+  </style>
+  <line class="edge" x1="28" y1="82" x2="64" y2="46"/>
+  <line class="edge" x1="64" y1="46" x2="100" y2="82"/>
+  <circle class="node" cx="28" cy="82" r="12"/>
+  <circle class="node" cx="100" cy="82" r="12"/>
+  <circle class="hub" cx="64" cy="46" r="17"/>
 </svg>
