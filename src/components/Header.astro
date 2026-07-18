@@ -65,25 +65,21 @@ const isActive = (path: string) => {
         aria-hidden="true"
         class="size-5 shrink-0 sm:size-6"
       >
-        <line
-          x1="28"
-          y1="82"
-          x2="64"
-          y2="46"
+        <polyline
+          points="48,28 32,28 32,100 48,100"
+          fill="none"
           stroke="currentColor"
           stroke-width="11"
-          stroke-linecap="round"></line>
-        <line
-          x1="64"
-          y1="46"
-          x2="100"
-          y2="82"
+          stroke-linecap="round"
+          stroke-linejoin="round"></polyline>
+        <polyline
+          points="80,28 96,28 96,100 80,100"
+          fill="none"
           stroke="currentColor"
           stroke-width="11"
-          stroke-linecap="round"></line>
-        <circle cx="28" cy="82" r="12" fill="currentColor"></circle>
-        <circle cx="100" cy="82" r="12" fill="currentColor"></circle>
-        <circle cx="64" cy="46" r="17" class="fill-accent"></circle>
+          stroke-linecap="round"
+          stroke-linejoin="round"></polyline>
+        <circle cx="64" cy="64" r="14" class="fill-accent"></circle>
       </svg>
       {site.title}
     </a>
