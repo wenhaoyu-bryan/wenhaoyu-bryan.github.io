@@ -1,17 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wenhao Yu">
   <style>
-    .edge { stroke: #282728; stroke-width: 11; stroke-linecap: round; }
-    .node { fill: #282728; }
-    .hub  { fill: #006cac; }
+    .bracket { stroke: #282728; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .node    { fill: #006cac; }
     @media (prefers-color-scheme: dark) {
-      .edge { stroke: #eaedf3; }
-      .node { fill: #eaedf3; }
-      .hub  { fill: #ff6b01; }
+      .bracket { stroke: #eaedf3; }
+      .node    { fill: #ff6b01; }
     }
   </style>
-  <line class="edge" x1="28" y1="82" x2="64" y2="46"/>
-  <line class="edge" x1="64" y1="46" x2="100" y2="82"/>
-  <circle class="node" cx="28" cy="82" r="12"/>
-  <circle class="node" cx="100" cy="82" r="12"/>
-  <circle class="hub" cx="64" cy="46" r="17"/>
+  <polyline class="bracket" points="48,28 32,28 32,100 48,100"/>
+  <polyline class="bracket" points="80,28 96,28 96,100 80,100"/>
+  <circle class="node" cx="64" cy="64" r="14"/>
 </svg>
