@@ -141,6 +141,38 @@ const PLAYBOOK_BASE =
       Harness 的工程师，会造出「技术扎实却在解决错误问题」的智能体。
     </p>
 
+    <h2 class="mt-6 text-xl font-semibold">实践中</h2>
+    <p>
+      这不是抽象概念。本站上具体的工作，就是靠 Harness Engineering 构建出来的：
+    </p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href={getRelativeLocaleUrl(
+            locale,
+            "projects/enterprise-agent-platform"
+          )}
+          class="text-accent hover:underline">企业级 Agent 平台：从 0 到 1</a
+        > —— 满足工业级可靠性底线，本质上就是一个 harness 问题：设计平台自身 Agent
+        所处的上下文、工具、约束和验收标准，让它的输出成为领域专家愿意信任的东西。
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
+          class="text-accent hover:underline">Prompt-to-Ontology</a
+        > —— 一个可运行原型，其中受限的工具、结构化的 Schema 和人工确认，共同构成了
+        Agent 周围的 harness。
+      </li>
+      <li>
+        <a
+          href="https://wenhaoyu-bryan.github.io/agent-anatomy/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer">Agent Anatomy ↗</a
+        > —— 一次 agent 运行的交互式回放，把循环、上下文窗口和反馈信号都可视化出来。
+      </li>
+    </ul>
+
     <h2 class="mt-6 text-xl font-semibold">
       与 AI PM Operating Playbook 的关联
     </h2>
