@@ -1,8 +1,14 @@
 ---
 /**
- * Direct, one-click contact row: a real mailto link plus inline LinkedIn and
- * GitHub links. URLs are pulled from config.socials (the single source of
- * truth) — never hardcoded — so this stays in sync with the footer.
+ * Direct contact row: LinkedIn and GitHub links plus a copy-on-click email
+ * button. URLs are pulled from config.socials (the single source of truth) —
+ * never hardcoded — so this stays in sync with the footer.
+ *
+ * The email is NOT rendered as visible text or a mailto: link (both are
+ * trivially harvested by scrapers). Instead it mirrors the footer's Socials
+ * behaviour: the address lives only in a data attribute and is copied to the
+ * clipboard on click, with a mailto: fallback if the Clipboard API is
+ * unavailable.
  */
 import config from "@/config";
 
@@ -26,6 +32,8 @@ const github = findSocial("github");
 // silently — re-add it to the config rather than hardcoding it here.
 
 const emailLabel = zh ? "邮箱" : "Email";
+const copiedLabel = zh ? "已复制！" : "Copied!";
+const copyTitle = zh ? "点击复制邮箱地址" : "Click to copy email address";
 
 const linkClass =
   "border-border text-foreground hover:bg-accent/10 hover:border-accent inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors";
@@ -33,10 +41,18 @@ const linkClass =
 
 <div class="flex flex-wrap gap-3">
   {
-    mailUrl && (
-      <a href={mailUrl} class={linkClass}>
-        {emailLabel} — {email}
-      </a>
+    email && (
+      <button
+        type="button"
+        class={`${linkClass} cursor-pointer`}
+        data-contact-copy-email={email}
+        data-idle-label={emailLabel}
+        data-copied-label={copiedLabel}
+        title={copyTitle}
+        aria-label={copyTitle}
+      >
+        <span data-contact-email-label>{emailLabel}</span>
+      </button>
     )
   }
   {
@@ -64,3 +80,34 @@ const linkClass =
     )
   }
 </div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-contact-copy-email]")
+      .forEach(btn => {
+        if (btn.dataset.copyBound) return;
+        btn.dataset.copyBound = "true";
+
+        const label = btn.querySelector<HTMLElement>(
+          "[data-contact-email-label]"
+        );
+        const idle = btn.dataset.idleLabel ?? "Email";
+        const copied = btn.dataset.copiedLabel ?? "Copied!";
+
+        btn.addEventListener("click", async () => {
+          const email = btn.dataset.contactCopyEmail;
+          if (!email) return;
+          try {
+            await navigator.clipboard.writeText(email);
+            if (label) label.textContent = copied;
+            window.setTimeout(() => {
+              if (label) label.textContent = idle;
+            }, 2000);
+          } catch {
+            window.location.href = `mailto:${email}`;
+          }
+        });
+      });
+  });
+</script>
