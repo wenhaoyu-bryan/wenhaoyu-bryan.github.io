@@ -160,6 +160,42 @@ const PLAYBOOK_BASE =
       wrong problems.
     </p>
 
+    <h2 class="mt-6 text-xl font-semibold">In Practice</h2>
+    <p>
+      This is not abstract. Harness engineering is how the concrete work on this
+      site got built:
+    </p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href={getRelativeLocaleUrl(
+            locale,
+            "projects/enterprise-agent-platform"
+          )}
+          class="text-accent hover:underline"
+          >Enterprise Agent Platform (0 → 1)</a
+        > — meeting an industrial reliability bar was fundamentally a harness problem:
+        designing the context, tools, constraints, and acceptance criteria the platform's
+        agents operate within so their output is something a domain expert will trust.
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
+          class="text-accent hover:underline">Prompt-to-Ontology</a
+        > — a working prototype where scoped tools, a structured schema, and human-in-the-loop
+        approval form the harness around the agent.
+      </li>
+      <li>
+        <a
+          href="https://wenhaoyu-bryan.github.io/agent-anatomy/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer">Agent Anatomy ↗</a
+        > — an interactive replay of an agent run that makes the loop, the context
+        window, and the feedback signals visible.
+      </li>
+    </ul>
+
     <h2 class="mt-6 text-xl font-semibold">
       Connection to AI PM Operating Playbook
     </h2>

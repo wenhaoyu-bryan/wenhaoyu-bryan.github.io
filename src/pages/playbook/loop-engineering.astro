@@ -181,6 +181,39 @@ const PLAYBOOK_BASE =
       </li>
     </ul>
 
+    <h2 class="mt-6 text-xl font-semibold">In Practice</h2>
+    <p>Where these loops have actually run on public and product work:</p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <a
+          href={getRelativeLocaleUrl(
+            locale,
+            "projects/enterprise-agent-platform"
+          )}
+          class="text-accent hover:underline"
+          >Enterprise Agent Platform (0 → 1)</a
+        > — domain-expert feedback fed back into configuration, constraints, and acceptance
+        criteria each iteration, so every cycle left behind a reusable artifact rather
+        than resetting to zero.
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
+          class="text-accent hover:underline">Prompt-to-Ontology</a
+        > — built through repeated implementation loops, with the methodology itself
+        captured as an artifact in the playbook and a long-form write-up.
+      </li>
+      <li>
+        <a
+          href="https://wenhaoyu-bryan.github.io/agent-anatomy/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer">Agent Anatomy ↗</a
+        > — the implementation loop made visible: an agent generating, testing, and
+        healing a broken page fix by fix.
+      </li>
+    </ul>
+
     <h2 class="mt-6 text-xl font-semibold">
       Connection to AI PM Operating Playbook
     </h2>

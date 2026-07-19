@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import ContactRow from "@/components/ContactRow.astro";
 import config from "@/config";
 
 const about = await getEntry("pages", "about");
@@ -21,7 +22,7 @@ const { Content } = await render(about);
 <Layout
   title={`${about.data.title} — ${config.site.title}`}
   description={about.data.description}
-  ogImage={about.data.ogImage}
+  ogImage={about.data.ogImage ?? "/og/about.png"}
   canonicalURL={about.data.canonicalURL}
 >
   <Header />
@@ -43,6 +44,9 @@ const { Content } = await render(about);
       />
     </figure>
     <Content />
+    <div class="not-prose mt-4">
+      <ContactRow locale="en" />
+    </div>
   </Main>
 
   <Footer />

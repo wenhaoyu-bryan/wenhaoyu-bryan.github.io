@@ -1,0 +1,295 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
+import config from "@/config";
+
+const snapshot = [
+  { label: "角色", value: "产品经理（0 → 1 主导）" },
+  { label: "领域", value: "先进制造（半导体及相邻流程工业）" },
+  { label: "状态", value: "当前工作 · 研发中" },
+  { label: "保密", value: "方法论可公开 · 内部细节已抽象" },
+];
+
+// 平台的抽象形态——不含任何内部系统名称。每一步都对应下方经批准内容里的一项能力。
+const architectureSteps = [
+  { label: "业务工作台 + 开发者控制台", note: "双模", emphasis: true },
+  {
+    label: "Agent 配置",
+    note: "提示词 · 模型 · 知识 · 工具 · 技能",
+  },
+  { label: "Skill 生命周期", note: "共创 · 编辑 · 版本 · 发布" },
+  { label: "治理层", note: "沙箱 · 审批 · 审计", emphasis: true },
+  { label: "自动化触发", note: "Webhook · 消息队列 · 定时" },
+  { label: "企业技能中心", note: "让专长复利" },
+];
+---
+
+<Layout
+  title={`Enterprise Agent Platform (0 → 1) — Current Work — ${config.site.title}`}
+  description="以产品经理身份，把一个面向先进制造的企业级 Agent 平台从 0 到 1 做起来：双模设计、可治理的可复用技能，以及研发中的多智能体架构。"
+  ogImage="/og/enterprise-agent-platform.png"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="企业级 Agent 平台（0 → 1）" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "projects/enterprise-agent-platform")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      一个面向先进制造（半导体及相邻流程工业）的企业级 Agent
+      平台，把专家知识和业务流程转化为可治理、可复用的 AI
+      Agent——「数字员工」。我以产品经理身份主导它从 0 到
+      1。这是正在进行中的工作，因此本页只描述方法论与能力，内部系统、数据和身份都做了抽象处理。
+    </p>
+
+    <div class="border-border mt-4 flex flex-wrap gap-2">
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        当前工作
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        Agent 平台
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        企业 AI
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        0 → 1
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        治理即设计
+      </span>
+    </div>
+
+    <div
+      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+    >
+      {
+        snapshot.map(item => (
+          <div class="bg-background p-4">
+            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+              {item.label}
+            </p>
+            <p class="mt-1 text-sm">{item.value}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="border-border bg-muted/30 text-muted-foreground mt-6 rounded-lg border p-4 text-sm"
+    >
+      <strong class="text-foreground">关于保密的说明。</strong
+      >这是真实的、正在进行中的企业级产品工作。这里描述的是方法论与能力；内部系统、数据和身份都做了抽象处理。平台仍在研发中，因此没有可报告的结果指标——我不会公布自己无法分享的数字。
+    </div>
+
+    <!-- ─────────────────────────  1. WHAT IT IS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">这是什么</h2>
+    <p>
+      平台让一家工业企业能够把深厚的领域专长和既有业务流程，转化为可复用、可治理、可共享的
+      Agent——而不是只存在于人和表格里的知识。它采用双模设计。<strong
+        >业务工作台</strong
+      >是一线操作员和工程师与 Agent 对话、挂载所需 skill、跟踪任务的地方；<strong
+        >开发者控制台</strong
+      >则是构建者端到端配置 Agent
+      的地方。两种模式共享同一套底层资产，所以构建者交付的东西，操作员可以立刻拿来用。
+    </p>
+
+    <!-- ─────────────────────────  2. MY ROLE  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">我的角色</h2>
+    <p>
+      我以产品经理身份主导这个平台从 0 到
+      1：构思、PRD、竞品分析、客户反馈闭环，以及 vibe-coded
+      原型——这些原型会成为工程蓝图。我没有把一份静态规格丢给工程团队，而是用 PM
+      主导、编码智能体辅助的方式，把关键流程做成可运行原型——一个可点击的原型消除了规格里的歧义，成为团队据以构建的参考实现。
+      <a
+        href={getRelativeLocaleUrl("zh", "playbook/vibe-coding")}
+        class="text-accent hover:underline">Vibe Coding →</a
+      >
+    </p>
+
+    <!-- ─────────────────────────  3. CAPABILITIES  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">平台能力</h2>
+
+    <h3 class="mt-6 text-lg font-medium">Agent 配置</h3>
+    <p>每个 Agent 都由一组可组合的部件拼装而成：</p>
+    <ul class="mt-2 space-y-2">
+      <li>系统提示词、模型选择与采样参数；</li>
+      <li>带混合检索的知识库；</li>
+      <li>企业术语词典，让模型输出与公司用语保持一致；</li>
+      <li>Agent 可直接查询的结构化数据集；</li>
+      <li>推理过程中可调用的工具资产——函数、API 与标准协议；</li>
+      <li>以及带版本的 skill。</li>
+    </ul>
+    <p class="mt-3">
+      另有两项能力是每个 Agent
+      独立的开关：在用户输入不足时主动追问的澄清模式，以及联网搜索。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">Skill 生命周期</h3>
+    <p>Skill 有三种创建方式：</p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>AI 共创</strong
+        >——用自然语言描述需求；系统会先追问澄清，再生成代码、配置和文档，并把执行逻辑可视化成一张分步蓝图。
+      </li>
+      <li>
+        <strong>空白 skill 编写</strong>——在内置编辑器里构建，配一个 Copilot
+        风格的助手，以可一键应用的 diff 形式给出修改建议。
+      </li>
+      <li><strong>包导入</strong>——引入一个已有的 skill。</li>
+    </ul>
+    <p class="mt-3">
+      每个 skill 都带版本、权限（所有者 / 协作者 / 使用者；使用 /
+      编辑），以及带变更类型标签和影响范围的发布说明。发布后的 skill
+      会进入一个按官方 / 部门 /
+      个人范围组织的共享企业技能中心——让专长在组织内复利，而不是随个人离开而流失。
+    </p>
+
+    <!-- ─────────────────────────  4. GOVERNANCE  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">治理即设计</h2>
+    <p>
+      在工业场景里，一个「自信地做错」的自动化动作代价很高，所以治理是设计进去的，而不是事后补上的。相关控制包括：
+    </p>
+    <ul class="mt-2 space-y-2">
+      <li>开发 / 生产沙箱隔离；</li>
+      <li>发布前的模拟执行；</li>
+      <li>每个 skill 的人工确认门——「执行前需审批」；</li>
+      <li>高风险能力开关；</li>
+      <li>审批队列；</li>
+      <li>
+        以及一个任务中心，审计每一次自动化运行并跟踪状态（已完成 / 运行中 /
+        待审批 / 错误）。
+      </li>
+    </ul>
+    <p class="mt-3">
+      底层的原则只有一句：AI
+      生成的能力，必须先进入一个可验证、可追溯的环境，才能触碰真实业务系统。正是这一点让「被采用」成为可能——专家愿意先试一个「不能背着他行动」的系统，远早于一个「能背着他行动」的系统。
+    </p>
+
+    <!-- ─────────────────────────  5. AUTOMATION  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">自动化与集成</h2>
+    <p>三种触发方式把 Agent 接入真实运营：</p>
+    <ul class="mt-2 space-y-2">
+      <li><strong>Webhook 回调</strong>，带鉴权 token 和数据映射模板；</li>
+      <li>
+        <strong>消息队列事件</strong
+        >，高置信度的匹配自动处理，低置信度的转人工审批；
+      </li>
+      <li><strong>定时任务</strong>，产出周期性的分析和报告。</li>
+    </ul>
+    <p class="mt-3">
+      Agent 可以通过 iframe 嵌入第三方系统，或作为带托管密钥和有效期策略的 API
+      发布。一个模型管理层让平台可以在同一接口后面替换和治理多个
+      LLM（对话、rerank、embedding）。
+    </p>
+
+    <FlowDiagram
+      steps={architectureSteps}
+      caption="平台的抽象形态：一个覆盖在可配置 Agent 与 skill 生命周期之上的双模界面，在任何自动化触发运行之前先经过治理层——发布后的 skill 又回流进共享的企业技能中心。"
+    />
+
+    <!-- ─────────────────────────  6. IN PROGRESS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">研发中：多智能体架构</h2>
+    <p>
+      目前有两项能力正在研发中。第一项是多智能体<strong>通信会话</strong>——多个
+      Agent 在同一个会话里共享上下文。第二项是<strong>编排者—工作者</strong
+      >（层级式的主导 / 从属）结构：由一个主导 Agent
+      拆解任务，再委派给专门的从属
+      Agent。同一套治理面——审批门与可审计性——也延伸到 Agent 之间的委派，这样即使
+      Agent 开始把工作交给彼此，可靠性依然成立。
+    </p>
+
+    <!-- ─────────────────────────  7. FRAMEWORKS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">这如何连接到我的方法框架</h2>
+    <p>
+      我在 Playbook
+      里写的方法不是事后总结的理论——它们就是这个平台被构建出来的方式。<a
+        href={getRelativeLocaleUrl("zh", "playbook/harness-engineering")}
+        class="text-accent hover:underline">Harness Engineering</a
+      > 让 Agent 输出可靠到领域专家愿意接受：定义 Agent 所处的上下文、工具、约束和验收标准。<a
+        href={getRelativeLocaleUrl("zh", "playbook/loop-engineering")}
+        class="text-accent hover:underline">Loop Engineering</a
+      > 让专家反馈回流到配置和约束里，而不是停留在某个人的脑子里。<a
+        href={getRelativeLocaleUrl("zh", "playbook/vibe-coding")}
+        class="text-accent hover:underline">Vibe Coding</a
+      > 则让原型成为蓝图。而 grounded 配置的思路也和本站的本体工作相连——系统的知识越是结构化、越显式，它需要猜测的就越少。
+      <a
+        href={getRelativeLocaleUrl("zh", "projects/prompt-to-ontology")}
+        class="text-accent hover:underline">查看 Prompt-to-Ontology →</a
+      >
+    </p>
+
+    <div
+      class="border-border bg-muted/30 mt-8 flex flex-col gap-3 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div>
+        <p class="font-medium">背后的方法论，公开在这里</p>
+        <p class="text-muted-foreground text-sm">
+          上面引用的框架，在 Playbook 里有完整的展开。
+        </p>
+      </div>
+      <a
+        href={getRelativeLocaleUrl("zh", "playbook")}
+        class="bg-accent text-accent-foreground inline-flex shrink-0 items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+      >
+        阅读 Playbook &rarr;
+      </a>
+    </div>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl("zh", "projects/prompt-to-ontology")}
+          class="text-accent hover:underline"
+        >
+          Prompt-to-Ontology
+        </a>
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook/harness-engineering")}
+          class="text-accent hover:underline"
+        >
+          Harness Engineering
+        </a>
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook/vibe-coding")}
+          class="text-accent hover:underline"
+        >
+          Vibe Coding
+        </a>
+        <a
+          href="https://wenhaoyu-bryan.github.io/agent-anatomy/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Agent Anatomy ↗
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

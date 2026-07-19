@@ -3,12 +3,13 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import ContactRow from "@/components/ContactRow.astro";
 import config from "@/config";
 ---
 
 <Layout
   title={`关于 — ${config.site.title}`}
-  description="关于余文豪：AI 产品经理，关注工业 AI、本体系统、Agent 产品设计、Vibe Coding 和增长方法论。"
+  description="关于余文豪：一名 AI 产品经理，如何把模糊的业务问题转化为产品概念、交互式原型和可复用的交付系统。"
 >
   <Header />
 
@@ -98,7 +99,9 @@ import config from "@/config";
       对 AI
       产品项目、本体系统或增长实验的合作感兴趣？我很乐意提供咨询、参与演讲，或者一起构建。
     </p>
-    <p>邮箱、GitHub、LinkedIn、X 和 Medium ——所有联系方式都在下方页脚里。</p>
+    <div class="not-prose mt-4">
+      <ContactRow locale="zh" />
+    </div>
   </Main>
 
   <Footer />

@@ -9,8 +9,13 @@ type Locale = "en" | "zh";
 export interface Project {
   title: string;
   description: string;
-  status: "Public" | "Public Tool" | "Ongoing" | "Public · Ep. 01";
-  icon: "Network" | "Book" | "Code" | "TrendingUp" | "Activity";
+  status:
+    | "Public"
+    | "Public Tool"
+    | "Ongoing"
+    | "Public · Ep. 01"
+    | "Current Work";
+  icon: "Network" | "Book" | "Code" | "TrendingUp" | "Activity" | "Bot";
   href: string;
   external: boolean;
   tags: string[];
@@ -39,6 +44,26 @@ interface ProjectDef {
 }
 
 const defs: ProjectDef[] = [
+  {
+    title: "Enterprise Agent Platform (0 → 1)",
+    icon: "Bot",
+    status: "Current Work",
+    path: "projects/enterprise-agent-platform",
+    description: {
+      en: "Leading an enterprise agent platform from 0 to 1 in advanced manufacturing as its product manager — a dual-mode design over configurable agents, an AI-co-created skill lifecycle, and governance by design (sandboxing, approval gates, audited runs). Methodology described; internals abstracted.",
+      zh: "以产品经理身份，把一个面向先进制造的企业级 Agent 平台从 0 到 1 做起来：覆盖可配置 Agent 的双模设计、AI 共创的 skill 生命周期，以及「治理即设计」（沙箱、审批门、可审计运行）。方法论可公开，内部细节已抽象。",
+    },
+    tags: {
+      en: [
+        "Agent Platform",
+        "Enterprise AI",
+        "0 → 1",
+        "Governance",
+        "Industrial",
+      ],
+      zh: ["Agent 平台", "企业 AI", "0 → 1", "治理", "工业场景"],
+    },
+  },
   {
     title: "Agent Anatomy",
     icon: "Activity",
@@ -70,8 +95,8 @@ const defs: ProjectDef[] = [
     thumbnail: ontologyThumb,
     thumbnailAlt: "Prompt-to-Ontology operational runtime dashboard",
     description: {
-      en: "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems. The working demo runs a live pipeline of 46 ontology objects, 116 relations, and 324 review items.",
-      zh: "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。可运行的 Demo 跑通完整流程：46 个本体对象、116 条关系、324 条待审项。",
+      en: "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems. The working demo runs a live pipeline of 46 ontology objects, 116 relations, and 324 review items — large enough to surface real review-queue and conflict-resolution problems rather than a toy graph.",
+      zh: "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。可运行的 Demo 跑通完整流程：46 个本体对象、116 条关系、324 条待审项——规模足以暴露真实的审查队列与冲突消解问题，而不是一个玩具图谱。",
     },
     tags: {
       en: ["Ontology", "Knowledge Graphs", "Neo4j", "NetworkX", "ReAct Agent"],

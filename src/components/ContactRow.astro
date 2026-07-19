@@ -1,0 +1,66 @@
+---
+/**
+ * Direct, one-click contact row: a real mailto link plus inline LinkedIn and
+ * GitHub links. URLs are pulled from config.socials (the single source of
+ * truth) — never hardcoded — so this stays in sync with the footer.
+ */
+import config from "@/config";
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = "en" } = Astro.props;
+const zh = locale === "zh";
+
+const findSocial = (name: string) =>
+  config.socials.find(s => s.name === name)?.url;
+
+const mailUrl = findSocial("mail");
+const email = mailUrl?.replace(/^mailto:/, "");
+const linkedin = findSocial("linkedin");
+const github = findSocial("github");
+
+// TODO(Bryan): if you ever remove "mail"/"linkedin"/"github" from
+// astro-paper.config.ts socials, the corresponding link here disappears
+// silently — re-add it to the config rather than hardcoding it here.
+
+const emailLabel = zh ? "邮箱" : "Email";
+
+const linkClass =
+  "border-border text-foreground hover:bg-accent/10 hover:border-accent inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors";
+---
+
+<div class="flex flex-wrap gap-3">
+  {
+    mailUrl && (
+      <a href={mailUrl} class={linkClass}>
+        {emailLabel} — {email}
+      </a>
+    )
+  }
+  {
+    linkedin && (
+      <a
+        href={linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={linkClass}
+      >
+        LinkedIn ↗
+      </a>
+    )
+  }
+  {
+    github && (
+      <a
+        href={github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={linkClass}
+      >
+        GitHub ↗
+      </a>
+    )
+  }
+</div>

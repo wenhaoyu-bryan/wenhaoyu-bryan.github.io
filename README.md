@@ -1,7 +1,9 @@
 # Wenhao Yu — AI Product Manager
 
-Personal profile site and knowledge hub for Wenhao Yu (Bryan): AI PM case
-studies, an AI-native product playbook, blog posts, and growth experiments.
+AI Product Manager — agentic workflows, ontology-driven systems, and
+AI-assisted delivery. Personal profile site and knowledge hub for Wenhao Yu
+(Bryan): case studies, an AI-native product playbook, blog posts, and growth
+experiments.
 
 **Live site:** <https://wenhaoyu-bryan.github.io>
 
