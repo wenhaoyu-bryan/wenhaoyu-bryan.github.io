@@ -1,0 +1,342 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
+import config from "@/config";
+
+const snapshot = [
+  { label: "角色", value: "产品经理（0 → 1 主导）" },
+  { label: "领域", value: "半导体制造" },
+  { label: "类型", value: "企业级 Agent 平台 · 内部产品" },
+  { label: "保密", value: "方法论已抽象 · 内部细节私有" },
+];
+
+const architectureSteps = [
+  { label: "人工专家流程", note: "起点" },
+  { label: "Agent 平台", note: "双模：对话 + 构建", emphasis: true },
+  { label: "Tools · Skills · Agents", note: "分层资产模型" },
+  { label: "Grounded 配置", note: "领域知识注入，而非猜测" },
+  { label: "治理层", note: "沙箱 + 人工确认", emphasis: true },
+  { label: "自动化编排", note: "可复用、可审计的运行" },
+];
+---
+
+<Layout
+  title={`Enterprise Agent Platform: 0 → 1 — ${config.site.title}`}
+  description="案例研究：在半导体制造场景下，把一个企业级 Agent 平台从模糊起点带到可用产品——约束、产品决策，以及 Harness / Loop / Vibe Coding 方法如何塑造它。"
+  ogImage="/og/enterprise-agent-platform.png"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="企业级 Agent 平台：从 0 到 1" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "projects/enterprise-agent-platform")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      我如何在一家半导体制造企业内部，把一个企业级 Agent
+      平台从模糊的起点带到可用产品。这个页面抽象了产品方法论——背后的决策、推理和真正跑起来的系统——同时把内部数据、系统名称和指标保持私有。
+    </p>
+
+    <div class="border-border mt-4 flex flex-wrap gap-2">
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        Agent 平台
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        企业 AI
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        0 → 1
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        治理即设计
+      </span>
+      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+        工业场景
+      </span>
+    </div>
+
+    <div
+      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+    >
+      {
+        snapshot.map(item => (
+          <div class="bg-background p-4">
+            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+              {item.label}
+            </p>
+            <p class="mt-1 text-sm">{item.value}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="border-border bg-muted/30 text-muted-foreground mt-6 rounded-lg border p-4 text-sm"
+    >
+      <strong class="text-foreground">关于保密的说明。</strong
+      >这是真实的企业级产品工作。这里的所有内容都停留在方法论和产品推理的层面：不公开任何专有数据、内部系统名称、客户信息或机密指标。凡是需要一个真实数字才能把论断说实的地方，我都用占位符标注，而不是编造。
+    </div>
+
+    <!-- ─────────────────────────  1. CONTEXT  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">背景：一个模糊的起点</h2>
+    <p>
+      这家企业有深厚的领域专长和大量沉淀的机构知识，但这些知识散落在人、表格和老旧工具里。资深工程师把相当一部分时间花在重复的、判断含量不高的工作上：查资料、跨系统对数据、手动执行有既定规则的流程。企业对
+      AI 有明显的意愿，但对「Agent
+      平台」应该是什么、给谁用、如何衡量成功，并没有一个共识。
+    </p>
+    <!-- TODO(Bryan): 如愿意，补 1–2 个可公开的具体细节 —— 例如最先切入的任务类别，
+         或初始用户大致的人数/团队数。 -->
+    <p>
+      <em class="text-muted-foreground"
+        >[占位符：例如「最先切入的目标流程是 X —— 一个占用领域专家每周 Y
+        小时、跨 Z 个内部系统的流程。」]</em
+      >
+    </p>
+    <p>
+      业务<strong>已有</strong
+      >：领域专家、专有流程知识、（无论多乱的）现有数据，以及高层的兴趣。业务<strong
+        >缺少</strong
+      >：把这份兴趣落成产品形态的能力、把 AI
+      放到敏感流程前的可靠方式，以及一条从「惊艳的
+      Demo」到「人们信任到愿意每天使用」的路径。
+    </p>
+
+    <!-- ─────────────────────────  2. CONSTRAINTS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">
+      约束：「企业级」和「工业」到底意味着什么
+    </h2>
+    <p>这个产品真正难的地方从来不是模型，而是让它能扛住工业企业的约束。</p>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>数据敏感性。</strong
+        >流程和运营数据具有商业敏感性，且受权限控制。平台必须默认数据不能越过某些边界，「直接发给模型就好」往往不成立。Grounding
+        必须在不泄露的前提下完成。
+      </li>
+      <li>
+        <strong>领域专家才是真正的用户。</strong
+        >会评判这个产品的人，对自己领域的理解远超任何模型。他们对一个「自信地给出错误答案」的系统会很快失去信任。标准不是「听起来合理」，而是「专家愿意签字认可」。
+      </li>
+      <li>
+        <strong>遗留工作流与系统。</strong
+        >真实工作已经在既有工具和流程中流转。一个无视它们、要求人们改变习惯的平台，无论
+        AI 多好都会被拒绝。它必须在既有工作流所在的地方与之衔接。
+      </li>
+      <li>
+        <strong>很高的可靠性底线。</strong
+        >在制造场景里，一个错误动作不是无关痛痒的小
+        bug。一个「自信地做错」的自动化步骤代价很高，所以安全默认必须是「提议并等待人工」，而不是「直接执行」。
+      </li>
+    </ul>
+
+    <!-- ─────────────────────────  3. KEY DECISIONS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">关键产品决策</h2>
+    <p>
+      少数几个决策承担了大部分作用。每一个都是我做出、并且能够解释的产品判断——不是被下放到实现层的技术细节。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">1. 双模平台，而不是一个聊天机器人</h3>
+    <p>
+      平台把对话模式（提问、探索、获取答案）和构建模式（编排与配置可复用的自动化）分开。这样定位避免了掉进「再做一个聊天框」的陷阱，转而让产品成为一个「能力可以沉淀」的地方。推理很简单：聊天机器人是被消费的，平台是被构建其上的。只有后者会随时间复利。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">
+      2. 分层的 tools / skills / agents 资产模型
+    </h3>
+    <p>
+      能力不是一个单体，而是分层的：底层 <strong>tools</strong
+      >（系统可执行的带类型动作）、可组合的 <strong>skills</strong>（由 tools
+      搭出的可复用流程），以及 <strong>agents</strong>（把 skills
+      应用到目标上）。这给了非工程师一个能推理的心智模型，让能力可审计，也让平台以累加而非重写的方式成长。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">
+      3. 治理是设计原则，不是事后加的功能
+    </h3>
+    <p>
+      沙箱隔离和人工确认（Human-in-the-loop）从一开始就设计在内，而不是后期补上。默认姿态是：Agent
+      <em>提议</em>一个动作，人<em>确认</em
+      >之后，任何有真实后果的操作才会发生。在工业场景里，正是这一点让「被采用」成为可能：专家愿意先试一个「不能背着他行动」的系统，远早于一个「能背着他行动」的系统。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">4. Grounded 配置，而不是提示词技巧</h3>
+    <p>
+      可靠性来自把系统 ground
+      在真实的领域配置和数据上——平台会读取的结构化上下文——而不是靠越写越长的提示词。这和本站的本体工作直接相关：系统的知识越是结构化、越显式，它需要猜测的就越少。
+      <a
+        href={getRelativeLocaleUrl("zh", "projects/prompt-to-ontology")}
+        class="text-accent hover:underline">查看 Prompt-to-Ontology →</a
+      >
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">
+      5. 先从一个流程做起，先赢得信任，再泛化
+    </h3>
+    <p>
+      不是横向铺开，而是让平台先在一个具体、痛点明确的流程上站住脚。在一个真实任务上赢得信任，才积累出扩张所需的可信度（以及可复用资产）——这是一个刻意的排序决策，不是偶然。
+    </p>
+    <!-- TODO(Bryan): 如可公开，写出你最先锚定的那个流程、以及为什么它是正确的切入点。
+         这是本节最有说服力的一个细节。 -->
+
+    <!-- ─────────────────────────  4. HOW I WORKED  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">我怎么工作：方法论的实际应用</h2>
+    <p>
+      我在 Playbook
+      里写的框架不是事后总结的理论——它们就是这个平台被构建出来的方式。具体来说：
+    </p>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>Vibe-coded 原型作为工程蓝图。</strong>我没有把一份静态 PRD
+        丢给工程团队，而是用 PM
+        主导、编码智能体辅助的方式，做出关键流程的可运行原型。一个可点击、能跑的原型消除了规格里的歧义，成为团队据以构建的参考实现。
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook/vibe-coding")}
+          class="text-accent hover:underline">Vibe Coding →</a
+        >
+      </li>
+      <li>
+        <strong>Harness Engineering 让 Agent 输出可被信任。</strong
+        >上面那条可靠性底线本质是一个 harness 问题：定义 Agent
+        所处的上下文、工具、约束和验收标准。我的很多工作就是设计这个环境，让平台自身的
+        Agent 产出「专家愿意接受」的结果。
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook/harness-engineering")}
+          class="text-accent hover:underline">Harness Engineering →</a
+        >
+      </li>
+      <li>
+        <strong>Loop Engineering 让系统跨迭代变好。</strong
+        >领域专家的反馈会回流到配置、约束和验收标准里，而不是停留在某个人的脑子里。每一轮循环都留下一个下一轮可以复用的产物。
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook/loop-engineering")}
+          class="text-accent hover:underline">Loop Engineering →</a
+        >
+      </li>
+    </ul>
+
+    <FlowDiagram
+      steps={architectureSteps}
+      caption="平台的抽象形态：一个人工专家流程，变成一个建立在分层资产之上、ground 在真实配置里、并在任何自动执行前经过治理层的双模平台。"
+    />
+
+    <!-- ─────────────────────────  5. OUTCOMES  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">成果</h2>
+    <p>
+      诚实的总结：这个平台从「大家对 AI
+      有兴趣」走到了一个真实用户会在真实工作上使用的产品。因为这是企业内部工作，具体数字保持私有——下面的占位符标注了我可以在交流中分享方向性结果的地方。
+    </p>
+    <!-- TODO(Bryan): 把每个占位符换成你愿意公开的真实（或安全地做过取整/方向化处理的）数字。
+         若某个数字连方向性都太敏感，直接删掉这一条，不要削弱它。NDA 范围内的内容一律不发布。 -->
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>采用：</strong>
+        <em class="text-muted-foreground"
+          >[占位符：例如「在首个内部版本发布后的 X 个月内，从 0 增长到 N
+          名活跃用户 / M 个团队在真实任务中使用。」]</em
+        >
+      </li>
+      <li>
+        <strong>周期时间：</strong>
+        <em class="text-muted-foreground"
+          >[占位符：例如「把目标流程从约 X 小时的专家时间压缩到约 Y
+          分钟，最后一步仍由人工确认。」]</em
+        >
+      </li>
+      <li>
+        <strong>定性信号：</strong>
+        <em class="text-muted-foreground"
+          >[占位符：例如「领域专家开始主动要求新的
+          skill」，或「一个团队最初抵触自动化的流程，反而成了使用最多的那个」。]</em
+        >
+      </li>
+      <li>
+        <strong>可复用资产：</strong>一个分层的 tools 与 skills
+        库、一套其他团队可采用的治理范式，以及一个经过验证的产品形态——「企业级
+        Agent 平台是什么」，独立于任何单一流程之外。
+      </li>
+    </ul>
+
+    <!-- ─────────────────────────  6. WHAT I'D DO DIFFERENTLY  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">如果重来，我会怎么做</h2>
+    <ul class="mt-2 space-y-3">
+      <li>
+        <strong>更早投入评估（eval）。</strong
+        >构建能力的冲动会跑赢衡量能力的冲动。如果从第一天就有一套轻量、ground
+        在领域里的 eval
+        harness，「这够不够好、专家会不会信任」就会是一个被测量的问题，而不是一个凭感觉的判断。
+      </li>
+      <li>
+        <strong>更早定义治理的 UX。</strong>治理在早期就设计进去了，但审查和确认
+        Agent 动作的<em>体验</em
+        >本身就是一个产品界面——它越快变得自然，专家就越快给出信任。我会从一开始就把确认流程当作一等的设计问题。
+      </li>
+      <li>
+        <strong>更久地抵住横向铺开的拉力。</strong
+        >在第一个流程上的成功会制造一种「立刻到处泛化」的压力。我会更坚定地守住「先深后广」——一个专家真正依赖的流程，胜过五个他们只是勉强容忍的流程。
+      </li>
+    </ul>
+    <!-- TODO(Bryan): 补一条只有你才知道的经验 —— 一个具体的弯路、一个没成立的假设、
+         一段利益相关方的互动。至少有一条明显来自亲历，本节才最可信。 -->
+
+    <div
+      class="border-border bg-muted/30 mt-8 flex flex-col gap-3 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div>
+        <p class="font-medium">背后的方法论，公开在这里</p>
+        <p class="text-muted-foreground text-sm">
+          上面引用的框架，在 Playbook 里有完整的展开。
+        </p>
+      </div>
+      <a
+        href={getRelativeLocaleUrl("zh", "playbook")}
+        class="bg-accent text-accent-foreground inline-flex shrink-0 items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+      >
+        阅读 Playbook &rarr;
+      </a>
+    </div>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl("zh", "projects/prompt-to-ontology")}
+          class="text-accent hover:underline"
+        >
+          Prompt-to-Ontology
+        </a>
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook/harness-engineering")}
+          class="text-accent hover:underline"
+        >
+          Harness Engineering
+        </a>
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook/vibe-coding")}
+          class="text-accent hover:underline"
+        >
+          Vibe Coding
+        </a>
+        <a
+          href="https://wenhaoyu-bryan.github.io/agent-anatomy/"
+          class="text-accent hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Agent Anatomy ↗
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>
