@@ -12,40 +12,49 @@ const locale = Astro.currentLocale ?? config.site.lang;
 
 const snapshot = [
   { label: "Role", value: "Product Manager (0 → 1 lead)" },
-  { label: "Domain", value: "Semiconductor manufacturing" },
-  { label: "Type", value: "Enterprise agent platform · internal product" },
+  {
+    label: "Domain",
+    value: "Advanced manufacturing (semiconductor & adjacent)",
+  },
+  { label: "Status", value: "Current Work · in development" },
   {
     label: "Confidentiality",
-    value: "Methodology abstracted · internals private",
+    value: "Methodology described · internals abstracted",
   },
 ];
 
-// Grounded in the public architecture write-up on the AI Stack page: dual-mode
-// design, a layered tools/skills/agents asset model, governance by design, and
-// automation orchestration. Kept deliberately generic — no internal system names.
+// Abstracted shape of the platform — no internal system names. Each step maps
+// to a capability described in the approved content below.
 const architectureSteps = [
-  { label: "Manual Expert Workflow", note: "the starting point" },
-  { label: "Agent Platform", note: "dual-mode: chat + build", emphasis: true },
-  { label: "Tools · Skills · Agents", note: "layered asset model" },
-  { label: "Grounded Configuration", note: "domain knowledge in, not guessed" },
   {
-    label: "Governance Layer",
-    note: "sandbox + human-in-the-loop",
+    label: "Business Workspace + Developer Console",
+    note: "dual-mode",
     emphasis: true,
   },
-  { label: "Automation Orchestration", note: "repeatable, auditable runs" },
+  {
+    label: "Agent Configuration",
+    note: "prompt · model · knowledge · tools · skills",
+  },
+  { label: "Skill Lifecycle", note: "co-create · edit · version · publish" },
+  {
+    label: "Governance Layer",
+    note: "sandbox · approval · audit",
+    emphasis: true,
+  },
+  { label: "Automation Triggers", note: "webhook · queue · schedule" },
+  { label: "Enterprise Skill Center", note: "expertise compounds" },
 ];
 ---
 
 <Layout
-  title={`Enterprise Agent Platform: 0 → 1 — ${config.site.title}`}
-  description="Case study: leading an enterprise agent platform from an ambiguous start to a working product in semiconductor manufacturing — constraints, product decisions, and how harness, loop, and vibe-coding methods shaped it."
+  title={`Enterprise Agent Platform (0 → 1) — Current Work — ${config.site.title}`}
+  description="Leading an enterprise agent platform from 0 to 1 in advanced manufacturing — dual-mode design, governed reusable skills, and multi-agent work in progress."
   ogImage="/og/enterprise-agent-platform.png"
 >
   <Header />
   <Breadcrumb />
 
-  <Main pageTitle="Enterprise Agent Platform: 0 → 1" class="app-prose">
+  <Main pageTitle="Enterprise Agent Platform (0 → 1)" class="app-prose">
     <p class="text-muted-foreground text-sm">
       <a
         href={getRelativeLocaleUrl("zh", "projects/enterprise-agent-platform")}
@@ -56,28 +65,39 @@ const architectureSteps = [
     </p>
 
     <p class="text-muted-foreground text-lg">
-      How I took an enterprise agent platform from an ambiguous starting point
-      to a working product inside a semiconductor manufacturing organization.
-      This page abstracts the product methodology — the decisions, the
-      reasoning, and the working system behind them — while keeping internal
-      data, system names, and metrics private.
+      An enterprise agent platform for advanced manufacturing (semiconductor and
+      adjacent process industries) that turns expert knowledge and business
+      workflows into governed, reusable AI agents — "digital employees." I lead
+      it from 0 to 1 as its product manager. This is current, ongoing work, so
+      the page describes methodology and capabilities while keeping internal
+      systems, data, and identities abstracted.
     </p>
 
     <div class="border-border mt-4 flex flex-wrap gap-2">
-      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        Current Work
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
         Agent Platform
       </span>
-      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
         Enterprise AI
       </span>
-      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
         0 → 1
       </span>
-      <span class="rounded-full border px-3 py-1 text-xs font-medium">
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
         Governance by Design
-      </span>
-      <span class="rounded-full border px-3 py-1 text-xs font-medium">
-        Industrial
       </span>
     </div>
 
@@ -100,271 +120,185 @@ const architectureSteps = [
       class="border-border bg-muted/30 text-muted-foreground mt-6 rounded-lg border p-4 text-sm"
     >
       <strong class="text-foreground">A note on confidentiality.</strong> This is
-      real product work in an enterprise setting. Everything here is written at the
-      level of methodology and product reasoning. No proprietary data, internal system
-      names, customer information, or confidential metrics are published. Where a
-      real number would make a claim concrete, I mark it as a placeholder rather than
-      invent one.
+      real, ongoing product work in an enterprise setting. Methodology and capabilities
+      are described here; internal systems, data, and identities are abstracted. The
+      platform is still in development, so there are no reported outcome metrics —
+      I don't publish numbers I can't share.
     </div>
 
-    <!-- ─────────────────────────  1. CONTEXT  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">
-      Context: an ambiguous starting point
-    </h2>
+    <!-- ─────────────────────────  1. WHAT IT IS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">What it is</h2>
     <p>
-      The organization had deep domain expertise and a large body of
-      institutional knowledge, but that knowledge lived in people, spreadsheets,
-      and legacy tools. Skilled engineers spent a meaningful share of their time
-      on repetitive, judgment-light work: looking things up, reconciling data
-      across systems, and manually running procedures that followed known rules.
-      There was clear appetite for AI, but no shared definition of what an
-      "agent platform" should be, who it was for, or how success would be
-      measured.
+      The platform gives an industrial organization a way to turn deep domain
+      expertise and existing business workflows into agents that can be reused,
+      governed, and shared — instead of knowledge that lives only in people and
+      spreadsheets. It has a dual-mode design. A <strong
+        >business workspace</strong
+      > is where frontline operators and engineers converse with agents, mount the
+      skills they need, and track their tasks. A <strong
+        >developer console</strong
+      > is where builders configure agents end to end. The two modes share the same
+      underlying assets, so what a builder ships becomes something an operator can
+      immediately use.
     </p>
-    <!-- TODO(Bryan): Add 1–2 concrete, shareable specifics about the starting
-         state if you're comfortable — e.g. the class of tasks targeted first,
-         or roughly how many people/teams were in the initial audience. -->
+
+    <!-- ─────────────────────────  2. MY ROLE  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">My role</h2>
     <p>
-      <em class="text-muted-foreground"
-        >[PLACEHOLDER: e.g., "The first target workflow was X — a process that
-        took a domain expert Y hours per week and touched Z different internal
-        systems."]</em
+      I lead this platform from 0 to 1 as its product manager: ideation, PRDs,
+      competitor analysis, customer feedback loops, and vibe-coded prototypes
+      that become the engineering blueprint. Rather than hand engineering a
+      static spec, I use PM-led, coding-agent-assisted prototyping to turn key
+      flows into working prototypes — a clickable prototype removes ambiguity
+      from the spec and becomes the reference the team builds against.
+      <a
+        href={getRelativeLocaleUrl(locale, "playbook/vibe-coding")}
+        class="text-accent hover:underline">Vibe Coding →</a
       >
     </p>
-    <p>
-      What the business <strong>had</strong>: domain experts, proprietary
-      process knowledge, existing data (however messy), and executive interest.
-      What it <strong>lacked</strong>: a product shape for that interest, a
-      reliable way to put AI in front of sensitive workflows, and a path from
-      "impressive demo" to "something people trust enough to use daily."
+
+    <!-- ─────────────────────────  3. CAPABILITIES  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">Platform capabilities</h2>
+
+    <h3 class="mt-6 text-lg font-medium">Agent configuration</h3>
+    <p>Each agent is assembled from a set of composable pieces:</p>
+    <ul class="mt-2 space-y-2">
+      <li>a system prompt, model selection, and sampling parameters;</li>
+      <li>knowledge bases with hybrid retrieval;</li>
+      <li>
+        enterprise terminology dictionaries, so model output stays consistent
+        with company vocabulary;
+      </li>
+      <li>structured datasets the agent can query directly;</li>
+      <li>
+        tool assets — functions, APIs, and standard protocols — callable during
+        reasoning;
+      </li>
+      <li>and versioned skills.</li>
+    </ul>
+    <p class="mt-3">
+      Two capabilities are independent per-agent toggles: a clarifying-question
+      mode that asks for more when user input is insufficient, and web search.
     </p>
 
-    <!-- ─────────────────────────  2. CONSTRAINTS  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">
-      Constraints: what "enterprise" and "industrial" really impose
-    </h2>
-    <p>
-      The hard part of this product was never the model. It was building
-      something that could survive the constraints of an industrial enterprise.
+    <h3 class="mt-6 text-lg font-medium">Skill lifecycle</h3>
+    <p>Skills can be created three ways:</p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>AI co-creation</strong> — describe a need in natural language; the
+        system asks clarifying questions, then generates the code, configuration,
+        and documentation, visualizing the execution logic as a step-by-step blueprint.
+      </li>
+      <li>
+        <strong>Blank-skill authoring</strong> — build in a built-in editor with a
+        Copilot-style assistant that proposes changes as apply-able diffs.
+      </li>
+      <li><strong>Package import</strong> — bring in an existing skill.</li>
+    </ul>
+    <p class="mt-3">
+      Every skill carries versions, permissions (owner / collaborator / user;
+      use / edit), and release notes with change-type tags and impact scope.
+      Published skills go into a shared enterprise skill center organized by
+      official / department / personal scope — so expertise compounds across the
+      organization instead of leaving with individuals.
     </p>
-    <ul class="mt-2 space-y-3">
+
+    <!-- ─────────────────────────  4. GOVERNANCE  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">Governance by design</h2>
+    <p>
+      In an industrial setting, a confidently wrong automated action is
+      expensive, so governance is designed in rather than bolted on. The
+      controls:
+    </p>
+    <ul class="mt-2 space-y-2">
+      <li>dev / prod sandbox isolation;</li>
+      <li>simulated execution before release;</li>
       <li>
-        <strong>Data sensitivity.</strong> Process and operational data is commercially
-        sensitive and access-controlled. The platform had to assume that data cannot
-        leave certain boundaries, and that "just send it to the model" is often not
-        an option. Grounding had to happen without leaking.
+        per-skill human-confirmation gates — "require approval before
+        execution";
       </li>
+      <li>high-risk capability toggles;</li>
+      <li>approval queues;</li>
       <li>
-        <strong>Domain experts as the real users.</strong> The people who would judge
-        this product know their domain far better than any model does. They are quick
-        to lose trust in a system that is confidently wrong. The bar was not "sounds
-        plausible" — it was "an expert would sign off on this."
-      </li>
-      <li>
-        <strong>Legacy workflows and systems.</strong> Real work already flowed through
-        established tools and procedures. A platform that ignored them and demanded
-        new behavior would be rejected regardless of how good the AI was. It had to
-        meet existing workflows where they were.
-      </li>
-      <li>
-        <strong>A high reliability bar.</strong> In a manufacturing context, a wrong
-        action is not a cosmetic bug. The cost of a confidently wrong automated step
-        is high, so the safe default had to be "propose and wait for a human," not
-        "act."
+        and a task center that audits every automated run with status tracking
+        (completed / running / awaiting approval / error).
       </li>
     </ul>
-
-    <!-- ─────────────────────────  3. KEY DECISIONS  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">Key product decisions</h2>
-    <p>
-      A handful of decisions did most of the work. Each was a product call I
-      made and can defend — not a technical detail delegated to implementation.
+    <p class="mt-3">
+      The principle underneath all of it: AI-generated capabilities enter a
+      verifiable, traceable environment before they can touch real business
+      systems. This is what makes adoption possible at all — experts will try a
+      system that cannot act behind their back long before they'll try one that
+      can.
     </p>
 
-    <h3 class="mt-6 text-lg font-medium">
-      1. A dual-mode platform, not a chatbot
-    </h3>
-    <p>
-      The platform separates a conversational mode (ask, explore, get answers)
-      from a build mode (compose and configure reusable automation). Framing it
-      this way avoided the trap of shipping "another chat box" and instead made
-      the product a place where capability accumulates. The reasoning: a chatbot
-      is consumed; a platform is built on. Only the second one compounds in
-      value over time.
+    <!-- ─────────────────────────  5. AUTOMATION  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">Automation &amp; integration</h2>
+    <p>Three trigger types connect agents to live operations:</p>
+    <ul class="mt-2 space-y-2">
+      <li>
+        <strong>Webhook callbacks</strong> with auth tokens and data-mapping templates;
+      </li>
+      <li>
+        <strong>Message-queue events</strong>, where high-confidence matches
+        auto-process and low-confidence ones route to human approval;
+      </li>
+      <li>
+        <strong>Scheduled jobs</strong> producing recurring analyses and reports.
+      </li>
+    </ul>
+    <p class="mt-3">
+      Agents can be embedded in third-party systems via iframe or published as
+      APIs with managed keys and expiry policies. A model-management layer lets
+      the platform swap and govern multiple LLMs (chat, rerank, embedding)
+      behind one interface.
     </p>
 
-    <h3 class="mt-6 text-lg font-medium">
-      2. A layered tools / skills / agents asset model
-    </h3>
+    <FlowDiagram
+      steps={architectureSteps}
+      caption="The shape of the platform, abstracted: a dual-mode surface over configurable agents and a skill lifecycle, gated by a governance layer before automation triggers ever run — with published skills feeding back into a shared enterprise skill center."
+    />
+
+    <!-- ─────────────────────────  6. IN PROGRESS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">
+      In progress: multi-agent architecture
+    </h2>
     <p>
-      Rather than a monolith, capability is layered: low-level <strong
-        >tools</strong
-      > (typed actions the system can take), composable <strong>skills</strong>
-      (reusable procedures built from tools), and <strong>agents</strong> (which apply
-      skills to a goal). This gave non-engineers a mental model they could reason
-      about, made capabilities auditable, and let the platform grow by accretion instead
-      of rewrites.
+      Two capabilities are currently in development. The first is multi-agent
+      <strong>communication sessions</strong> — agents sharing context within a session.
+      The second is an <strong>orchestrator–worker</strong> (hierarchical lead / subordinate)
+      structure, where a lead agent decomposes a task and delegates to specialized
+      subordinate agents. The same governance surface — approval gates and auditability
+      — extends to inter-agent delegation, so the reliability story holds even as
+      agents start handing work to one another.
     </p>
 
-    <h3 class="mt-6 text-lg font-medium">
-      3. Governance as a design principle, not a feature bolted on later
-    </h3>
+    <!-- ─────────────────────────  7. FRAMEWORKS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">
+      How this connects to my frameworks
+    </h2>
     <p>
-      Sandbox isolation and human-in-the-loop approval were designed in from the
-      start, not retrofitted. The default posture is that an agent
-      <em>proposes</em> an action and a human <em>approves</em> it before anything
-      with real-world consequence happens. In an industrial setting this is what makes
-      adoption possible at all: experts will try a system that cannot act behind their
-      back long before they'll try one that can.
-    </p>
-
-    <h3 class="mt-6 text-lg font-medium">
-      4. Grounded configuration over prompt cleverness
-    </h3>
-    <p>
-      Reliability came from grounding the system in real domain configuration
-      and data — structured context the platform reads — rather than from
-      ever-longer prompts. This connects directly to the ontology work elsewhere
-      on this site: the more the system's knowledge is structured and explicit,
-      the less it has to guess.
+      The methods I write about in the playbook are not post-hoc theory — they
+      are how this platform actually gets built. <a
+        href={getRelativeLocaleUrl(locale, "playbook/harness-engineering")}
+        class="text-accent hover:underline">Harness engineering</a
+      > is how agent output is made trustworthy enough for a domain expert to accept:
+      defining the context, tools, constraints, and acceptance criteria an agent operates
+      within. <a
+        href={getRelativeLocaleUrl(locale, "playbook/loop-engineering")}
+        class="text-accent hover:underline">Loop engineering</a
+      > is how expert feedback flows back into configuration and constraints instead
+      of living in someone's head. And <a
+        href={getRelativeLocaleUrl(locale, "playbook/vibe-coding")}
+        class="text-accent hover:underline">vibe coding</a
+      > is how a prototype becomes the blueprint. The grounded-configuration approach
+      also connects to the ontology work elsewhere on this site — the more the system's
+      knowledge is structured and explicit, the less it has to guess.
       <a
         href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
         class="text-accent hover:underline">See Prompt-to-Ontology →</a
       >
     </p>
-
-    <h3 class="mt-6 text-lg font-medium">
-      5. Start with one workflow, prove trust, then generalize
-    </h3>
-    <p>
-      Instead of a broad horizontal launch, the platform earned its place on one
-      concrete, painful workflow first. Winning trust on a single real task
-      created the credibility (and the reusable assets) to expand — a sequencing
-      decision, not an accident.
-    </p>
-    <!-- TODO(Bryan): If shareable, name the first workflow you anchored on and
-         why it was the right wedge. This is the single most persuasive detail
-         you could add to this section. -->
-
-    <!-- ─────────────────────────  4. HOW I WORKED  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">
-      How I worked: methodology in practice
-    </h2>
-    <p>
-      The frameworks I write about in the playbook are not post-hoc theory —
-      they are how this platform actually got built. Concretely:
-    </p>
-    <ul class="mt-2 space-y-3">
-      <li>
-        <strong>Vibe-coded prototypes as the engineering blueprint.</strong>
-        Instead of handing engineering a static PRD, I used PM-led, coding-agent-assisted
-        prototyping to produce working prototypes of key flows. A clickable, functional
-        prototype removed ambiguity from the spec and became the reference implementation
-        the team could build against.
-        <a
-          href={getRelativeLocaleUrl(locale, "playbook/vibe-coding")}
-          class="text-accent hover:underline">Vibe Coding →</a
-        >
-      </li>
-      <li>
-        <strong>Harness engineering to make agent output trustworthy.</strong>
-        The reliability bar above is a harness problem: defining the context, tools,
-        constraints, and acceptance criteria an agent operates within. Much of my
-        work was designing that environment so the platform's own agents produced
-        output an expert would accept.
-        <a
-          href={getRelativeLocaleUrl(locale, "playbook/harness-engineering")}
-          class="text-accent hover:underline">Harness Engineering →</a
-        >
-      </li>
-      <li>
-        <strong>Loop engineering to improve across iterations.</strong> Feedback from
-        domain experts fed back into configuration, constraints, and acceptance criteria
-        rather than living in someone's head. Each cycle left behind an artifact the
-        next cycle could build on.
-        <a
-          href={getRelativeLocaleUrl(locale, "playbook/loop-engineering")}
-          class="text-accent hover:underline">Loop Engineering →</a
-        >
-      </li>
-    </ul>
-
-    <FlowDiagram
-      steps={architectureSteps}
-      caption="The shape of the platform, abstracted: a manual expert workflow becomes a dual-mode platform built on layered assets, grounded in real configuration, and gated by a governance layer before anything runs automatically."
-    />
-
-    <!-- ─────────────────────────  5. OUTCOMES  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">Outcomes</h2>
-    <p>
-      The honest summary: the platform moved from "there is interest in AI" to a
-      working product that real users engage with on real work. Because this is
-      internal enterprise work, the specific numbers stay private — the
-      placeholders below mark where I can share directional results in
-      conversation.
-    </p>
-    <!-- TODO(Bryan): Replace each placeholder with a real (or safely rounded /
-         directional) figure you're comfortable publishing. If a number is too
-         sensitive to share even directionally, delete that bullet rather than
-         weaken it. Do NOT publish anything under NDA. -->
-    <ul class="mt-2 space-y-2">
-      <li>
-        <strong>Adoption:</strong>
-        <em class="text-muted-foreground"
-          >[PLACEHOLDER: e.g., "went from 0 to N active users / M teams using it
-          for real tasks within X months of the first internal release."]</em
-        >
-      </li>
-      <li>
-        <strong>Cycle time:</strong>
-        <em class="text-muted-foreground"
-          >[PLACEHOLDER: e.g., "reduced the target workflow from ~X hours of
-          expert time to ~Y minutes, with a human still approving the final
-          step."]</em
-        >
-      </li>
-      <li>
-        <strong>Qualitative signals:</strong>
-        <em class="text-muted-foreground"
-          >[PLACEHOLDER: e.g., "domain experts began requesting new skills
-          themselves," or "a workflow the team originally resisted automating
-          became the most-used one."]</em
-        >
-      </li>
-      <li>
-        <strong>Reusable assets:</strong> a layered library of tools and skills, a
-        governance pattern other teams could adopt, and a validated product shape
-        for what an enterprise agent platform is — independent of any one workflow.
-      </li>
-    </ul>
-
-    <!-- ─────────────────────────  6. WHAT I'D DO DIFFERENTLY  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">What I'd do differently</h2>
-    <ul class="mt-2 space-y-3">
-      <li>
-        <strong>Invest in evaluation earlier.</strong> The instinct to build capability
-        outruns the instinct to measure it. A lightweight, domain-grounded eval harness
-        from day one would have made "is this good enough for an expert to trust?"
-        a measured question instead of a judgment call.
-      </li>
-      <li>
-        <strong>Define the governance UX sooner.</strong> Governance was designed
-        in early, but the <em>experience</em> of reviewing and approving agent actions
-        is itself a product surface — and the faster that feels natural, the faster
-        experts extend trust. I'd treat the approval flow as a first-class design
-        problem from the start.
-      </li>
-      <li>
-        <strong>Resist horizontal pull for longer.</strong> Success on the first workflow
-        creates pressure to generalize everywhere at once. I'd hold the line on depth-before-breadth
-        more firmly — one workflow that experts genuinely rely on is worth more than
-        five they tolerate.
-      </li>
-    </ul>
-    <!-- TODO(Bryan): Add anything you learned that only you would know — a
-         specific wrong turn, an assumption that didn't hold, a stakeholder
-         dynamic. This section is most credible when at least one item is
-         unmistakably from lived experience. -->
 
     <div
       class="border-border bg-muted/30 mt-8 flex flex-col gap-3 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between"

@@ -19,7 +19,7 @@ const PAGE_TITLES: Record<string, string> = {
   "growth-lab": "Growth Lab — Wenhao Yu",
   about: "About — Wenhao Yu",
   "prompt-to-ontology": "Prompt-to-Ontology",
-  "enterprise-agent-platform": "Enterprise Agent Platform: 0 → 1",
+  "enterprise-agent-platform": "Enterprise Agent Platform · Current Work",
 };
 
 export function getStaticPaths() {

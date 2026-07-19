@@ -14,7 +14,7 @@ export interface Project {
     | "Public Tool"
     | "Ongoing"
     | "Public · Ep. 01"
-    | "Case Study";
+    | "Current Work";
   icon: "Network" | "Book" | "Code" | "TrendingUp" | "Activity" | "Bot";
   href: string;
   external: boolean;
@@ -45,13 +45,13 @@ interface ProjectDef {
 
 const defs: ProjectDef[] = [
   {
-    title: "Enterprise Agent Platform: 0 → 1",
+    title: "Enterprise Agent Platform (0 → 1)",
     icon: "Bot",
-    status: "Case Study",
+    status: "Current Work",
     path: "projects/enterprise-agent-platform",
     description: {
-      en: "Leading an enterprise agent platform from an ambiguous starting point to a working product in semiconductor manufacturing — dual-mode architecture, a layered tools/skills/agents asset model, and governance by design. Methodology abstracted; internals private.",
-      zh: "在半导体制造场景下，作为产品经理把一个企业级 Agent 平台从模糊起点带到可用产品：双模架构、分层的 tools/skills/agents 资产模型，以及「治理即设计」。方法论已抽象，内部细节保持私有。",
+      en: "Leading an enterprise agent platform from 0 to 1 in advanced manufacturing as its product manager — a dual-mode design over configurable agents, an AI-co-created skill lifecycle, and governance by design (sandboxing, approval gates, audited runs). Methodology described; internals abstracted.",
+      zh: "以产品经理身份，把一个面向先进制造的企业级 Agent 平台从 0 到 1 做起来：覆盖可配置 Agent 的双模设计、AI 共创的 skill 生命周期，以及「治理即设计」（沙箱、审批门、可审计运行）。方法论可公开，内部细节已抽象。",
     },
     tags: {
       en: [
