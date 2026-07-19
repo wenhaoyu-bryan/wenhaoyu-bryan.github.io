@@ -176,20 +176,22 @@ const projects = getProjects(locale);
           projects.map((project, index) => (
             <a
               href={project.href}
-              class={`border-border group hover:bg-accent/5 rounded-lg border p-5 transition-colors ${index === 0 ? "sm:col-span-2" : ""}`}
+              class={`border-border group hover:bg-accent/5 flex flex-col rounded-lg border p-5 transition-colors ${index === 0 ? "sm:col-span-2" : ""}`}
               {...(project.href.startsWith("http")
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
             >
-              <div class="flex items-center justify-between">
-                <h3 class="group-hover:text-accent text-lg font-medium">
-                  {project.title}
-                </h3>
-                <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs">
+              <div class="flex justify-end">
+                <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap">
                   {project.status}
                 </span>
               </div>
-              <p class="text-muted-foreground mt-2 text-sm">
+              <h3 class="group-hover:text-accent mt-3 text-lg font-medium">
+                {project.title}
+              </h3>
+              <p
+                class={`text-muted-foreground mt-2 text-sm ${index === 0 ? "" : "line-clamp-4"}`}
+              >
                 {project.description}
               </p>
             </a>
