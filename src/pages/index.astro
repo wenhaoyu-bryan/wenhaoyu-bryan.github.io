@@ -23,6 +23,7 @@ import {
 } from "lucide-astro";
 import { getProjects } from "@/data/projects";
 import AskAI from "@/components/AskAI.astro";
+import ContactRow from "@/components/ContactRow.astro";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
@@ -117,7 +118,10 @@ const topics: Topic[] = [
 ];
 ---
 
-<Layout title={`${config.site.title} — AI Product Manager`}>
+<Layout
+  title={`${config.site.title} — AI Product Manager`}
+  ogImage="/og/home.png"
+>
   <Header />
   <main
     id="main-content"
@@ -217,14 +221,18 @@ const topics: Topic[] = [
                     ? Code
                     : project.icon === "Activity"
                       ? Activity
-                      : TrendingUp;
+                      : project.icon === "Bot"
+                        ? Bot
+                        : TrendingUp;
             // Shades chosen to meet WCAG AA contrast in both themes:
             // *-700 on the light card bg, *-400 on the dark card bg.
             const statusColor = project.status.startsWith("Public Tool")
               ? "border-blue-500 text-blue-700 dark:text-blue-400"
               : project.status.startsWith("Public")
                 ? "border-green-500 text-green-700 dark:text-green-400"
-                : "border-orange-500 text-orange-700 dark:text-orange-400";
+                : project.status.startsWith("Case Study")
+                  ? "border-accent text-accent"
+                  : "border-orange-500 text-orange-700 dark:text-orange-400";
             return (
               <a
                 href={project.href}
@@ -384,10 +392,13 @@ const topics: Topic[] = [
         or just comparing notes.
       </p>
       <div class="mt-5 max-w-xl">
+        <ContactRow locale={locale} />
+      </div>
+      <div class="mt-5 max-w-xl">
         <AskAI locale={locale} />
       </div>
       <p class="text-muted-foreground mt-5 text-sm">
-        Email, GitHub, LinkedIn, X, and Medium are all in the footer below.
+        Prefer another channel? X and Medium are in the footer below.
       </p>
     </section>
   </main>

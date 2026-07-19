@@ -17,8 +17,8 @@ const fullTxt = `${base}/llms-full.txt`;
 const zh = locale === "zh";
 
 const prompt = zh
-  ? `请阅读 ${fullTxt} ，然后回答我关于 Wenhao Yu (Bryan)（一位 AI 产品经理）的问题。首先：作为 AI PM，他最强的领域是什么？`
-  : `Please read ${fullTxt} and answer my questions about Wenhao Yu (Bryan), an AI Product Manager. To start: what are his strongest areas as an AI PM?`;
+  ? `请阅读 ${fullTxt} ，然后回答我关于 Wenhao Yu (Bryan)（一位 AI 产品经理）的问题。首先：概述他的背景和他最有分量的项目。`
+  : `Please read ${fullTxt} and answer my questions about Wenhao Yu (Bryan), an AI Product Manager. To start: summarize his background and his most substantive projects.`;
 
 const encoded = encodeURIComponent(prompt);
 const claudeUrl = `https://claude.ai/new?q=${encoded}`;

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer.astro";
 import config from "@/config";
 import { getProjects } from "@/data/projects";
 import AskAI from "@/components/AskAI.astro";
+import ContactRow from "@/components/ContactRow.astro";
 
 const locale = "zh";
 
@@ -254,10 +255,13 @@ const projects = getProjects(locale);
         如果你对 AI 产品协作、本体驱动系统或增长实验感兴趣，欢迎联系。
       </p>
       <div class="mt-5 max-w-xl">
+        <ContactRow locale={locale} />
+      </div>
+      <div class="mt-5 max-w-xl">
         <AskAI locale={locale} />
       </div>
       <p class="text-muted-foreground mt-5 text-sm">
-        邮箱、GitHub、LinkedIn、X 和 Medium 都在下方页脚里。
+        想用别的渠道？X 和 Medium 都在下方页脚里。
       </p>
     </section>
   </main>
