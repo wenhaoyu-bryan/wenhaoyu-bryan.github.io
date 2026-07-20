@@ -46,7 +46,7 @@ export const GET: APIRoute = async () => {
     `- [Playbook](${base}/playbook): AI PM methodology — vibe coding, harness engineering, loop engineering, AI-native PRD, agent product design, ontology systems.`
   );
   lines.push(
-    `- [Growth Lab](${base}/growth-lab): SEO, GEO, and AI-search-aware growth experiments.`
+    `- [Growth Lab](${base}/growth-lab): A public lab notebook of SEO and GEO growth experiments, run in the open — with this site as Experiment 01.`
   );
   lines.push(`- [Now](${base}/now): What Wenhao is focused on right now.`);
   lines.push("");
@@ -63,7 +63,10 @@ export const GET: APIRoute = async () => {
     `- AI-Assisted Delivery: Harness Engineering, Loop Engineering, and Vibe Coding — the systems through which PMs ship with coding agents. Proof: ${base}/posts/three-frameworks-ai-assisted-product-delivery, ${base}/playbook.`
   );
   lines.push(
-    `- Industrial & B2B AI: Enterprise adoption, industrial operations, and B2B product contexts. Proof: ${base}/growth-lab.`
+    `- Industrial & B2B AI: Enterprise adoption, industrial operations, and B2B product contexts. Proof: ${base}/projects/enterprise-agent-platform.`
+  );
+  lines.push(
+    `- SEO/GEO Growth: How generative engines reshape organic growth — experiments in machine-readable content, structured data, and answer-engine optimization. Proof: ${base}/growth-lab.`
   );
   lines.push("");
 

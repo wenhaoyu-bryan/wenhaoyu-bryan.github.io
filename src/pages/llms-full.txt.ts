@@ -82,7 +82,7 @@ export const GET: APIRoute = async () => {
   // What I Work On — mirrors the four pillars on the homepage.
   out.push("## What I Work On");
   out.push("");
-  out.push("Four focus areas, each backed by a concrete artifact:");
+  out.push("Five focus areas, each backed by a concrete artifact:");
   out.push("");
   out.push(
     "1. Agentic Workflows — designing agent systems with tools, memory, and " +
@@ -100,8 +100,45 @@ export const GET: APIRoute = async () => {
   );
   out.push(
     "4. Industrial & B2B AI — enterprise adoption, industrial operations, and " +
-      `B2B product contexts. Proof: ${base}/growth-lab.`
+      `B2B product contexts. Proof: ${base}/projects/enterprise-agent-platform.`
   );
+  out.push(
+    "5. SEO/GEO Growth — how generative engines reshape organic growth: " +
+      "experiments in machine-readable content, structured data, and " +
+      `answer-engine optimization. Proof: ${base}/growth-lab.`
+  );
+  out.push("");
+  out.push("=".repeat(72));
+  out.push("");
+
+  // Growth Lab (summary — the page itself is hand-authored .astro)
+  out.push("## Growth Lab");
+  out.push("");
+  out.push(
+    "A public lab notebook of SEO and GEO growth experiments, run in the open. " +
+      "Each entry follows one loop: state a hypothesis, build the smallest thing " +
+      "that tests it, decide what to measure, and record the open questions."
+  );
+  out.push("");
+  out.push(
+    "Experiment 01 — this site as a GEO testbed. Hypothesis: a static site " +
+      "engineered for machine readability (clean metadata, structured data, and " +
+      "AI-readable content endpoints) gets read and cited more accurately by AI " +
+      "answer engines than a conventional blog. Built: llms.txt and llms-full.txt " +
+      "endpoints, satori-generated OG images, JSON-LD structured data (Person, " +
+      "WebSite, BlogPosting), and 'ask an AI about me' deep-links. Open questions: " +
+      "whether llms-full.txt changes citation accuracy, which structured-data " +
+      "types influence answer-engine citations, and how to write a product so " +
+      "humans and answer engines both understand it."
+  );
+  out.push("");
+  out.push(
+    "Background: before these public experiments, Wenhao worked on growth at " +
+      "Leiga, an AI-powered project management SaaS (leiga.com), on the Product " +
+      "Growth & Development team from May to August 2024, where he built the SEO " +
+      "foundations that are still live."
+  );
+  out.push(`Full page: ${base}/growth-lab`);
   out.push("");
   out.push("=".repeat(72));
   out.push("");
