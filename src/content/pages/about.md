@@ -38,6 +38,8 @@ The goal is to share reusable methods and artifacts without pretending every rea
 
 **Now — Product Manager, enterprise agent platform (semiconductor manufacturing).** Leading it from 0 to 1: ideation, PRDs, competitor analysis, customer feedback, and vibe-coded prototypes that become the engineering blueprint.
 
+**May–Aug 2024 — Product Growth & Development, [Leiga](https://leiga.com).** Built the SEO foundations for an AI-powered project management SaaS.
+
 **Education — M.Eng, Cornell University · B.Eng, Rensselaer Polytechnic Institute.**
 
 My background combines AI product work, industrial operations, data-driven growth, and engineering-oriented education. I have worked across industrial AI, SEO growth, product investment analysis, and B2B product contexts.
