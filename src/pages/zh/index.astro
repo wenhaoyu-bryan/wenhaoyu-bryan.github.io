@@ -79,7 +79,21 @@ const topics: Topic[] = [
     description: "企业落地、工业运营与 B2B 产品场景。",
     proofs: [
       {
-        label: "SEO/GEO 增长实验",
+        label: "企业级 Agent 平台",
+        href: getRelativeLocaleUrl(
+          locale,
+          "projects/enterprise-agent-platform"
+        ),
+      },
+    ],
+  },
+  {
+    title: "SEO/GEO 增长",
+    description:
+      "生成式引擎如何重塑自然增长——围绕机器可读内容、结构化数据与答案引擎优化的实验。",
+    proofs: [
+      {
+        label: "Growth Lab",
         href: getRelativeLocaleUrl(locale, "growth-lab"),
       },
     ],
@@ -127,7 +141,14 @@ const projects = getProjects(locale);
             我擅长把模糊的业务问题转化为结构化产品概念、交互式原型和可复用交付系统。
           </p>
           <p class="mt-3 max-w-2xl text-sm font-medium">
-            目前作为产品经理，从 0 到 1 主导一个企业级 Agent 平台。
+            目前作为产品经理，从 0 到 1 <a
+              href={getRelativeLocaleUrl(
+                locale,
+                "projects/enterprise-agent-platform"
+              )}
+              class="hover:text-accent underline decoration-dashed underline-offset-4"
+              >主导一个企业级 Agent 平台</a
+            >。
           </p>
           <p class="mt-3 text-sm">
             <a
