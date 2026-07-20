@@ -6,6 +6,7 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
+const isZh = locale === "zh";
 
 // Strip base prefix and trailing slash, then locale prefix so segments
 // reflect the logical page path only.
@@ -24,12 +25,54 @@ const decodeSegment = (value: string) => {
   }
 };
 
-const navLabels: Record<string, string> = {
-  posts: t.nav.posts,
-  tags: t.nav.tags,
-  about: t.nav.about,
-  archives: t.nav.archives,
-  search: t.nav.search,
+const homeLabel = isZh ? "首页" : "Home";
+const pageLabel = (n: number | string) =>
+  isZh ? `第 ${n} 页` : `${t.pagination.page.toLowerCase()} ${n}`;
+
+// Proper, human-readable labels for path slugs that would otherwise render as
+// raw kebab-case (e.g. "enterprise-agent-platform"). Keyed by slug; zh falls
+// back to en for brand/product names that stay the same in both locales.
+const slugLabels: Record<string, { en: string; zh?: string }> = {
+  // Section indexes
+  projects: { en: "Projects", zh: "项目" },
+  playbook: { en: "Playbook" },
+  about: { en: "About", zh: "关于" },
+  posts: { en: "Posts", zh: "文章" },
+  tags: { en: "Tags", zh: "标签" },
+  archives: { en: "Archives", zh: "归档" },
+  search: { en: "Search", zh: "搜索" },
+  // Standalone pages
+  "ai-stack": { en: "AI Stack", zh: "AI 工具栈" },
+  "growth-lab": { en: "Growth Lab" },
+  now: { en: "Now" },
+  // Playbook methodologies
+  "prompt-to-ontology": { en: "Prompt-to-Ontology" },
+  "agent-product-design": { en: "Agent Product Design", zh: "智能体产品设计" },
+  "ai-native-prd": { en: "AI-Native PRD", zh: "AI 原生 PRD" },
+  "harness-engineering": { en: "Harness Engineering" },
+  "loop-engineering": { en: "Loop Engineering" },
+  "prd-to-prototype": { en: "PRD to Prototype", zh: "从 PRD 到原型" },
+  "seo-to-geo": { en: "SEO to GEO", zh: "从 SEO 到 GEO" },
+  "vibe-coding": { en: "Vibe Coding" },
+  // Projects
+  "enterprise-agent-platform": {
+    en: "Enterprise Agent Platform",
+    zh: "企业级 Agent 平台",
+  },
+  "ontology-graph": { en: "Ontology Graph", zh: "本体图谱" },
+};
+
+// Resolve a path segment to a display label. `explicit` labels are already
+// correctly cased, so the template skips the capitalize/lowercase transforms
+// that exist only to prettify raw slugs (e.g. tag names).
+const resolve = (segment: string): { label: string; explicit: boolean } => {
+  const mapped = slugLabels[segment];
+  if (mapped)
+    return {
+      label: isZh ? (mapped.zh ?? mapped.en) : mapped.en,
+      explicit: true,
+    };
+  return { label: decodeSegment(segment), explicit: false };
 };
 
 // if breadcrumb is Home > Posts > [page] <etc>
@@ -38,7 +81,7 @@ if (breadcrumbList[0] === "posts") {
   breadcrumbList.splice(
     0,
     2,
-    `${t.nav.posts} (${t.pagination.page.toLowerCase()} ${breadcrumbList[1] || 1})`
+    `${resolve("posts").label} (${pageLabel(breadcrumbList[1] || 1)})`
   );
 }
 
@@ -49,12 +92,21 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
     1,
     3,
     `${decodeSegment(breadcrumbList[1])} ${
-      Number(breadcrumbList[2]) === 1
-        ? ""
-        : `(${t.pagination.page.toLowerCase()} ${breadcrumbList[2]})`
+      Number(breadcrumbList[2]) === 1 ? "" : `(${pageLabel(breadcrumbList[2])})`
     }`
   );
 }
+
+const crumbs = breadcrumbList.map((segment, index) => {
+  const { label, explicit } = resolve(segment);
+  return {
+    segment,
+    label,
+    explicit,
+    index,
+    isLast: index + 1 === breadcrumbList.length,
+  };
+});
 ---
 
 <nav class="app-layout mt-8 mb-1" aria-label="breadcrumb">
@@ -66,29 +118,35 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
         href={getRelativeLocaleUrl(locale, "")}
         class="underline decoration-1 underline-offset-4 opacity-80"
       >
-        {t.nav.home}
+        {homeLabel}
       </a>
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
-      breadcrumbList.map((breadcrumb, index) =>
-        index + 1 === breadcrumbList.length ? (
+      crumbs.map(crumb =>
+        crumb.isLast ? (
           <li>
             <span
-              class:list={["capitalize opacity-75", { lowercase: index > 0 }]}
+              class:list={[
+                "opacity-75",
+                crumb.explicit ? "" : "capitalize",
+                { lowercase: !crumb.explicit && crumb.index > 0 },
+              ]}
               aria-current="page"
             >
-              {/* make the last part lowercase in Home > Tags > some-tag */}
-              {navLabels[breadcrumb] ?? decodeSegment(breadcrumb)}
+              {crumb.label}
             </span>
           </li>
         ) : (
           <li>
             <a
-              href={getRelativeLocaleUrl(locale, breadcrumb)}
-              class="capitalize underline decoration-1 underline-offset-4 opacity-70"
+              href={getRelativeLocaleUrl(locale, crumb.segment)}
+              class:list={[
+                "underline decoration-1 underline-offset-4 opacity-70",
+                crumb.explicit ? "" : "capitalize",
+              ]}
             >
-              {navLabels[breadcrumb] ?? decodeSegment(breadcrumb)}
+              {crumb.label}
             </a>
             <span aria-hidden="true" class="opacity-70">
               &raquo;
