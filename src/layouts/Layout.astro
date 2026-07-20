@@ -72,6 +72,27 @@ const normalizedPath = Astro.url.pathname.replace(/\/?$/, "/");
 const basePath = normalizedPath.startsWith("/zh/")
   ? normalizedPath.slice(3) || "/"
   : normalizedPath;
+
+// Person identifies the author on identity pages; WebSite describes the site
+// itself on the home page. Blog posts carry their own BlogPosting schema
+// (see PostLayout), so Person is intentionally not repeated there.
+const isHome = basePath === "/";
+const isAbout = basePath === "/about/";
+
+const webSiteJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: site.title,
+  url: site.url,
+  description: site.description,
+  inLanguage: Astro.currentLocale ?? site.lang,
+  author: {
+    "@type": "Person",
+    name: site.author,
+    url: site.profile ?? site.url,
+  },
+});
+
 const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
   ? [
       { lang: "en", href: new URL(basePath, Astro.site).href },
@@ -139,8 +160,17 @@ const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
       ))
     }
 
-    <!-- Author entity -->
-    <script is:inline type="application/ld+json" set:html={personJsonLd} />
+    <!-- Structured data: Person on identity pages, WebSite on the home page -->
+    {
+      (isHome || isAbout) && (
+        <script is:inline type="application/ld+json" set:html={personJsonLd} />
+      )
+    }
+    {
+      isHome && (
+        <script is:inline type="application/ld+json" set:html={webSiteJsonLd} />
+      )
+    }
 
     <!-- Privacy-friendly analytics (only when a GoatCounter code is configured) -->
     {
