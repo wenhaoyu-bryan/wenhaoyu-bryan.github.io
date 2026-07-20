@@ -92,12 +92,59 @@ shared data module rather than being duplicated per page.
   charts) in line-art style using border/muted/accent tokens — not decorative
   imagery
 
+## Confidentiality & Fact-Lock
+
+This site is public and read by hiring managers, VCs, and AI answer engines.
+Some work is under NDA or involves clients, so several pages are **fact-locked**.
+Never add, embellish, or infer beyond the facts already on the page or permitted
+here.
+
+- **Enterprise Agent Platform** (`projects/enterprise-agent-platform`, both
+  locales) is **fact-locked — no additions.** Describe methodology and
+  capabilities only; never expose internal systems, data, identities, customer
+  names, or metrics. It is framed as _Current Work / 当前工作_.
+- **Leiga** — the only permitted facts are: the name; "AI-powered project
+  management SaaS" (leiga.com); the role and dates (Product Growth &
+  Development, May–Aug 2024); and that the **SEO foundations/infrastructure**
+  were built and are "still live." Use past tense. **Forbidden:** any traffic /
+  ranking / conversion / revenue numbers, internal strategy, and credit for
+  anything published after Aug 2024. Never write "grew traffic by X."
+- **No other ventures** — no e-commerce, packaging, storefront, or outside
+  client work anywhere on the site, including code comments and commit messages.
+  Remove any such reference if found.
+- Growth Lab and any case studies use anonymized, normalized, or redrawn
+  examples — never raw client data, dashboards, keyword lists, or private
+  metrics.
+- Terminology: always **"orchestrator–worker,"** never "master–slave."
+
 ## Writing Style (site copy)
 
 - Confident, concrete, engineering-honest. Show evidence over adjectives.
+- Write in **prose and first person**, not marketing fluff or bullet-salad;
+  full sentences with a real voice.
 - Case studies follow: **Problem → My Role → Approach → Outcome/Signals**.
 - Blog post frontmatter requires `title`, `description`, `pubDatetime`, `tags`;
   add `ogImage` when a custom image exists.
+- **No visible placeholders may ship.** No `PLACEHOLDER`, no `TODO(Bryan)`, no
+  lorem, no "coming soon" stubs in shipped output. If a fact isn't known, omit
+  the line rather than inventing or stubbing it.
+- **Bilingual mirroring:** every user-facing `en` change gets a natural (not
+  literal) `zh` mirror under `src/pages/zh/` — match the meaning and tone, not
+  the word order. Keep `<title>`/`og:title` matching each page's H1, and keep
+  the ` — Wenhao Yu` brand suffix. (Blog posts are en-only.)
+- **Build-time data flow:** page content — project/topic lists, `llms.txt` /
+  `llms-full.txt`, OG images, JSON-LD — is assembled at build time from shared
+  data/config, not hand-duplicated per page. Change the data source, and keep
+  `llms-full.txt` and structured data consistent with what the pages render.
+
+## Workflow Before Committing
+
+- Run `pnpm format` (prettier) on changed files.
+- Verify affected routes on the **dev server** in both locales before
+  committing — `astro check`/static build can stall locally, so drive the dev
+  server (Node 22.20.0 via `fnm exec --using 22.20.0`) and fetch the routes.
+- Commit per logical task with conventional messages; do not push. Pushing to
+  `main` is a production deploy (see Git Workflow).
 
 ## Git Workflow
 
