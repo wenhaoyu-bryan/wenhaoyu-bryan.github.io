@@ -7,28 +7,43 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
-const experiments = [
+type Experiment = {
+  number: string;
+  title: string;
+  status: string;
+  hypothesis: string;
+  built: string[];
+  measuring: string;
+  openQuestions: string[];
+};
+
+const experiments: Experiment[] = [
   {
+    number: "01",
+    title: "把本站当作 GEO 试验场",
+    status: "进行中",
     hypothesis:
-      "一个结构良好、meta、sitemap 和内容架构都到位的静态站点，能够在小众的 AI PM 关键词上取得排名。",
-    built: "这个基于 Astro + GitHub Pages 的个人网站。",
-    measured: "自然流量、被索引的页面数、AI 搜索引用。",
-    next: "发布更多内容，追踪 GEO 表现。",
-  },
-  {
-    hypothesis:
-      "发布 llms.txt / llms-full.txt（llmstxt.org 惯例）能让 AI 回答引擎更容易读取并准确引用本站——相当于面向 GEO 的 sitemap。",
-    built:
-      "构建时生成 llms.txt（索引）和 llms-full.txt（全量内容）两个端点，从站点渲染的同一数据源拼装；并提供预填该内容的「在 Claude / ChatGPT 中了解我」深链。",
-    measured: "AI 搜索引用、来自 AI 聊天工具的引荐流量。",
-    next: "观察 AI 引擎是否随时间更准确地引用本站。",
+      "一个为机器可读性而打造的静态站点——干净的元数据、结构化数据、面向 AI 的内容端点——会比普通博客更容易被 AI 回答引擎准确读取和引用。",
+    built: [
+      "构建时从站点渲染的同一数据源拼装出 llms.txt（索引）与 llms-full.txt（全量内容）两个端点",
+      "用 satori 动态生成 OG 图，让每个页面分享出去都是带标题的卡片，而不是一条干瘪的链接",
+      "输出 JSON-LD 结构化数据（Person、WebSite、BlogPosting），让搜索和回答引擎能无歧义地解析身份与内容",
+      "提供预填 llms-full 内容的「在 Claude / ChatGPT 中了解我」深链",
+    ],
+    measuring:
+      "被索引的页面数、小众 AI PM 查询下的自然曝光，以及当被问到我时 AI 搜索工具是否引用得准确。",
+    openQuestions: [
+      "llms-full.txt 是否真的改变了 AI 引擎概括我的准确度，还是被直接忽略？",
+      "哪些结构化数据类型真正影响回答引擎的引用，而不只是传统搜索摘要？",
+      "产品内容该怎么写，才能让人和回答引擎第一遍就都读懂？",
+    ],
   },
 ];
 ---
 
 <Layout
   title={`Growth Lab — ${config.site.title}`}
-  description="Growth Lab：关于 SEO、GEO、B2B 内容系统和 AI 搜索可见性的增长笔记与脱敏案例空间。"
+  description="一本公开的增长实验笔记：把 SEO 与 GEO 实验放在明处做，从这个站点本身作为 AI 搜索可见性试验场开始。"
 >
   <Header />
   <Breadcrumb />
@@ -43,58 +58,31 @@ const experiments = [
       </a>
     </p>
     <p>
-      Growth Lab 是我用来沉淀 SEO、GEO、B2B 内容系统和 AI 搜索可见性思考的空间。
-    </p>
-    <p>
-      我认为 AI
-      产品不只是模型能力和功能设计，也需要分发、定位、信任和可持续的增长机制。懂增长的
-      AI 产品经理，能更好地把产品决策和真实采用结果连接起来。
-    </p>
-
-    <h2 class="mt-8 text-xl font-semibold">实验方向</h2>
-    <ul class="mt-2 space-y-2">
-      <li>SEO 关键词架构</li>
-      <li>GEO / AI 搜索可见性</li>
-      <li>B2B 内容系统</li>
-      <li>SaaS 工具站点想法</li>
-      <li>个人站点作为 SEO/GEO 实验</li>
-    </ul>
-
-    <h2 class="mt-8 text-xl font-semibold">当前问题</h2>
-    <ul class="mt-2 space-y-2">
-      <li>产品内容应该如何写，才能同时被人和 AI 搜索引擎理解？</li>
-      <li>B2B 公司如何建立主题权威？</li>
-      <li>GEO 相比传统 SEO 改变了什么？</li>
-      <li>AI 产品经理如何把产品思维和增长飞轮连接起来？</li>
-    </ul>
-
-    <h2 class="mt-8 text-xl font-semibold">隐私与脱敏原则</h2>
-    <p>
       Growth Lab
-      不会公开客户原始数据、公司后台截图、实习公司材料、内部分析看板、真实域名、完整关键词列表或敏感指标。
+      是一本公开的增长实验笔记。与其抽象地谈增长方法论，我更愿意把实验放在明处做——先从我完全掌控的这个站点开始。
     </p>
     <p>
-      如果未来分享过去的增长案例，我会使用匿名化、归一化或重新绘制的示意图。目标是分享可复用的增长思路，而不是暴露任何公司的私有业务信息。
+      每一条记录都走同一个循环：给出<strong>假设</strong>，<strong>构建</strong
+      >能验证它的最小东西，想清楚要<strong>衡量</strong
+      >什么，再记下它带出的<strong>开放问题</strong>。主线是
+      GEO——生成式回答引擎正在如何改变自然增长——以及随之而来的机器可读、结构化内容方法。
     </p>
 
-    <h2 class="mt-8 text-xl font-semibold">未来案例结构</h2>
-    <p>后续成熟案例会尽量使用统一结构：</p>
-    <ul class="mt-2 space-y-2">
-      <li>背景</li>
-      <li>问题</li>
-      <li>假设</li>
-      <li>我做了什么</li>
-      <li>我衡量了什么</li>
-      <li>我学到了什么</li>
-      <li>可复用方法论</li>
-    </ul>
-
-    <h2 class="mt-6 text-xl font-semibold">实验日志</h2>
+    <h2 class="mt-8 text-xl font-semibold">实验日志</h2>
     <div class="mt-4 space-y-6">
       {
         experiments.map(exp => (
-          <div class="border-border rounded-lg border p-6">
-            <div class="space-y-3">
+          <article class="border-border rounded-lg border p-6">
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span class="text-accent text-sm font-medium">
+                实验 {exp.number}
+              </span>
+              <h3 class="text-lg font-medium">{exp.title}</h3>
+              <span class="border-border text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap">
+                {exp.status}
+              </span>
+            </div>
+            <div class="mt-4 space-y-4">
               <div>
                 <span class="text-accent text-sm font-medium">假设</span>
                 <p class="text-muted-foreground mt-1">{exp.hypothesis}</p>
@@ -103,23 +91,47 @@ const experiments = [
                 <span class="text-accent text-sm font-medium">
                   我构建了什么
                 </span>
-                <p class="text-muted-foreground mt-1">{exp.built}</p>
+                <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+                  {exp.built.map(b => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
               </div>
               <div>
                 <span class="text-accent text-sm font-medium">
-                  我衡量了什么
+                  我在衡量什么
                 </span>
-                <p class="text-muted-foreground mt-1">{exp.measured}</p>
+                <p class="text-muted-foreground mt-1">{exp.measuring}</p>
               </div>
               <div>
-                <span class="text-accent text-sm font-medium">下一步</span>
-                <p class="text-muted-foreground mt-1">{exp.next}</p>
+                <span class="text-accent text-sm font-medium">开放问题</span>
+                <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+                  {exp.openQuestions.map(q => (
+                    <li>{q}</li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </div>
+          </article>
         ))
       }
     </div>
+
+    <h2 class="mt-10 text-xl font-semibold">背景</h2>
+    <p>
+      在把这些实验放到公开场之前，我在 <a
+        href="https://leiga.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-accent hover:underline">Leiga</a
+      >（一款 AI 驱动的项目管理 SaaS）的 Product Growth & Development
+      团队做增长，时间是 2024 年 5 月到 8 月。在那里我搭建了 SEO
+      基础——一个成长中的 SaaS
+      站点要被搜索引擎发现所需的技术基础设施。这些基础至今仍在线上运行。
+    </p>
+    <p>
+      我不会在这里公开客户原始数据、内部分析、私有后台、关键词列表或任何敏感指标。谈到过去的工作时，我只保留可复用的思路，而不涉及私有数字——任何与具体公司相关的内容都会做匿名化、归一化或重新绘制。
+    </p>
 
     <div class="border-border mt-10 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">相关链接</h2>

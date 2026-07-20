@@ -9,28 +9,43 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
-const experiments = [
+type Experiment = {
+  number: string;
+  title: string;
+  status: string;
+  hypothesis: string;
+  built: string[];
+  measuring: string;
+  openQuestions: string[];
+};
+
+const experiments: Experiment[] = [
   {
+    number: "01",
+    title: "This site as a GEO testbed",
+    status: "Running",
     hypothesis:
-      "A well-structured static site with proper meta, sitemap, and content architecture can rank for niche AI PM keywords.",
-    built: "This personal site on Astro + GitHub Pages.",
-    measured: "Organic traffic, indexed pages, AI search citations.",
-    next: "Publish more content, track GEO performance.",
-  },
-  {
-    hypothesis:
-      "Publishing an llms.txt / llms-full.txt (the llmstxt.org convention) makes the site easier for AI answer engines to read and cite accurately — a GEO analogue to the sitemap.",
-    built:
-      "Build-time llms.txt (index) and llms-full.txt (complete content) endpoints, assembled from the same data the site renders from, plus 'Ask Claude / ChatGPT about me' deep-links that pre-load that content.",
-    measured: "AI-search citations, referral traffic from AI chat tools.",
-    next: "Watch whether AI engines cite the site more accurately over time.",
+      "A static site engineered for machine readability — clean metadata, structured data, and AI-readable content endpoints — gets read and cited more accurately by AI answer engines than a conventional blog does.",
+    built: [
+      "llms.txt (index) and llms-full.txt (complete content) endpoints, assembled at build time from the same data the pages render from",
+      "Dynamic OG images generated with satori, so every page ships a titled social card instead of a bare link",
+      "JSON-LD structured data (Person, WebSite, BlogPosting) so search and answer engines can parse identity and content unambiguously",
+      "“Ask Claude / ChatGPT about me” deep-links that pre-load the llms-full content into a chat",
+    ],
+    measuring:
+      "Indexed pages, organic impressions on niche AI-PM queries, and whether AI-search tools cite the site accurately when asked about me.",
+    openQuestions: [
+      "Does llms-full.txt measurably change how accurately AI engines summarize me, or is it ignored?",
+      "Which structured-data types actually influence answer-engine citations versus classic search snippets?",
+      "How should a product be written so that both humans and answer engines understand it on the first pass?",
+    ],
   },
 ];
 ---
 
 <Layout
   title={`Growth Lab — ${config.site.title}`}
-  description="A public notebook for SEO, GEO, B2B content systems, and AI-search-aware growth experiments by an AI Product Manager."
+  description="A public lab notebook of SEO and GEO growth experiments, run in the open — starting with this site as a testbed for AI-search visibility."
   ogImage="/og/growth-lab.png"
 >
   <Header />
@@ -38,72 +53,34 @@ const experiments = [
 
   <Main pageTitle="Growth Lab" class="app-prose">
     <p>
-      A public notebook for SEO, GEO, B2B content systems, and AI-search-aware
-      growth experiments.
-    </p>
-
-    <h2 class="mt-8 text-xl font-semibold">Why Growth Matters for AI PMs</h2>
-    <p>
-      AI products do not win only because the model is good. They also need
-      distribution, positioning, trust, and repeatable demand generation. An AI
-      PM who understands growth can connect product decisions to adoption
-      outcomes.
-    </p>
-
-    <h2 class="mt-6 text-xl font-semibold">What I Experiment With</h2>
-    <ul class="mt-2 space-y-2">
-      <li>SEO keyword architecture</li>
-      <li>GEO / AI search visibility</li>
-      <li>B2B content systems</li>
-      <li>SaaS tool site ideas</li>
-      <li>Personal site as SEO/GEO experiment</li>
-    </ul>
-
-    <h2 class="mt-6 text-xl font-semibold">Current Questions</h2>
-    <ul class="mt-2 space-y-2">
-      <li>
-        How should products be written so both humans and AI answer engines
-        understand them?
-      </li>
-      <li>How do B2B companies build topical authority?</li>
-      <li>What does GEO change compared with traditional SEO?</li>
-      <li>How can AI PMs connect product thinking with growth loops?</li>
-    </ul>
-
-    <h2 class="mt-8 text-xl font-semibold">Privacy and Sanitization Rules</h2>
-    <p>
-      Growth Lab will include public notes and future sanitized case studies on
-      SEO, GEO, B2B content systems, and AI-search-aware growth.
+      Growth Lab is a public lab notebook. Instead of writing growth advice in
+      the abstract, I run experiments in the open — starting with the one
+      property I fully control: this site.
     </p>
     <p>
-      I do not publish raw client data, company dashboards, internship
-      materials, internal analytics screenshots, private domains, keyword lists,
-      or confidential metrics.
-    </p>
-    <p>
-      When I write about past growth work, I will use anonymized, normalized, or
-      redrawn examples. The goal is to share reusable growth thinking, not
-      expose private business information.
+      Every entry follows the same loop: state a <strong>hypothesis</strong>,
+      <strong>build</strong> the smallest thing that tests it, decide what to
+      <strong>measure</strong>, and record the <strong>open questions</strong> it
+      raises. The through-line is GEO — how generative answer engines are changing
+      organic growth — and the machine-readable, structured-content techniques that
+      come with it.
     </p>
 
-    <h2 class="mt-8 text-xl font-semibold">Future Case Study Format</h2>
-    <p>Future case studies will follow a lightweight structure:</p>
-    <ul class="mt-2 space-y-2">
-      <li>Context</li>
-      <li>Problem</li>
-      <li>Hypothesis</li>
-      <li>What I changed</li>
-      <li>What I measured</li>
-      <li>What I learned</li>
-      <li>Reusable framework</li>
-    </ul>
-
-    <h2 class="mt-6 text-xl font-semibold">Experiment Log</h2>
+    <h2 class="mt-8 text-xl font-semibold">Experiment Log</h2>
     <div class="mt-4 space-y-6">
       {
         experiments.map(exp => (
-          <div class="border-border rounded-lg border p-6">
-            <div class="space-y-3">
+          <article class="border-border rounded-lg border p-6">
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span class="text-accent text-sm font-medium">
+                Experiment {exp.number}
+              </span>
+              <h3 class="text-lg font-medium">{exp.title}</h3>
+              <span class="border-border text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap">
+                {exp.status}
+              </span>
+            </div>
+            <div class="mt-4 space-y-4">
               <div>
                 <span class="text-accent text-sm font-medium">Hypothesis</span>
                 <p class="text-muted-foreground mt-1">{exp.hypothesis}</p>
@@ -112,23 +89,52 @@ const experiments = [
                 <span class="text-accent text-sm font-medium">
                   What I built
                 </span>
-                <p class="text-muted-foreground mt-1">{exp.built}</p>
+                <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+                  {exp.built.map(b => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
               </div>
               <div>
                 <span class="text-accent text-sm font-medium">
-                  What I measured
+                  What I'm measuring
                 </span>
-                <p class="text-muted-foreground mt-1">{exp.measured}</p>
+                <p class="text-muted-foreground mt-1">{exp.measuring}</p>
               </div>
               <div>
-                <span class="text-accent text-sm font-medium">Next step</span>
-                <p class="text-muted-foreground mt-1">{exp.next}</p>
+                <span class="text-accent text-sm font-medium">
+                  Open questions
+                </span>
+                <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+                  {exp.openQuestions.map(q => (
+                    <li>{q}</li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </div>
+          </article>
         ))
       }
     </div>
+
+    <h2 class="mt-10 text-xl font-semibold">Background</h2>
+    <p>
+      Before running these experiments in public, I worked on growth at <a
+        href="https://leiga.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-accent hover:underline">Leiga</a
+      >, an AI-powered project management SaaS, as part of the Product Growth &
+      Development team from May to August 2024. There I built the SEO
+      foundations — the technical infrastructure a growing SaaS site needs to be
+      discoverable by search engines. Those foundations are still live today.
+    </p>
+    <p>
+      I don't publish client data, internal analytics, private dashboards,
+      keyword lists, or confidential metrics here. When I reference past work I
+      keep it to the reusable thinking, not the private numbers — anything
+      company-specific is anonymized, normalized, or redrawn.
+    </p>
 
     <div class="border-border mt-10 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">Related</h2>
