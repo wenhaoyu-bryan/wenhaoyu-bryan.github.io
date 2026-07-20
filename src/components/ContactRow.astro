@@ -27,9 +27,9 @@ const email = mailUrl?.replace(/^mailto:/, "");
 const linkedin = findSocial("linkedin");
 const github = findSocial("github");
 
-// TODO(Bryan): if you ever remove "mail"/"linkedin"/"github" from
-// astro-paper.config.ts socials, the corresponding link here disappears
-// silently — re-add it to the config rather than hardcoding it here.
+// Note: these links resolve from astro-paper.config.ts socials. Removing
+// "mail"/"linkedin"/"github" from that config makes the matching link here
+// disappear silently — re-add it to the config rather than hardcoding it here.
 
 const emailLabel = zh ? "邮箱" : "Email";
 const copiedLabel = zh ? "已复制！" : "Copied!";
