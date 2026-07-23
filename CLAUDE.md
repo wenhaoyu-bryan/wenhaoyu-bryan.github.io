@@ -114,8 +114,9 @@ here.
   - Metadata systems: title/description patterns and Open Graph across page types.
   - Structured data (schema.org) on key page types.
   - Content architecture: URL structure, internal linking, page-type taxonomy
-    (use-case pages, comparison pages, the Features page, and Resources — the
-    resources hub; label it "Resources," not "blog").
+    (Use-case pages, the Features page, Resources, and Comparison pages — in the
+    site's nav order; capitalize the page-type names; the resources hub is
+    "Resources," not "blog").
   - Documentation site: rebuilt Leiga's product guide / help center
     (guide.leiga.com).
   - Programmatic landing-page infrastructure: templated page systems scaling
