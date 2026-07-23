@@ -139,11 +139,14 @@ export const GET: APIRoute = async () => {
       "organic discoverability from scratch. The work: technical SEO groundwork " +
       "(sitemap/robots, canonical URLs, redirect hygiene, crawlability and " +
       "indexation), metadata and Open Graph systems across page types, schema.org " +
-      "structured data, content architecture and a page-type taxonomy (use-case, " +
-      "comparison, and blog pages), programmatic landing-page infrastructure such " +
-      "as the free-tools pages, keyword research and keyword-to-page mapping, and " +
-      "Search Console/analytics measurement setup. These foundations are still " +
-      "live. No performance numbers are published here: the data belongs to " +
+      "structured data, content architecture and a page-type taxonomy (use-case " +
+      "pages, comparison pages, the Features page, and Resources), a rebuilt " +
+      "product guide/help center (guide.leiga.com), programmatic landing-page " +
+      "infrastructure such as the free-tools pages (whose content and tool-name " +
+      "keyword planning he did with the dev team), keyword research and " +
+      "keyword-to-page mapping, social-media distribution of published articles, " +
+      "and Search Console/analytics measurement setup. These foundations are " +
+      "still live. No performance numbers are published here: the data belongs to " +
       "Leiga; this lab publishes numbers only when Wenhao owns them."
   );
   out.push(`Full page: ${base}/growth-lab`);
