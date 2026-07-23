@@ -139,8 +139,8 @@ export const GET: APIRoute = async () => {
       "organic discoverability from scratch. The work: technical SEO groundwork " +
       "(sitemap/robots, canonical URLs, redirect hygiene, crawlability and " +
       "indexation), metadata and Open Graph systems across page types, schema.org " +
-      "structured data, content architecture and a page-type taxonomy (use-case " +
-      "pages, comparison pages, the Features page, and Resources), a rebuilt " +
+      "structured data, content architecture and a page-type taxonomy (Use-case " +
+      "pages, the Features page, Resources, and Comparison pages), a rebuilt " +
       "product guide/help center (guide.leiga.com), programmatic landing-page " +
       "infrastructure such as the free-tools pages (whose content and tool-name " +
       "keyword planning he did with the dev team), keyword research and " +
