@@ -133,10 +133,18 @@ export const GET: APIRoute = async () => {
   );
   out.push("");
   out.push(
-    "Background: before these public experiments, Wenhao worked on growth at " +
-      "Leiga, an AI-powered project management SaaS (leiga.com), on the Product " +
-      "Growth & Development team from May to August 2024, where he built the SEO " +
-      "foundations that are still live."
+    "Experiment 00 — building SEO foundations at Leiga (concluded, August 2024). " +
+      "Leiga is an AI-powered project-management SaaS (leiga.com); Wenhao joined " +
+      "the Product Growth & Development team from May to August 2024 to build " +
+      "organic discoverability from scratch. The work: technical SEO groundwork " +
+      "(sitemap/robots, canonical URLs, redirect hygiene, crawlability and " +
+      "indexation), metadata and Open Graph systems across page types, schema.org " +
+      "structured data, content architecture and a page-type taxonomy (use-case, " +
+      "comparison, and blog pages), programmatic landing-page infrastructure such " +
+      "as the free-tools pages, keyword research and keyword-to-page mapping, and " +
+      "Search Console/analytics measurement setup. These foundations are still " +
+      "live. No performance numbers are published here: the data belongs to " +
+      "Leiga; this lab publishes numbers only when Wenhao owns them."
   );
   out.push(`Full page: ${base}/growth-lab`);
   out.push("");
