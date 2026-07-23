@@ -38,7 +38,7 @@ The goal is to share reusable methods and artifacts without pretending every rea
 
 **Now — Product Manager, enterprise agent platform (semiconductor manufacturing).** Leading it from 0 to 1: ideation, PRDs, competitor analysis, customer feedback, and vibe-coded prototypes that become the engineering blueprint.
 
-**May–Aug 2024 — Product Growth & Development, [Leiga](https://leiga.com).** Built the SEO foundations for an AI-powered project management SaaS.
+**May–Aug 2024 — Product Growth & Development, [Leiga](https://leiga.com).** Built the SEO foundations for an AI-powered project-management SaaS — technical groundwork, metadata and structured-data systems, content architecture, and programmatic landing pages that are still live. I wrote the work up as [Experiment 00 in the Growth Lab](/growth-lab).
 
 **Education — M.Eng, Cornell University · B.Eng, Rensselaer Polytechnic Institute.**
 

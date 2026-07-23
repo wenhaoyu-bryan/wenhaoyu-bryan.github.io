@@ -103,12 +103,34 @@ here.
   locales) is **fact-locked — no additions.** Describe methodology and
   capabilities only; never expose internal systems, data, identities, customer
   names, or metrics. It is framed as _Current Work / 当前工作_.
-- **Leiga** — the only permitted facts are: the name; "AI-powered project
-  management SaaS" (leiga.com); the role and dates (Product Growth &
-  Development, May–Aug 2024); and that the **SEO foundations/infrastructure**
-  were built and are "still live." Use past tense. **Forbidden:** any traffic /
-  ranking / conversion / revenue numbers, internal strategy, and credit for
-  anything published after Aug 2024. Never write "grew traffic by X."
+- **Leiga** — permitted facts: the name; "AI-powered project management SaaS"
+  (leiga.com); the role and dates (Product Growth & Development, May–Aug 2024);
+  that the **SEO foundations/infrastructure** were built and are "still live";
+  and the **confirmed work items** below (documented as _Experiment 00_ in the
+  Growth Lab). Use past tense. The confirmed work items — this list is the
+  permanent boundary; do not add, embellish, or infer beyond it:
+  - Technical SEO groundwork: sitemap/robots configuration, canonical URLs,
+    redirect hygiene, crawlability and indexation fixes.
+  - Metadata systems: title/description patterns and Open Graph across page types.
+  - Structured data (schema.org) on key page types.
+  - Content architecture: URL structure, internal linking, page-type taxonomy
+    (use-case, comparison, blog).
+  - Programmatic landing-page infrastructure: templated page systems scaling
+    across keyword families (e.g., the free-tools pages).
+  - Keyword research and keyword-to-page mapping.
+  - Measurement setup: Search Console / analytics instrumentation (the SETUP
+    only — never what the data showed).
+  - **Public-evidence links (newly permitted, narrow):** may link to publicly
+    accessible leiga.com pages as live examples of a confirmed work item's page
+    type. Before shipping any such link, verify it currently resolves (fetch it;
+    expect HTTP 200 and the described content) — if it can't be verified, omit
+    it, never link on assumption. Frame links as "a live example of this page
+    type," not as a claim about current performance or ownership.
+  - **Forbidden (unchanged and absolute):** any traffic / ranking / conversion /
+    revenue numbers; analytics screenshots or Search Console data; internal
+    strategy, roadmaps, or keyword lists; customer names; credit for anything
+    published after Aug 2024; and third-party traffic estimates (Semrush /
+    Ahrefs / SimilarWeb or similar) anywhere. Never write "grew traffic by X."
 - **No other ventures** — no e-commerce, packaging, storefront, or outside
   client work anywhere on the site, including code comments and commit messages.
   Remove any such reference if found.

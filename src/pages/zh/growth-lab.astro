@@ -43,7 +43,7 @@ const experiments: Experiment[] = [
 
 <Layout
   title={`Growth Lab · 公开增长实验笔记 — ${config.site.title}`}
-  description="一本公开的增长实验笔记：把 SEO 与 GEO 实验放在明处做，从这个站点本身作为 AI 搜索可见性试验场开始。"
+  description="一本公开的 SEO 与 GEO 增长实验笔记——从在 Leiga 搭建的 SEO 基础，到把这个站点当作 AI 搜索的试验场。"
 >
   <Header />
   <Breadcrumb />
@@ -70,6 +70,127 @@ const experiments: Experiment[] = [
 
     <h2 class="mt-8 text-xl font-semibold">实验日志</h2>
     <div class="mt-4 space-y-6">
+      <article class="border-border rounded-lg border p-6">
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span class="text-accent text-sm font-medium">实验 00</span>
+          <h3 class="text-lg font-medium">在 Leiga 搭建 SEO 基础</h3>
+          <span
+            class="border-border text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap"
+          >
+            已结束 · 2024 年 8 月
+          </span>
+        </div>
+        <div class="mt-4 space-y-4">
+          <div>
+            <span class="text-accent text-sm font-medium">当时的处境</span>
+            <p class="text-muted-foreground mt-1">
+              <a
+                href="https://leiga.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent hover:underline">Leiga</a
+              > 是一款 AI 驱动的项目管理 SaaS，当时几乎没有任何自然搜索的可见性，一切要从零开始。我在
+              2024 年 5 月到 8 月加入 Product Growth & Development 团队，搭建一个成长中的
+              SaaS 要被搜索发现所需的基础——并且让这些基础足够扎实，在我离开之后还能继续起作用。
+            </p>
+          </div>
+          <div>
+            <span class="text-accent text-sm font-medium">我构建了什么</span>
+            <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+              <li>
+                技术 SEO 基建——sitemap 与 robots 配置、canonical 规范化
+                URL、重定向治理，以及可抓取性和收录问题的修复。
+              </li>
+              <li>
+                元数据体系——跨页面类型统一的 title / description 模式与 Open
+                Graph 标签。
+              </li>
+              <li>
+                结构化数据——在关键页面类型上部署 schema.org
+                标记，让搜索与回答引擎能无歧义地解析。
+              </li>
+              <li>
+                内容架构——URL 结构、内部链接，以及一套页面类型分类：<a
+                  href="https://www.leiga.com/use-case-product-manager"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent hover:underline">用例页</a
+                >、<a
+                  href="https://www.leiga.com/compare"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent hover:underline">对比页</a
+                >和<a
+                  href="https://www.leiga.com/resources"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent hover:underline">博客</a
+                >。
+              </li>
+              <li>
+                程序化落地页基建——可跨关键词族规模化的模板化页面系统，例如<a
+                  href="https://www.leiga.com/free-tools"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent hover:underline">免费工具页</a
+                >。
+              </li>
+              <li>
+                关键词研究与关键词到页面的映射——决定哪些页面应该存在、每个页面各自主打什么。
+              </li>
+              <li>
+                度量搭建——Search Console
+                与分析工具的埋点，用来追踪这些工作（只是搭建本身——绝不涉及数据显示了什么）。
+              </li>
+            </ul>
+            <p class="text-muted-foreground mt-2 text-sm">
+              上面的链接只是各页面类型的线上实例，并不代表它们当前的表现或归属。
+            </p>
+          </div>
+          <div>
+            <span class="text-accent text-sm font-medium">值得记下的判断</span>
+            <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+              <li>
+                凡是能按关键词族规模化的（免费工具页、对比页）就用模板化系统，只有真正需要观点表达的页面才手写编辑内容。
+              </li>
+              <li>
+                先打地基再上量：先定好
+                canonical、元数据模式和内部链接规则，让之后发布的每个页面都自动继承，而不必事后返工。
+              </li>
+            </ul>
+          </div>
+          <div>
+            <span class="text-accent text-sm font-medium">它教会了我什么</span>
+            <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+              <li>
+                SEO
+                基础设施是一个产品面，而不是营销清单上的一个勾——它和你设计、维护的任何系统一样，有
+                schema、模板和边界情况。
+              </li>
+              <li>
+                内部链接就是信息架构：决定哪些页面存在、它们如何互相连接，和设计一个产品的导航是同一种功夫。
+              </li>
+              <li>
+                地基会在你离开之后持续复利——这正是我用「至今仍在线上」而不是某个流量数字来作为成果的原因。
+              </li>
+              <li>
+                这是 2024
+                年、在回答引擎重塑发现方式之前的工作——而这道缺口正是实验 01
+                接着去探索的。
+              </li>
+            </ul>
+          </div>
+          <div>
+            <span class="text-accent text-sm font-medium"
+              >这里为什么没有数字</span
+            >
+            <p class="text-muted-foreground mt-1">
+              表现数据属于
+              Leiga，所以这个实验室只发布我自己拥有的数字——这里描述的是工作本身，且经过了公司的许可；结果归他们去公布。
+            </p>
+          </div>
+        </div>
+      </article>
       {
         experiments.map(exp => (
           <article class="border-border rounded-lg border p-6">
@@ -116,19 +237,6 @@ const experiments: Experiment[] = [
         ))
       }
     </div>
-
-    <h2 class="mt-10 text-xl font-semibold">背景</h2>
-    <p>
-      在把这些实验放到公开场之前，我在 <a
-        href="https://leiga.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-accent hover:underline">Leiga</a
-      >（一款 AI 驱动的项目管理 SaaS）的 Product Growth & Development
-      团队做增长，时间是 2024 年 5 月到 8 月。在那里我搭建了 SEO
-      基础——一个成长中的 SaaS
-      站点要被搜索引擎发现所需的技术基础设施。这些基础至今仍在线上运行。
-    </p>
 
     <div class="border-border mt-10 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">相关链接</h2>

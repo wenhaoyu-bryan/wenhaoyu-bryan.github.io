@@ -45,7 +45,7 @@ const experiments: Experiment[] = [
 
 <Layout
   title={`Growth Lab — ${config.site.title}`}
-  description="A public lab notebook of SEO and GEO growth experiments, run in the open — starting with this site as a testbed for AI-search visibility."
+  description="A public lab notebook of SEO and GEO experiments — from the SEO foundations I built at Leiga to using this site as an AI-search testbed."
   ogImage="/og/growth-lab.png"
 >
   <Header />
@@ -68,6 +68,145 @@ const experiments: Experiment[] = [
 
     <h2 class="mt-8 text-xl font-semibold">Experiment Log</h2>
     <div class="mt-4 space-y-6">
+      <article class="border-border rounded-lg border p-6">
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span class="text-accent text-sm font-medium">Experiment 00</span>
+          <h3 class="text-lg font-medium">Building SEO foundations at Leiga</h3>
+          <span
+            class="border-border text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap"
+          >
+            Concluded · Aug 2024
+          </span>
+        </div>
+        <div class="mt-4 space-y-4">
+          <div>
+            <span class="text-accent text-sm font-medium">The situation</span>
+            <p class="text-muted-foreground mt-1">
+              <a
+                href="https://leiga.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent hover:underline">Leiga</a
+              >, an AI-powered project-management SaaS, needed organic
+              discoverability essentially from scratch. I joined the Product
+              Growth & Development team from May to August 2024 to build the
+              foundations a growing SaaS needs to be found — and to make them
+              durable enough to keep working after I moved on.
+            </p>
+          </div>
+          <div>
+            <span class="text-accent text-sm font-medium">What I built</span>
+            <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+              <li>
+                Technical SEO groundwork — sitemap and robots configuration,
+                canonical URLs, redirect hygiene, and crawlability and
+                indexation fixes.
+              </li>
+              <li>
+                Metadata systems — title and description patterns and Open Graph
+                tags applied consistently across page types.
+              </li>
+              <li>
+                Structured data — schema.org markup on the page types that
+                mattered, so search and answer engines could parse them
+                unambiguously.
+              </li>
+              <li>
+                Content architecture — URL structure, internal linking, and a
+                page-type taxonomy spanning <a
+                  href="https://www.leiga.com/use-case-product-manager"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent hover:underline">use-case pages</a
+                >, <a
+                  href="https://www.leiga.com/compare"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent hover:underline">comparison pages</a
+                >, and the <a
+                  href="https://www.leiga.com/resources"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent hover:underline">blog</a
+                >.
+              </li>
+              <li>
+                Programmatic landing-page infrastructure — templated page
+                systems designed to scale across keyword families, like the <a
+                  href="https://www.leiga.com/free-tools"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent hover:underline">free-tools pages</a
+                >.
+              </li>
+              <li>
+                Keyword research and keyword-to-page mapping — deciding which
+                pages should exist and what each one should target.
+              </li>
+              <li>
+                Measurement setup — Search Console and analytics instrumentation
+                to track the work (the setup only — never what the data showed).
+              </li>
+            </ul>
+            <p class="text-muted-foreground mt-2 text-sm">
+              The linked pages are live examples of each page type, not claims
+              about their current performance or ownership.
+            </p>
+          </div>
+          <div>
+            <span class="text-accent text-sm font-medium">
+              Decisions worth recording
+            </span>
+            <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+              <li>
+                Templated systems for anything that scaled by keyword family —
+                free-tools and comparison pages — and hand-written editorial
+                only where a page needed a genuine point of view.
+              </li>
+              <li>
+                Foundations before volume: canonicals, metadata patterns, and
+                internal-linking rules first, so every page published afterward
+                inherited them instead of being retrofitted.
+              </li>
+            </ul>
+          </div>
+          <div>
+            <span class="text-accent text-sm font-medium">
+              What it taught me
+            </span>
+            <ul class="text-muted-foreground mt-1 list-disc space-y-1 pl-5">
+              <li>
+                SEO infrastructure is a product surface, not a marketing
+                checkbox — it has schemas, templates, and edge cases like any
+                system you design and maintain.
+              </li>
+              <li>
+                Internal linking is information architecture: choosing which
+                pages exist and how they connect is the same discipline as
+                designing a product's navigation.
+              </li>
+              <li>
+                Foundations compound after you leave — which is exactly why
+                "still live" is the outcome I cite instead of a traffic number.
+              </li>
+              <li>
+                This was 2024 work, before answer engines reshaped discovery —
+                the gap Experiment 01 picks up.
+              </li>
+            </ul>
+          </div>
+          <div>
+            <span class="text-accent text-sm font-medium">
+              Why there are no numbers here
+            </span>
+            <p class="text-muted-foreground mt-1">
+              The performance data belongs to Leiga, so this lab publishes
+              numbers only when I own them — the work is described here with the
+              company's blessing; the results are theirs to report.
+            </p>
+          </div>
+        </div>
+      </article>
       {
         experiments.map(exp => (
           <article class="border-border rounded-lg border p-6">
@@ -116,19 +255,6 @@ const experiments: Experiment[] = [
         ))
       }
     </div>
-
-    <h2 class="mt-10 text-xl font-semibold">Background</h2>
-    <p>
-      Before running these experiments in public, I worked on growth at <a
-        href="https://leiga.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-accent hover:underline">Leiga</a
-      >, an AI-powered project management SaaS, as part of the Product Growth &
-      Development team from May to August 2024. There I built the SEO
-      foundations — the technical infrastructure a growing SaaS site needs to be
-      discoverable by search engines. Those foundations are still live today.
-    </p>
 
     <div class="border-border mt-10 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">Related</h2>
