@@ -18,6 +18,7 @@ const PAGE_TITLES: Record<string, string> = {
   playbook: "AI PM Operating Playbook",
   "growth-lab": "Growth Lab — Wenhao Yu",
   about: "About — Wenhao Yu",
+  now: "Now — Wenhao Yu",
   "prompt-to-ontology": "Prompt-to-Ontology",
   "enterprise-agent-platform": "Enterprise Agent Platform · Current Work",
 };
