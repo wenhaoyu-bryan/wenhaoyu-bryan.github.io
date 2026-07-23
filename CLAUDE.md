@@ -114,23 +114,34 @@ here.
   - Metadata systems: title/description patterns and Open Graph across page types.
   - Structured data (schema.org) on key page types.
   - Content architecture: URL structure, internal linking, page-type taxonomy
-    (use-case, comparison, blog).
+    (use-case pages, comparison pages, the Features page, and Resources — the
+    resources hub; label it "Resources," not "blog").
+  - Documentation site: rebuilt Leiga's product guide / help center
+    (guide.leiga.com).
   - Programmatic landing-page infrastructure: templated page systems scaling
-    across keyword families (e.g., the free-tools pages).
+    across keyword families (e.g., the free-tools pages). The free-tools content
+    and tool-name keyword planning were done **with the dev team** — describe as
+    collaborative, not solo.
   - Keyword research and keyword-to-page mapping.
+  - Content distribution: ran social-media promotion of published articles.
   - Measurement setup: Search Console / analytics instrumentation (the SETUP
     only — never what the data showed).
   - **Public-evidence links (newly permitted, narrow):** may link to publicly
-    accessible leiga.com pages as live examples of a confirmed work item's page
-    type. Before shipping any such link, verify it currently resolves (fetch it;
-    expect HTTP 200 and the described content) — if it can't be verified, omit
-    it, never link on assumption. Frame links as "a live example of this page
-    type," not as a claim about current performance or ownership.
+    accessible leiga.com / guide.leiga.com pages as live examples of a confirmed
+    work item's page type. Verified live examples currently in use:
+    `/use-case-product-manager`, `/compare`, `/feature`, `/resources`,
+    `/free-tools`, and `guide.leiga.com`. Before shipping any such link, verify
+    it currently resolves (fetch it; expect HTTP 200 and the described content) —
+    if it can't be verified, omit it, never link on assumption. Frame links as
+    "a live example of this page type," not as a claim about current performance
+    or ownership.
   - **Forbidden (unchanged and absolute):** any traffic / ranking / conversion /
     revenue numbers; analytics screenshots or Search Console data; internal
     strategy, roadmaps, or keyword lists; customer names; credit for anything
     published after Aug 2024; and third-party traffic estimates (Semrush /
     Ahrefs / SimilarWeb or similar) anywhere. Never write "grew traffic by X."
+    This includes any reach, views, or engagement figures from the
+    social-distribution work — describe the responsibility only, never a metric.
 - **No other ventures** — no e-commerce, packaging, storefront, or outside
   client work anywhere on the site, including code comments and commit messages.
   Remove any such reference if found.
