@@ -21,6 +21,7 @@ const PAGE_TITLES: Record<string, string> = {
   now: "Now — Wenhao Yu",
   "prompt-to-ontology": "Prompt-to-Ontology",
   "enterprise-agent-platform": "Enterprise Agent Platform · Current Work",
+  "ai-sop-assistant": "AI-SOP Assistant at AB InBev · Case Study",
 };
 
 export function getStaticPaths() {
