@@ -38,6 +38,10 @@ The goal is to share reusable methods and artifacts without pretending every rea
 
 **Now — Product Manager, enterprise agent platform (semiconductor manufacturing).** Leading it from 0 to 1: ideation, PRDs, competitor analysis, customer feedback, and vibe-coded prototypes that become the engineering blueprint.
 
+**Mar–Dec 2025 — Supply Chain & Logistics Excellence Trainee (SET), AB InBev (Budweiser brewing operations, Wuhan).** Built an internal AI-SOP assistant from 0 to 1 — an on-premise RAG system over ~180K characters of the plant's own procedures — alongside end-to-end governance of 3,000+ IoT sensors, Grafana dashboards for plant management, and MES integration. I wrote it up as a [case study](/projects/ai-sop-assistant).
+
+**MiraclePlus — Product & Investment Intern.** Ran due diligence on 10+ early-stage AI startups, supporting three early investment decisions. Separately built and ran a 1,200-person AI founder community.
+
 **May–Aug 2024 — Product Growth & Development, [Leiga](https://leiga.com).** Built the SEO foundations for an AI-powered project-management SaaS — technical groundwork, metadata and structured-data systems, content architecture, and programmatic landing pages that are still live. I wrote the work up as [Experiment 00 in the Growth Lab](/growth-lab).
 
 **Education — M.Eng, Cornell University · B.Eng, Rensselaer Polytechnic Institute.**
