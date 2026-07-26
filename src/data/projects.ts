@@ -17,7 +17,8 @@ export interface Project {
     | "Ongoing"
     | "Public · Ep. 01"
     | "Current Work"
-    | "Case Study";
+    | "Previous Work · 2025"
+    | "过往工作 · 2025";
   icon:
     | "Network"
     | "Book"
@@ -40,6 +41,8 @@ interface ProjectDef {
   icon: Project["icon"];
   kind: Project["kind"];
   status: Project["status"];
+  /** Per-locale badge override; falls back to `status` when a locale is absent. */
+  statusI18n?: Record<Locale, Project["status"]>;
   /** Internal path relative to the locale root (mutually exclusive with url) */
   path?: string;
   /** External URL */
@@ -80,7 +83,11 @@ const defs: ProjectDef[] = [
     title: "AI-SOP Assistant at AB InBev (0 → 1)",
     icon: "Factory",
     kind: "work",
-    status: "Case Study",
+    status: "Previous Work · 2025",
+    statusI18n: {
+      en: "Previous Work · 2025",
+      zh: "过往工作 · 2025",
+    },
     path: "work/ai-sop-assistant",
     description: {
       en: "A concluded 0 → 1 case study from AB InBev's Budweiser brewing operations in Wuhan: an on-prem AI assistant that turned ~180K characters of SOP and maintenance docs into standardized, retrievable answers, plus end-to-end governance of 3,000+ IoT sensors and MES integration. Local DeepSeek deployment for data residency; Streamlit on desktop + mobile; Grafana for plant management.",
@@ -196,7 +203,7 @@ export function getProjects(locale: string): Project[] {
     title: def.title,
     icon: def.icon,
     kind: def.kind,
-    status: def.status,
+    status: def.statusI18n?.[loc] ?? def.status,
     description: def.description[loc],
     tags: def.tags[loc],
     href: def.url ?? getRelativeLocaleUrl(def.enOnly ? "en" : loc, def.path),

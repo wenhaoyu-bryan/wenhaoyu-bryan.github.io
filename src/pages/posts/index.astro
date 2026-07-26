@@ -18,7 +18,7 @@ const posts = getSortedPosts(
   await getCollection("posts", ({ data }) => !data.draft)
 );
 
-// The live Playbook methodology pages (mirrors playbook.astro).
+// The live Methodology pages (mirrors playbook.astro).
 const playbookItems = [
   {
     label: "Vibe Coding for Product Discovery",
@@ -73,10 +73,10 @@ const growthChip = `${growthExperiments.length} experiments · ${runningCount} r
       growth-experiment notebook, and essays and working notes.
     </p>
 
-    <!-- Playbook -->
+    <!-- Methodology -->
     <section>
       <div class="flex items-baseline justify-between gap-4">
-        <h2 class="text-xl font-semibold">Playbook</h2>
+        <h2 class="text-xl font-semibold">Methodology</h2>
         <a
           href={getRelativeLocaleUrl(locale, "playbook")}
           class="text-accent shrink-0 text-sm hover:underline"
