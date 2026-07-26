@@ -5,6 +5,8 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import ContactRow from "@/components/ContactRow.astro";
 import config from "@/config";
+
+const linkedin = config.socials.find(s => s.name === "linkedin")?.url;
 ---
 
 <Layout
@@ -69,25 +71,26 @@ import config from "@/config";
 
     <h2 class="mt-8 text-xl font-semibold">经历与背景</h2>
     <p>
-      <strong>现在 —— 企业级 Agent 平台产品经理。</strong>从 0 到 1
-      主导：需求构思、PRD、竞品分析、客户反馈，以及作为工程蓝图的 vibe coding
-      原型。
+      <strong>现在 —— TCL（半导体制造）企业级 Agent 平台产品经理。</strong>从 0
+      到 1 主导：需求构思、PRD、竞品分析、客户反馈，以及作为工程蓝图的 vibe
+      coding 原型。
     </p>
     <p>
       <strong
         >2025 年 3–12 月 —— 百威（AB
         InBev，武汉酿造工厂）供应链与物流卓越管培生（SET）。</strong
-      >从 0 到 1 做了一个内部 AI-SOP 助手——一个覆盖约 18
-      万字工厂自有规程的本地部署 RAG 系统，并端到端治理 3,000+ 个 IoT
-      传感器、为工厂管理层搭建 Grafana 看板、打通 MES。我把它整理成了一篇 <a
+      >从 0 到 1 做了一个内部 AI-SOP
+      助手——一个覆盖工厂完整规程与维护文档的本地部署 RAG
+      系统，并端到端治理工厂的 IoT 传感器集群、为工厂管理层搭建 Grafana
+      看板、打通 MES。我把它整理成了一篇 <a
         href="/zh/work/ai-sop-assistant"
         class="text-accent hover:underline">案例研究</a
       >。
     </p>
     <p>
-      <strong>奇绩创坛（MiraclePlus）—— 产品与投资实习。</strong>对 10+ 家早期
-      AI 创业公司做尽职调查，支撑了三个早期投资决策；并从 0 搭建并运营了一个
-      1,200 人的 AI 创业者社群。
+      <strong>奇绩创坛（MiraclePlus）—— 产品与投资实习。</strong>对多家早期 AI
+      创业公司做尽职调查，支撑了若干早期投资决策；并从 0 搭建并运营了一个 AI
+      创业者社群。
     </p>
     <p>
       <strong
@@ -105,7 +108,25 @@ import config from "@/config";
       >。
     </p>
     <p>
-      <strong>教育 —— 康奈尔大学工程硕士 · 伦斯勒理工学院工程学士。</strong>
+      完整履历见 <a
+        href={linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-accent underline decoration-dashed underline-offset-4"
+        >LinkedIn →</a
+      >
+    </p>
+
+    <h2 class="mt-8 text-xl font-semibold">教育</h2>
+    <p>
+      <strong
+        >康奈尔大学工程硕士（M.Eng）· 伦斯勒理工学院工程学士（B.Eng）。</strong
+      >
+    </p>
+    <p>
+      我拥有康奈尔大学的工程硕士学位，以及伦斯勒理工学院的工程学士学位。这段工程训练至今仍塑造着我作为
+      PM
+      的工作方式：我在意结构、约束、反馈回路，以及一个想法能否经受住落地实现的检验。
     </p>
 
     <h2 class="mt-8 text-xl font-semibold">一点个人侧面</h2>
