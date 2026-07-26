@@ -275,6 +275,11 @@ const topics: Topic[] = [
                 <p class="text-muted-foreground mt-2 line-clamp-3 text-sm">
                   {project.description}
                 </p>
+                {project.ledger?.tech && (
+                  <p class="text-muted-foreground/80 mt-2 text-xs">
+                    {project.ledger.tech}
+                  </p>
+                )}
                 <span class="text-accent mt-3 inline-block text-sm group-hover:underline">
                   {project.ledger?.cta ?? "Read more →"}
                 </span>
