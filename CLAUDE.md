@@ -139,6 +139,9 @@ here.
     and tool-name keyword planning were done **with the dev team** — describe as
     collaborative, not solo.
   - Keyword research and keyword-to-page mapping.
+  - Confirmed: Bryan authored the resource hub's cornerstone articles during his
+    tenure (May–Aug 2024); the popular-articles list on leiga.com/resources
+    currently carries his byline (shared credit, shown as "Bryan Yu / Max").
   - Content distribution: ran social-media promotion of published articles.
   - Measurement setup: Search Console / analytics instrumentation (the SETUP
     only — never what the data showed).
