@@ -13,7 +13,7 @@ const work = getWork("zh");
 
 <Layout
   title={`工作 — ${config.site.title}`}
-  description="以专业身份做过或正在做的工作：从 0 到 1 领导一个企业级 Agent 平台，以及在百威（AB InBev）的一段已结束的 AI-SOP 助手案例研究。只在方法论与能力层面描述，遵循保密标准。"
+  description="以专业身份做过或正在做的工作：从 0 到 1 领导一个企业级 Agent 平台，以及在百威（AB InBev）的一段已结束的 AI-SOP 助手案例研究。只在方法论与能力层面描述。"
 >
   <Header />
   <Breadcrumb />
@@ -28,14 +28,7 @@ const work = getWork("zh");
       </a>
     </p>
 
-    <p>
-      我以专业身份做过或正在做的工作 ——
-      只在方法论与能力层面描述，遵循保密标准。当前工作在前，已结束的在后。
-    </p>
-
-    <p class="text-muted-foreground text-sm">
-      其中部分工作出于数据权限和保密要求并不公开。这些页面展示的是抽象后的产品方法论，而非内部系统。
-    </p>
+    <p>专业工作，进行中与已结束。</p>
 
     <div class="not-prose border-border divide-border mt-8 divide-y border-t">
       {
@@ -59,13 +52,11 @@ const work = getWork("zh");
               <p class="text-muted-foreground mt-2 text-sm">
                 {project.description}
               </p>
-              <div class="mt-3 flex flex-wrap gap-2">
-                {project.tags.map(tag => (
-                  <span class="bg-muted rounded-full px-2.5 py-0.5 text-xs">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              {project.ledger?.tech && (
+                <p class="text-muted-foreground/80 mt-2 text-xs">
+                  {project.ledger.tech}
+                </p>
+              )}
               <span class="text-accent mt-3 inline-block text-sm group-hover:underline">
                 {project.ledger?.cta ?? "查看详情 →"}
               </span>
@@ -74,6 +65,10 @@ const work = getWork("zh");
         ))
       }
     </div>
+
+    <p class="text-muted-foreground mt-12 text-sm">
+      这些页面只描述方法论与能力；内部系统与数据不公开。
+    </p>
   </Main>
 
   <Footer />

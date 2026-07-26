@@ -42,6 +42,8 @@ export interface Project {
     heading: string;
     /** Right column line 2: muted context (employer · domain). */
     context: string;
+    /** Optional muted tech-context line (replaces tag chips). */
+    tech?: string;
     /** Accent arrow link label. */
     cta: string;
   };
@@ -71,6 +73,7 @@ interface ProjectDef {
     date: Record<Locale, string>;
     heading: Record<Locale, string>;
     context: Record<Locale, string>;
+    tech?: Record<Locale, string>;
     cta: Record<Locale, string>;
   };
 }
@@ -85,12 +88,16 @@ const defs: ProjectDef[] = [
     ledger: {
       date: { en: "Current", zh: "当前" },
       heading: {
-        en: "Product Manager — Enterprise Agent Platform (0 → 1)",
-        zh: "产品经理 — 企业级 Agent 平台（0 → 1）",
+        en: "Product Manager — Enterprise Agent Platform (0\u00A0→\u00A01)",
+        zh: "产品经理 — 企业级 Agent 平台（0\u00A0→\u00A01）",
       },
       context: {
         en: "TCL · advanced manufacturing",
         zh: "TCL · 先进制造",
+      },
+      tech: {
+        en: "configurable agents · skill lifecycle · governance · sandboxing",
+        zh: "可配置 Agent · skill 生命周期 · 治理 · 沙箱",
       },
       cta: {
         en: "Read the current work page →",
@@ -98,8 +105,8 @@ const defs: ProjectDef[] = [
       },
     },
     description: {
-      en: "Leading an enterprise agent platform from 0 to 1 in advanced manufacturing as its product manager — a dual-mode design over configurable agents, an AI-co-created skill lifecycle, and governance by design (sandboxing, approval gates, audited runs). Methodology described; internals abstracted.",
-      zh: "以产品经理身份，把一个面向先进制造的企业级 Agent 平台从 0 到 1 做起来：覆盖可配置 Agent 的双模设计、AI 共创的 skill 生命周期，以及「治理即设计」（沙箱、审批门、可审计运行）。方法论可公开，内部细节已抽象。",
+      en: "A dual-mode design over configurable agents, an AI-co-created skill lifecycle, and governance by design — sandboxing, approval gates, audited runs. Methodology described; internals abstracted.",
+      zh: "覆盖可配置 Agent 的双模设计、AI 共创的 skill 生命周期，以及「治理即设计」——沙箱、审批门、可审计运行。方法论可公开，内部细节已抽象。",
     },
     tags: {
       en: [
@@ -125,12 +132,16 @@ const defs: ProjectDef[] = [
     ledger: {
       date: { en: "2025", zh: "2025" },
       heading: {
-        en: "Supply Chain & Logistics Excellence Trainee — AI-SOP Assistant (0 → 1)",
-        zh: "供应链与物流卓越管培生（SET）— AI-SOP 助手（0 → 1）",
+        en: "AI-SOP Assistant (0\u00A0→\u00A01)",
+        zh: "AI-SOP 助手（0\u00A0→\u00A01）",
       },
       context: {
-        en: "AB InBev · Budweiser brewing operations, Wuhan",
-        zh: "AB InBev · 百威武汉酿造工厂",
+        en: "AB InBev · Budweiser brewing operations, Wuhan · Supply Chain & Logistics Excellence Trainee (SET)",
+        zh: "AB InBev · 百威武汉酿造工厂 · 供应链与物流卓越管培生（SET）",
+      },
+      tech: {
+        en: "RAG · local LLM · IoT governance · MES",
+        zh: "RAG · 本地 LLM · IoT 治理 · MES",
       },
       cta: {
         en: "Read the case study →",
@@ -138,8 +149,8 @@ const defs: ProjectDef[] = [
       },
     },
     description: {
-      en: "A concluded 0 → 1 case study from AB InBev's Budweiser brewing operations in Wuhan: an on-prem AI assistant that turned the plant's full procedure and maintenance corpus into standardized, retrievable answers, plus end-to-end governance of the plant's IoT sensor fleet and MES integration. Local DeepSeek deployment for data residency; Streamlit on desktop + mobile; Grafana for plant management.",
-      zh: "一段已结束的 0 → 1 案例研究，来自百威武汉酿造工厂（AB InBev）：一个本地部署的 AI 助手，把工厂完整的规程与维护文档转化为标准化、可检索的答案，并端到端治理工厂的 IoT 传感器集群、打通 MES。出于数据合规本地部署 DeepSeek；Streamlit 覆盖桌面与移动端；用 Grafana 服务工厂管理层。",
+      en: "An on-prem AI assistant that turned the plant's full procedure and maintenance corpus into standardized, retrievable answers, plus end-to-end governance of the plant's IoT sensor fleet and MES integration. Local DeepSeek deployment for data residency; Streamlit on desktop + mobile; Grafana for plant management.",
+      zh: "一个本地部署的 AI 助手，把工厂完整的规程与维护文档转化为标准化、可检索的答案，并端到端治理工厂的 IoT 传感器集群、打通 MES。出于数据合规本地部署 DeepSeek；Streamlit 覆盖桌面与移动端；用 Grafana 服务工厂管理层。",
     },
     tags: {
       en: [
@@ -264,6 +275,7 @@ export function getProjects(locale: string): Project[] {
           date: def.ledger.date[loc],
           heading: def.ledger.heading[loc],
           context: def.ledger.context[loc],
+          tech: def.ledger.tech?.[loc],
           cta: def.ledger.cta[loc],
         }
       : undefined,
