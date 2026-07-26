@@ -22,7 +22,7 @@ import {
   Building2,
   Factory,
 } from "lucide-astro";
-import { getWork, getBuilds } from "@/data/projects";
+import { getWork, getListedBuilds } from "@/data/projects";
 import AskAI from "@/components/AskAI.astro";
 import ContactRow from "@/components/ContactRow.astro";
 
@@ -36,7 +36,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
 
 // Work = professional roles (current + concluded); builds = self-directed.
 const work = getWork(locale);
-const builds = getBuilds(locale);
+const builds = getListedBuilds(locale);
 
 // lucide icon lookup, shared by the Work and Projects card grids below.
 const projectIcons = { Network, Book, Code, Activity, Bot, Factory } as const;

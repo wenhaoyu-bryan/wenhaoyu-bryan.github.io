@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
-import { getWork, getBuilds } from "@/data/projects";
+import { getWork, getListedBuilds } from "@/data/projects";
 import AskAI from "@/components/AskAI.astro";
 import ContactRow from "@/components/ContactRow.astro";
 
@@ -98,7 +98,7 @@ const topics: Topic[] = [
 ];
 
 const work = getWork(locale);
-const builds = getBuilds(locale);
+const builds = getListedBuilds(locale);
 ---
 
 <Layout

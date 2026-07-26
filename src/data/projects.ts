@@ -29,6 +29,9 @@ export interface Project {
     | "Factory";
   href: string;
   external: boolean;
+  /** Show on card-listing surfaces (homepage Featured, /projects/). Machine
+   * indexes (llms.txt, structured data) ignore this and always include it. */
+  listed: boolean;
   tags: string[];
   /** Source repository, surfaced in llms.txt / structured data */
   repo?: string;
@@ -62,6 +65,9 @@ interface ProjectDef {
   url?: string;
   /** Page exists only in English; zh listings link to the en route. */
   enOnly?: boolean;
+  /** Omit from card-listing surfaces (homepage Featured, /projects/) while
+   * keeping it in machine indexes. Defaults to listed. */
+  listed?: boolean;
   /** Source repository, surfaced in llms.txt / structured data */
   repo?: string;
   description: Record<Locale, string>;
@@ -227,6 +233,9 @@ const defs: ProjectDef[] = [
     icon: "Code",
     kind: "project",
     status: "Public",
+    // Repositioned as a one-page introduction (linked from About) rather than a
+    // portfolio card; kept in machine indexes for discoverability.
+    listed: false,
     url: "https://wenhaoyu-bryan.github.io/AI-PM-Manifesto/",
     thumbnail: manifestoThumb,
     thumbnailAlt: "AI PM Manifesto — dark cinematic scroll page hero",
@@ -267,6 +276,7 @@ export function getProjects(locale: string): Project[] {
     tags: def.tags[loc],
     href: def.url ?? getRelativeLocaleUrl(def.enOnly ? "en" : loc, def.path),
     external: Boolean(def.url),
+    listed: def.listed ?? true,
     repo: def.repo,
     thumbnail: def.thumbnail,
     thumbnailAlt: def.thumbnailAlt,
@@ -287,7 +297,14 @@ export function getWork(locale: string): Project[] {
   return getProjects(locale).filter(p => p.kind === "work");
 }
 
-/** Self-directed builds shipped in the open — for the Projects section. */
+/** Self-directed builds shipped in the open — for the Projects section.
+ * Includes unlisted builds; used by machine indexes (llms.txt, structured data). */
 export function getBuilds(locale: string): Project[] {
   return getProjects(locale).filter(p => p.kind === "project");
+}
+
+/** Builds shown on card-listing surfaces (homepage Featured, /projects/ index),
+ * excluding any marked `listed: false`. */
+export function getListedBuilds(locale: string): Project[] {
+  return getBuilds(locale).filter(p => p.listed);
 }
