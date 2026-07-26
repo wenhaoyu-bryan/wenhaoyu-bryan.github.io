@@ -199,24 +199,32 @@ const builds = getBuilds(locale);
       <p class="text-muted-foreground mt-2 text-sm">
         我以专业身份做过或正在做的工作——只在方法论与能力层面描述。
       </p>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <div class="border-border divide-border mt-6 divide-y border-t">
         {
           work.map(project => (
             <a
               href={project.href}
-              class="border-border group hover:bg-accent/5 flex flex-col rounded-lg border p-5 transition-colors"
+              class="group grid grid-cols-1 gap-2 py-6 sm:grid-cols-[1fr_3fr] sm:gap-8"
             >
-              <div class="flex justify-end">
-                <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap">
-                  {project.status}
+              <div class="text-muted-foreground text-xs tracking-wide uppercase sm:pt-1">
+                {project.ledger?.date ?? project.status}
+              </div>
+              <div>
+                <h3 class="group-hover:text-accent text-lg font-medium transition-colors">
+                  {project.ledger?.heading ?? project.title}
+                </h3>
+                {project.ledger?.context && (
+                  <p class="text-muted-foreground mt-1 text-sm">
+                    {project.ledger.context}
+                  </p>
+                )}
+                <p class="text-muted-foreground mt-2 line-clamp-3 text-sm">
+                  {project.description}
+                </p>
+                <span class="text-accent mt-3 inline-block text-sm group-hover:underline">
+                  {project.ledger?.cta ?? "查看详情 →"}
                 </span>
               </div>
-              <h3 class="group-hover:text-accent mt-3 text-lg font-medium">
-                {project.title}
-              </h3>
-              <p class="text-muted-foreground mt-2 line-clamp-4 text-sm">
-                {project.description}
-              </p>
             </a>
           ))
         }

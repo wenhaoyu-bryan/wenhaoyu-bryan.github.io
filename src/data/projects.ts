@@ -34,6 +34,17 @@ export interface Project {
   repo?: string;
   thumbnail?: ImageMetadata;
   thumbnailAlt?: string;
+  /** Ledger-row presentation for Work entries (resolved to the active locale). */
+  ledger?: {
+    /** Left column: status/date only ("Current" / "当前" / "2025"). */
+    date: string;
+    /** Right column line 1: role + title, heading style. */
+    heading: string;
+    /** Right column line 2: muted context (employer · domain). */
+    context: string;
+    /** Accent arrow link label. */
+    cta: string;
+  };
 }
 
 interface ProjectDef {
@@ -55,6 +66,13 @@ interface ProjectDef {
   tags: Record<Locale, string[]>;
   thumbnail?: ImageMetadata;
   thumbnailAlt?: string;
+  /** Ledger-row copy for Work entries; per-locale. */
+  ledger?: {
+    date: Record<Locale, string>;
+    heading: Record<Locale, string>;
+    context: Record<Locale, string>;
+    cta: Record<Locale, string>;
+  };
 }
 
 const defs: ProjectDef[] = [
@@ -64,6 +82,21 @@ const defs: ProjectDef[] = [
     kind: "work",
     status: "Current Work",
     path: "work/enterprise-agent-platform",
+    ledger: {
+      date: { en: "Current", zh: "当前" },
+      heading: {
+        en: "Product Manager — Enterprise Agent Platform (0 → 1)",
+        zh: "产品经理 — 企业级 Agent 平台（0 → 1）",
+      },
+      context: {
+        en: "TCL · advanced manufacturing",
+        zh: "TCL · 先进制造",
+      },
+      cta: {
+        en: "Read the current work page →",
+        zh: "阅读当前工作页面 →",
+      },
+    },
     description: {
       en: "Leading an enterprise agent platform from 0 to 1 in advanced manufacturing as its product manager — a dual-mode design over configurable agents, an AI-co-created skill lifecycle, and governance by design (sandboxing, approval gates, audited runs). Methodology described; internals abstracted.",
       zh: "以产品经理身份，把一个面向先进制造的企业级 Agent 平台从 0 到 1 做起来：覆盖可配置 Agent 的双模设计、AI 共创的 skill 生命周期，以及「治理即设计」（沙箱、审批门、可审计运行）。方法论可公开，内部细节已抽象。",
@@ -89,9 +122,24 @@ const defs: ProjectDef[] = [
       zh: "过往工作 · 2025",
     },
     path: "work/ai-sop-assistant",
+    ledger: {
+      date: { en: "2025", zh: "2025" },
+      heading: {
+        en: "Supply Chain & Logistics Excellence Trainee — AI-SOP Assistant (0 → 1)",
+        zh: "供应链与物流卓越管培生（SET）— AI-SOP 助手（0 → 1）",
+      },
+      context: {
+        en: "AB InBev · Budweiser brewing operations, Wuhan",
+        zh: "AB InBev · 百威武汉酿造工厂",
+      },
+      cta: {
+        en: "Read the case study →",
+        zh: "阅读案例研究 →",
+      },
+    },
     description: {
-      en: "A concluded 0 → 1 case study from AB InBev's Budweiser brewing operations in Wuhan: an on-prem AI assistant that turned ~180K characters of SOP and maintenance docs into standardized, retrievable answers, plus end-to-end governance of 3,000+ IoT sensors and MES integration. Local DeepSeek deployment for data residency; Streamlit on desktop + mobile; Grafana for plant management.",
-      zh: "一段已结束的 0 → 1 案例研究，来自百威武汉酿造工厂（AB InBev）：一个本地部署的 AI 助手，把约 18 万字的 SOP 与维护文档转化为标准化、可检索的答案，并端到端治理 3,000+ 个 IoT 传感器、打通 MES。出于数据合规本地部署 DeepSeek；Streamlit 覆盖桌面与移动端；用 Grafana 服务工厂管理层。",
+      en: "A concluded 0 → 1 case study from AB InBev's Budweiser brewing operations in Wuhan: an on-prem AI assistant that turned the plant's full procedure and maintenance corpus into standardized, retrievable answers, plus end-to-end governance of the plant's IoT sensor fleet and MES integration. Local DeepSeek deployment for data residency; Streamlit on desktop + mobile; Grafana for plant management.",
+      zh: "一段已结束的 0 → 1 案例研究，来自百威武汉酿造工厂（AB InBev）：一个本地部署的 AI 助手，把工厂完整的规程与维护文档转化为标准化、可检索的答案，并端到端治理工厂的 IoT 传感器集群、打通 MES。出于数据合规本地部署 DeepSeek；Streamlit 覆盖桌面与移动端；用 Grafana 服务工厂管理层。",
     },
     tags: {
       en: [
@@ -211,6 +259,14 @@ export function getProjects(locale: string): Project[] {
     repo: def.repo,
     thumbnail: def.thumbnail,
     thumbnailAlt: def.thumbnailAlt,
+    ledger: def.ledger
+      ? {
+          date: def.ledger.date[loc],
+          heading: def.ledger.heading[loc],
+          context: def.ledger.context[loc],
+          cta: def.ledger.cta[loc],
+        }
+      : undefined,
   }));
 }
 
