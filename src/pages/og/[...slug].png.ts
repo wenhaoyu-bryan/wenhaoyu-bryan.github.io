@@ -16,7 +16,7 @@ const PAGE_TITLES: Record<string, string> = {
   home: "Wenhao Yu — AI Product Manager",
   work: "Work — Wenhao Yu",
   projects: "Projects — Wenhao Yu",
-  writing: "Writing — Wenhao Yu",
+  thinking: "Thinking — Wenhao Yu",
   playbook: "AI PM Operating Playbook",
   "growth-lab": "Growth Lab — Wenhao Yu",
   about: "About — Wenhao Yu",

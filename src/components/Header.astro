@@ -41,9 +41,9 @@ const isActive = (path: string) => {
   return currentPath === path || currentPathArray[0] === pathArray[0];
 };
 
-// "Writing" is a hub: the Posts list, the Playbook, and the Growth Lab all live
+// "Thinking" is a hub: the Posts list, the Playbook, and the Growth Lab all live
 // under it, so highlight it as active on any of those sections.
-const isWritingActive =
+const isThinkingActive =
   isActive("/posts") || isActive("/playbook") || isActive("/growth-lab");
 ---
 
@@ -127,9 +127,9 @@ const isWritingActive =
         <li class="col-span-2">
           <a
             href={getRelativeLocaleUrl(locale, "posts")}
-            class:list={{ "active-nav": isWritingActive }}
+            class:list={{ "active-nav": isThinkingActive }}
           >
-            {t.nav.writing}
+            {t.nav.thinking}
           </a>
         </li>
         <li class="col-span-2">

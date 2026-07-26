@@ -176,8 +176,8 @@ export const GET: APIRoute = async () => {
   pushEntries("Work", work);
   pushEntries("Projects", builds);
 
-  // Writing (full bodies)
-  out.push("## Writing");
+  // Posts (full bodies)
+  out.push("## Posts");
   out.push("");
   for (const post of posts) {
     const url = `${base}${getPostUrl(post.id, post.filePath, "en")}`;
