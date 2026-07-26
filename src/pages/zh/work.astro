@@ -37,28 +37,38 @@ const work = getWork("zh");
       其中部分工作出于数据权限和保密要求并不公开。这些页面展示的是抽象后的产品方法论，而非内部系统。
     </p>
 
-    <div class="mt-8 grid gap-6">
+    <div class="not-prose border-border divide-border mt-8 divide-y border-t">
       {
         work.map(project => (
           <a
             href={project.href}
-            class="border-border group hover:bg-accent/5 rounded-lg border p-6 transition-colors"
+            class="group grid grid-cols-1 gap-2 py-6 sm:grid-cols-[1fr_3fr] sm:gap-8"
           >
-            <div class="flex items-center justify-between gap-2">
-              <h2 class="group-hover:text-accent text-xl font-semibold">
-                {project.title}
-              </h2>
-              <span class="text-muted-foreground flex-shrink-0 rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap">
-                {project.status}
-              </span>
+            <div class="text-muted-foreground text-xs tracking-wide uppercase sm:pt-1">
+              {project.ledger?.date ?? project.status}
             </div>
-            <p class="text-muted-foreground mt-2">{project.description}</p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              {project.tags.map(tag => (
-                <span class="bg-muted rounded-full px-2.5 py-0.5 text-xs">
-                  {tag}
-                </span>
-              ))}
+            <div>
+              <h2 class="group-hover:text-accent text-lg font-medium transition-colors">
+                {project.ledger?.heading ?? project.title}
+              </h2>
+              {project.ledger?.context && (
+                <p class="text-muted-foreground mt-1 text-sm">
+                  {project.ledger.context}
+                </p>
+              )}
+              <p class="text-muted-foreground mt-2 text-sm">
+                {project.description}
+              </p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {project.tags.map(tag => (
+                  <span class="bg-muted rounded-full px-2.5 py-0.5 text-xs">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <span class="text-accent mt-3 inline-block text-sm group-hover:underline">
+                {project.ledger?.cta ?? "查看详情 →"}
+              </span>
             </div>
           </a>
         ))

@@ -253,37 +253,34 @@ const topics: Topic[] = [
         Professional roles — current and concluded — described at the level of
         methodology and capability.
       </p>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <div class="border-border divide-border mt-6 divide-y border-t">
         {
-          work.map(project => {
-            const IconComponent = iconFor(project.icon);
-            return (
-              <a
-                href={project.href}
-                class="border-border group hover:bg-accent/5 hover:border-accent/30 flex flex-col rounded-lg border p-5 transition-colors"
-              >
-                <div class="flex items-center justify-between gap-2">
-                  <IconComponent
-                    size={24}
-                    strokeWidth={2}
-                    class="text-foreground group-hover:text-accent flex-shrink-0 transition-colors"
-                  />
-                  <span
-                    class={`flex flex-shrink-0 items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap ${statusClass(project.status)}`}
-                  >
-                    <span class="h-1.5 w-1.5 rounded-full bg-current" />
-                    {project.status}
-                  </span>
-                </div>
-                <h3 class="group-hover:text-accent mt-3 text-lg font-medium transition-colors">
-                  {project.title}
+          work.map(project => (
+            <a
+              href={project.href}
+              class="group grid grid-cols-1 gap-2 py-6 sm:grid-cols-[1fr_3fr] sm:gap-8"
+            >
+              <div class="text-muted-foreground text-xs tracking-wide uppercase sm:pt-1">
+                {project.ledger?.date ?? project.status}
+              </div>
+              <div>
+                <h3 class="group-hover:text-accent text-lg font-medium transition-colors">
+                  {project.ledger?.heading ?? project.title}
                 </h3>
-                <p class="text-muted-foreground mt-2 line-clamp-4 text-sm">
+                {project.ledger?.context && (
+                  <p class="text-muted-foreground mt-1 text-sm">
+                    {project.ledger.context}
+                  </p>
+                )}
+                <p class="text-muted-foreground mt-2 line-clamp-3 text-sm">
                   {project.description}
                 </p>
-              </a>
-            );
-          })
+                <span class="text-accent mt-3 inline-block text-sm group-hover:underline">
+                  {project.ledger?.cta ?? "Read more →"}
+                </span>
+              </div>
+            </a>
+          ))
         }
       </div>
     </section>
