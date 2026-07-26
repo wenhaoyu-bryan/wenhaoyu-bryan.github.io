@@ -99,10 +99,25 @@ Some work is under NDA or involves clients, so several pages are **fact-locked**
 Never add, embellish, or infer beyond the facts already on the page or permitted
 here.
 
+- **Numbers policy (site-wide, absolute).** The site does **not** publish
+  quantified figures from professional work — neither performance metrics
+  (hours saved, % gains/reductions, traffic/ranking numbers) **nor scope
+  figures** (character counts, sensor counts, document volumes, team sizes,
+  deal counts). Those live in the resume only. Describe scope with
+  unquantified phrasing instead (e.g., "the plant's full procedure and
+  maintenance corpus," "the plant's IoT sensor fleet"). This does **not** apply
+  to the site's own artifacts — Growth Lab experiment counts, demo/pipeline
+  sizes in self-directed projects, and site analytics are not professional-work
+  figures and may stay.
+- **Current employer may be named as TCL.** The employer behind the current
+  Current Work role may be named as **TCL** (semiconductor / advanced
+  manufacturing). Every other Current Work rule is unchanged: no product name,
+  no internal systems/data/identities, no metrics. "TCL" stays "TCL" in zh.
 - **Enterprise Agent Platform** (`projects/enterprise-agent-platform`, both
   locales) is **fact-locked — no additions.** Describe methodology and
   capabilities only; never expose internal systems, data, identities, customer
-  names, or metrics. It is framed as _Current Work / 当前工作_.
+  names, or metrics. It is framed as _Current Work / 当前工作_. The context
+  section may name the employer as TCL (see above); nothing else changes.
 - **Leiga** — permitted facts: the name; "AI-powered project management SaaS"
   (leiga.com); the role and dates (Product Growth & Development, May–Aug 2024);
   that the **SEO foundations/infrastructure** were built and are "still live";
@@ -155,15 +170,17 @@ here.
   - Discovery: user interviews and workflow decomposition across both
     departments; rotation through production, logistics, and engineering to map
     AI use cases against real workflows.
-  - Built a structured knowledge base from ~180K characters of SOP/maintenance
-    documentation (chunking, annotation standards, taxonomy).
+  - Built a structured knowledge base from the plant's full procedure and
+    maintenance corpus (chunking, annotation standards, taxonomy). Do not
+    publish the character count.
   - Retrieval flow: natural-language question → hybrid RAG retrieval →
     standardized answer format.
   - Coordinated local (on-prem) deployment of an open-source LLM (**DeepSeek**),
     chosen for data-residency requirements, delivered as **Streamlit** apps on
     desktop + mobile.
-  - End-to-end data governance for **3,000+ IoT sensors** (collection, cleaning,
-    format standardization, quality validation → time-series data assets).
+  - End-to-end data governance for the plant's **IoT sensor fleet** (collection,
+    cleaning, format standardization, quality validation → time-series data
+    assets). Do not publish the sensor count.
   - **Grafana** dashboards for energy-management and predictive-maintenance
     views used by plant management.
   - Integration between the assistant and the **MES** so answers reflect live
