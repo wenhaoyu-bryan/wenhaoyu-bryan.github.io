@@ -28,6 +28,12 @@ export default defineConfig({
   redirects: {
     "/projects/vibe-coding-prototype-lab": "/playbook/vibe-coding",
     "/zh/projects/vibe-coding-prototype-lab": "/zh/playbook/vibe-coding",
+    // Professional roles moved from /projects/ to the /work/ section.
+    "/projects/enterprise-agent-platform": "/work/enterprise-agent-platform",
+    "/projects/ai-sop-assistant": "/work/ai-sop-assistant",
+    "/zh/projects/enterprise-agent-platform":
+      "/zh/work/enterprise-agent-platform",
+    "/zh/projects/ai-sop-assistant": "/zh/work/ai-sop-assistant",
   },
   integrations: [
     mdx(),

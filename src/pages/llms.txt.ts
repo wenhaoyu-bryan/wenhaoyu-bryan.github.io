@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
-import { getProjects } from "@/data/projects";
+import { getWork, getBuilds } from "@/data/projects";
 import config from "@/config";
 
 /**
@@ -12,7 +12,8 @@ import config from "@/config";
  */
 export const GET: APIRoute = async () => {
   const base = config.site.url.replace(/\/$/, "");
-  const projects = getProjects("en");
+  const work = getWork("en");
+  const builds = getBuilds("en");
   const posts = getSortedPosts(await getCollection("posts"));
 
   const lines: string[] = [];
@@ -40,7 +41,10 @@ export const GET: APIRoute = async () => {
     `- [My AI Stack](${base}/ai-stack): How he orchestrates coding agents, chat models, and self-built tools, plus 0-to-1 agent platform product design and honest capability boundaries.`
   );
   lines.push(
-    `- [Projects](${base}/projects): Case studies of shipped AI product work.`
+    `- [Work](${base}/work): Professional roles — a current 0-to-1 enterprise agent platform and a concluded AI-SOP assistant case study at AB InBev.`
+  );
+  lines.push(
+    `- [Projects](${base}/projects): Self-directed builds shipped in the open — ontology systems, interactive explainers, an AI PM toolkit, and growth experiments.`
   );
   lines.push(
     `- [Playbook](${base}/playbook): AI PM methodology — vibe coding, harness engineering, loop engineering, AI-native PRD, agent product design, ontology systems.`
@@ -63,15 +67,22 @@ export const GET: APIRoute = async () => {
     `- AI-Assisted Delivery: Harness Engineering, Loop Engineering, and Vibe Coding — the systems through which PMs ship with coding agents. Proof: ${base}/posts/three-frameworks-ai-assisted-product-delivery, ${base}/playbook.`
   );
   lines.push(
-    `- Industrial & B2B AI: Enterprise adoption, industrial operations, and B2B product contexts. Proof: ${base}/projects/enterprise-agent-platform.`
+    `- Industrial & B2B AI: Enterprise adoption, industrial operations, and B2B product contexts. Proof: ${base}/work/enterprise-agent-platform.`
   );
   lines.push(
     `- SEO/GEO Growth: How generative engines reshape organic growth — experiments in machine-readable content, structured data, and answer-engine optimization. Proof: ${base}/growth-lab.`
   );
   lines.push("");
 
+  lines.push("## Work");
+  for (const p of work) {
+    const url = p.external ? p.href : `${base}${p.href}`;
+    lines.push(`- [${p.title}](${url}) — ${p.status}: ${p.description}`);
+  }
+  lines.push("");
+
   lines.push("## Projects");
-  for (const p of projects) {
+  for (const p of builds) {
     const url = p.external ? p.href : `${base}${p.href}`;
     const repo = p.repo ? ` Source: ${p.repo}` : "";
     lines.push(`- [${p.title}](${url}): ${p.description}${repo}`);

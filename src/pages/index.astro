@@ -22,7 +22,7 @@ import {
   Building2,
   Factory,
 } from "lucide-astro";
-import { getProjects } from "@/data/projects";
+import { getWork, getBuilds } from "@/data/projects";
 import AskAI from "@/components/AskAI.astro";
 import ContactRow from "@/components/ContactRow.astro";
 
@@ -34,7 +34,22 @@ const sortedPosts = getSortedPosts(posts);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 const homePath = getRelativeLocaleUrl(locale, "");
 
-const projects = getProjects(locale);
+// Work = professional roles (current + concluded); builds = self-directed.
+const work = getWork(locale);
+const builds = getBuilds(locale);
+
+// lucide icon lookup, shared by the Work and Projects card grids below.
+const projectIcons = { Network, Book, Code, Activity, Bot, Factory } as const;
+const iconFor = (name: string) =>
+  projectIcons[name as keyof typeof projectIcons] ?? TrendingUp;
+const statusClass = (status: string) =>
+  status.startsWith("Public Tool")
+    ? "border-blue-500 text-blue-700 dark:text-blue-400"
+    : status.startsWith("Public")
+      ? "border-green-500 text-green-700 dark:text-green-400"
+      : status.startsWith("Current Work")
+        ? "border-accent text-accent"
+        : "border-orange-500 text-orange-700 dark:text-orange-400";
 
 type Proof = { label: string; href: string; external?: boolean };
 type Topic = {
@@ -112,10 +127,7 @@ const topics: Topic[] = [
     proofs: [
       {
         label: "Enterprise Agent Platform",
-        href: getRelativeLocaleUrl(
-          locale,
-          "projects/enterprise-agent-platform"
-        ),
+        href: getRelativeLocaleUrl(locale, "work/enterprise-agent-platform"),
       },
     ],
   },
@@ -183,7 +195,7 @@ const topics: Topic[] = [
             Currently <a
               href={getRelativeLocaleUrl(
                 locale,
-                "projects/enterprise-agent-platform"
+                "work/enterprise-agent-platform"
               )}
               class="hover:text-accent underline decoration-dashed underline-offset-4"
               >leading an enterprise agent platform from 0 to 1</a
@@ -228,35 +240,71 @@ const topics: Topic[] = [
       </div>
     </section>
 
-    <!-- Featured Projects -->
+    <!-- Work -->
     <section class="border-border border-b py-10 sm:py-14">
-      <h2 class="text-2xl font-semibold tracking-wide">Featured Projects</h2>
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl font-semibold tracking-wide">Work</h2>
+        <a
+          href={getRelativeLocaleUrl(locale, "work")}
+          class="text-accent text-sm hover:underline">All work →</a
+        >
+      </div>
+      <p class="text-muted-foreground mt-2 text-sm">
+        Professional roles — current and concluded — described at the level of
+        methodology and capability.
+      </p>
       <div class="mt-6 grid gap-4 sm:grid-cols-2">
         {
-          projects.map((project, index) => {
-            const IconComponent =
-              project.icon === "Network"
-                ? Network
-                : project.icon === "Book"
-                  ? Book
-                  : project.icon === "Code"
-                    ? Code
-                    : project.icon === "Activity"
-                      ? Activity
-                      : project.icon === "Bot"
-                        ? Bot
-                        : project.icon === "Factory"
-                          ? Factory
-                          : TrendingUp;
-            // Shades chosen to meet WCAG AA contrast in both themes:
-            // *-700 on the light card bg, *-400 on the dark card bg.
-            const statusColor = project.status.startsWith("Public Tool")
-              ? "border-blue-500 text-blue-700 dark:text-blue-400"
-              : project.status.startsWith("Public")
-                ? "border-green-500 text-green-700 dark:text-green-400"
-                : project.status.startsWith("Current Work")
-                  ? "border-accent text-accent"
-                  : "border-orange-500 text-orange-700 dark:text-orange-400";
+          work.map(project => {
+            const IconComponent = iconFor(project.icon);
+            return (
+              <a
+                href={project.href}
+                class="border-border group hover:bg-accent/5 hover:border-accent/30 flex flex-col rounded-lg border p-5 transition-colors"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <IconComponent
+                    size={24}
+                    strokeWidth={2}
+                    class="text-foreground group-hover:text-accent flex-shrink-0 transition-colors"
+                  />
+                  <span
+                    class={`flex flex-shrink-0 items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap ${statusClass(project.status)}`}
+                  >
+                    <span class="h-1.5 w-1.5 rounded-full bg-current" />
+                    {project.status}
+                  </span>
+                </div>
+                <h3 class="group-hover:text-accent mt-3 text-lg font-medium transition-colors">
+                  {project.title}
+                </h3>
+                <p class="text-muted-foreground mt-2 line-clamp-4 text-sm">
+                  {project.description}
+                </p>
+              </a>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl font-semibold tracking-wide">Featured Projects</h2>
+        <a
+          href={getRelativeLocaleUrl(locale, "projects")}
+          class="text-accent text-sm hover:underline">All projects →</a
+        >
+      </div>
+      <p class="text-muted-foreground mt-2 text-sm">
+        Things I build and maintain in the open — made to be useful, not just
+        shown.
+      </p>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          builds.map((project, index) => {
+            const IconComponent = iconFor(project.icon);
             return (
               <a
                 href={project.href}
@@ -272,7 +320,7 @@ const topics: Topic[] = [
                     class="text-foreground group-hover:text-accent flex-shrink-0 transition-colors"
                   />
                   <span
-                    class={`flex flex-shrink-0 items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap ${statusColor}`}
+                    class={`flex flex-shrink-0 items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap ${statusClass(project.status)}`}
                   >
                     <span class="h-1.5 w-1.5 rounded-full bg-current" />
                     {project.status}

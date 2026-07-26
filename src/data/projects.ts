@@ -9,6 +9,8 @@ type Locale = "en" | "zh";
 export interface Project {
   title: string;
   description: string;
+  /** "work" = professional role (Work section); "project" = self-directed build. */
+  kind: "work" | "project";
   status:
     | "Public"
     | "Public Tool"
@@ -36,6 +38,7 @@ export interface Project {
 interface ProjectDef {
   title: string;
   icon: Project["icon"];
+  kind: Project["kind"];
   status: Project["status"];
   /** Internal path relative to the locale root (mutually exclusive with url) */
   path?: string;
@@ -55,8 +58,9 @@ const defs: ProjectDef[] = [
   {
     title: "Enterprise Agent Platform (0 → 1)",
     icon: "Bot",
+    kind: "work",
     status: "Current Work",
-    path: "projects/enterprise-agent-platform",
+    path: "work/enterprise-agent-platform",
     description: {
       en: "Leading an enterprise agent platform from 0 to 1 in advanced manufacturing as its product manager — a dual-mode design over configurable agents, an AI-co-created skill lifecycle, and governance by design (sandboxing, approval gates, audited runs). Methodology described; internals abstracted.",
       zh: "以产品经理身份，把一个面向先进制造的企业级 Agent 平台从 0 到 1 做起来：覆盖可配置 Agent 的双模设计、AI 共创的 skill 生命周期，以及「治理即设计」（沙箱、审批门、可审计运行）。方法论可公开，内部细节已抽象。",
@@ -75,8 +79,9 @@ const defs: ProjectDef[] = [
   {
     title: "AI-SOP Assistant at AB InBev (0 → 1)",
     icon: "Factory",
+    kind: "work",
     status: "Case Study",
-    path: "projects/ai-sop-assistant",
+    path: "work/ai-sop-assistant",
     description: {
       en: "A concluded 0 → 1 case study from AB InBev's Budweiser brewing operations in Wuhan: an on-prem AI assistant that turned ~180K characters of SOP and maintenance docs into standardized, retrievable answers, plus end-to-end governance of 3,000+ IoT sensors and MES integration. Local DeepSeek deployment for data residency; Streamlit on desktop + mobile; Grafana for plant management.",
       zh: "一段已结束的 0 → 1 案例研究，来自百威武汉酿造工厂（AB InBev）：一个本地部署的 AI 助手，把约 18 万字的 SOP 与维护文档转化为标准化、可检索的答案，并端到端治理 3,000+ 个 IoT 传感器、打通 MES。出于数据合规本地部署 DeepSeek；Streamlit 覆盖桌面与移动端；用 Grafana 服务工厂管理层。",
@@ -96,6 +101,7 @@ const defs: ProjectDef[] = [
   {
     title: "Agent Anatomy",
     icon: "Activity",
+    kind: "project",
     status: "Public",
     url: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
     repo: "https://github.com/wenhaoyu-bryan/agent-anatomy",
@@ -119,6 +125,7 @@ const defs: ProjectDef[] = [
   {
     title: "Prompt-to-Ontology",
     icon: "Network",
+    kind: "project",
     status: "Public",
     path: "projects/prompt-to-ontology",
     thumbnail: ontologyThumb,
@@ -135,6 +142,7 @@ const defs: ProjectDef[] = [
   {
     title: "AI PM Operating Playbook",
     icon: "Book",
+    kind: "project",
     status: "Public Tool",
     url: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
     thumbnail: playbookThumb,
@@ -151,6 +159,7 @@ const defs: ProjectDef[] = [
   {
     title: "AI PM Manifesto",
     icon: "Code",
+    kind: "project",
     status: "Public",
     url: "https://wenhaoyu-bryan.github.io/AI-PM-Manifesto/",
     thumbnail: manifestoThumb,
@@ -167,6 +176,7 @@ const defs: ProjectDef[] = [
   {
     title: "SEO/GEO Growth Experiments",
     icon: "TrendingUp",
+    kind: "project",
     status: "Ongoing",
     path: "growth-lab",
     description: {
@@ -185,6 +195,7 @@ export function getProjects(locale: string): Project[] {
   return defs.map(def => ({
     title: def.title,
     icon: def.icon,
+    kind: def.kind,
     status: def.status,
     description: def.description[loc],
     tags: def.tags[loc],
@@ -194,4 +205,14 @@ export function getProjects(locale: string): Project[] {
     thumbnail: def.thumbnail,
     thumbnailAlt: def.thumbnailAlt,
   }));
+}
+
+/** Professional roles — current and concluded — for the Work section. */
+export function getWork(locale: string): Project[] {
+  return getProjects(locale).filter(p => p.kind === "work");
+}
+
+/** Self-directed builds shipped in the open — for the Projects section. */
+export function getBuilds(locale: string): Project[] {
+  return getProjects(locale).filter(p => p.kind === "project");
 }
