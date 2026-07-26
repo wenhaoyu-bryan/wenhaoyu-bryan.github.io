@@ -38,7 +38,7 @@ const slugLabels: Record<string, { en: string; zh?: string }> = {
   projects: { en: "Projects", zh: "项目" },
   playbook: { en: "Playbook" },
   about: { en: "About", zh: "关于" },
-  posts: { en: "Posts", zh: "文章" },
+  posts: { en: "Thinking", zh: "思考" },
   tags: { en: "Tags", zh: "标签" },
   archives: { en: "Archives", zh: "归档" },
   search: { en: "Search", zh: "搜索" },
@@ -77,9 +77,10 @@ const resolve = (segment: string): { label: string; explicit: boolean } => {
   return { label: decodeSegment(segment), explicit: false };
 };
 
-// if breadcrumb is Home > Posts > [page] <etc>
-// replace Posts with localized "Posts (page number)"
-if (breadcrumbList[0] === "posts") {
+// Legacy paginated posts list (Home > Thinking > [page N]) — only collapse when a
+// numeric page segment is present. The /posts/ hub itself (no page segment)
+// resolves normally via slugLabels to "Thinking".
+if (breadcrumbList[0] === "posts" && !isNaN(Number(breadcrumbList[1]))) {
   breadcrumbList.splice(
     0,
     2,

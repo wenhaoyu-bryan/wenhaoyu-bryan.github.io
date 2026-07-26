@@ -1,0 +1,199 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import Datetime from "@/components/Datetime.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getPostUrl } from "@/utils/getPostPaths";
+import config from "@/config";
+
+// Posts feed (essays), newest first. Blog posts are en-only, so every post
+// link points at the en route.
+const posts = getSortedPosts(
+  await getCollection("posts", ({ data }) => !data.draft)
+);
+const recentPosts = posts.slice(0, 3);
+
+// The live Playbook methodology pages (mirrors zh/playbook.astro).
+const playbookItems = [
+  {
+    label: "Vibe Coding for Product Discovery",
+    href: getRelativeLocaleUrl("zh", "playbook/vibe-coding"),
+  },
+  {
+    label: "Harness Engineering",
+    href: getRelativeLocaleUrl("zh", "playbook/harness-engineering"),
+  },
+  {
+    label: "Loop Engineering",
+    href: getRelativeLocaleUrl("zh", "playbook/loop-engineering"),
+  },
+  {
+    label: "AI-Native PRD",
+    href: getRelativeLocaleUrl("zh", "playbook/ai-native-prd"),
+  },
+  {
+    label: "PRD 到原型工作流",
+    href: getRelativeLocaleUrl("zh", "playbook/prd-to-prototype"),
+  },
+  {
+    label: "Agent 产品设计框架",
+    href: getRelativeLocaleUrl("zh", "playbook/agent-product-design"),
+  },
+  {
+    label: "Prompt-to-Ontology",
+    href: getRelativeLocaleUrl("zh", "playbook/prompt-to-ontology"),
+  },
+];
+
+// Growth Lab status chip — derived from the experiment list (mirrors
+// growth-lab.astro: 00 concluded, 01 running).
+const growthExperiments = [{ status: "Concluded" }, { status: "Running" }];
+const runningCount = growthExperiments.filter(
+  e => e.status === "Running"
+).length;
+const growthChip = `${growthExperiments.length} 个实验 · ${runningCount} 个进行中`;
+---
+
+<Layout
+  title={`思考 — ${config.site.title}`}
+  description="我在这里公开地思考：一套常青的 AI 产品经理方法论手册、一本增长实验笔记，以及关于智能体、本体与借助编码智能体交付的随笔。"
+  ogImage="/og/thinking.png"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="思考" class="max-w-3xl">
+    <p class="text-muted-foreground -mt-4 mb-8">
+      我在这里公开地思考 ——
+      一套常青的方法论手册、一本增长实验笔记，以及随笔与工作笔记。
+    </p>
+
+    <!-- Playbook -->
+    <section>
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-xl font-semibold">Playbook</h2>
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook")}
+          class="text-accent shrink-0 text-sm hover:underline"
+        >
+          全部方法论 →
+        </a>
+      </div>
+      <p class="text-muted-foreground mt-1 text-sm">
+        常青方法论：我如何开展 AI 辅助的产品工作。
+      </p>
+      <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+        {
+          playbookItems.map(item => (
+            <li class="flex items-start gap-2">
+              <span class="text-accent mt-1 text-xs">&#x2022;</span>
+              <a href={item.href} class="text-accent text-sm hover:underline">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Growth Lab -->
+    <section class="mt-10">
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-xl font-semibold">Growth Lab</h2>
+        <a
+          href={getRelativeLocaleUrl("zh", "growth-lab")}
+          class="text-accent shrink-0 text-sm hover:underline"
+        >
+          打开笔记 →
+        </a>
+      </div>
+      <p class="text-muted-foreground mt-1 text-sm">
+        一本公开的实验笔记 —— 从假设到度量。
+      </p>
+      <a
+        href={getRelativeLocaleUrl("zh", "growth-lab")}
+        class="border-border group hover:bg-accent/5 mt-4 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 rounded-lg border p-4 transition-colors"
+      >
+        <span class="group-hover:text-accent font-medium transition-colors">
+          公开进行的 SEO 与 GEO 增长实验
+        </span>
+        <span
+          class="border-border text-muted-foreground shrink-0 rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap"
+        >
+          {growthChip}
+        </span>
+      </a>
+    </section>
+
+    <!-- Posts -->
+    <section class="mt-10">
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-xl font-semibold">文章</h2>
+        <a
+          href="#all-posts"
+          class="text-accent shrink-0 text-sm hover:underline"
+        >
+          全部文章 →
+        </a>
+      </div>
+      <p class="text-muted-foreground mt-1 text-sm">
+        关于 AI 产品管理的随笔与工作笔记（英文）。
+      </p>
+      <ul class="border-border mt-4 divide-y rounded-lg border">
+        {
+          recentPosts.map(post => (
+            <li>
+              <a
+                href={getPostUrl(post.id, post.filePath, "en")}
+                class="group hover:bg-accent/5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 p-4 transition-colors"
+              >
+                <span class="group-hover:text-accent font-medium transition-colors">
+                  {post.data.title}
+                </span>
+                <Datetime
+                  pubDatetime={post.data.pubDatetime}
+                  modDatetime={post.data.modDatetime}
+                  size="sm"
+                  class="text-muted-foreground shrink-0 text-xs"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Full posts feed (posts are en-only; links point at the en routes) -->
+    <section class="border-border mt-12 border-t pt-8">
+      <h2 id="all-posts" class="scroll-mt-24 text-2xl font-semibold">
+        全部文章
+      </h2>
+      <ul>
+        {
+          posts.map(post => (
+            <li class="my-6">
+              <a
+                href={getPostUrl(post.id, post.filePath, "en")}
+                class="text-accent inline-block text-lg font-medium decoration-dashed underline-offset-4 hover:underline"
+              >
+                <h3>{post.data.title}</h3>
+              </a>
+              <Datetime
+                pubDatetime={post.data.pubDatetime}
+                modDatetime={post.data.modDatetime}
+              />
+              <p>{post.data.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </Main>
+
+  <Footer />
+</Layout>

@@ -58,6 +58,7 @@ type Topic = {
   icon: string;
   subLinks?: { label: string; href: string }[];
   proofs: Proof[];
+  cta?: { label: string; href: string };
 };
 
 const topics: Topic[] = [
@@ -113,11 +114,11 @@ const topics: Topic[] = [
           "posts/three-frameworks-ai-assisted-product-delivery"
         ),
       },
-      {
-        label: "AI PM Playbook",
-        href: getRelativeLocaleUrl(locale, "playbook"),
-      },
     ],
+    cta: {
+      label: "AI PM Playbook",
+      href: getRelativeLocaleUrl(locale, "playbook"),
+    },
   },
   {
     title: "Industrial & B2B AI",
@@ -136,12 +137,11 @@ const topics: Topic[] = [
     description:
       "How generative engines reshape organic growth — experiments in machine-readable content, structured data, and answer-engine optimization.",
     icon: "TrendingUp",
-    proofs: [
-      {
-        label: "Growth Lab",
-        href: getRelativeLocaleUrl(locale, "growth-lab"),
-      },
-    ],
+    proofs: [],
+    cta: {
+      label: "Growth Lab",
+      href: getRelativeLocaleUrl(locale, "growth-lab"),
+    },
   },
 ];
 ---
@@ -381,19 +381,31 @@ const topics: Topic[] = [
                     )}
                   </div>
                 </div>
-                <div class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-4 pl-9 text-sm">
-                  {topic.proofs.map(p => (
+                <div class="mt-auto pt-4 pl-9">
+                  {topic.proofs.length > 0 && (
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                      {topic.proofs.map(p => (
+                        <a
+                          href={p.href}
+                          class="text-accent inline-flex items-center gap-1 hover:underline"
+                          {...(p.external
+                            ? { target: "_blank", rel: "noopener noreferrer" }
+                            : {})}
+                        >
+                          → {p.label}
+                          {p.external ? " ↗" : ""}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                  {topic.cta && (
                     <a
-                      href={p.href}
-                      class="text-accent inline-flex items-center gap-1 hover:underline"
-                      {...(p.external
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
+                      href={topic.cta.href}
+                      class="text-accent mt-2 inline-flex items-center gap-1 text-sm font-medium hover:underline"
                     >
-                      → {p.label}
-                      {p.external ? " ↗" : ""}
+                      {topic.cta.label} →
                     </a>
-                  ))}
+                  )}
                 </div>
               </div>
             );
