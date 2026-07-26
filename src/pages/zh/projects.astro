@@ -6,14 +6,14 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
-import { getBuilds } from "@/data/projects";
+import { getListedBuilds } from "@/data/projects";
 
-const projects = getBuilds("zh");
+const projects = getListedBuilds("zh");
 ---
 
 <Layout
   title={`项目 — ${config.site.title}`}
-  description="我在开放环境下自主构建并维护的东西：Prompt-to-Ontology、Agent Anatomy、AI PM Playbook 与宣言，以及增长实验。"
+  description="我在开放环境下自主构建并维护的东西：Prompt-to-Ontology、Agent Anatomy、AI PM Playbook，以及增长实验。"
 >
   <Header />
   <Breadcrumb />
