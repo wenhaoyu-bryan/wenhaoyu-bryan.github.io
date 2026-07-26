@@ -28,7 +28,7 @@ const flowSteps = [
   { label: "Plain-language question", note: "floor · desktop or mobile" },
   {
     label: "Hybrid retrieval (RAG)",
-    note: "structured KB · ~180K chars",
+    note: "structured KB · plant procedures",
     emphasis: true,
   },
   { label: "Live operational data", note: "MES integration" },
@@ -42,7 +42,7 @@ const flowSteps = [
 
 <Layout
   title={`AI-SOP Assistant at AB InBev (0 → 1) — ${config.site.title}`}
-  description="A concluded 0 → 1 case study from AB InBev's Budweiser brewing operations in Wuhan: an on-prem RAG assistant over ~180K characters of SOP and maintenance docs, governance of 3,000+ IoT sensors, Grafana dashboards, and MES integration."
+  description="A concluded 0 → 1 case study from AB InBev's Budweiser brewing operations in Wuhan: an on-prem RAG assistant over the plant's full procedure and maintenance corpus, governance of the plant's IoT sensor fleet, Grafana dashboards, and MES integration."
   ogImage="/og/ai-sop-assistant.png"
 >
   <Header />
@@ -155,11 +155,10 @@ const flowSteps = [
 
     <h3 class="mt-6 text-lg font-medium">Knowledge architecture</h3>
     <p>
-      I built a structured knowledge base from roughly 180,000 characters of SOP
-      and maintenance documentation. That meant defining chunking rules,
-      annotation standards, and a taxonomy so retrieval had something clean to
-      work against — the unglamorous data work that decides whether an answer is
-      right.
+      I built a structured knowledge base from the plant's full procedure and
+      maintenance corpus. That meant defining chunking rules, annotation
+      standards, and a taxonomy so retrieval had something clean to work against
+      — the unglamorous data work that decides whether an answer is right.
     </p>
 
     <h3 class="mt-6 text-lg font-medium">Retrieval flow</h3>
@@ -187,8 +186,8 @@ const flowSteps = [
 
     <h3 class="mt-6 text-lg font-medium">IoT data governance</h3>
     <p>
-      In parallel I led end-to-end data governance for more than 3,000 IoT
-      sensors: collection, cleaning, format standardization, and quality
+      In parallel I led end-to-end data governance for the plant's IoT sensor
+      fleet: collection, cleaning, format standardization, and quality
       validation, turning a noisy sensor stream into trustworthy time-series
       data assets. On top of that data I built Grafana dashboards for energy
       management and predictive-maintenance views that plant management used.
@@ -281,10 +280,7 @@ const flowSteps = [
         </p>
       </div>
       <a
-        href={getRelativeLocaleUrl(
-          locale,
-          "work/enterprise-agent-platform"
-        )}
+        href={getRelativeLocaleUrl(locale, "work/enterprise-agent-platform")}
         class="bg-accent text-accent-foreground inline-flex shrink-0 items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
       >
         See Current Work &rarr;
@@ -295,10 +291,7 @@ const flowSteps = [
       <h2 class="text-lg font-semibold">Related</h2>
       <div class="mt-3 flex flex-wrap gap-3">
         <a
-          href={getRelativeLocaleUrl(
-            locale,
-            "work/enterprise-agent-platform"
-          )}
+          href={getRelativeLocaleUrl(locale, "work/enterprise-agent-platform")}
           class="text-accent hover:underline"
         >
           Enterprise Agent Platform

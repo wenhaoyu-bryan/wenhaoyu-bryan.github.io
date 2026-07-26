@@ -20,7 +20,7 @@ const flowSteps = [
   { label: "自然语言提问", note: "一线 · 桌面或移动端" },
   {
     label: "混合检索（RAG）",
-    note: "结构化知识库 · 约 18 万字",
+    note: "结构化知识库 · 工厂规程",
     emphasis: true,
   },
   { label: "实时运营数据", note: "MES 集成" },
@@ -34,7 +34,7 @@ const flowSteps = [
 
 <Layout
   title={`百威（AB InBev）AI-SOP 助手（0 → 1）— ${config.site.title}`}
-  description="一段来自百威武汉酿造工厂（AB InBev）的已结束 0 → 1 案例研究：一个本地部署的 RAG 助手，覆盖约 18 万字的 SOP 与维护文档，治理 3,000+ 个 IoT 传感器，配套 Grafana 看板与 MES 集成。"
+  description="一段来自百威武汉酿造工厂（AB InBev）的已结束 0 → 1 案例研究：一个本地部署的 RAG 助手，覆盖工厂完整的规程与维护文档，治理工厂的 IoT 传感器集群，配套 Grafana 看板与 MES 集成。"
   ogImage="/og/ai-sop-assistant.png"
 >
   <Header />
@@ -130,8 +130,7 @@ const flowSteps = [
 
     <h3 class="mt-6 text-lg font-medium">知识架构</h3>
     <p>
-      我用大约 18 万字的 SOP
-      与维护文档，搭起了一个结构化知识库。这意味着要定义分块（chunking）规则、标注规范和一套分类体系（taxonomy），让检索有一份干净的东西可以对着工作——正是这些不起眼的数据工作，决定了一个答案对不对。
+      我用工厂完整的规程与维护文档，搭起了一个结构化知识库。这意味着要定义分块（chunking）规则、标注规范和一套分类体系（taxonomy），让检索有一份干净的东西可以对着工作——正是这些不起眼的数据工作，决定了一个答案对不对。
     </p>
 
     <h3 class="mt-6 text-lg font-medium">检索流程</h3>
@@ -153,8 +152,8 @@ const flowSteps = [
 
     <h3 class="mt-6 text-lg font-medium">IoT 数据治理</h3>
     <p>
-      与此同时，我端到端主导了 3,000 多个 IoT
-      传感器的数据治理：采集、清洗、格式标准化、质量校验，把一条嘈杂的传感器数据流，变成可信赖的时序数据资产。在这份数据之上，我搭建了面向能源管理和预测性维护的
+      与此同时，我端到端主导了工厂 IoT
+      传感器集群的数据治理：采集、清洗、格式标准化、质量校验，把一条嘈杂的传感器数据流，变成可信赖的时序数据资产。在这份数据之上，我搭建了面向能源管理和预测性维护的
       Grafana 看板，工厂管理层实际在用。
     </p>
 
@@ -233,10 +232,7 @@ const flowSteps = [
       <h2 class="text-lg font-semibold">相关</h2>
       <div class="mt-3 flex flex-wrap gap-3">
         <a
-          href={getRelativeLocaleUrl(
-            "zh",
-            "work/enterprise-agent-platform"
-          )}
+          href={getRelativeLocaleUrl("zh", "work/enterprise-agent-platform")}
           class="text-accent hover:underline"
         >
           企业级 Agent 平台
