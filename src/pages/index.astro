@@ -20,6 +20,7 @@ import {
   Database,
   Settings,
   Building2,
+  Factory,
 } from "lucide-astro";
 import { getProjects } from "@/data/projects";
 import AskAI from "@/components/AskAI.astro";
@@ -244,7 +245,9 @@ const topics: Topic[] = [
                       ? Activity
                       : project.icon === "Bot"
                         ? Bot
-                        : TrendingUp;
+                        : project.icon === "Factory"
+                          ? Factory
+                          : TrendingUp;
             // Shades chosen to meet WCAG AA contrast in both themes:
             // *-700 on the light card bg, *-400 on the dark card bg.
             const statusColor = project.status.startsWith("Public Tool")

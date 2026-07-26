@@ -14,8 +14,16 @@ export interface Project {
     | "Public Tool"
     | "Ongoing"
     | "Public · Ep. 01"
-    | "Current Work";
-  icon: "Network" | "Book" | "Code" | "TrendingUp" | "Activity" | "Bot";
+    | "Current Work"
+    | "Case Study";
+  icon:
+    | "Network"
+    | "Book"
+    | "Code"
+    | "TrendingUp"
+    | "Activity"
+    | "Bot"
+    | "Factory";
   href: string;
   external: boolean;
   tags: string[];
@@ -62,6 +70,27 @@ const defs: ProjectDef[] = [
         "Industrial",
       ],
       zh: ["Agent 平台", "企业 AI", "0 → 1", "治理", "工业场景"],
+    },
+  },
+  {
+    title: "AI-SOP Assistant at AB InBev (0 → 1)",
+    icon: "Factory",
+    status: "Case Study",
+    path: "projects/ai-sop-assistant",
+    description: {
+      en: "A concluded 0 → 1 case study from AB InBev's Budweiser brewing operations in Wuhan: an on-prem AI assistant that turned ~180K characters of SOP and maintenance docs into standardized, retrievable answers, plus end-to-end governance of 3,000+ IoT sensors and MES integration. Local DeepSeek deployment for data residency; Streamlit on desktop + mobile; Grafana for plant management.",
+      zh: "一段已结束的 0 → 1 案例研究，来自百威武汉酿造工厂（AB InBev）：一个本地部署的 AI 助手，把约 18 万字的 SOP 与维护文档转化为标准化、可检索的答案，并端到端治理 3,000+ 个 IoT 传感器、打通 MES。出于数据合规本地部署 DeepSeek；Streamlit 覆盖桌面与移动端；用 Grafana 服务工厂管理层。",
+    },
+    tags: {
+      en: [
+        "RAG",
+        "Local LLM",
+        "DeepSeek",
+        "Data Governance",
+        "IoT",
+        "Industrial AI",
+      ],
+      zh: ["RAG", "本地 LLM", "DeepSeek", "数据治理", "IoT", "工业 AI"],
     },
   },
   {

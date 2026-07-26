@@ -1,0 +1,261 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
+import config from "@/config";
+
+const snapshot = [
+  { label: "角色", value: "供应链与物流卓越管培生（SET）" },
+  { label: "公司", value: "AB InBev · 百威武汉酿造工厂" },
+  { label: "时间", value: "2025 年 3–12 月 · 已结束" },
+  { label: "范围", value: "0 → 1 · AI 知识助手 + 数据治理" },
+];
+
+// 检索路径的抽象化线稿内容视觉（见 DESIGN.md）。
+const flowSteps = [
+  { label: "自然语言提问", note: "一线 · 桌面或移动端" },
+  {
+    label: "混合检索（RAG）",
+    note: "结构化知识库 · 约 18 万字",
+    emphasis: true,
+  },
+  { label: "实时运营数据", note: "MES 集成" },
+  {
+    label: "标准化答案",
+    note: "格式一致、可信赖",
+    emphasis: true,
+  },
+];
+---
+
+<Layout
+  title={`百威（AB InBev）AI-SOP 助手（0 → 1）— ${config.site.title}`}
+  description="一段来自百威武汉酿造工厂（AB InBev）的已结束 0 → 1 案例研究：一个本地部署的 RAG 助手，覆盖约 18 万字的 SOP 与维护文档，治理 3,000+ 个 IoT 传感器，配套 Grafana 看板与 MES 集成。"
+  ogImage="/og/ai-sop-assistant.png"
+>
+  <Header />
+  <Breadcrumb />
+
+  <Main pageTitle="百威（AB InBev）AI-SOP 助手（0 → 1）" class="app-prose">
+    <p class="text-muted-foreground text-sm">
+      <a
+        href={getRelativeLocaleUrl("en", "projects/ai-sop-assistant")}
+        class="text-accent hover:underline"
+      >
+        Read this page in English
+      </a>
+    </p>
+
+    <p class="text-muted-foreground text-lg">
+      在百威武汉酿造工厂（AB InBev），我做了一个内部 AI
+      助手：让一线的物流和工程人员用自然语言提问，就能拿回一个标准化的答案——答案来自工厂自己的操作规程和实时运营数据。这是一个已经结束的
+      0 → 1
+      项目，本页描述问题、我的解法，以及我从中带走了什么，而不暴露任何运营细节。
+    </p>
+
+    <div class="border-border mt-4 flex flex-wrap gap-2">
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        案例研究 · 2025 年 12 月结束
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        RAG
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        本地 LLM
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        数据治理
+      </span>
+      <span
+        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
+      >
+        工业 AI
+      </span>
+    </div>
+
+    <div
+      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+    >
+      {
+        snapshot.map(item => (
+          <div class="bg-background p-4">
+            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+              {item.label}
+            </p>
+            <p class="mt-1 text-sm">{item.value}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="border-border bg-muted/30 text-muted-foreground mt-6 rounded-lg border p-4 text-sm"
+    >
+      <strong class="text-foreground">关于保密的说明。</strong
+      >这是酿造工厂里真实的工作。我描述的是问题空间、我的方法论，以及我用到的公开工具；工厂布局与运营细节、生产数据、内部系统名称都不在此列。文中的结果是方向性的，反映的是我在职期间所测得的情况。
+    </div>
+
+    <!-- ─────────────────────────  1. CONTEXT  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">背景</h2>
+    <p>
+      有两个问题反复出现。其一，设备一旦故障，响应就慢：诊断和处置所需的知识散落在各种文档和人的脑子里，于是有人去翻找的时候，时间就在流逝。其二，标准操作规程（SOP）很难找——一个操作员或工程师要用到对的
+      SOP，得在各自维护着自己那套资料的物流和工程部门之间来回翻。
+    </p>
+    <p>
+      在酿造工厂里，用一个通用聊天机器人来解决这件事并不轻松。数据不能离开厂区，用户是在车间现场而不是坐在办公桌前，答案还必须和已经在运转的既有系统对得上。数据合规、一线用户、既有系统——这三条约束，决定了之后的每一个选择。
+    </p>
+
+    <!-- ─────────────────────────  2. DISCOVERY  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">调研</h2>
+    <p>
+      我不是从模型开始的。我先在生产、物流、工程之间轮岗，拆解工作到底是怎么发生的，再去访谈那些真正会用它的人。得到的结论比一个
+      Demo
+      展示出来的要朴素得多：大家要的不是一个会聊天的伙伴，而是对的规程、够快、以一种他们能信任并据以行动的形式给出来。这把产品从「一个工厂聊天机器人」重新定义成了「从一个问题到那条正确、标准化答案之间，最短的可靠路径」。
+    </p>
+
+    <!-- ─────────────────────────  3. WHAT I BUILT  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">我做了什么</h2>
+
+    <h3 class="mt-6 text-lg font-medium">知识架构</h3>
+    <p>
+      我用大约 18 万字的 SOP
+      与维护文档，搭起了一个结构化知识库。这意味着要定义分块（chunking）规则、标注规范和一套分类体系（taxonomy），让检索有一份干净的东西可以对着工作——正是这些不起眼的数据工作，决定了一个答案对不对。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">检索流程</h3>
+    <p>
+      流程本身一句话就能讲清：一个自然语言问题经过混合检索，以标准化的答案格式返回。标准化和检索一样重要——正是这种一致的形态，让一线用户敢信任输出、敢照着做，而不用反复揣度。
+    </p>
+
+    <FlowDiagram
+      steps={flowSteps}
+      caption="助手路径的抽象形态：一个自然语言问题经过覆盖结构化知识库的混合 RAG 检索，再通过 MES 对实时运营数据做接地（grounding），最终以标准化的答案格式返回。"
+    />
+
+    <h3 class="mt-6 text-lg font-medium">本地模型部署</h3>
+    <p>
+      因为数据不能离开厂区，我协调了一个开源模型——DeepSeek——的本地（on-premise）部署，而不是直接去用托管
+      API。它以 Streamlit
+      应用的形式交付，同时覆盖桌面端和移动端，让助手在人们干活的地方就能用到，而不是把他们拴在一台工作站前。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">IoT 数据治理</h3>
+    <p>
+      与此同时，我端到端主导了 3,000 多个 IoT
+      传感器的数据治理：采集、清洗、格式标准化、质量校验，把一条嘈杂的传感器数据流，变成可信赖的时序数据资产。在这份数据之上，我搭建了面向能源管理和预测性维护的
+      Grafana 看板，工厂管理层实际在用。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">实时数据集成</h3>
+    <p>
+      最后，我推动了助手与工厂 MES
+      的集成，让答案反映的是实时运营数据，而不是文档的一张静态快照。一条规程有没有用，取决于它有没有和工厂此刻正在做的事对上。
+    </p>
+
+    <!-- ─────────────────────────  4. DECISIONS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">值得记录的判断</h2>
+
+    <h3 class="mt-6 text-lg font-medium">本地部署，而非 API 的省事</h3>
+    <p>
+      最省事的快路子是用托管
+      API。我选了本地开源部署，因为在酿造工厂里，数据合规不是一种偏好，而是一条硬约束——一个因为合规原因没法被采用的工具，答案再好也一文不值。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">把标注和维护当成一等工作</h3>
+    <p>
+      我在那些不好「演示」的事情上花了真功夫：标注规范、分块拆分规则、更新周期，并把它们写成了一份知识库维护
+      SOP，配套一份数据治理规范（Data Governance
+      Standard）。一个知识库，如果没把维护流程定义清楚，从作者离开那天起就开始腐坏——我想让这个系统在我离开团队之后还能活下去。
+    </p>
+
+    <h3 class="mt-6 text-lg font-medium">标准化答案，而非开放式对话</h3>
+    <p>
+      我把输出约束成一种标准化格式，而不是自由发挥的对话。一线用户不需要文采；他们需要的是每次都长一个样的答案，这样才能在时间压力下信任它、照着它行动。
+    </p>
+
+    <!-- ─────────────────────────  5. OUTCOMES  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">结果</h2>
+    <p>
+      上线之后，这个助手每月为工程侧节省了数百个工时；随着对的规程变得好找、执行也更一致，知识复用大幅上升，返工大幅下降。这些都是方向性的数字，反映的是我在职期间所测得的情况——我不会公布一家前雇主的精确内部指标。
+    </p>
+
+    <!-- ─────────────────────────  6. LESSONS  ───────────────────────── -->
+    <h2 class="mt-8 text-xl font-semibold">它教会我的</h2>
+    <p>
+      <strong>治理不是事后再加的功能。</strong
+      >这个项目最难的部分不是检索，而是让数据和答案可信到，让车间现场的人愿意依赖它。这正是我现在做「治理优先」的
+      Agent 平台的原因——可靠性这件事本身就是产品，而不是收尾时的抛光。
+    </p>
+    <p>
+      <strong>知识层才是护城河。</strong
+      >分块、标注、分类、维护——正是这看似枯燥的一层，决定了 AI
+      对不对。我把这份纪律带进了现在设计的每一个系统，它背后也是和我做本体工作同一种直觉。
+    </p>
+    <p>
+      <strong>到用户所在的地方去。</strong
+      >酿造工厂教会我：一个在办公桌前很棒的答案，对车间现场的人毫无用处。交付形态是产品的一部分，不是事后补的东西。
+    </p>
+    <p>
+      <strong>从第一天就为交接而构建。</strong>写下那份维护 SOP
+      的那一刻，这个工具才从一个个人项目变成了基础设施。一个撑不过「作者离开」的系统，从来就没算做完。
+    </p>
+
+    <div
+      class="border-border bg-muted/30 mt-8 flex flex-col gap-3 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div>
+        <p class="font-medium">平台的工作，就是从这里来的</p>
+        <p class="text-muted-foreground text-sm">
+          我现在在构建的东西，把这些经验用在了平台尺度上。
+        </p>
+      </div>
+      <a
+        href={getRelativeLocaleUrl("zh", "projects/enterprise-agent-platform")}
+        class="bg-accent text-accent-foreground inline-flex shrink-0 items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+      >
+        查看当前工作 &rarr;
+      </a>
+    </div>
+
+    <div class="border-border mt-8 rounded-lg border p-6">
+      <h2 class="text-lg font-semibold">相关</h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(
+            "zh",
+            "projects/enterprise-agent-platform"
+          )}
+          class="text-accent hover:underline"
+        >
+          企业级 Agent 平台
+        </a>
+        <a
+          href={getRelativeLocaleUrl("zh", "projects/prompt-to-ontology")}
+          class="text-accent hover:underline"
+        >
+          Prompt-to-Ontology
+        </a>
+        <a
+          href={getRelativeLocaleUrl("zh", "playbook/harness-engineering")}
+          class="text-accent hover:underline"
+        >
+          Harness Engineering
+        </a>
+      </div>
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>

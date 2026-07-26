@@ -12,6 +12,18 @@ const t = useTranslations(locale);
 ---
 
 <Layout title={`${t.notFound.title} — ${config.site.title}`}>
+  {
+    /* Report the actually-requested path to GoatCounter as "404-/whatever-was-
+      missing" instead of aggregating every miss under /404. Runs synchronously
+      in <head>; the analytics script (count.js) is async, so this is set before
+      its onload count fires. location.pathname keeps any /zh/ locale prefix. */
+  }
+  <script is:inline slot="head">
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function () {
+      return "404-" + location.pathname;
+    };
+  </script>
   <Header />
 
   <main

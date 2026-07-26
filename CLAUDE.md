@@ -143,6 +143,41 @@ here.
     Ahrefs / SimilarWeb or similar) anywhere. Never write "grew traffic by X."
     This includes any reach, views, or engagement figures from the
     social-distribution work — describe the responsibility only, never a metric.
+- **AI-SOP Assistant at AB InBev** (`projects/ai-sop-assistant`, both locales)
+  is a **concluded case study** — a real past role, distinct from the
+  fact-locked _Current Work_ page. Permitted facts — this list is the permanent
+  boundary; do not add, embellish, or infer beyond it:
+  - Employer named explicitly: **AB InBev** (Budweiser brewing operations,
+    Wuhan, China). Role: **Supply Chain & Logistics Excellence Trainee (SET)**,
+    **Mar–Dec 2025**. Concluded.
+  - Problem: slow response to equipment failures; cumbersome SOP lookup across
+    logistics and engineering departments.
+  - Discovery: user interviews and workflow decomposition across both
+    departments; rotation through production, logistics, and engineering to map
+    AI use cases against real workflows.
+  - Built a structured knowledge base from ~180K characters of SOP/maintenance
+    documentation (chunking, annotation standards, taxonomy).
+  - Retrieval flow: natural-language question → hybrid RAG retrieval →
+    standardized answer format.
+  - Coordinated local (on-prem) deployment of an open-source LLM (**DeepSeek**),
+    chosen for data-residency requirements, delivered as **Streamlit** apps on
+    desktop + mobile.
+  - End-to-end data governance for **3,000+ IoT sensors** (collection, cleaning,
+    format standardization, quality validation → time-series data assets).
+  - **Grafana** dashboards for energy-management and predictive-maintenance
+    views used by plant management.
+  - Integration between the assistant and the **MES** so answers reflect live
+    operational data.
+  - Authored the **Data Governance Standard** and the **Logistics AI Knowledge
+    Base Maintenance SOP** (annotation, chunk-splitting, update-cycle processes).
+  - **Outcomes — directional only, as measured during tenure:** saved hundreds
+    of engineering hours monthly; knowledge reuse rose sharply and rework fell
+    dramatically after rollout. **Never** publish the exact resume figures
+    (no "400+ hours/month," "+60%," "−90%," or any precise internal metric).
+  - **Forbidden:** plant-layout or operational specifics beyond the above;
+    internal system names other than the generic "MES"; supplier/vendor contract
+    details; colleague names; production volumes or any brewing-operations data;
+    screenshots.
 - **No other ventures** — no e-commerce, packaging, storefront, or outside
   client work anywhere on the site, including code comments and commit messages.
   Remove any such reference if found.
