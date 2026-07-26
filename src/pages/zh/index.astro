@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
-import { getProjects } from "@/data/projects";
+import { getWork, getBuilds } from "@/data/projects";
 import AskAI from "@/components/AskAI.astro";
 import ContactRow from "@/components/ContactRow.astro";
 
@@ -80,10 +80,7 @@ const topics: Topic[] = [
     proofs: [
       {
         label: "企业级 Agent 平台",
-        href: getRelativeLocaleUrl(
-          locale,
-          "projects/enterprise-agent-platform"
-        ),
+        href: getRelativeLocaleUrl(locale, "work/enterprise-agent-platform"),
       },
     ],
   },
@@ -100,7 +97,8 @@ const topics: Topic[] = [
   },
 ];
 
-const projects = getProjects(locale);
+const work = getWork(locale);
+const builds = getBuilds(locale);
 ---
 
 <Layout
@@ -144,7 +142,7 @@ const projects = getProjects(locale);
             目前作为产品经理，从 0 到 1 <a
               href={getRelativeLocaleUrl(
                 locale,
-                "projects/enterprise-agent-platform"
+                "work/enterprise-agent-platform"
               )}
               class="hover:text-accent underline decoration-dashed underline-offset-4"
               >主导一个企业级 Agent 平台</a
@@ -189,12 +187,57 @@ const projects = getProjects(locale);
       </div>
     </section>
 
-    <!-- Featured Projects -->
+    <!-- Work -->
     <section class="border-border border-b py-10 sm:py-14">
-      <h2 class="text-2xl font-semibold tracking-wide">项目</h2>
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl font-semibold tracking-wide">工作</h2>
+        <a
+          href={getRelativeLocaleUrl(locale, "work")}
+          class="text-accent text-sm hover:underline">全部工作 →</a
+        >
+      </div>
+      <p class="text-muted-foreground mt-2 text-sm">
+        我以专业身份做过或正在做的工作——只在方法论与能力层面描述。
+      </p>
       <div class="mt-6 grid gap-4 sm:grid-cols-2">
         {
-          projects.map((project, index) => (
+          work.map(project => (
+            <a
+              href={project.href}
+              class="border-border group hover:bg-accent/5 flex flex-col rounded-lg border p-5 transition-colors"
+            >
+              <div class="flex justify-end">
+                <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap">
+                  {project.status}
+                </span>
+              </div>
+              <h3 class="group-hover:text-accent mt-3 text-lg font-medium">
+                {project.title}
+              </h3>
+              <p class="text-muted-foreground mt-2 line-clamp-4 text-sm">
+                {project.description}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="border-border border-b py-10 sm:py-14">
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl font-semibold tracking-wide">项目</h2>
+        <a
+          href={getRelativeLocaleUrl(locale, "projects")}
+          class="text-accent text-sm hover:underline">全部项目 →</a
+        >
+      </div>
+      <p class="text-muted-foreground mt-2 text-sm">
+        我在开放环境下自主构建并维护的东西——为了真正好用，而不只是拿来展示。
+      </p>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          builds.map((project, index) => (
             <a
               href={project.href}
               class={`border-border group hover:bg-accent/5 flex flex-col rounded-lg border p-5 transition-colors ${index === 0 ? "sm:col-span-2" : ""}`}

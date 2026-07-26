@@ -1,6 +1,7 @@
 export interface UIStrings {
   nav: {
     home: string;
+    work: string;
     projects: string;
     playbook: string;
     writing: string;
