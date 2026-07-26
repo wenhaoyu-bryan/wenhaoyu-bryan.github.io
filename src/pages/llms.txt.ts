@@ -47,6 +47,9 @@ export const GET: APIRoute = async () => {
     `- [Projects](${base}/projects): Self-directed builds shipped in the open — ontology systems, interactive explainers, an AI PM toolkit, and growth experiments.`
   );
   lines.push(
+    `- [Writing](${base}/posts): The writing hub — essays and working notes, the AI PM methodology Playbook, and the Growth Lab, in one place.`
+  );
+  lines.push(
     `- [Playbook](${base}/playbook): AI PM methodology — vibe coding, harness engineering, loop engineering, AI-native PRD, agent product design, ontology systems.`
   );
   lines.push(

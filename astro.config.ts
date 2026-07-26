@@ -34,6 +34,10 @@ export default defineConfig({
     "/zh/projects/enterprise-agent-platform":
       "/zh/work/enterprise-agent-platform",
     "/zh/projects/ai-sop-assistant": "/zh/work/ai-sop-assistant",
+    // The paginated posts list was replaced by the /posts/ Writing hub; keep the
+    // old page-2 URLs alive.
+    "/posts/2": "/posts",
+    "/zh/posts/2": "/zh/posts",
   },
   integrations: [
     mdx(),
