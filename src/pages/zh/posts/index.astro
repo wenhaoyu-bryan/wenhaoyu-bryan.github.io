@@ -17,7 +17,7 @@ const posts = getSortedPosts(
   await getCollection("posts", ({ data }) => !data.draft)
 );
 
-// The live Playbook methodology pages (mirrors zh/playbook.astro).
+// The live Methodology pages (mirrors zh/playbook.astro).
 const playbookItems = [
   {
     label: "Vibe Coding for Product Discovery",
@@ -72,10 +72,10 @@ const growthChip = `${growthExperiments.length} 个实验 · ${runningCount} 个
       一套常青的方法论手册、一本增长实验笔记，以及随笔与工作笔记。
     </p>
 
-    <!-- Playbook -->
+    <!-- Methodology -->
     <section>
       <div class="flex items-baseline justify-between gap-4">
-        <h2 class="text-xl font-semibold">Playbook</h2>
+        <h2 class="text-xl font-semibold">方法论</h2>
         <a
           href={getRelativeLocaleUrl("zh", "playbook")}
           class="text-accent shrink-0 text-sm hover:underline"
