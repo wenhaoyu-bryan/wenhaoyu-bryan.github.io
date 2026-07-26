@@ -11,12 +11,11 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
 import config from "@/config";
 
-// Posts feed (essays), newest first. Blog posts are en-only, so every post
-// link points at the en route.
+// Posts (essays), newest first — the shelf lists them all. Blog posts are
+// en-only, so every post link points at the en route.
 const posts = getSortedPosts(
   await getCollection("posts", ({ data }) => !data.draft)
 );
-const recentPosts = posts.slice(0, 3);
 
 // The live Playbook methodology pages (mirrors zh/playbook.astro).
 const playbookItems = [
@@ -132,62 +131,26 @@ const growthChip = `${growthExperiments.length} 个实验 · ${runningCount} 个
 
     <!-- Posts -->
     <section class="mt-10">
-      <div class="flex items-baseline justify-between gap-4">
-        <h2 class="text-xl font-semibold">文章</h2>
-        <a
-          href="#all-posts"
-          class="text-accent shrink-0 text-sm hover:underline"
-        >
-          全部文章 →
-        </a>
-      </div>
+      <h2 class="text-xl font-semibold">文章</h2>
       <p class="text-muted-foreground mt-1 text-sm">
         关于 AI 产品管理的随笔与工作笔记（英文）。
       </p>
-      <ul class="border-border mt-4 divide-y rounded-lg border">
-        {
-          recentPosts.map(post => (
-            <li>
-              <a
-                href={getPostUrl(post.id, post.filePath, "en")}
-                class="group hover:bg-accent/5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 p-4 transition-colors"
-              >
-                <span class="group-hover:text-accent font-medium transition-colors">
-                  {post.data.title}
-                </span>
-                <Datetime
-                  pubDatetime={post.data.pubDatetime}
-                  modDatetime={post.data.modDatetime}
-                  size="sm"
-                  class="text-muted-foreground shrink-0 text-xs"
-                />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-
-    <!-- Full posts feed (posts are en-only; links point at the en routes) -->
-    <section class="border-border mt-12 border-t pt-8">
-      <h2 id="all-posts" class="scroll-mt-24 text-2xl font-semibold">
-        全部文章
-      </h2>
-      <ul>
+      <ul class="mt-4 space-y-2">
         {
           posts.map(post => (
-            <li class="my-6">
+            <li class="flex items-baseline justify-between gap-3">
               <a
                 href={getPostUrl(post.id, post.filePath, "en")}
-                class="text-accent inline-block text-lg font-medium decoration-dashed underline-offset-4 hover:underline"
+                class="text-accent text-sm hover:underline"
               >
-                <h3>{post.data.title}</h3>
+                {post.data.title}
               </a>
               <Datetime
                 pubDatetime={post.data.pubDatetime}
                 modDatetime={post.data.modDatetime}
+                size="sm"
+                class="text-muted-foreground shrink-0 text-xs"
               />
-              <p>{post.data.description}</p>
             </li>
           ))
         }
