@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
-import { getProjects } from "@/data/projects";
+import { getWork, getBuilds } from "@/data/projects";
 import config from "@/config";
 
 /**
@@ -13,7 +13,8 @@ import config from "@/config";
  */
 export const GET: APIRoute = async () => {
   const base = config.site.url.replace(/\/$/, "");
-  const projects = getProjects("en");
+  const work = getWork("en");
+  const builds = getBuilds("en");
   const posts = getSortedPosts(await getCollection("posts"));
   const pages = await getCollection("pages");
   const about = pages.find(p => p.id === "about");
@@ -100,7 +101,7 @@ export const GET: APIRoute = async () => {
   );
   out.push(
     "4. Industrial & B2B AI — enterprise adoption, industrial operations, and " +
-      `B2B product contexts. Proof: ${base}/projects/enterprise-agent-platform.`
+      `B2B product contexts. Proof: ${base}/work/enterprise-agent-platform.`
   );
   out.push(
     "5. SEO/GEO Growth — how generative engines reshape organic growth: " +
@@ -154,22 +155,26 @@ export const GET: APIRoute = async () => {
   out.push("=".repeat(72));
   out.push("");
 
-  // Projects
-  out.push("## Projects");
-  out.push("");
-  for (const p of projects) {
-    const url = p.external ? p.href : `${base}${p.href}`;
-    out.push(`### ${p.title}`);
-    out.push(`Status: ${p.status}`);
-    out.push(`URL: ${url}`);
-    if (p.repo) out.push(`Repo: ${p.repo}`);
-    if (p.tags?.length) out.push(`Tags: ${p.tags.join(", ")}`);
+  // Work (professional roles) and Projects (self-directed builds)
+  const pushEntries = (heading: string, items: typeof work) => {
+    out.push(`## ${heading}`);
     out.push("");
-    out.push(p.description);
+    for (const p of items) {
+      const url = p.external ? p.href : `${base}${p.href}`;
+      out.push(`### ${p.title}`);
+      out.push(`Status: ${p.status}`);
+      out.push(`URL: ${url}`);
+      if (p.repo) out.push(`Repo: ${p.repo}`);
+      if (p.tags?.length) out.push(`Tags: ${p.tags.join(", ")}`);
+      out.push("");
+      out.push(p.description);
+      out.push("");
+    }
+    out.push("=".repeat(72));
     out.push("");
-  }
-  out.push("=".repeat(72));
-  out.push("");
+  };
+  pushEntries("Work", work);
+  pushEntries("Projects", builds);
 
   // Writing (full bodies)
   out.push("## Writing");
