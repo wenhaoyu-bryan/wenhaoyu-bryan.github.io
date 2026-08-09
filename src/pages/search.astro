@@ -27,12 +27,16 @@ const pagefindBundlePath = getAssetPath("pagefind/");
 const t = useTranslations(locale);
 ---
 
-<Layout title={`${t.pages.searchTitle} — ${config.site.title}`}>
+<Layout title={`${t.pages.searchTitle} — ${config.site.title}`} noindex>
   <Header />
 
   <Breadcrumb />
 
-  <Main pageTitle={t.pages.searchTitle} pageDesc={t.pages.searchDesc}>
+  <Main
+    pageTitle={t.pages.searchTitle}
+    pageDesc={t.pages.searchDesc}
+    pagefind={false}
+  >
     <div
       id="pagefind-search"
       transition:persist

@@ -47,15 +47,19 @@ const playbookItems = [
     label: "Prompt-to-Ontology",
     href: getRelativeLocaleUrl("zh", "playbook/prompt-to-ontology"),
   },
+  {
+    label: "SEO to GEO",
+    href: getRelativeLocaleUrl("zh", "playbook/seo-to-geo"),
+  },
 ];
 
-// Growth Lab status chip — derived from the experiment list (mirrors
-// growth-lab.astro: 00 concluded, 01 running).
-const growthExperiments = [{ status: "Concluded" }, { status: "Running" }];
-const runningCount = growthExperiments.filter(
-  e => e.status === "Running"
+// Growth Lab status chip — derived from the experiment list (00 concluded,
+// 01 instrumented and collecting a baseline).
+const growthExperiments = [{ status: "Concluded" }, { status: "Instrumented" }];
+const activeCount = growthExperiments.filter(
+  e => e.status !== "Concluded"
 ).length;
-const growthChip = `${growthExperiments.length} 个实验 · ${runningCount} 个进行中`;
+const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个进行中`;
 ---
 
 <Layout
@@ -67,7 +71,7 @@ const growthChip = `${growthExperiments.length} 个实验 · ${runningCount} 个
   <Breadcrumb />
 
   <Main pageTitle="思考" class="max-w-3xl">
-    <p class="text-muted-foreground -mt-4 mb-8">
+    <p class="text-muted-foreground mt-2 mb-8">
       我在这里公开地思考 ——
       一套常青的方法论手册、一本增长实验笔记，以及随笔与工作笔记。
     </p>

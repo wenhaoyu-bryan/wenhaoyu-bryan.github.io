@@ -53,7 +53,6 @@ const categories = [
         href: getRelativeLocaleUrl("zh", "playbook/agent-product-design"),
         status: "live",
       },
-      { label: "Human-in-the-Loop 设计", href: null, status: "planned" },
     ],
   },
   {
@@ -64,7 +63,16 @@ const categories = [
         href: getRelativeLocaleUrl("zh", "playbook/prompt-to-ontology"),
         status: "live",
       },
-      { label: "本体用于 RAG 和智能体", href: null, status: "planned" },
+    ],
+  },
+  {
+    title: "搜索与增长",
+    items: [
+      {
+        label: "SEO to GEO",
+        href: getRelativeLocaleUrl("zh", "playbook/seo-to-geo"),
+        status: "live",
+      },
     ],
   },
 ];
@@ -168,11 +176,6 @@ const categories = [
                     </a>
                   ) : (
                     <span>{item.label}</span>
-                  )}
-                  {item.status === "planned" && (
-                    <span class="text-muted-foreground mt-0.5 text-xs">
-                      (即将推出)
-                    </span>
                   )}
                 </li>
               ))}

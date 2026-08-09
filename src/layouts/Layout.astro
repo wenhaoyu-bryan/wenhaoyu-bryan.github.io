@@ -1,9 +1,9 @@
 ---
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-import { getRelativeLocaleUrl } from "astro:i18n";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
+import { isMirroredRoute, normalizeRoutePath } from "@/i18n/routes";
 import config from "@/config";
 import BackToTop from "@/components/BackToTop.astro";
 import "@/styles/global.css";
@@ -12,7 +12,10 @@ type Props = {
   title?: string;
   description?: string;
   ogImage?: string;
+  ogType?: "website" | "article";
+  ogImageAlt?: string;
   canonicalURL?: string;
+  noindex?: boolean;
 };
 
 const { site } = config;
@@ -21,19 +24,21 @@ const {
   title = site.title,
   description = site.description,
   ogImage = resolveDefaultOgImagePath(config),
+  ogType = "website",
+  ogImageAlt = title,
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  noindex = false,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
-const rssHref = getRelativeLocaleUrl(
-  Astro.currentLocale ?? config.site.lang,
-  "rss.xml"
-);
+const rssURL = new URL("/rss.xml", Astro.site ?? Astro.url);
+const currentLocale = Astro.currentLocale ?? config.site.lang;
 
 // Person schema: establishes the author entity for search engines and AI search
 const personJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${site.url}#person`,
   name: site.author,
   url: site.url,
   jobTitle: "AI Product Manager",
@@ -53,26 +58,9 @@ const personJsonLd = JSON.stringify({
     .filter(url => !url.startsWith("mailto:")),
 });
 
-// Routes that exist in both locales (en unprefixed, zh under /zh/).
-// Keep in sync with src/pages/zh/ — only list pages that actually have a mirror.
-const MIRRORED_ROUTES = [
-  "/",
-  "/about/",
-  "/ai-stack/",
-  "/now/",
-  "/work/",
-  "/work/enterprise-agent-platform/",
-  "/work/ai-sop-assistant/",
-  "/projects/",
-  "/projects/prompt-to-ontology/",
-  "/playbook/",
-  "/growth-lab/",
-  "/posts/",
-  "/search/",
-];
-const normalizedPath = Astro.url.pathname.replace(/\/?$/, "/");
+const normalizedPath = normalizeRoutePath(Astro.url.pathname);
 const basePath = normalizedPath.startsWith("/zh/")
-  ? normalizedPath.slice(3) || "/"
+  ? normalizeRoutePath(normalizedPath.slice(3))
   : normalizedPath;
 
 // Person identifies the author on identity pages; WebSite describes the site
@@ -84,18 +72,31 @@ const isAbout = basePath === "/about/";
 const webSiteJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${site.url}#website`,
   name: site.title,
   url: site.url,
   description: site.description,
   inLanguage: Astro.currentLocale ?? site.lang,
   author: {
     "@type": "Person",
+    "@id": `${site.url}#person`,
     name: site.author,
     url: site.profile ?? site.url,
   },
 });
 
-const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
+const webPageJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonicalURL}#webpage`,
+  url: canonicalURL,
+  name: title,
+  description,
+  inLanguage: currentLocale,
+  isPartOf: { "@id": `${site.url}#website` },
+});
+
+const hreflangAlternates = isMirroredRoute(basePath)
   ? [
       { lang: "en", href: new URL(basePath, Astro.site).href },
       { lang: "zh", href: new URL(`/zh${basePath}`, Astro.site).href },
@@ -130,29 +131,36 @@ const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={site.author} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
     <link rel="sitemap" href={getAssetPath("sitemap-index.xml")} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta
+      property="og:locale"
+      content={currentLocale === "zh" ? "zh_CN" : "en_US"}
+    />
     <meta property="og:site_name" content={site.title} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     <!-- Twitter / X -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- RSS autodiscovery -->
     <link
       rel="alternate"
       type="application/rss+xml"
-      title={site.title}
-      href={new URL(rssHref, Astro.site)}
+      title={`${site.title} — Posts`}
+      href={rssURL}
     />
 
     <!-- Language alternates for bilingual pages -->
@@ -162,7 +170,8 @@ const hreflangAlternates = MIRRORED_ROUTES.includes(basePath)
       ))
     }
 
-    <!-- Structured data: Person on identity pages, WebSite on the home page -->
+    <!-- Structured data: a page entity for every page, plus site identity data -->
+    <script is:inline type="application/ld+json" set:html={webPageJsonLd} />
     {
       (isHome || isAbout) && (
         <script is:inline type="application/ld+json" set:html={personJsonLd} />

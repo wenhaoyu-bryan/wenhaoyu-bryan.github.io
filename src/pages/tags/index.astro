@@ -17,12 +17,16 @@ const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 ---
 
-<Layout title={`${t.pages.tagsTitle} — ${config.site.title}`}>
+<Layout title={`${t.pages.tagsTitle} — ${config.site.title}`} noindex>
   <Header />
 
   <Breadcrumb />
 
-  <Main pageTitle={t.pages.tagsTitle} pageDesc={t.pages.tagsDesc}>
+  <Main
+    pageTitle={t.pages.tagsTitle}
+    pageDesc={t.pages.tagsDesc}
+    pagefind={false}
+  >
     <ul class="flex flex-wrap gap-6">
       {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} />)}
     </ul>

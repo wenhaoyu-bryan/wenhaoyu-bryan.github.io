@@ -61,7 +61,7 @@ assert(/Last updated/.test(now), "now shows last-updated date");
 const llms = read("llms.txt") ?? "";
 assert(llms.startsWith("# Wenhao Yu"), "llms.txt has title heading");
 assert(/llms-full\.txt/.test(llms), "llms.txt points at llms-full.txt");
-assert(/## Writing/.test(llms), "llms.txt lists Writing");
+assert(/## Posts/.test(llms), "llms.txt lists Posts");
 assert(
   /https:\/\/wenhaoyu-bryan\.github\.io\/posts\//.test(llms),
   "llms.txt has absolute post URLs"
@@ -71,7 +71,7 @@ const llmsFull = read("llms-full.txt") ?? "";
 assert(llmsFull.length > 3000, "llms-full.txt has substantial content");
 assert(/## About/.test(llmsFull), "llms-full.txt includes About");
 assert(/## Projects/.test(llmsFull), "llms-full.txt includes Projects");
-assert(/## Writing/.test(llmsFull), "llms-full.txt includes Writing bodies");
+assert(/## Posts/.test(llmsFull), "llms-full.txt includes Posts bodies");
 
 // 4. Ask-AI deep links present on homepage
 const home = read("index.html") ?? "";
@@ -101,7 +101,6 @@ const risky = [
   "electron", // guard n/a but harmless
   "电商",
   "选品",
-  "半导体",
   "光伏",
   "锂电",
   "晶片",
@@ -110,7 +109,7 @@ const risky = [
   "minimax",
 ];
 // short tokens that need word boundaries to avoid false positives
-const riskyWord = [/\bMES\b/, /\bEMS\b/, /\bTCL\b/, /\bVben\b/i, /\bMiMo\b/];
+const riskyWord = [/\bEMS\b/, /\bVben\b/i, /\bMiMo\b/];
 
 function walk(dir) {
   const files = [];

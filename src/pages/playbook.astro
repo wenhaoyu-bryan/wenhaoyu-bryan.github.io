@@ -51,7 +51,6 @@ const categories = [
         href: getRelativeLocaleUrl(locale, "playbook/agent-product-design"),
         status: "live",
       },
-      { label: "Human-in-the-Loop Design", href: null, status: "planned" },
     ],
   },
   {
@@ -62,7 +61,16 @@ const categories = [
         href: getRelativeLocaleUrl(locale, "playbook/prompt-to-ontology"),
         status: "live",
       },
-      { label: "Ontology for RAG and Agents", href: null, status: "planned" },
+    ],
+  },
+  {
+    title: "Search and Growth",
+    items: [
+      {
+        label: "SEO to GEO",
+        href: getRelativeLocaleUrl(locale, "playbook/seo-to-geo"),
+        status: "live",
+      },
     ],
   },
 ];
@@ -174,11 +182,6 @@ const categories = [
                     </a>
                   ) : (
                     <span>{item.label}</span>
-                  )}
-                  {item.status === "planned" && (
-                    <span class="text-muted-foreground mt-0.5 text-xs">
-                      (coming soon)
-                    </span>
                   )}
                 </li>
               ))}

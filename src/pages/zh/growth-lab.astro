@@ -14,6 +14,7 @@ type Experiment = {
   hypothesis: string;
   built: string[];
   measuring: string;
+  measurementProtocol: string;
   openQuestions: string[];
 };
 
@@ -21,17 +22,19 @@ const experiments: Experiment[] = [
   {
     number: "01",
     title: "把本站当作 GEO 试验场",
-    status: "进行中",
+    status: "基建已完成 · 正在采集基线",
     hypothesis:
-      "一个为机器可读性而打造的静态站点——干净的元数据、结构化数据、面向 AI 的内容端点——会比普通博客更容易被 AI 回答引擎准确读取和引用。",
+      "一个为机器可读性而打造的静态站点——清晰的元数据、结构化数据、面向 AI 的内容端点——可能比普通博客更容易被 AI 回答引擎准确读取和引用。这仍然是假设，不是结果。",
     built: [
       "构建时从站点渲染的同一数据源拼装出 llms.txt（索引）与 llms-full.txt（全量内容）两个端点",
       "用 satori 动态生成 OG 图，让每个页面分享出去都是带标题的卡片，而不是一条干瘪的链接",
       "输出 JSON-LD 结构化数据（Person、WebSite、BlogPosting），让搜索和回答引擎能无歧义地解析身份与内容",
-      "提供预填 llms-full 内容的「在 Claude / ChatGPT 中了解我」深链",
+      "提供附带 llms-full 来源链接的「在 Claude / ChatGPT 中了解我」预填深链",
     ],
     measuring:
-      "被索引的页面数、小众 AI PM 查询下的自然曝光，以及当被问到我时 AI 搜索工具是否引用得准确。",
+      "收录覆盖、小众 AI PM 固定查询集下的曝光，以及当被问到我时 AI 搜索工具是否引用得准确。",
+    measurementProtocol:
+      "每次带日期的检查都记录查询词、引擎、被引用的 URL、引用上下文、事实准确性和下一步内容或技术动作。在日志积累到真实观察之前，不对引用提升做任何结论。",
     openQuestions: [
       "llms-full.txt 是否真的改变了 AI 引擎概括我的准确度，还是被直接忽略？",
       "哪些结构化数据类型真正影响回答引擎的引用，而不只是传统搜索摘要？",
@@ -246,6 +249,12 @@ const experiments: Experiment[] = [
                   我在衡量什么
                 </span>
                 <p class="text-muted-foreground mt-1">{exp.measuring}</p>
+              </div>
+              <div>
+                <span class="text-accent text-sm font-medium">度量协议</span>
+                <p class="text-muted-foreground mt-1">
+                  {exp.measurementProtocol}
+                </p>
               </div>
               <div>
                 <span class="text-accent text-sm font-medium">开放问题</span>

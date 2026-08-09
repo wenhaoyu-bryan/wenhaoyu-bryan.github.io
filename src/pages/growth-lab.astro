@@ -16,6 +16,7 @@ type Experiment = {
   hypothesis: string;
   built: string[];
   measuring: string;
+  measurementProtocol: string;
   openQuestions: string[];
 };
 
@@ -23,17 +24,19 @@ const experiments: Experiment[] = [
   {
     number: "01",
     title: "This site as a GEO testbed",
-    status: "Running",
+    status: "Instrumented · collecting baseline",
     hypothesis:
-      "A static site engineered for machine readability — clean metadata, structured data, and AI-readable content endpoints — gets read and cited more accurately by AI answer engines than a conventional blog does.",
+      "A static site engineered for machine readability — clear metadata, structured data, and AI-readable content endpoints — may be easier for AI answer engines to read and cite accurately than a conventional blog. This remains a hypothesis, not a result.",
     built: [
       "llms.txt (index) and llms-full.txt (complete content) endpoints, assembled at build time from the same data the pages render from",
       "Dynamic OG images generated with satori, so every page ships a titled social card instead of a bare link",
       "JSON-LD structured data (Person, WebSite, BlogPosting) so search and answer engines can parse identity and content unambiguously",
-      "“Ask Claude / ChatGPT about me” deep-links that pre-load the llms-full content into a chat",
+      "“Ask Claude / ChatGPT about me” deep-links that attach the llms-full source URL to a pre-filled prompt",
     ],
     measuring:
-      "Indexed pages, organic impressions on niche AI-PM queries, and whether AI-search tools cite the site accurately when asked about me.",
+      "Index coverage, impressions on a fixed set of niche AI-PM queries, and whether AI-search tools cite the site accurately when asked about me.",
+    measurementProtocol:
+      "For each dated check, record the query, engine, cited URL, citation context, factual accuracy, and the next content or technical action. Until that log contains observations, this experiment makes no claim about citation uplift.",
     openQuestions: [
       "Does llms-full.txt measurably change how accurately AI engines summarize me, or is it ignored?",
       "Which structured-data types actually influence answer-engine citations versus classic search snippets?",
@@ -268,6 +271,14 @@ const experiments: Experiment[] = [
                   What I'm measuring
                 </span>
                 <p class="text-muted-foreground mt-1">{exp.measuring}</p>
+              </div>
+              <div>
+                <span class="text-accent text-sm font-medium">
+                  Measurement protocol
+                </span>
+                <p class="text-muted-foreground mt-1">
+                  {exp.measurementProtocol}
+                </p>
               </div>
               <div>
                 <span class="text-accent text-sm font-medium">

@@ -37,4 +37,4 @@ In traditional software, the PM defines requirements, engineers build, users use
 
 The AI Product Manager role isn't just "PM + AI knowledge." It's a fundamentally different way of thinking about products — one where you design systems that think, not just systems that execute.
 
-More reflections coming soon. In the meantime, check out [Ontology OS](https://github.com/wenhaoyu-bryan/prompt-to-ontology) — the project that taught me most of this.
+For a concrete build, see [Ontology OS](https://github.com/wenhaoyu-bryan/prompt-to-ontology) — the project that taught me most of this.

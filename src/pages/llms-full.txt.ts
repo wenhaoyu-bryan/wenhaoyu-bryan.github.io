@@ -13,6 +13,17 @@ import config from "@/config";
  */
 export const GET: APIRoute = async () => {
   const base = config.site.url.replace(/\/$/, "");
+  const toCanonicalUrl = (path: string) => {
+    if (/^https?:\/\//.test(path)) return path;
+    const normalized = path.startsWith("/") ? path : `/${path}`;
+    return `${base}${normalized.endsWith("/") ? normalized : `${normalized}/`}`;
+  };
+  const absolutizeInternalLinks = (text: string) =>
+    text.replace(
+      /\]\((\/[^)\s#]+\/?)(#[^)]+)?\)/g,
+      (_match, path: string, fragment = "") =>
+        `](${toCanonicalUrl(path)}${fragment})`
+    );
   const work = getWork("en");
   const builds = getBuilds("en");
   const posts = getSortedPosts(await getCollection("posts"));
@@ -27,7 +38,9 @@ export const GET: APIRoute = async () => {
     "This is the complete public content of https://wenhaoyu-bryan.github.io, " +
       "assembled for AI answer engines. Wenhao is an AI Product Manager who builds " +
       "agentic workflows, ontology-driven systems, and AI-native product tools, and " +
-      "who took an enterprise agent platform from 0 to 1 as its product manager."
+      "who took an enterprise agent platform from 0 to 1 as its product manager. " +
+      "Core portfolio and methodology pages are available in English and Chinese; " +
+      "the Posts collection is currently English-only."
   );
   out.push("");
   out.push("=".repeat(72));
@@ -37,7 +50,7 @@ export const GET: APIRoute = async () => {
   out.push("## About");
   out.push("");
   if (about) {
-    out.push(about.body?.trim() ?? "");
+    out.push(absolutizeInternalLinks(about.body?.trim() ?? ""));
     out.push("");
   }
   out.push("=".repeat(72));
@@ -75,7 +88,7 @@ export const GET: APIRoute = async () => {
       "design (sandbox isolation, human-in-the-loop approval), grounded configuration, " +
       "and automation orchestration."
   );
-  out.push(`Full page: ${base}/ai-stack`);
+  out.push(`Full page: ${toCanonicalUrl("/ai-stack/")}`);
   out.push("");
   out.push("=".repeat(72));
   out.push("");
@@ -91,22 +104,22 @@ export const GET: APIRoute = async () => {
   );
   out.push(
     "2. Ontology-Driven AI Products — knowledge graphs and structured ontologies " +
-      `that make enterprise AI reliable. Proof: ${base}/projects/prompt-to-ontology.`
+      `that make enterprise AI reliable. Proof: ${toCanonicalUrl("/projects/prompt-to-ontology/")}`
   );
   out.push(
     "3. AI-Assisted Delivery — Harness Engineering, Loop Engineering, and Vibe " +
       "Coding: the systems through which PMs ship with coding agents. Details: " +
-      `${base}/playbook/harness-engineering, ${base}/playbook/loop-engineering, ` +
-      `${base}/playbook/vibe-coding. Proof: ${base}/posts/three-frameworks-ai-assisted-product-delivery, ${base}/playbook.`
+      `${toCanonicalUrl("/playbook/harness-engineering/")}, ${toCanonicalUrl("/playbook/loop-engineering/")}, ` +
+      `${toCanonicalUrl("/playbook/vibe-coding/")}. Proof: ${toCanonicalUrl("/posts/three-frameworks-ai-assisted-product-delivery/")}, ${toCanonicalUrl("/playbook/")}.`
   );
   out.push(
     "4. Industrial & B2B AI — enterprise adoption, industrial operations, and " +
-      `B2B product contexts. Proof: ${base}/work/enterprise-agent-platform.`
+      `B2B product contexts. Proof: ${toCanonicalUrl("/work/enterprise-agent-platform/")}`
   );
   out.push(
     "5. SEO/GEO Growth — how generative engines reshape organic growth: " +
       "experiments in machine-readable content, structured data, and " +
-      `answer-engine optimization. Proof: ${base}/growth-lab.`
+      `answer-engine optimization. Proof: ${toCanonicalUrl("/growth-lab/")}`
   );
   out.push("");
   out.push("=".repeat(72));
@@ -122,15 +135,18 @@ export const GET: APIRoute = async () => {
   );
   out.push("");
   out.push(
-    "Experiment 01 — this site as a GEO testbed. Hypothesis: a static site " +
-      "engineered for machine readability (clean metadata, structured data, and " +
-      "AI-readable content endpoints) gets read and cited more accurately by AI " +
-      "answer engines than a conventional blog. Built: llms.txt and llms-full.txt " +
-      "endpoints, satori-generated OG images, JSON-LD structured data (Person, " +
-      "WebSite, BlogPosting), and 'ask an AI about me' deep-links. Open questions: " +
-      "whether llms-full.txt changes citation accuracy, which structured-data " +
-      "types influence answer-engine citations, and how to write a product so " +
-      "humans and answer engines both understand it."
+    "Experiment 01 — this site as a GEO testbed. Status: instrumented and " +
+      "collecting a baseline. Hypothesis: a static site engineered for machine " +
+      "readability (clear metadata, structured data, and AI-readable content " +
+      "endpoints) may be easier for AI answer engines to read and cite accurately " +
+      "than a conventional blog; this is not yet a result. Built: llms.txt and " +
+      "llms-full.txt endpoints, satori-generated OG images, page-level JSON-LD " +
+      "structured data, an internal search index, and 'ask an AI about me' " +
+      "deep-links that attach the public source URL. Measurement protocol: for " +
+      "each dated check, record the query, engine, cited URL, citation context, " +
+      "factual accuracy, and next action. Open questions: whether llms-full.txt " +
+      "changes citation accuracy, which structured-data types influence citations, " +
+      "and how to write a product so humans and answer engines both understand it."
   );
   out.push("");
   out.push(
@@ -150,7 +166,7 @@ export const GET: APIRoute = async () => {
       "still live. No performance numbers are published here: the data belongs to " +
       "Leiga; this lab publishes numbers only when Wenhao owns them."
   );
-  out.push(`Full page: ${base}/growth-lab`);
+  out.push(`Full page: ${toCanonicalUrl("/growth-lab/")}`);
   out.push("");
   out.push("=".repeat(72));
   out.push("");
@@ -160,7 +176,7 @@ export const GET: APIRoute = async () => {
     out.push(`## ${heading}`);
     out.push("");
     for (const p of items) {
-      const url = p.external ? p.href : `${base}${p.href}`;
+      const url = toCanonicalUrl(p.href);
       out.push(`### ${p.title}`);
       out.push(`Status: ${p.status}`);
       out.push(`URL: ${url}`);
@@ -180,7 +196,7 @@ export const GET: APIRoute = async () => {
   out.push("## Posts");
   out.push("");
   for (const post of posts) {
-    const url = `${base}${getPostUrl(post.id, post.filePath, "en")}`;
+    const url = toCanonicalUrl(getPostUrl(post.id, post.filePath, "en"));
     out.push(`### ${post.data.title}`);
     out.push(
       `Published: ${new Date(post.data.pubDatetime).toISOString().slice(0, 10)}`
@@ -190,7 +206,7 @@ export const GET: APIRoute = async () => {
     out.push("");
     out.push(post.data.description);
     out.push("");
-    out.push((post.body ?? "").trim());
+    out.push(absolutizeInternalLinks((post.body ?? "").trim()));
     out.push("");
     out.push("-".repeat(72));
     out.push("");

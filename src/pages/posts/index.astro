@@ -48,15 +48,19 @@ const playbookItems = [
     label: "Prompt-to-Ontology",
     href: getRelativeLocaleUrl(locale, "playbook/prompt-to-ontology"),
   },
+  {
+    label: "SEO to GEO",
+    href: getRelativeLocaleUrl(locale, "playbook/seo-to-geo"),
+  },
 ];
 
 // Growth Lab status chip — derived from the experiment list so the count stays
-// in sync (mirrors the experiments in growth-lab.astro: 00 concluded, 01 running).
-const growthExperiments = [{ status: "Concluded" }, { status: "Running" }];
-const runningCount = growthExperiments.filter(
-  e => e.status === "Running"
+// in sync (00 concluded, 01 instrumented and collecting a baseline).
+const growthExperiments = [{ status: "Concluded" }, { status: "Instrumented" }];
+const activeCount = growthExperiments.filter(
+  e => e.status !== "Concluded"
 ).length;
-const growthChip = `${growthExperiments.length} experiments · ${runningCount} running`;
+const growthChip = `${growthExperiments.length} experiments · ${activeCount} active`;
 ---
 
 <Layout
@@ -68,7 +72,7 @@ const growthChip = `${growthExperiments.length} experiments · ${runningCount} r
   <Breadcrumb />
 
   <Main pageTitle="Thinking" class="max-w-3xl">
-    <p class="text-muted-foreground -mt-4 mb-8">
+    <p class="text-muted-foreground mt-2 mb-8">
       Where I think in public — an evergreen methodology playbook, a
       growth-experiment notebook, and essays and working notes.
     </p>

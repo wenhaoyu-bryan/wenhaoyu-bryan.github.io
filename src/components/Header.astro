@@ -8,6 +8,11 @@ import IconMoon from "@/assets/icons/IconMoon.svg";
 import IconX from "@/assets/icons/IconX.svg";
 import LinkButton from "./LinkButton.astro";
 import { stripBase, stripLocale } from "@/utils/withBase";
+import {
+  getLocaleFallbackPath,
+  isMirroredRoute,
+  normalizeRoutePath,
+} from "@/i18n/routes";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -28,11 +33,17 @@ const pathWithoutTrailingSlash =
     : relativePath;
 
 const currentPath = stripLocale(pathWithoutTrailingSlash, locale);
+const currentRoute = normalizeRoutePath(currentPath);
 
 const isZh = locale === "zh";
-const langSwitchHref = isZh
-  ? getRelativeLocaleUrl("en", currentPath === "/" ? "" : currentPath)
-  : getRelativeLocaleUrl("zh", currentPath === "/" ? "" : currentPath);
+const targetLocale = isZh ? "en" : "zh";
+const langSwitchPath = isMirroredRoute(currentRoute)
+  ? currentRoute
+  : getLocaleFallbackPath(currentRoute);
+const langSwitchHref = getRelativeLocaleUrl(
+  targetLocale,
+  langSwitchPath === "/" ? "" : langSwitchPath
+);
 const langSwitchLabel = isZh ? "EN" : "中文";
 
 const isActive = (path: string) => {

@@ -16,28 +16,41 @@ const { site } = config;
 const { title, description, ogImage, canonicalURL, pubDatetime, modDatetime } =
   Astro.props;
 
+const articleURL = canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href;
+const articleImage = ogImage ? new URL(ogImage, articleURL).href : undefined;
+
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
+  "@id": `${articleURL}#article`,
   headline: title ?? site.title,
-  image: ogImage,
+  ...(articleImage && { image: articleImage }),
+  ...(description && { description }),
+  url: articleURL,
+  inLanguage: "en",
+  mainEntityOfPage: { "@id": `${articleURL}#webpage` },
+  isPartOf: { "@id": `${site.url}#website` },
   ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
   ...(modDatetime && { dateModified: modDatetime.toISOString() }),
   author: [
     {
       "@type": "Person",
+      "@id": `${site.url}#person`,
       name: site.author,
       ...(site.profile && { url: site.profile }),
     },
   ],
+  publisher: {
+    "@type": "Person",
+    "@id": `${site.url}#person`,
+    name: site.author,
+    ...(site.profile && { url: site.profile }),
+  },
 };
 ---
 
-<Layout {title} {description} {ogImage} {canonicalURL}>
+<Layout {title} {description} {ogImage} {canonicalURL} ogType="article">
   <Fragment slot="head">
-    <!-- Override og:type for article pages -->
-    <meta property="og:type" content="article" />
-
     {
       pubDatetime && (
         <meta

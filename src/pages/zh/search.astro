@@ -23,12 +23,12 @@ const backUrl = config.features.showBackButton
 const pagefindBundlePath = getAssetPath("pagefind/");
 ---
 
-<Layout title={`搜索 — ${config.site.title}`}>
+<Layout title={`搜索 — ${config.site.title}`} noindex>
   <Header />
 
   <Breadcrumb />
 
-  <Main pageTitle="搜索" pageDesc="搜索文章...">
+  <Main pageTitle="搜索" pageDesc="搜索文章..." pagefind={false}>
     <div
       id="pagefind-search"
       transition:persist

@@ -12,6 +12,11 @@ import config from "@/config";
  */
 export const GET: APIRoute = async () => {
   const base = config.site.url.replace(/\/$/, "");
+  const toCanonicalUrl = (path: string) => {
+    if (/^https?:\/\//.test(path)) return path;
+    const normalized = path.startsWith("/") ? path : `/${path}`;
+    return `${base}${normalized.endsWith("/") ? normalized : `${normalized}/`}`;
+  };
   const work = getWork("en");
   const builds = getBuilds("en");
   const posts = getSortedPosts(await getCollection("posts"));
@@ -36,26 +41,39 @@ export const GET: APIRoute = async () => {
   lines.push("");
 
   lines.push("## Key Pages");
-  lines.push(`- [About](${base}/about): Who Wenhao is and how he works.`);
   lines.push(
-    `- [My AI Stack](${base}/ai-stack): How he orchestrates coding agents, chat models, and self-built tools, plus 0-to-1 agent platform product design and honest capability boundaries.`
+    `- [About](${toCanonicalUrl("/about/")}): Who Wenhao is and how he works.`
   );
   lines.push(
-    `- [Work](${base}/work): Professional roles — a current 0-to-1 enterprise agent platform and a concluded AI-SOP assistant case study at AB InBev.`
+    `- [My AI Stack](${toCanonicalUrl("/ai-stack/")}): How he orchestrates coding agents, chat models, and self-built tools, plus 0-to-1 agent platform product design and honest capability boundaries.`
   );
   lines.push(
-    `- [Projects](${base}/projects): Self-directed builds shipped in the open — ontology systems, interactive explainers, an AI PM toolkit, and growth experiments.`
+    `- [Work](${toCanonicalUrl("/work/")}): Professional roles — a current 0-to-1 enterprise agent platform and a concluded AI-SOP assistant case study at AB InBev.`
   );
   lines.push(
-    `- [Thinking](${base}/posts): The thinking hub — the AI PM Methodology section, the Growth Lab, and essays and working notes, in one place.`
+    `- [Projects](${toCanonicalUrl("/projects/")}): Self-directed builds shipped in the open — ontology systems, interactive explainers, an AI PM toolkit, and growth experiments.`
   );
   lines.push(
-    `- [Methodology](${base}/playbook): AI PM methodology — vibe coding, harness engineering, loop engineering, AI-native PRD, agent product design, ontology systems.`
+    `- [Thinking](${toCanonicalUrl("/posts/")}): The thinking hub — the AI PM Methodology section, the Growth Lab, and essays and working notes, in one place.`
   );
   lines.push(
-    `- [Growth Lab](${base}/growth-lab): A public lab notebook of SEO and GEO growth experiments, run in the open — with this site as Experiment 01.`
+    `- [Methodology](${toCanonicalUrl("/playbook/")}): AI PM methodology — vibe coding, harness engineering, loop engineering, AI-native PRD, agent product design, ontology systems.`
   );
-  lines.push(`- [Now](${base}/now): What Wenhao is focused on right now.`);
+  lines.push(
+    `- [Growth Lab](${toCanonicalUrl("/growth-lab/")}): A public lab notebook of SEO and GEO growth experiments, run in the open — with this site as Experiment 01.`
+  );
+  lines.push(
+    `- [Now](${toCanonicalUrl("/now/")}): What Wenhao is focused on right now.`
+  );
+  lines.push("");
+
+  lines.push("## Language Scope");
+  lines.push(
+    "- Core portfolio, work, project, and methodology pages are available in English and Chinese."
+  );
+  lines.push(
+    "- Posts are currently published in English; the Chinese Thinking hub links to those English originals."
+  );
   lines.push("");
 
   // Focus areas — mirrors the "What I Work On" pillars on the homepage.
@@ -64,29 +82,29 @@ export const GET: APIRoute = async () => {
     `- Agentic Workflows: Designing agent systems with tools, memory, and governance. Proof: Agent Anatomy (https://wenhaoyu-bryan.github.io/agent-anatomy/).`
   );
   lines.push(
-    `- Ontology-Driven AI Products: Knowledge graphs and structured ontologies that make enterprise AI reliable. Proof: ${base}/projects/prompt-to-ontology.`
+    `- Ontology-Driven AI Products: Knowledge graphs and structured ontologies that make enterprise AI reliable. Proof: ${toCanonicalUrl("/projects/prompt-to-ontology/")}`
   );
   lines.push(
-    `- AI-Assisted Delivery: Harness Engineering, Loop Engineering, and Vibe Coding — the systems through which PMs ship with coding agents. Proof: ${base}/posts/three-frameworks-ai-assisted-product-delivery, ${base}/playbook.`
+    `- AI-Assisted Delivery: Harness Engineering, Loop Engineering, and Vibe Coding — the systems through which PMs ship with coding agents. Proof: ${toCanonicalUrl("/posts/three-frameworks-ai-assisted-product-delivery/")}, ${toCanonicalUrl("/playbook/")}`
   );
   lines.push(
-    `- Industrial & B2B AI: Enterprise adoption, industrial operations, and B2B product contexts. Proof: ${base}/work/enterprise-agent-platform.`
+    `- Industrial & B2B AI: Enterprise adoption, industrial operations, and B2B product contexts. Proof: ${toCanonicalUrl("/work/enterprise-agent-platform/")}`
   );
   lines.push(
-    `- SEO/GEO Growth: How generative engines reshape organic growth — experiments in machine-readable content, structured data, and answer-engine optimization. Proof: ${base}/growth-lab.`
+    `- SEO/GEO Growth: How generative engines reshape organic growth — experiments in machine-readable content, structured data, and answer-engine optimization. Proof: ${toCanonicalUrl("/growth-lab/")}`
   );
   lines.push("");
 
   lines.push("## Work");
   for (const p of work) {
-    const url = p.external ? p.href : `${base}${p.href}`;
+    const url = toCanonicalUrl(p.href);
     lines.push(`- [${p.title}](${url}) — ${p.status}: ${p.description}`);
   }
   lines.push("");
 
   lines.push("## Projects");
   for (const p of builds) {
-    const url = p.external ? p.href : `${base}${p.href}`;
+    const url = toCanonicalUrl(p.href);
     const repo = p.repo ? ` Source: ${p.repo}` : "";
     lines.push(`- [${p.title}](${url}): ${p.description}${repo}`);
   }
@@ -94,7 +112,7 @@ export const GET: APIRoute = async () => {
 
   lines.push("## Posts");
   for (const post of posts) {
-    const url = `${base}${getPostUrl(post.id, post.filePath, "en")}`;
+    const url = toCanonicalUrl(getPostUrl(post.id, post.filePath, "en"));
     lines.push(`- [${post.data.title}](${url}): ${post.data.description}`);
   }
   lines.push("");

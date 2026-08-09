@@ -37,7 +37,10 @@ const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 ---
 
-<Layout title={`${t.pages.tagTitle}: ${tagName} — ${config.site.title}`}>
+<Layout
+  title={`${t.pages.tagTitle}: ${tagName} — ${config.site.title}`}
+  noindex
+>
   <Header />
 
   <Breadcrumb />
@@ -45,6 +48,7 @@ const t = useTranslations(locale);
   <Main
     pageTitle={`${t.pages.tagTitle}: ${tagName}`}
     pageDesc={`${t.pages.tagDesc} "${tagName}".`}
+    pagefind={false}
   >
     <ul>
       {page.data.map(data => <Card {...data} />)}

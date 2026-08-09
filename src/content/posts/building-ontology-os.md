@@ -1,5 +1,5 @@
 ---
-title: "Building Ontology OS: Reverse-Engineering Palantir AIP Through Vibe Coding"
+title: "Building Ontology OS: A Vibe-Coded AIP Exploration"
 author: "Wenhao Yu"
 pubDatetime: 2026-04-20T00:00:00Z
 modDatetime: 2026-04-20T00:00:00Z

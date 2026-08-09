@@ -43,8 +43,11 @@ export default defineConfig({
     mdx(),
     react(),
     sitemap({
-      filter: page =>
-        config.features?.showArchives !== false || !page.endsWith("/archives/"),
+      filter: page => {
+        const pathname = new URL(page).pathname;
+        const utilityPage = /^\/(?:zh\/)?(?:search|tags|archives)(?:\/|$)/;
+        return !utilityPage.test(pathname);
+      },
     }),
   ],
   i18n: {

@@ -104,9 +104,15 @@ const builds = getListedBuilds(locale);
 <Layout
   title={`${config.site.title} — AI 产品经理`}
   description="余文豪的 AI 产品经理个人网站，关注 Agent 工作流、本体驱动系统、Vibe Coding 和 SEO/GEO 增长。"
+  ogImage="/og/home.png"
 >
   <Header />
-  <main id="main-content" data-layout="index" class="app-layout">
+  <main
+    id="main-content"
+    data-layout="index"
+    data-pagefind-body
+    class="app-layout"
+  >
     <!-- Hero -->
     <section class="border-border border-b pt-8 pb-10 sm:pt-12 sm:pb-14">
       <div

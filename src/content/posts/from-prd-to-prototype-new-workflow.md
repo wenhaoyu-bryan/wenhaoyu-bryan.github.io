@@ -1,5 +1,5 @@
 ---
-title: "From PRD to Prototype: A New Workflow for AI Product Managers"
+title: "From PRD to Prototype: An AI PM Workflow"
 author: "Wenhao Yu"
 pubDatetime: 2026-04-15T00:00:00Z
 modDatetime: 2026-04-15T00:00:00Z
