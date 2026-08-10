@@ -165,14 +165,16 @@ const topics: Topic[] = [
       >
         <div class="max-w-2xl">
           <p
-            class="border-border text-muted-foreground mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium"
+            class="border-border text-muted-foreground mb-4 inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full border px-3 py-1 text-xs font-medium"
           >
             <span class="inline-block size-1.5 rounded-full bg-green-500"
             ></span>
-            Open to AI PM roles, collaborations, and early-stage ideas —
+            <span class="min-w-0"
+              >Open to AI PM roles &amp; collaborations —</span
+            >
             <a
               href="#contact"
-              class="text-foreground hover:text-accent underline decoration-dashed underline-offset-4"
+              class="text-foreground hover:text-accent shrink-0 whitespace-nowrap underline decoration-dashed underline-offset-4"
               >get in touch</a
             >
           </p>
@@ -213,19 +215,20 @@ const topics: Topic[] = [
           <p class="text-muted-foreground mt-4 text-sm">Start here →</p>
           <div class="mt-2 flex flex-wrap gap-3">
             <a
-              href={getRelativeLocaleUrl(locale, "projects")}
+              href={getRelativeLocaleUrl(
+                locale,
+                "work/enterprise-agent-platform"
+              )}
               class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
             >
-              View Projects
+              Read Current Work
               <IconArrowRight class="size-4" />
             </a>
             <a
-              href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={getRelativeLocaleUrl(locale, "projects")}
               class="text-muted-foreground hover:text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-colors"
             >
-              Open AI PM Operating Playbook ↗
+              See Selected Projects
             </a>
           </div>
         </div>

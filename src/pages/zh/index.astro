@@ -120,14 +120,14 @@ const builds = getListedBuilds(locale);
       >
         <div class="max-w-2xl">
           <p
-            class="border-border text-muted-foreground mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium"
+            class="border-border text-muted-foreground mb-4 inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full border px-3 py-1 text-xs font-medium"
           >
             <span class="inline-block size-1.5 rounded-full bg-green-500"
             ></span>
-            开放 AI PM 职位机会、产品合作与早期想法交流 —
+            <span class="min-w-0">开放 AI PM 职位机会与合作 —</span>
             <a
               href="#contact"
-              class="text-foreground hover:text-accent underline decoration-dashed underline-offset-4"
+              class="text-foreground hover:text-accent shrink-0 whitespace-nowrap underline decoration-dashed underline-offset-4"
               >联系我</a
             >
           </p>
@@ -165,19 +165,20 @@ const builds = getListedBuilds(locale);
           <p class="text-muted-foreground mt-4 text-sm">从这里开始 →</p>
           <div class="mt-2 flex flex-wrap gap-3">
             <a
-              href={getRelativeLocaleUrl(locale, "projects")}
+              href={getRelativeLocaleUrl(
+                locale,
+                "work/enterprise-agent-platform"
+              )}
               class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
             >
-              查看项目
+              查看当前工作
               <IconArrowRight class="size-4" />
             </a>
             <a
-              href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={getRelativeLocaleUrl(locale, "projects")}
               class="text-muted-foreground hover:text-foreground hover:bg-accent/10 inline-flex items-center gap-1.5 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-colors"
             >
-              打开 AI PM Operating Playbook ↗
+              查看精选项目
             </a>
           </div>
         </div>
