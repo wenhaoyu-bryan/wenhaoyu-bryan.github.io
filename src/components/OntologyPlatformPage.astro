@@ -16,12 +16,72 @@ const copy = zh
   ? {
       title: "本体平台",
       description:
-        "参与本体平台的产品设计与研发：业务概念、DDL 映射、语义建模与可审查的图谱应用。当前工作，探索中。",
+        "参与本体平台设计与研发：借助 Codex 推进数据接入、图谱探索、证据问答与会话恢复原型，并与算法同事协作探索 DDL 建模。",
       status: "当前工作 · TCL · 先进制造 · 探索中",
       intro:
-        "我参与产品设计与研发，探索如何将业务概念、数据库结构与图谱证据连接成可维护的语义层，为业务理解与 AI 应用提供共同的上下文。这里展示的是持续探索中的方法与设计取舍，而不是已经完整落地的平台能力清单。",
+        "我参与产品设计与研发，关注的不只是怎样生成一张图，而是让使用者走完一条可解释的路径：理解数据如何进入图谱，提出问题，检查回答依据，再回到具体的实体与关系。围绕这条路径，我借助 Codex 推进原型迭代、交互修复与工程边界核对。",
       roleTitle: "我的参与方式",
-      role: "我参与产品流程、语义工程能力适配与原型验证；与算法同事协作探索基于 DDL 的建模路径。我的关注点是让建模过程可理解、候选结果可审核，并把业务概念与数据映射的边界表达清楚。算法实现属于团队协作，不等同于我个人独立完成。",
+      role: "我从产品问题出发，拆解工作流、明确验收行为，再与 Codex 协作推进实现和验证。例如，我要求图谱跳转不能丢掉问答上下文，也要求界面和文档区分真实检索、模型解释与演示数据。基于 DDL 的建模由我与算法同事协作探索；这里呈现的是我的产品设计、原型推进和集成判断，不将团队算法归为个人独立成果。",
+      practiceTitle: "工作片段：把本体能力接成可用流程",
+      practiceIntro:
+        "以下片段来自实际的原型迭代与代码核对。使用合成数据验证交互和数据流，不展示内部数据、表结构或生产系统。",
+      workItems: [
+        {
+          title: "数据导入前，先让用户看清会发生什么",
+          status: "原型已有实现",
+          problem:
+            "直接把文件写入图谱，会把字段问题、映射问题和导入失败混在一起。",
+          action:
+            "我围绕预览、校验、导入与状态查看梳理接入流程，并用 Codex 核对实现与说明是否一致：预览阶段只解析和校验，不修改图谱；确认导入后才按映射生成节点与关系。",
+          result:
+            "形成了数据接入流程及其说明，明确本地快照保存图谱、模型与导入状态，用于原型恢复，而非宣称已接入生产级图数据库。",
+        },
+        {
+          title: "让每个回答都有可以追查的依据",
+          status: "原型已有实现",
+          problem:
+            "一段流畅的模型回答，并不能说明它依据了哪些实体、关系或来源。",
+          action:
+            "我把证据作为问答体验的一部分：图检索先组织实体、关系、路径和来源，汇成 Evidence Packet，再交给模型解释。界面同时提供证据查看和跳转到图谱的入口。",
+          result:
+            "原型能够把答案与图谱证据一起呈现；模型不可用时，回退到确定性图检索结果并明确提示，不把回退结果伪装成模型生成。",
+        },
+        {
+          title: "修复“看完图谱，回答却不见了”的体验断点",
+          status: "已完成交互回归验证",
+          problem:
+            "问答工作区切走后被卸载，返回时答案和已选中的证据视图丢失，演示流程被打断。",
+          action:
+            "我明确了“回答 → 查看图谱 → 返回问答”的验收路径，并借助 Codex 推进轻量会话恢复：保存完整回答、问题、证据页签与历史，而不只是保留一段文本。",
+          result:
+            "当时的回归验证覆盖了切换工作区、返回和刷新后的恢复。历史回答恢复时不重新请求模型；这是同一浏览器标签页内的会话能力，不是跨设备历史服务。",
+        },
+        {
+          title: "先核实接入边界，再决定下一步建设什么",
+          status: "已完成架构核对 · 后续能力分步验证",
+          problem:
+            "底层工具支持混合检索，并不意味着应用已经接入向量库；更换后端版本也不一定能无感升级。",
+          action:
+            "我用 Codex 对照适配层和运行链路，确认该轮原型的问答来自图检索与路径扩展，向量召回尚未接入；同时识别了适配层对底层私有接口的依赖。",
+          result:
+            "沉淀了当前能力说明与后续接入顺序：先验证原生读写与适配契约，再补充语义候选召回，并回到图谱核实事实。后端可持续升级是设计目标，不写成已实现的无缝能力。",
+        },
+      ],
+      labels: {
+        problem: "遇到的问题",
+        action: "我的推进",
+        result: "产物与验证边界",
+      },
+      evidenceTitle: "一个回答如何回到它的依据",
+      evidenceSteps: [
+        { label: "提出问题", note: "识别查询条件" },
+        { label: "图谱检索", note: "实体 · 关系 · 路径" },
+        { label: "Evidence Packet", note: "整理可追溯证据", emphasis: true },
+        { label: "回答与证据视图", note: "模型解释或明确回退" },
+        { label: "图谱定位与返回", note: "保留问答会话" },
+      ],
+      evidenceCaption:
+        "原型中的问答与证据查看路径；不是自主选择工具或自动修改本体的 Agent。",
       methodTitle: "从结构线索，到可审查的语义模型",
       steps: [
         { label: "业务概念 + DDL", note: "结构线索，不是语义定论" },
@@ -51,17 +111,85 @@ const copy = zh
       ],
       boundaryTitle: "当前边界",
       boundary:
-        "这是我正在参与和深入学习的方向。以上描述区分了设计目标与已验证能力，不宣称成熟生产部署或业务成效；不公开内部系统、数据结构或算法细节。它也不同于本站的个人 Prompt-to-Ontology 原型：这里讲的是团队中的产品设计与研发实践。",
+        "这些工作证明的是原型流程、交互恢复与接入边界的验证，不代表生产部署、业务收益或完整自动建模已经完成。DDL 建模、约束治理和混合检索仍需各自验证。这里的团队工作也与本站独立的 Prompt-to-Ontology 个人原型分开呈现。",
     }
   : {
       title: "Ontology Platform",
       description:
-        "Contributing to ontology platform product design and development: business concepts, DDL mapping, semantic modeling, and reviewable graph applications. Current work in progress.",
+        "Contributing to an ontology platform through Codex-assisted prototypes for data intake, graph exploration, evidence-backed Q&A, and session recovery, alongside collaborative DDL modeling.",
       status: "Current work · TCL · advanced manufacturing · in progress",
       intro:
-        "I contribute to product design and development of an ontology platform, exploring how business concepts, database structures, and graph evidence can form a maintainable semantic layer for people and AI applications. This page describes ongoing methods and design decisions, not a checklist of fully delivered capabilities.",
+        "I contribute to product design and development of an ontology platform. My focus goes beyond generating a graph: people need to understand how data enters it, ask questions, inspect the evidence, and navigate back to specific entities and relationships. I work with Codex on prototypes, interaction fixes, and integration checks along that path.",
       roleTitle: "My contribution",
-      role: "I participate in product workflows, semantic-engineering adaptations, and prototype validation, collaborating with algorithm colleagues on a DDL-based modeling path. My focus is making the modeling process understandable, candidate outputs reviewable, and the boundary between business concepts and data mappings explicit. Algorithm implementation is collaborative team work, not my independent contribution.",
+      role: "I frame product problems, break them into workflows and acceptance criteria, and collaborate with Codex on implementation and verification. For example, graph navigation must preserve the Q&A context, and the interface must distinguish retrieval evidence, model explanation, and demo data. DDL-based modeling is a collaboration with algorithm colleagues; my contribution here is product design, prototype iteration, and integration decisions, not sole ownership of the algorithms.",
+      practiceTitle:
+        "Work in practice: connecting capabilities into a usable flow",
+      practiceIntro:
+        "These examples come from prototype iterations and code-level checks. They use synthetic data to validate interactions and data flow, without exposing internal datasets, schemas, or production systems.",
+      workItems: [
+        {
+          title: "Make an import understandable before it changes the graph",
+          status: "Implemented in the prototype",
+          problem:
+            "Writing a file straight into a graph mixes field errors, mapping issues, and import failures into one opaque step.",
+          action:
+            "I worked through preview, validation, import, and status inspection, using Codex to reconcile the implementation with its documentation. Preview parses and validates without mutating the graph; confirmed import creates nodes and relationships through defined mappings.",
+          result:
+            "The resulting workflow and documentation distinguish local snapshots of graph, model, and import state from a production graph database. Snapshots support prototype recovery, not a claim of production persistence.",
+        },
+        {
+          title: "Give an answer evidence that people can inspect",
+          status: "Implemented in the prototype",
+          problem:
+            "A fluent answer does not explain which entities, relationships, or sources support it.",
+          action:
+            "I treated evidence as part of the Q&A experience: graph retrieval collects entities, relationships, paths, and sources into an Evidence Packet before a model explains them. The interface exposes the evidence and provides a route into the graph.",
+          result:
+            "The prototype presents answers alongside graph evidence. If the model is unavailable, it explicitly falls back to deterministic graph results instead of presenting fallback text as model output.",
+        },
+        {
+          title: "Fix the broken journey from answer to graph and back",
+          status: "Interaction regression verified",
+          problem:
+            "Leaving the Q&A workspace unmounted its state. Returning lost the answer and selected evidence view, interrupting the demonstration.",
+          action:
+            "I defined the acceptance journey—answer, inspect graph, return to Q&A—and worked with Codex on lightweight session recovery. The saved state includes the complete response, question, evidence tab, and history rather than just the answer text.",
+          result:
+            "Regression checks at that iteration covered workspace switching, return navigation, and refresh recovery. Restoring a historical answer does not request the model again. This is same-tab browser session behavior, not cross-device history.",
+        },
+        {
+          title: "Check the integration before choosing the next capability",
+          status: "Architecture checked · further capabilities need validation",
+          problem:
+            "A backend supporting hybrid retrieval does not mean the application uses a vector store, and upgrading it is not automatically seamless.",
+          action:
+            "With Codex, I traced the adapter and query path. That prototype used graph retrieval and path expansion without vector recall. The review also identified a dependency on a private backend interface.",
+          result:
+            "I documented the implemented boundary and a staged plan: validate native graph operations and adapter contracts, then add semantic candidates that are checked against graph facts. Sustainable backend upgrades remain a design goal, not an already-delivered guarantee.",
+        },
+      ],
+      labels: {
+        problem: "Problem",
+        action: "My contribution",
+        result: "Artifact and verification boundary",
+      },
+      evidenceTitle: "From an answer back to its evidence",
+      evidenceSteps: [
+        { label: "Question", note: "Identify query conditions" },
+        { label: "Graph retrieval", note: "Entities · relationships · paths" },
+        {
+          label: "Evidence Packet",
+          note: "Organize traceable evidence",
+          emphasis: true,
+        },
+        {
+          label: "Answer + evidence",
+          note: "Model explanation or explicit fallback",
+        },
+        { label: "Graph and return", note: "Preserve the Q&A session" },
+      ],
+      evidenceCaption:
+        "The prototype Q&A and evidence journey—not an agent autonomously selecting tools or modifying ontology assets.",
       methodTitle: "From structural clues to a reviewable semantic model",
       steps: [
         { label: "Business concepts + DDL", note: "Clues, not semantic truth" },
@@ -100,7 +228,7 @@ const copy = zh
       ],
       boundaryTitle: "Current boundaries",
       boundary:
-        "This is an area I am actively contributing to and learning more deeply. These methods distinguish design goals from validated capabilities; they do not claim production maturity or measured business outcomes. Internal systems, schemas, and algorithm details remain private. This work is separate from my personal Prompt-to-Ontology prototype: it represents collaborative product design and development.",
+        "This work validates prototype workflows, interaction recovery, and integration boundaries—not production deployment, business outcomes, or fully automated modeling. DDL modeling, constraint governance, and hybrid retrieval each need separate validation. This collaborative work is presented separately from my personal Prompt-to-Ontology prototype.",
     };
 ---
 
@@ -115,6 +243,48 @@ const copy = zh
     <p class="text-muted-foreground text-lg">{copy.intro}</p>
     <h2>{copy.roleTitle}</h2>
     <p>{copy.role}</p>
+    <h2>{copy.practiceTitle}</h2>
+    <p>{copy.practiceIntro}</p>
+    <div class="not-prose my-8 grid gap-6 sm:grid-cols-2">
+      {
+        copy.workItems.map(item => (
+          <section class="border-border rounded-lg border p-5 sm:p-6">
+            <p class="text-accent mb-3 text-xs">{item.status}</p>
+            <h3 class="mb-5 text-xl leading-snug font-semibold">
+              {item.title}
+            </h3>
+            <dl class="space-y-4 text-sm leading-relaxed">
+              <div>
+                <>
+                  <dt class="text-foreground mb-1 font-semibold">
+                    {copy.labels.problem}
+                  </dt>
+                  <dd class="text-muted-foreground">{item.problem}</dd>
+                </>
+              </div>
+              <div>
+                <>
+                  <dt class="text-foreground mb-1 font-semibold">
+                    {copy.labels.action}
+                  </dt>
+                  <dd class="text-muted-foreground">{item.action}</dd>
+                </>
+              </div>
+              <div>
+                <>
+                  <dt class="text-foreground mb-1 font-semibold">
+                    {copy.labels.result}
+                  </dt>
+                  <dd class="text-muted-foreground">{item.result}</dd>
+                </>
+              </div>
+            </dl>
+          </section>
+        ))
+      }
+    </div>
+    <h2>{copy.evidenceTitle}</h2>
+    <FlowDiagram steps={copy.evidenceSteps} caption={copy.evidenceCaption} />
     <h2>{copy.methodTitle}</h2>
     <FlowDiagram steps={copy.steps} caption={copy.caption} />
     {
