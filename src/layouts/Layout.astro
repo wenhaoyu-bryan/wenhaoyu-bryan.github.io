@@ -16,6 +16,7 @@ type Props = {
   ogImageAlt?: string;
   canonicalURL?: string;
   noindex?: boolean;
+  portfolio?: boolean;
 };
 
 const { site } = config;
@@ -28,6 +29,7 @@ const {
   ogImageAlt = title,
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
   noindex = false,
+  portfolio = false,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
@@ -114,8 +116,15 @@ const hreflangAlternates = isMirroredRoute(basePath)
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
-    <link rel="apple-touch-icon" href={getAssetPath("apple-touch-icon.png")} />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={`${getAssetPath("favicon.svg")}?v=wy-2`}
+    />
+    <link
+      rel="apple-touch-icon"
+      href={`${getAssetPath("apple-touch-icon.png")}?v=wy-2`}
+    />
     <link rel="manifest" href={getAssetPath("site.webmanifest")} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
@@ -202,12 +211,12 @@ const hreflangAlternates = isMirroredRoute(basePath)
          content value is ignored by browsers, so the media tags win pre-JS. -->
     <meta
       name="theme-color"
-      content="#fdfdfd"
+      content="#f8f9f6"
       media="(prefers-color-scheme: light)"
     />
     <meta
       name="theme-color"
-      content="#212737"
+      content="#182127"
       media="(prefers-color-scheme: dark)"
     />
     <meta id="theme-color" name="theme-color" content="" />
@@ -244,6 +253,7 @@ const hreflangAlternates = isMirroredRoute(basePath)
     <ClientRouter />
   </head>
   <body
+    data-portfolio={portfolio || undefined}
     class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"
   >
     <slot />

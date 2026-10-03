@@ -1,0 +1,134 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import FlowDiagram from "@/components/FlowDiagram.astro";
+import config from "@/config";
+
+interface Props {
+  locale: "en" | "zh";
+}
+const { locale } = Astro.props;
+const zh = locale === "zh";
+const copy = zh
+  ? {
+      title: "本体平台",
+      description:
+        "参与本体平台的产品设计与研发：业务概念、DDL 映射、语义建模与可审查的图谱应用。当前工作，探索中。",
+      status: "当前工作 · TCL · 先进制造 · 探索中",
+      intro:
+        "我参与产品设计与研发，探索如何将业务概念、数据库结构与图谱证据连接成可维护的语义层，为业务理解与 AI 应用提供共同的上下文。这里展示的是持续探索中的方法与设计取舍，而不是已经完整落地的平台能力清单。",
+      roleTitle: "我的参与方式",
+      role: "我参与产品流程、语义工程能力适配与原型验证；与算法同事协作探索基于 DDL 的建模路径。我的关注点是让建模过程可理解、候选结果可审核，并把业务概念与数据映射的边界表达清楚。算法实现属于团队协作，不等同于我个人独立完成。",
+      methodTitle: "从结构线索，到可审查的语义模型",
+      steps: [
+        { label: "业务概念 + DDL", note: "结构线索，不是语义定论" },
+        { label: "本体草案", note: "实体 · 关系 · 约束", emphasis: true },
+        { label: "数据映射", note: "概念与源数据的对应" },
+        { label: "校验与审核", note: "约束 · 差异 · 人工确认", emphasis: true },
+        { label: "应用验证", note: "图谱查询 · 证据追溯" },
+      ],
+      caption: "目标工作流示意：各环节分步验证，不表示全部已实现。",
+      sections: [
+        {
+          title: "DDL 是建模入口，不是业务本体",
+          body: "表、字段、主外键可以提供结构线索，但无法直接决定业务概念的含义。我们探索将这些线索转化为候选实体与关系，再结合业务语境审核；同时区分本体模型、数据映射与图谱实例，避免把数据库结构直接当作领域知识。",
+        },
+        {
+          title: "把语义工程能力接进产品流程",
+          body: "我关注如何将已有的抽取、图谱组织与查询能力适配到实际工作流：让模型草案与映射关系可见，让用户能够检查、修改和比较候选结果。工具具备某项能力，不代表平台已经完成集成或验证。",
+        },
+        {
+          title: "让生成结果保持可审核",
+          body: "设计上将本体草案与正式资产分开，探索约束校验、变更对比、人工确认和版本管理。自动生成的结果是待审核建议；发布与回退机制需要单独设计和验证。",
+        },
+        {
+          title: "图谱回答需要带着证据",
+          body: "在应用侧，我关注从图谱查询和关系路径组织证据，再由模型解释。查询与修改应保持权限边界；语义检索可以帮助发现候选，但不应替代对关系、来源和结构化事实的核对。",
+        },
+      ],
+      boundaryTitle: "当前边界",
+      boundary:
+        "这是我正在参与和深入学习的方向。以上描述区分了设计目标与已验证能力，不宣称成熟生产部署或业务成效；不公开内部系统、数据结构或算法细节。它也不同于本站的个人 Prompt-to-Ontology 原型：这里讲的是团队中的产品设计与研发实践。",
+    }
+  : {
+      title: "Ontology Platform",
+      description:
+        "Contributing to ontology platform product design and development: business concepts, DDL mapping, semantic modeling, and reviewable graph applications. Current work in progress.",
+      status: "Current work · TCL · advanced manufacturing · in progress",
+      intro:
+        "I contribute to product design and development of an ontology platform, exploring how business concepts, database structures, and graph evidence can form a maintainable semantic layer for people and AI applications. This page describes ongoing methods and design decisions, not a checklist of fully delivered capabilities.",
+      roleTitle: "My contribution",
+      role: "I participate in product workflows, semantic-engineering adaptations, and prototype validation, collaborating with algorithm colleagues on a DDL-based modeling path. My focus is making the modeling process understandable, candidate outputs reviewable, and the boundary between business concepts and data mappings explicit. Algorithm implementation is collaborative team work, not my independent contribution.",
+      methodTitle: "From structural clues to a reviewable semantic model",
+      steps: [
+        { label: "Business concepts + DDL", note: "Clues, not semantic truth" },
+        {
+          label: "Ontology draft",
+          note: "Entities · relations · constraints",
+          emphasis: true,
+        },
+        { label: "Data mappings", note: "Concepts to source data" },
+        {
+          label: "Validation & review",
+          note: "Constraints · diffs · human review",
+          emphasis: true,
+        },
+        { label: "Application validation", note: "Graph queries · provenance" },
+      ],
+      caption:
+        "Target workflow: each stage needs separate validation; this is not a claim that every stage is implemented.",
+      sections: [
+        {
+          title: "DDL is a starting point, not the business ontology",
+          body: "Tables, columns, and keys provide structural clues, but do not determine business meaning. We explore turning them into candidate entities and relationships for review in context, keeping ontology models, data mappings, and graph instances distinct.",
+        },
+        {
+          title: "Adapt semantic engineering into product workflows",
+          body: "I focus on adapting existing extraction, graph organization, and query capabilities to a usable workflow: making drafts and mappings visible so people can inspect, edit, and compare candidate outputs. A tool having a capability does not prove that the platform has integrated or validated it.",
+        },
+        {
+          title: "Keep generated outputs reviewable",
+          body: "The design separates ontology drafts from approved assets and explores constraint checks, change comparison, human approval, and versioning. Generated outputs remain proposals; publishing and rollback mechanisms need their own design and validation.",
+        },
+        {
+          title: "Graph answers need evidence",
+          body: "On the application side, I focus on organizing graph query results and relationship paths into evidence for a model to explain. Query and mutation permissions should stay separate. Semantic retrieval can suggest candidates, but does not replace checking relationships, sources, and structured facts.",
+        },
+      ],
+      boundaryTitle: "Current boundaries",
+      boundary:
+        "This is an area I am actively contributing to and learning more deeply. These methods distinguish design goals from validated capabilities; they do not claim production maturity or measured business outcomes. Internal systems, schemas, and algorithm details remain private. This work is separate from my personal Prompt-to-Ontology prototype: it represents collaborative product design and development.",
+    };
+---
+
+<Layout
+  title={`${copy.title} — ${config.site.title}`}
+  description={copy.description}
+>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle={copy.title} class="app-prose">
+    <p class="text-accent text-sm">{copy.status}</p>
+    <p class="text-muted-foreground text-lg">{copy.intro}</p>
+    <h2>{copy.roleTitle}</h2>
+    <p>{copy.role}</p>
+    <h2>{copy.methodTitle}</h2>
+    <FlowDiagram steps={copy.steps} caption={copy.caption} />
+    {
+      copy.sections.map(section => (
+        <section>
+          <>
+            <h3>{section.title}</h3>
+            <p>{section.body}</p>
+          </>
+        </section>
+      ))
+    }
+    <h2>{copy.boundaryTitle}</h2>
+    <p>{copy.boundary}</p>
+  </Main>
+  <Footer />
+</Layout>

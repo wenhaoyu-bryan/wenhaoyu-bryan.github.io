@@ -12,6 +12,7 @@ export const MIRRORED_ROUTES = [
   "/now/",
   "/work/",
   "/work/enterprise-agent-platform/",
+  "/work/ontology-platform/",
   "/work/ai-sop-assistant/",
   "/projects/",
   "/projects/prompt-to-ontology/",

@@ -77,25 +77,18 @@ const isThinkingActive =
       class="absolute inline-flex items-center gap-2 py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
       <svg
-        viewBox="0 0 128 128"
+        viewBox="0 0 64 64"
         aria-hidden="true"
         class="size-5 shrink-0 sm:size-6"
       >
-        <polyline
-          points="48,28 32,28 32,100 48,100"
+        <path
+          d="M12 18 21 42 32 24 43 42 52 18 M43 42 37 53"
           fill="none"
           stroke="currentColor"
-          stroke-width="11"
+          stroke-width="5.5"
           stroke-linecap="round"
-          stroke-linejoin="round"></polyline>
-        <polyline
-          points="80,28 96,28 96,100 80,100"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="11"
-          stroke-linecap="round"
-          stroke-linejoin="round"></polyline>
-        <circle cx="64" cy="64" r="14" class="fill-accent"></circle>
+          stroke-linejoin="round"></path>
+        <circle cx="32" cy="24" r="4.5" class="fill-accent"></circle>
       </svg>
       {site.title}
     </a>
@@ -156,7 +149,7 @@ const isThinkingActive =
             href={langSwitchHref}
             class="focus-outline hover:text-accent inline-flex size-8 items-center justify-center text-sm font-medium"
             title={langSwitchLabel}
-            aria-label={`Switch to ${langSwitchLabel}`}
+            aria-label={isZh ? "切换到英文" : "Switch to Chinese"}
           >
             {langSwitchLabel}
           </a>

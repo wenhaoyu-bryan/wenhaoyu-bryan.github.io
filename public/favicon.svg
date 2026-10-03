@@ -1,13 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wenhao Yu">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Wenhao Yu — WY connected monogram">
   <style>
-    .bracket { stroke: #282728; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; fill: none; }
-    .node    { fill: #006cac; }
+    .mark { stroke: #203832; }
+    .node { fill: #ac441f; }
     @media (prefers-color-scheme: dark) {
-      .bracket { stroke: #eaedf3; }
-      .node    { fill: #ff6b01; }
+      .mark { stroke: #f8f9f6; }
+      .node { fill: #ef956b; }
     }
   </style>
-  <polyline class="bracket" points="48,28 32,28 32,100 48,100"/>
-  <polyline class="bracket" points="80,28 96,28 96,100 80,100"/>
-  <circle class="node" cx="64" cy="64" r="14"/>
+  <path class="mark" d="M12 18 21 42 32 24 43 42 52 18 M43 42 37 53" fill="none" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="node" cx="32" cy="24" r="4.5"/>
 </svg>

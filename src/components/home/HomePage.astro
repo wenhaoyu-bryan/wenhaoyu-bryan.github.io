@@ -1,0 +1,425 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Bot,
+  Eye,
+  Wrench,
+  Network,
+  Factory,
+  Plus,
+} from "lucide-astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import ContactRow from "@/components/ContactRow.astro";
+import AskAI from "@/components/AskAI.astro";
+import SystemsMap from "./SystemsMap.astro";
+import { getWork, getListedBuilds } from "@/data/projects";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getPostUrl } from "@/utils/getPostPaths";
+import ontologyImage from "@/assets/projects/prompt-to-ontology/graph.png";
+import playbookImage from "@/assets/projects/ai-pm-operating-playbook/workbench.png";
+import "@/styles/home.css";
+interface Props {
+  locale: "en" | "zh";
+}
+const { locale } = Astro.props;
+const zh = locale === "zh";
+const url = (path: string) => getRelativeLocaleUrl(locale, path);
+const builds = getListedBuilds(locale);
+const ontology = builds.find(
+  project => project.title === "Prompt-to-Ontology"
+)!;
+const anatomy = builds.find(project => project.title === "Agent Anatomy")!;
+const playbook = builds.find(
+  project => project.title === "AI PM Operating Playbook"
+)!;
+const growth = builds.find(
+  project => project.title === "SEO/GEO Growth Experiments"
+)!;
+const work = getWork(locale);
+const posts = getSortedPosts(await getCollection("posts"))
+  .filter(({ data }) => !data.featured)
+  .slice(0, 3);
+const copy = zh
+  ? {
+      name: "余文豪",
+      role: "AI 产品经理",
+      headline: ["把模糊问题，", "变成 AI 系统。"],
+      intro:
+        "我关注智能体、知识系统与 AI 产品交付，把复杂业务问题变成可探索、可验证的产品。",
+      explore: "看我做过什么",
+      about: "认识我",
+      current: "目前在 TCL",
+      currentText:
+        "主导企业级 Agent 平台的产品设计，同时参与本体平台的设计与研发。",
+      currentLink: "查看当前工作",
+      workTitle: "想法，可以亲手探索。",
+      allProjects: "所有项目",
+      ontologyCategory: "知识系统 / 产品原型",
+      anatomyCategory: "交互式解释 / AI 系统",
+      playbookCategory: "产品方法论 / 交互工具",
+      growthTitle: "也在探索，产品如何被发现。",
+      growthLink: "进入 Growth Lab",
+      anatomyVisual: "Agent 的一次循环",
+      model: "模型",
+      tool: "工具",
+      observation: "观察",
+      anatomyNote: "把思考、行动与上下文的关系展开来看。",
+      backgroundTitle: ["产品的视角。", "构建者的实践。"],
+      backgroundIntro:
+        "从工业场景中的知识检索，到本体平台与企业级 Agent 平台，我关注知识如何被组织，以及 AI 如何进入真实的工作流程。",
+      aboutLink: "更多关于我",
+      workLink: "完整工作经历",
+      location: "Wenhao Yu / Bryan",
+      thinkingTitle: "构建之外，也记录思考。",
+      writingLink: "全部文章",
+      english: "英文文章",
+      writingIntro: "关于 AI 产品、系统设计，以及与编码智能体一起工作的实践。",
+      contactTitle: "聊聊你正在思考的 AI 产品。",
+      contactDescription:
+        "开放 AI 产品经理职位机会与合作。无论你正在组建团队、构建产品，还是想交流一个问题，都欢迎联系。",
+      ai: "也可以用 AI 了解我的经历",
+      now: "我现在在做什么",
+    }
+  : {
+      name: "Wenhao Yu",
+      role: "AI Product Manager",
+      headline: ["From ambiguity", "to AI systems."],
+      intro:
+        "I build across agents, knowledge systems, and product delivery, turning complex business problems into things you can explore and test.",
+      explore: "Explore my work",
+      about: "About me",
+      current: "Currently at TCL",
+      currentText:
+        "Leading agent platform product design and contributing to an ontology platform.",
+      currentLink: "Read current work",
+      workTitle: "Ideas you can explore.",
+      allProjects: "All projects",
+      ontologyCategory: "Knowledge systems / Prototype",
+      anatomyCategory: "Interactive essay / AI systems",
+      playbookCategory: "Product methodology / Interactive tools",
+      growthTitle: "And how does a product get discovered?",
+      growthLink: "Explore the Growth Lab",
+      anatomyVisual: "Inside the agent loop",
+      model: "Model",
+      tool: "Tool",
+      observation: "Observation",
+      anatomyNote: "Thought, action, and context. Open up the loop.",
+      backgroundTitle: ["A product lens.", "A builder’s practice."],
+      backgroundIntro:
+        "From industrial knowledge retrieval to ontology and enterprise agent platforms, I explore how knowledge is structured and AI becomes part of a real workflow.",
+      aboutLink: "More about me",
+      workLink: "All work",
+      location: "Wenhao Yu / Bryan",
+      thinkingTitle: "Thinking through the work.",
+      writingLink: "All writing",
+      english: "Essay",
+      writingIntro:
+        "Notes on AI products, system design, and working with coding agents.",
+      contactTitle: "Let’s talk AI products.",
+      contactDescription:
+        "I’m open to AI PM roles and collaborations. Get in touch if you’re building a team, working on a product, or thinking through an interesting problem.",
+      ai: "Ask an AI about my work",
+      now: "What I’m doing now",
+    };
+---
+
+<Layout
+  portfolio
+  title={zh ? "Wenhao Yu — AI 产品经理" : "Wenhao Yu — AI Product Manager"}
+  description={zh
+    ? "余文豪的 AI 产品经理个人网站，关注 Agent 工作流、本体驱动系统、AI 产品交付和 SEO/GEO 增长。"
+    : undefined}
+  ogImage="/og/home.png"
+>
+  <Header />
+  <main
+    id="main-content"
+    data-layout="index"
+    data-home-path={url("")}
+    data-pagefind-body
+    class="portfolio-main"
+    lang={locale}
+  >
+    <section class="portfolio-hero" aria-labelledby="home-name">
+      <div class="hero-copy">
+        <div class="hero-identity">
+          <img
+            src="/profile-avatar.jpg"
+            alt={copy.name}
+            width="52"
+            height="52"
+            loading="eager"
+          /><div>
+            <h1 id="home-name">{copy.name}</h1><span>{copy.role}</span>
+          </div>
+        </div>
+        <p class="hero-statement">
+          {copy.headline[0]}<br /><span>{copy.headline[1]}</span>
+        </p>
+        <p class="hero-intro">{copy.intro}</p>
+        <div class="hero-actions">
+          <a href="#selected-work" class="portfolio-button"
+            >{copy.explore}<ArrowRight size={18} aria-hidden="true" /></a
+          ><a href={url("about")} class="portfolio-text-link"
+            >{copy.about}<ArrowUpRight size={17} aria-hidden="true" /></a
+          >
+        </div>
+      </div>
+      <SystemsMap locale={locale} />
+    </section>
+    <aside class="current-work-strip" aria-label={copy.current}>
+      <span class="current-work-label"
+        ><span class="availability-dot" aria-hidden="true"></span>{
+          copy.current
+        }</span
+      ><p>{copy.currentText}</p><a
+        href={url("work")}
+        class="portfolio-text-link"
+        >{copy.currentLink}<ArrowUpRight size={17} aria-hidden="true" /></a
+      >
+    </aside>
+    <section
+      id="selected-work"
+      class="portfolio-section"
+      aria-labelledby="selected-work-heading"
+    >
+      <div class="portfolio-section-header">
+        <h2 id="selected-work-heading">{copy.workTitle}</h2><a
+          href={url("projects")}
+          class="portfolio-text-link"
+          >{copy.allProjects}<ArrowRight size={17} aria-hidden="true" /></a
+        >
+      </div>
+      <div class="project-showcase">
+        <a href={ontology.href} class="project-feature project-ontology">
+          <div class="project-media ontology-media">
+            <div class="ontology-media-heading">
+              <Network size={18} aria-hidden="true" /><span
+                >Prompt-to-Ontology</span
+              ><span class="media-caption"
+                >{zh ? "图谱探索" : "Graph explorer"}</span
+              >
+            </div><Image
+              src={ontologyImage}
+              alt={zh
+                ? "Prompt-to-Ontology 的实体关系图谱界面"
+                : "The entity and relationship graph in Prompt-to-Ontology"}
+              widths={[640, 960, 1440]}
+              sizes="(max-width: 767px) 100vw, 58vw"
+              loading="lazy"
+            />
+          </div>
+          <div class="project-feature-copy">
+            <span class="portfolio-meta">{copy.ontologyCategory}</span><div
+              class="project-title-row"
+            >
+              <h3>{ontology.title}</h3><ArrowUpRight
+                size={24}
+                aria-hidden="true"
+              />
+            </div><p>{ontology.description}</p>
+          </div>
+        </a>
+        <a href={anatomy.href} class="project-feature project-anatomy">
+          <div class="project-media anatomy-media">
+            <span class="anatomy-visual-title">{copy.anatomyVisual}</span><div
+              class="agent-loop"
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 380 250" fill="none"
+                ><path
+                  d="M190 40 C335 40 355 208 257 208 L124 208 C24 208 43 40 190 40Z"
+                  class="loop-path"></path><path
+                  d="M285 72 L289 87 L274 84 M188 208 L176 201 L176 215 M82 125 L84 111 L97 117"
+                  class="loop-arrows"></path></svg
+              ><span class="loop-node loop-model"
+                ><Bot size={24} strokeWidth={1.5} /><span>{copy.model}</span
+                ></span
+              ><span class="loop-node loop-tool"
+                ><Wrench size={22} strokeWidth={1.5} /><span>{copy.tool}</span
+                ></span
+              ><span class="loop-node loop-observation"
+                ><Eye size={22} strokeWidth={1.5} /><span
+                  >{copy.observation}</span
+                ></span
+              ><span class="loop-center"
+                >think<br /><strong>act</strong><br />observe</span
+              >
+            </div><p class="anatomy-visual-caption">{copy.anatomyNote}</p>
+          </div>
+          <div class="project-feature-copy">
+            <span class="portfolio-meta">{copy.anatomyCategory}</span><div
+              class="project-title-row"
+            >
+              <h3>{anatomy.title}</h3><ArrowUpRight
+                size={24}
+                aria-hidden="true"
+              />
+            </div><p>{anatomy.description}</p>
+          </div>
+        </a>
+        <a href={playbook.href} class="project-playbook"
+          ><div class="playbook-media">
+            <Image
+              src={playbookImage}
+              alt={zh
+                ? "AI PM Operating Playbook 的产品工作台"
+                : "The product workbench in AI PM Operating Playbook"}
+              widths={[640, 960, 1440]}
+              sizes="(max-width: 767px) 100vw, 55vw"
+              loading="lazy"
+            />
+          </div><div class="playbook-copy">
+            <span class="portfolio-meta">{copy.playbookCategory}</span><h3>
+              {playbook.title}
+            </h3><p>{playbook.description}</p><span class="project-open"
+              >{zh ? "打开工具集" : "Open the playbook"}<ArrowUpRight
+                size={20}
+                aria-hidden="true"
+              /></span
+            >
+          </div></a
+        >
+      </div>
+      <div class="growth-note">
+        <p>{copy.growthTitle}</p><a
+          href={growth.href}
+          class="portfolio-text-link"
+          >{copy.growthLink}<ArrowUpRight size={17} aria-hidden="true" /></a
+        >
+      </div>
+    </section>
+    <section
+      class="portfolio-section experience-section"
+      aria-labelledby="experience-heading"
+    >
+      <div class="experience-intro">
+        <h2 id="experience-heading">
+          {copy.backgroundTitle[0]}<br />{copy.backgroundTitle[1]}
+        </h2><p>{copy.backgroundIntro}</p><div class="portrait-composition">
+          <img
+            src="/profile-avatar.jpg"
+            alt={zh ? "余文豪在海边" : "Wenhao Yu by the coast"}
+            width="512"
+            height="512"
+            loading="lazy"
+          /><span>{copy.location}</span>
+        </div><a href={url("about")} class="portfolio-text-link"
+          >{copy.aboutLink}<ArrowUpRight size={17} aria-hidden="true" /></a
+        >
+      </div>
+      <div class="experience-list">
+        {
+          work.map(project => {
+            const Icon =
+              project.icon === "Network"
+                ? Network
+                : project.icon === "Bot"
+                  ? Bot
+                  : Factory;
+            return (
+              <article class="experience-item">
+                <>
+                  <div class="experience-marker">
+                    <Icon size={22} strokeWidth={1.5} aria-hidden="true" />
+                  </div>
+                  <div class="experience-item-copy">
+                    <>
+                      <span class="portfolio-meta">{project.ledger?.date}</span>
+                      <h3>{project.ledger?.heading ?? project.title}</h3>
+                      <p class="experience-context">
+                        {project.ledger?.context}
+                      </p>
+                      <p>{project.description}</p>
+                      <a href={project.href} class="portfolio-text-link">
+                        {zh ? "阅读案例" : "Read the case"}
+                        <ArrowUpRight size={17} aria-hidden="true" />
+                      </a>
+                    </>
+                  </div>
+                </>
+              </article>
+            );
+          })
+        }<a href={url("work")} class="portfolio-text-link experience-all"
+          >{copy.workLink}<ArrowRight size={17} aria-hidden="true" /></a
+        >
+      </div>
+    </section>
+    <section
+      class="portfolio-section writing-section"
+      aria-labelledby="writing-heading"
+    >
+      <div class="writing-intro">
+        <h2 id="writing-heading">{copy.thinkingTitle}</h2><p>
+          {copy.writingIntro}
+        </p><a href={url("posts")} class="portfolio-text-link"
+          >{copy.writingLink}<ArrowRight size={17} aria-hidden="true" /></a
+        >
+      </div>
+      <div class="writing-list">
+        {
+          posts.map(post => (
+            <a
+              href={getPostUrl(post.id, post.filePath, "en")}
+              class="writing-item"
+            >
+              <>
+                <div class="writing-meta">
+                  <>
+                    <time datetime={post.data.pubDatetime.toISOString()}>
+                      {new Intl.DateTimeFormat(zh ? "zh-CN" : "en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      }).format(post.data.pubDatetime)}
+                    </time>
+                    <span>{copy.english}</span>
+                  </>
+                </div>
+                <div class="writing-title-row">
+                  <>
+                    <h3 lang="en">{post.data.title}</h3>
+                    <ArrowUpRight size={21} aria-hidden="true" />
+                  </>
+                </div>
+              </>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+    <section
+      id="contact"
+      class="portfolio-contact"
+      aria-labelledby="contact-heading"
+    >
+      <div>
+        <h2 id="contact-heading">{copy.contactTitle}</h2><p>
+          {copy.contactDescription}
+        </p><ContactRow locale={locale} />
+      </div><div class="contact-aside">
+        <a href={url("now")} class="portfolio-text-link"
+          >{copy.now}<ArrowUpRight size={17} aria-hidden="true" /></a
+        ><details class="contact-ai">
+          <summary>{copy.ai}<Plus size={17} aria-hidden="true" /></summary
+          ><AskAI locale={locale} />
+        </details>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const home = document.querySelector<HTMLElement>(".portfolio-main");
+    if (home?.dataset.homePath)
+      sessionStorage.setItem("backUrl", home.dataset.homePath);
+  });
+</script>
