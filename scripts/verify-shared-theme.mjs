@@ -6,4 +6,4 @@ assert.ok(read("src/styles/theme.css").includes("#f8f9f6"), "shared light palett
 assert.ok(!read("src/styles/home.css").includes("--background:"), "homepage must not own a second palette");
 assert.ok(read("src/styles/global.css").includes('"./site-shell.css"'), "shared shell loaded on every page");
 assert.ok(read("src/styles/site-shell.css").includes("flex-wrap: nowrap"), "desktop navigation stays on one row");
-console.log("Shared theme regression checks passed");
+process.stdout.write("Shared theme regression checks passed\n");
