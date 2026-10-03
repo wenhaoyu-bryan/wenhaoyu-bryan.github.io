@@ -1,0 +1,200 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import {
+  Network,
+  Bot,
+  ShieldCheck,
+  Workflow,
+  ArrowUpRight,
+} from "lucide-astro";
+interface Props {
+  locale: "en" | "zh";
+}
+const { locale } = Astro.props;
+const zh = locale === "zh";
+const nodes = [
+  {
+    id: "knowledge",
+    Icon: Network,
+    label: zh ? "本体系统" : "Ontology systems",
+    hint: zh ? "让问题可建模" : "Make it legible",
+    title: zh ? "先让复杂的问题有结构。" : "Give complex problems a structure.",
+    description: zh
+      ? "参与本体平台设计：从业务概念与 DDL 梳理实体、关系和映射，探索草案校验、人工审核与可追溯的图谱问答。"
+      : "Contributing to an ontology platform: connecting business concepts and DDL with entities, relationships, and mappings, then exploring review workflows and evidence-backed graph Q&A.",
+    link: zh ? "本体平台 · 当前工作" : "Ontology platform · Current work",
+    href: getRelativeLocaleUrl(locale, "work/ontology-platform"),
+  },
+  {
+    id: "agents",
+    Icon: Bot,
+    label: zh ? "智能体工作流" : "Agent workflows",
+    hint: zh ? "把能力连成行动" : "Connect thought to action",
+    title: zh ? "看懂智能体如何运转。" : "Open up the agent loop.",
+    description: zh
+      ? "把模型、工具和上下文之间的关系变成可探索的视觉解释，回放一次真实的 Agent 运行。"
+      : "Explore the relationship between models, tools, and context through an interactive replay of an agent run.",
+    link: "Agent Anatomy",
+    href: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
+  },
+  {
+    id: "governance",
+    Icon: ShieldCheck,
+    label: zh ? "评估与治理" : "Governance",
+    hint: zh ? "让运行有边界" : "Build in the boundaries",
+    title: zh ? "把治理放进产品设计。" : "Design for accountable execution.",
+    description: zh
+      ? "在企业级 Agent 平台中，将沙箱、审批门和可审计运行纳入工作流设计。"
+      : "Bring sandboxing, approval gates, and audited runs into the design of an enterprise agent platform.",
+    link: zh ? "企业级 Agent 平台" : "Enterprise Agent Platform",
+    href: getRelativeLocaleUrl(locale, "work/enterprise-agent-platform"),
+  },
+  {
+    id: "delivery",
+    Icon: Workflow,
+    label: zh ? "原型与交付" : "Product delivery",
+    hint: zh ? "让想法可以验证" : "Make the idea testable",
+    title: zh
+      ? "把想法推进到可验证的原型。"
+      : "Take the idea into a working prototype.",
+    description: zh
+      ? "将模糊需求转化为产品简报、工作流规格、评估计划，以及编码智能体可以接手的交付材料。"
+      : "Translate ambiguous ideas into product briefs, workflow specifications, evaluation plans, and coding-agent handoffs.",
+    link: zh ? "AI 产品方法论" : "AI product playbook",
+    href: getRelativeLocaleUrl(locale, "playbook"),
+  },
+];
+---
+
+<figure class="systems-map" data-systems-map data-selected="knowledge">
+  <div class="map-caption">
+    <span>{zh ? "我的产品视角" : "My product lens"}</span><span
+      class="map-caption-hint"
+      >{zh ? "点击节点探索" : "Select a node to explore"}</span
+    >
+  </div>
+  <div
+    class="map-canvas"
+    role="group"
+    aria-label={zh
+      ? "探索 AI 产品系统的四个方面"
+      : "Explore four aspects of an AI product system"}
+  >
+    <svg
+      class="map-connections"
+      viewBox="0 0 560 380"
+      fill="none"
+      aria-hidden="true"
+    >
+      <defs
+        ><pattern
+          id="map-dots"
+          width="24"
+          height="24"
+          patternUnits="userSpaceOnUse"
+          ><circle cx="1" cy="1" r="0.8" fill="currentColor"></circle></pattern
+        ></defs
+      >
+      <rect width="560" height="380" fill="url(#map-dots)" class="map-grid"
+      ></rect>
+      <path
+        d="M145 95 C230 95 230 190 280 190"
+        class="map-edge"
+        data-edge="knowledge"></path>
+      <path
+        d="M415 95 C330 95 330 190 280 190"
+        class="map-edge"
+        data-edge="agents"></path>
+      <path
+        d="M145 285 C230 285 230 190 280 190"
+        class="map-edge"
+        data-edge="delivery"></path>
+      <path
+        d="M415 285 C330 285 330 190 280 190"
+        class="map-edge"
+        data-edge="governance"></path>
+      <path
+        d="M145 95 C145 20 415 20 415 95 M415 285 C415 360 145 360 145 285"
+        class="map-feedback"></path>
+      <circle cx="280" cy="190" r="54" class="map-core-ring"></circle><circle
+        cx="280"
+        cy="190"
+        r="42"
+        class="map-core"></circle>
+      <g transform="translate(248 157)">
+        <path
+          d="M12 18 21 42 32 24 43 42 52 18 M43 42 37 53"
+          stroke="currentColor"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <circle cx="32" cy="24" r="4.5" class="map-core-dot"></circle>
+      </g>
+    </svg>
+    {
+      nodes.map(({ id, Icon, label, hint }, i) => (
+        <button
+          type="button"
+          class={`map-node map-node-${id}`}
+          data-map-node={id}
+          aria-pressed={i === 0 ? "true" : "false"}
+          aria-controls={`map-detail-${id}`}
+        >
+          <>
+            <Icon size={21} strokeWidth={1.5} aria-hidden="true" />
+            <span class="map-node-label">{label}</span>
+            <span class="map-node-hint">{hint}</span>
+          </>
+        </button>
+      ))
+    }
+    <span class="map-center-label">{zh ? "AI 产品" : "AI PRODUCT"}</span>
+  </div>
+  <figcaption class="map-details" aria-live="polite">
+    {
+      nodes.map((node, i) => (
+        <div
+          id={`map-detail-${node.id}`}
+          data-map-panel={node.id}
+          hidden={i !== 0}
+        >
+          <>
+            <p class="map-detail-title">{node.title}</p>
+            <p class="map-detail-description">{node.description}</p>
+            <a href={node.href} class="map-detail-link">
+              {node.link}
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </>
+        </div>
+      ))
+    }
+  </figcaption>
+</figure>
+<script>
+  function initializeMaps() {
+    document
+      .querySelectorAll<HTMLElement>("[data-systems-map]")
+      .forEach(map => {
+        if (map.dataset.bound) return;
+        map.dataset.bound = "true";
+        const buttons =
+          map.querySelectorAll<HTMLButtonElement>("[data-map-node]");
+        const panels = map.querySelectorAll<HTMLElement>("[data-map-panel]");
+        buttons.forEach(button =>
+          button.addEventListener("click", () => {
+            const selected = button.dataset.mapNode;
+            map.dataset.selected = selected;
+            buttons.forEach(node =>
+              node.setAttribute("aria-pressed", String(node === button))
+            );
+            panels.forEach(panel => {
+              panel.hidden = panel.dataset.mapPanel !== selected;
+            });
+          })
+        );
+      });
+  }
+  initializeMaps();
+  document.addEventListener("astro:page-load", initializeMaps);
+</script>

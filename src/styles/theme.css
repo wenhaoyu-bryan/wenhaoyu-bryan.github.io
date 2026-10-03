@@ -7,30 +7,38 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-app: var(--font-google-sans-code);
+  --font-app:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 
 /* Light theme values */
 :root,
 [data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
-  --accent-foreground: #ffffff;
-  --muted: #e6e6e6;
-  --muted-foreground: #6b7280;
-  --border: #ece9e9;
+  --background: #f8f9f6;
+  --foreground: #202a29;
+  --accent: #ac441f;
+  --accent-foreground: #fffaf6;
+  --muted: #e6eae4;
+  --muted-foreground: #626b68;
+  --border: #d9dfd8;
+  --home-surface: #eef1ea;
+  --home-card: #fcfcf9;
+  --home-soft-accent: #f4e9df;
+  --home-diagram: #536962;
 }
 
 /* Dark theme values */
 [data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  /* Dark ink on the bright orange accent: white failed WCAG AA (2.85:1);
-     this warm near-black clears it (~6.5:1). Light theme keeps white on blue. */
-  --accent-foreground: #241a0f;
-  --muted: #343f60;
-  --muted-foreground: #afb9ca;
-  --border: #ab4b08;
+  --background: #182127;
+  --foreground: #ebefea;
+  --accent: #f5a675;
+  --accent-foreground: #202621;
+  --muted: #29353b;
+  --muted-foreground: #aab8b8;
+  --border: #35434a;
+  --home-surface: #202c32;
+  --home-card: #233138;
+  --home-soft-accent: #3c322d;
+  --home-diagram: #a0bbb2;
 }

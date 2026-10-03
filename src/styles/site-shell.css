@@ -1,0 +1,111 @@
+/* Shared across every route, including after Astro client navigation. */
+body {
+  -webkit-font-smoothing: antialiased;
+}
+body > header.app-layout,
+body > footer.app-layout {
+  width: min(100% - 80px, 1200px);
+  max-width: 1200px;
+  padding-inline: 0;
+}
+body > header > div {
+  align-items: center;
+  min-height: 84px;
+  padding-block: 20px;
+  gap: 24px;
+}
+body > header > div > a {
+  position: static;
+  flex-shrink: 0;
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+#nav-menu {
+  width: auto;
+  margin: 0;
+  min-width: 0;
+}
+#menu-items {
+  font-size: 14px;
+}
+#menu-items a {
+  transition: color 150ms;
+}
+body > footer {
+  font-size: 13px;
+}
+body > main.app-layout,
+body > nav.app-layout {
+  width: min(100% - 80px, 960px);
+  max-width: 960px;
+  padding-inline: 0;
+}
+.app-prose {
+  line-height: 1.8;
+}
+.app-prose h3 {
+  font-style: normal;
+}
+.app-prose code,
+.app-prose pre {
+  font-family: var(--font-google-sans-code), monospace;
+}
+@media (min-width: 768px) {
+  #menu-items {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: clamp(12px, 2vw, 28px);
+    width: auto;
+    margin: 0;
+  }
+  #menu-items > li {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    height: 36px;
+  }
+  #menu-items > li > a {
+    padding: 4px 0;
+    white-space: nowrap;
+  }
+  #menu-btn {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  body > header.app-layout,
+  body > footer.app-layout,
+  body > main.app-layout,
+  body > nav.app-layout {
+    width: calc(100% - 40px);
+  }
+  body > header > div {
+    min-height: 72px;
+    align-items: flex-start;
+  }
+  body > header > div > a {
+    margin-block: 6px;
+  }
+  #nav-menu {
+    flex-direction: column;
+  }
+  #menu-btn {
+    display: block;
+  }
+  #menu-items {
+    width: auto;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  #menu-items.hidden {
+    display: none;
+  }
+  #menu-items.grid {
+    display: grid;
+  }
+  #menu-items > li > a {
+    padding: 8px;
+  }
+}

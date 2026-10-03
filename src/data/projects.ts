@@ -126,6 +126,34 @@ const defs: ProjectDef[] = [
     },
   },
   {
+    title: "Ontology Platform",
+    icon: "Network",
+    kind: "work",
+    status: "Current Work",
+    path: "work/ontology-platform",
+    ledger: {
+      date: { en: "Current · in progress", zh: "当前 · 探索中" },
+      heading: {
+        en: "Ontology Platform — Product Design & Development",
+        zh: "本体平台 — 参与产品设计与研发",
+      },
+      context: { en: "TCL · advanced manufacturing", zh: "TCL · 先进制造" },
+      tech: {
+        en: "semantic modeling · DDL mapping · graph evidence · human review",
+        zh: "语义建模 · DDL 映射 · 图谱证据 · 人工审核",
+      },
+      cta: { en: "Explore the methodology →", zh: "了解设计方法 →" },
+    },
+    description: {
+      en: "I contribute to product design and development of an ontology platform, connecting business concepts, data structures, and graph evidence. Alongside algorithm colleagues exploring DDL-based modeling, I work on semantic-engineering adaptations and workflows for draft review and validation. Ongoing work; methodology only.",
+      zh: "参与本体平台的产品设计与研发，连接业务概念、数据结构与图谱证据。与算法同事协作探索基于 DDL 的建模，推进语义工程能力的适配，以及本体草案的审核与校验流程。当前仍在探索中，仅展示方法论。",
+    },
+    tags: {
+      en: ["Ontology", "Semantic Modeling", "DDL", "Graph Evidence"],
+      zh: ["本体平台", "语义建模", "DDL", "图谱证据"],
+    },
+  },
+  {
     title: "AI-SOP Assistant at AB InBev (0 → 1)",
     icon: "Factory",
     kind: "work",

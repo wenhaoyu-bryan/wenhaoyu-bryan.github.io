@@ -85,6 +85,42 @@ components:
 
 ## Overview
 
+### Site-wide visual system — 2026-10-03
+
+The user now requests the approved homepage identity on every route. This
+supersedes the legacy palette, monospace-only typography and homepage-only
+exception below. `theme.css` owns the single shared light/dark palette;
+`site-shell.css` owns shared navigation and reading layout. Dark uses #182127,
+#ebefea, #a0bbb2 and #f5a675; light uses #f8f9f6, #202a29, #536962 and #ac441f.
+Use system sans for reading and navigation, monospace for code and metadata.
+Header/footer share the 1200px homepage shell; inner reading content is bounded
+at 960px. Desktop navigation stays in one row; below 768px use the menu button.
+Keep theme persistence, bilingual navigation, and transparent WY favicon.
+
+### Homepage visual redesign (local review)
+
+The user approved a visual overhaul of the homepage on 2026-10-02, using an
+interactive product-systems map and real public-project imagery. The homepage
+opts in through `Layout`'s `portfolio` prop. These rules supersede the legacy
+typography, width, palette, and section-layout rules for `/` and `/zh/` only.
+Inner pages continue to use the existing system.
+
+- System sans-serif for display and reading; Google Sans Code for metadata.
+- A 1200px composition with a split hero, a selectable systems diagram,
+  visual project cases, professional experience, writing, and contact.
+- Warm orange accents and green-gray diagram lines in both light and dark
+  modes. Existing theme persistence and the theme toggle stay active.
+- Actual public demo screenshots and meaningful diagrams supply the visuals.
+  Professional work remains within the existing fact-lock boundaries.
+- Cards use 12px corners, the hero diagram 16px, and buttons 8px.
+- Brief entrance and hover motion, with a reduced-motion fallback.
+- Implementation lives in `src/components/home/` and `src/styles/home.css`.
+  Global visual overrides are scoped to `body[data-portfolio]`.
+- Both locales share the homepage component. Projects and professional work
+  still come from `src/data/projects.ts`, and writing from the collection.
+
+### Existing inner-page system
+
 Wenhao Yu's personal site (wenhaoyu-bryan.github.io) is an AI PM portfolio and
 knowledge hub built with the **AstroPaper** theme on Astro + Tailwind v4. The
 design is **professional minimalism with a code-native edge** — a single Google
