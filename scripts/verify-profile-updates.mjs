@@ -28,6 +28,9 @@ test("ontology case study is bilingual and clear about contribution and status",
     const breadcrumb = html.match(/<nav[^>]*aria-label="breadcrumb"[\s\S]*?<\/nav>/)?.[0] ?? "";
     assert.ok(breadcrumb.includes(prefix ? "本体平台" : "Ontology Platform"), "localized ontology breadcrumb");
     assert.ok(html.includes("DDL"));
+    for (const marker of ["Codex", "Evidence Packet", prefix ? "工作片段" : "Work in practice", prefix ? "合成数据" : "synthetic data"]) {
+      assert.ok(html.includes(marker), `ontology evidence: ${marker}`);
+    }
     assert.ok(html.includes(prefix ? "参与产品设计与研发" : "contribute to product design and development"));
     assert.ok(html.includes(prefix ? "探索中" : "in progress"));
     assert.ok(!/semantica/i.test(html));

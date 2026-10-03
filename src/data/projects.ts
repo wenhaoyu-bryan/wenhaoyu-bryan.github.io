@@ -142,11 +142,11 @@ const defs: ProjectDef[] = [
         en: "semantic modeling · DDL mapping · graph evidence · human review",
         zh: "语义建模 · DDL 映射 · 图谱证据 · 人工审核",
       },
-      cta: { en: "Explore the methodology →", zh: "了解设计方法 →" },
+      cta: { en: "Explore the work →", zh: "查看工作实践 →" },
     },
     description: {
-      en: "I contribute to product design and development of an ontology platform, connecting business concepts, data structures, and graph evidence. Alongside algorithm colleagues exploring DDL-based modeling, I work on semantic-engineering adaptations and workflows for draft review and validation. Ongoing work; methodology only.",
-      zh: "参与本体平台的产品设计与研发，连接业务概念、数据结构与图谱证据。与算法同事协作探索基于 DDL 的建模，推进语义工程能力的适配，以及本体草案的审核与校验流程。当前仍在探索中，仅展示方法论。",
+      en: "I contribute to an ontology platform through Codex-assisted prototypes: preview and validate data before graph import, inspect answers alongside evidence paths, and preserve Q&A context across graph navigation. I also collaborate with algorithm colleagues on DDL-based modeling. Prototype validation, not a production-outcome claim.",
+      zh: "参与本体平台设计与研发，借助 Codex 推进数据预览与校验、图谱导入、带证据路径的问答，以及跨工作区的问答会话恢复；同时与算法同事协作探索 DDL 建模。展示原型验证与工程取舍，不将其等同于生产成果。",
     },
     tags: {
       en: ["Ontology", "Semantic Modeling", "DDL", "Graph Evidence"],
