@@ -1,0 +1,186 @@
+---
+import { Play, Pause } from "lucide-astro";
+interface Props {
+  kind: "ontology" | "agent" | "playbook";
+  locale: "en" | "zh";
+}
+const { kind, locale } = Astro.props;
+const zh = locale === "zh";
+const labels = {
+  ontology: {
+    title: "RELATION ATLAS",
+    caption: zh ? "让概念彼此连接。" : "Give concepts a connection.",
+    parts: zh
+      ? ["概念", "实体", "关系", "来源"]
+      : ["Concept", "Entity", "Relation", "Source"],
+  },
+  agent: {
+    title: "INSIDE THE LOOP",
+    caption: zh
+      ? "每次行动，都带回新的上下文。"
+      : "Every action brings new context.",
+    parts: zh
+      ? ["思考", "行动", "观察", "上下文"]
+      : ["Think", "Act", "Observe", "Context"],
+  },
+  playbook: {
+    title: "FROM QUESTION TO BRIEF",
+    caption: zh
+      ? "把一个想法，整理成可以接手的工作。"
+      : "Turn an idea into work someone can pick up.",
+    parts: zh
+      ? ["问题", "产品简报", "工作流", "评估计划"]
+      : ["Question", "Brief", "Workflow", "Evaluation"],
+  },
+}[kind];
+---
+
+<atelier-motion
+  class={`motion-cover cover-${kind}`}
+  data-project-cover={kind}
+  data-play-label={zh
+    ? `播放${labels.title}封面演示`
+    : `Play ${labels.title} cover demonstration`}
+  data-pause-label={zh
+    ? `暂停${labels.title}封面演示`
+    : `Pause ${labels.title} cover demonstration`}
+  data-stage="3"
+  data-zh={String(zh)}
+>
+  <div class="cover-top">
+    <span>{labels.title}</span><button
+      hidden
+      data-motion-controls
+      data-playback
+      type="button"
+      aria-label={zh
+        ? `播放${labels.title}封面演示`
+        : `Play ${labels.title} cover demonstration`}
+      ><Play class="play-icon" size={16} /><Pause
+        class="pause-icon"
+        size={16}
+      /></button
+    >
+  </div>
+  <div class="cover-art" aria-hidden="true">
+    {
+      kind === "ontology" && (
+        <svg viewBox="0 0 540 240" fill="none">
+          <>
+            <g class="cover-grid">
+              <path d="M80 110 L180 65 L275 119 L387 54 L460 117 L379 197 L275 119 L174 192 L80 110 M180 65 L174 192 M387 54 L379 197" />
+            </g>
+            <path
+              class="cover-trace"
+              pathLength="100"
+              d="M80 110 L180 65 L275 119 L379 197 L460 117"
+            />
+            <g class="cover-dots">
+              {[
+                [80, 110],
+                [180, 65],
+                [275, 119],
+                [387, 54],
+                [460, 117],
+                [379, 197],
+                [174, 192],
+              ].map(([x, y], i) => (
+                <g class={`cover-dot dot-${i}`}>
+                  <circle cx={x} cy={y} r={i === 2 ? 23 : 10} />
+                  {i === 2 && <path d="M267 119 H283 M275 111 V127" />}
+                </g>
+              ))}
+            </g>
+            <g class="cover-svg-label">
+              <>
+                <text x="69" y="86">
+                  {labels.parts[0]}
+                </text>
+                <text x="166" y="42">
+                  {labels.parts[1]}
+                </text>
+                <text x="298" y="163">
+                  {labels.parts[2]}
+                </text>
+                <text x="360" y="227">
+                  {labels.parts[3]}
+                </text>
+              </>
+            </g>
+          </>
+        </svg>
+      )
+    }
+    {
+      kind === "agent" && (
+        <div class="cover-loop">
+          <>
+            <svg viewBox="0 0 420 220" fill="none">
+              <>
+                <path
+                  class="cover-grid"
+                  d="M210 45 C355 45 373 177 289 177 H132 C46 177 67 45 210 45Z"
+                />
+                <path
+                  class="cover-trace"
+                  pathLength="100"
+                  d="M210 45 C355 45 373 177 289 177 H132 C46 177 67 45 210 45Z"
+                />
+              </>
+            </svg>
+            <span class="cover-loop-node think">{labels.parts[0]}</span>
+            <span class="cover-loop-node act">{labels.parts[1]}</span>
+            <span class="cover-loop-node observe">{labels.parts[2]}</span>
+            <span class="cover-loop-center">↻</span>
+            <div class="cover-context">
+              <>
+                <span>{labels.parts[3]}</span>
+                <div>
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <i style={`--i:${i}`} />
+                  ))}
+                </div>
+              </>
+            </div>
+          </>
+        </div>
+      )
+    }
+    {
+      kind === "playbook" && (
+        <div class="cover-brief">
+          <>
+            <div class="brief-question">
+              <>
+                <span>?</span>
+                <small>{labels.parts[0]}</small>
+              </>
+            </div>
+            <div class="brief-connector">→</div>
+            <div class="brief-stack">
+              {labels.parts.slice(1).map((label, i) => (
+                <div class={`brief-sheet sheet-${i}`}>
+                  <span>
+                    0{i + 1} / {label}
+                  </span>
+                  <i />
+                  <i />
+                  <i />
+                  <b>↗</b>
+                </div>
+              ))}
+            </div>
+          </>
+        </div>
+      )
+    }
+  </div>
+  <div class="cover-bottom">
+    <span>{labels.caption}</span><span class="cover-concept"
+      >{zh ? "交互示意" : "Interactive study"}</span
+    >
+  </div>
+</atelier-motion>
+<script>
+  import "./atelier-motion";
+</script>
