@@ -2,21 +2,32 @@ const THEME_KEY = "theme";
 const LIGHT = "light";
 const DARK = "dark";
 
+function readPreference(): string | null {
+  try {
+    const stored = localStorage.getItem(THEME_KEY);
+    return stored === LIGHT || stored === DARK ? stored : null;
+  } catch {
+    return null;
+  }
+}
+let preference = readPreference();
 function getPreferredTheme(): string {
-  const stored = localStorage.getItem(THEME_KEY);
-  if (stored) return stored;
+  if (preference) return preference;
   return window.matchMedia("(prefers-color-scheme: dark)").matches
     ? DARK
     : LIGHT;
 }
 
-// Reuse the value already set by the inline FOUC-prevention script if available.
-let themeValue: string =
-  (window as unknown as { __theme?: { value: string } }).__theme?.value ??
-  getPreferredTheme();
+// Resolve with the same validated preference rules as the inline pre-paint script.
+let themeValue = getPreferredTheme();
 
 function persist(): void {
-  localStorage.setItem(THEME_KEY, themeValue);
+  preference = themeValue;
+  try {
+    localStorage.setItem(THEME_KEY, themeValue);
+  } catch {
+    /* Theme switching still works when browser storage is unavailable. */
+  }
   reflect();
 }
 
@@ -46,6 +57,10 @@ document.addEventListener("astro:after-swap", setup);
 // Carry the theme-color value across View Transitions to prevent the
 // Android navigation bar from flashing during page transitions.
 document.addEventListener("astro:before-swap", event => {
+  (event as { newDocument: Document }).newDocument.documentElement.setAttribute(
+    "data-theme",
+    themeValue
+  );
   const color = document
     .querySelector("meta#theme-color")
     ?.getAttribute("content");
@@ -60,6 +75,7 @@ document.addEventListener("astro:before-swap", event => {
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", ({ matches }) => {
+    if (preference) return;
     themeValue = matches ? DARK : LIGHT;
-    persist();
+    reflect();
   });

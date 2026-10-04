@@ -1,0 +1,10 @@
+---
+import { getEntry } from "astro:content";
+import PostPage from "@/pages/posts/[...slug]/index.astro";
+const post = await getEntry("posts", "building-ontology-os");
+const translation = await getEntry("pages", "building-ontology-os-zh");
+if (!post || !translation)
+  throw new Error("Missing ontology essay or translation");
+---
+
+<PostPage {post} {translation} prevPost={null} nextPost={null} />

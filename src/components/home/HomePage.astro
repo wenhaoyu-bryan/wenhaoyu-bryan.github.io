@@ -1,13 +1,10 @@
 ---
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import {
   ArrowRight,
   ArrowUpRight,
   Bot,
-  Eye,
-  Wrench,
   Network,
   Factory,
   Plus,
@@ -17,18 +14,23 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import ContactRow from "@/components/ContactRow.astro";
 import AskAI from "@/components/AskAI.astro";
-import SystemsMap from "./SystemsMap.astro";
+import SystemsAtelier from "./SystemsAtelier.astro";
+import ProjectCover from "./ProjectCover.astro";
 import { getWork, getListedBuilds } from "@/data/projects";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
-import ontologyImage from "@/assets/projects/prompt-to-ontology/graph.png";
-import playbookImage from "@/assets/projects/ai-pm-operating-playbook/workbench.png";
 import "@/styles/home.css";
+import "@/styles/atelier.css";
 interface Props {
   locale: "en" | "zh";
 }
 const { locale } = Astro.props;
 const zh = locale === "zh";
+const ontologyEssay = zh
+  ? await getEntry("pages", "building-ontology-os-zh")
+  : undefined;
+const translatedEssay = (id: string) =>
+  id === "building-ontology-os" ? ontologyEssay : undefined;
 const url = (path: string) => getRelativeLocaleUrl(locale, path);
 const builds = getListedBuilds(locale);
 const ontology = builds.find(
@@ -171,7 +173,7 @@ const copy = zh
           >
         </div>
       </div>
-      <SystemsMap locale={locale} />
+      <SystemsAtelier locale={locale} />
     </section>
     <aside class="current-work-strip" aria-label={copy.current}>
       <span class="current-work-label"
@@ -197,25 +199,9 @@ const copy = zh
         >
       </div>
       <div class="project-showcase">
-        <a href={ontology.href} class="project-feature project-ontology">
-          <div class="project-media ontology-media">
-            <div class="ontology-media-heading">
-              <Network size={18} aria-hidden="true" /><span
-                >Prompt-to-Ontology</span
-              ><span class="media-caption"
-                >{zh ? "图谱探索" : "Graph explorer"}</span
-              >
-            </div><Image
-              src={ontologyImage}
-              alt={zh
-                ? "Prompt-to-Ontology 的实体关系图谱界面"
-                : "The entity and relationship graph in Prompt-to-Ontology"}
-              widths={[640, 960, 1440]}
-              sizes="(max-width: 767px) 100vw, 58vw"
-              loading="lazy"
-            />
-          </div>
-          <div class="project-feature-copy">
+        <article class="project-feature project-ontology">
+          <ProjectCover kind="ontology" locale={locale} />
+          <a href={ontology.href} class="project-feature-copy">
             <span class="portfolio-meta">{copy.ontologyCategory}</span><div
               class="project-title-row"
             >
@@ -224,36 +210,11 @@ const copy = zh
                 aria-hidden="true"
               />
             </div><p>{ontology.description}</p>
-          </div>
-        </a>
-        <a href={anatomy.href} class="project-feature project-anatomy">
-          <div class="project-media anatomy-media">
-            <span class="anatomy-visual-title">{copy.anatomyVisual}</span><div
-              class="agent-loop"
-              aria-hidden="true"
-            >
-              <svg viewBox="0 0 380 250" fill="none"
-                ><path
-                  d="M190 40 C335 40 355 208 257 208 L124 208 C24 208 43 40 190 40Z"
-                  class="loop-path"></path><path
-                  d="M285 72 L289 87 L274 84 M188 208 L176 201 L176 215 M82 125 L84 111 L97 117"
-                  class="loop-arrows"></path></svg
-              ><span class="loop-node loop-model"
-                ><Bot size={24} strokeWidth={1.5} /><span>{copy.model}</span
-                ></span
-              ><span class="loop-node loop-tool"
-                ><Wrench size={22} strokeWidth={1.5} /><span>{copy.tool}</span
-                ></span
-              ><span class="loop-node loop-observation"
-                ><Eye size={22} strokeWidth={1.5} /><span
-                  >{copy.observation}</span
-                ></span
-              ><span class="loop-center"
-                >think<br /><strong>act</strong><br />observe</span
-              >
-            </div><p class="anatomy-visual-caption">{copy.anatomyNote}</p>
-          </div>
-          <div class="project-feature-copy">
+          </a>
+        </article>
+        <article class="project-feature project-anatomy">
+          <ProjectCover kind="agent" locale={locale} />
+          <a href={anatomy.href} class="project-feature-copy">
             <span class="portfolio-meta">{copy.anatomyCategory}</span><div
               class="project-title-row"
             >
@@ -262,20 +223,13 @@ const copy = zh
                 aria-hidden="true"
               />
             </div><p>{anatomy.description}</p>
-          </div>
-        </a>
-        <a href={playbook.href} class="project-playbook"
-          ><div class="playbook-media">
-            <Image
-              src={playbookImage}
-              alt={zh
-                ? "AI PM Operating Playbook 的产品工作台"
-                : "The product workbench in AI PM Operating Playbook"}
-              widths={[640, 960, 1440]}
-              sizes="(max-width: 767px) 100vw, 55vw"
-              loading="lazy"
-            />
-          </div><div class="playbook-copy">
+          </a>
+        </article>
+        <article class="project-playbook">
+          <ProjectCover kind="playbook" locale={locale} /><a
+            href={playbook.href}
+            class="playbook-copy"
+          >
             <span class="portfolio-meta">{copy.playbookCategory}</span><h3>
               {playbook.title}
             </h3><p>{playbook.description}</p><span class="project-open"
@@ -284,8 +238,8 @@ const copy = zh
                 aria-hidden="true"
               /></span
             >
-          </div></a
-        >
+          </a>
+        </article>
       </div>
       <div class="growth-note">
         <p>{copy.growthTitle}</p><a
@@ -367,7 +321,11 @@ const copy = zh
         {
           posts.map(post => (
             <a
-              href={getPostUrl(post.id, post.filePath, "en")}
+              href={getPostUrl(
+                post.id,
+                post.filePath,
+                translatedEssay(post.id) ? "zh" : "en"
+              )}
               class="writing-item"
             >
               <>
@@ -380,12 +338,16 @@ const copy = zh
                         year: "numeric",
                       }).format(post.data.pubDatetime)}
                     </time>
-                    <span>{copy.english}</span>
+                    <span>
+                      {translatedEssay(post.id) ? "中文" : copy.english}
+                    </span>
                   </>
                 </div>
                 <div class="writing-title-row">
                   <>
-                    <h3 lang="en">{post.data.title}</h3>
+                    <h3 lang={translatedEssay(post.id) ? "zh-CN" : "en"}>
+                      {translatedEssay(post.id)?.data.title ?? post.data.title}
+                    </h3>
                     <ArrowUpRight size={21} aria-hidden="true" />
                   </>
                 </div>

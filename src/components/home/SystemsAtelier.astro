@@ -1,0 +1,249 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { ArrowUpRight, Pause, Play, RotateCcw } from "lucide-astro";
+interface Props {
+  locale: "en" | "zh";
+}
+const { locale } = Astro.props;
+const zh = locale === "zh";
+const lenses = [
+  {
+    id: "ontology",
+    label: zh ? "本体系统" : "Ontology systems",
+    title: zh ? "先让问题有结构。" : "Give the problem a structure.",
+    note: zh
+      ? "把零散线索组织成实体、关系与可追溯的来源。"
+      : "Organize scattered clues into entities, relationships and sources.",
+    path: "work/ontology-platform",
+  },
+  {
+    id: "agent",
+    label: zh ? "Agent" : "Agent",
+    title: zh ? "让结构参与行动。" : "Put that structure to work.",
+    note: zh
+      ? "沿着思考、工具与观察的循环，展开一次行动。"
+      : "Follow a cycle of thought, tools and observation.",
+    path: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
+  },
+  {
+    id: "delivery",
+    label: zh ? "交付" : "Delivery",
+    title: zh ? "把想法变成可验证的产物。" : "Make the idea testable.",
+    note: zh
+      ? "从问题到原型，再用反馈定义下一次迭代。"
+      : "Move from a question to a prototype, then use feedback to iterate.",
+    path: "playbook",
+  },
+  {
+    id: "governance",
+    label: zh ? "治理" : "Governance",
+    title: zh ? "让结果有据可查。" : "Make the result accountable.",
+    note: zh
+      ? "在行动路径中保留审核点、来源与运行边界。"
+      : "Keep review gates, sources and boundaries in the execution path.",
+    path: "work/enterprise-agent-platform",
+  },
+];
+const steps = zh
+  ? ["发现线索", "建立关系", "连接行动", "核验结果"]
+  : ["Find clues", "Map relations", "Connect actions", "Check evidence"];
+---
+
+<atelier-motion
+  class="atelier"
+  data-atelier-hero
+  data-stage="3"
+  data-lens="ontology"
+  data-zh={String(zh)}
+>
+  <div class="atelier-heading">
+    <span class="atelier-wordmark">SYSTEMS ATELIER <span> / WY</span></span
+    ><span class="atelier-demo"
+      >{zh ? "概念演示" : "Concept demonstration"}</span
+    >
+  </div>
+  <div class="atelier-intro">
+    <p>
+      {zh ? "一个问题，如何成为系统？" : "How does a question become a system?"}
+    </p><span aria-hidden="true">↘</span>
+  </div>
+  <div
+    class="atelier-drawing"
+    role="img"
+    aria-label={zh
+      ? "需求、文档与数据线索汇入关系图谱，经工具与审核节点，形成带来源的结果。"
+      : "Requirements, documents and data become a graph, move through tools and review, and produce an evidence-backed result."}
+  >
+    <svg viewBox="0 0 620 365" fill="none" aria-hidden="true">
+      <defs
+        ><pattern
+          id={`atelier-grid-${locale}`}
+          width="24"
+          height="24"
+          patternUnits="userSpaceOnUse"
+          ><circle cx="1" cy="1" r=".8" fill="currentColor" opacity=".18"
+          ></circle></pattern
+        ></defs
+      >
+      <rect width="620" height="365" fill={`url(#atelier-grid-${locale})`}
+      ></rect>
+      <g class="atelier-orbits"
+        ><ellipse cx="353" cy="184" rx="163" ry="133"></ellipse><ellipse
+          cx="353"
+          cy="184"
+          rx="126"
+          ry="98"></ellipse></g
+      >
+      <g class="atelier-wires stage-relations"
+        ><path
+          d="M137 92 C196 92 176 137 245 137 M155 185 H214 L245 137 M143 279 C206 279 204 236 250 236 M245 137 L250 236 L341 187 Z M245 137 L343 91 L341 187 M250 236 L344 291 L341 187"
+        ></path></g
+      >
+      <g class="atelier-wires stage-action"
+        ><path d="M343 91 L447 135 L341 187 L446 235 L344 291 M447 135 L446 235"
+        ></path></g
+      >
+      <g class="atelier-wires stage-result"
+        ><path d="M446 235 L526 185 L447 135"></path></g
+      >
+      <path
+        class="atelier-signal stage-action"
+        pathLength="100"
+        d="M155 185 H214 L245 137 L341 187 L447 135 L526 185 L446 235 L341 187 L250 236"
+      ></path>
+      <g class="atelier-paper paper-a"
+        ><rect x="29" y="62" width="108" height="59" rx="7"></rect><text
+          x="43"
+          y="85">{zh ? "一个需求" : "A QUESTION"}</text
+        ><path d="M43 100 H100 M43 107 H78"></path></g
+      >
+      <g class="atelier-paper paper-b"
+        ><rect x="47" y="155" width="108" height="59" rx="7"></rect><text
+          x="61"
+          y="178">{zh ? "一份文档" : "A DOCUMENT"}</text
+        ><path d="M61 193 H129 M61 200 H101"></path></g
+      >
+      <g class="atelier-paper paper-c"
+        ><rect x="35" y="249" width="108" height="59" rx="7"></rect><text
+          x="49"
+          y="272">{zh ? "一些数据" : "SOME DATA"}</text
+        ><path d="M49 287 H120 M49 294 H83"></path></g
+      >
+      <g class="atelier-graph stage-relations"
+        ><circle cx="245" cy="137" r="9"></circle><circle
+          cx="250"
+          cy="236"
+          r="7"></circle><circle cx="343" cy="91" r="6"></circle><circle
+          cx="344"
+          cy="291"
+          r="6"></circle><text x="225" y="116">{zh ? "实体" : "ENTITY"}</text
+        ><text x="239" y="263">{zh ? "来源" : "SOURCE"}</text></g
+      >
+      <g class="atelier-core stage-relations"
+        ><circle cx="341" cy="187" r="36"></circle><circle
+          cx="341"
+          cy="187"
+          r="28"></circle><path d="M324 175 L334 199 L342 182 L351 199 L360 175"
+        ></path><circle class="core-dot" cx="342" cy="175" r="3"></circle></g
+      >
+      <g class="atelier-tool stage-action"
+        ><rect x="426" y="114" width="42" height="42" rx="10"></rect><path
+          d="M436 135 H458 M447 124 V146"></path><text x="427" y="100"
+          >{zh ? "工具" : "TOOL"}</text
+        ></g
+      >
+      <g class="atelier-gate stage-action"
+        ><rect x="425" y="214" width="42" height="42" rx="10"></rect><path
+          d="M436 235 L443 242 L457 228"></path><text x="420" y="280"
+          >{zh ? "审核点" : "REVIEW"}</text
+        ></g
+      >
+      <g class="atelier-output stage-result"
+        ><rect x="502" y="161" width="48" height="48" rx="24"></rect><path
+          d="M515 186 L523 193 L537 177"></path><text x="507" y="235"
+          >{zh ? "结果" : "RESULT"}</text
+        ></g
+      >
+      <text class="atelier-drawing-label" x="28" y="342"
+        >{
+          zh
+            ? "线索 → 结构 → 行动 → 证据"
+            : "CLUES → STRUCTURE → ACTION → EVIDENCE"
+        }</text
+      >
+    </svg>
+  </div>
+  <div class="atelier-transport" data-motion-controls hidden>
+    <div
+      class="atelier-steps"
+      role="group"
+      aria-label={zh ? "演示步骤" : "Demonstration steps"}
+    >
+      {
+        steps.map((step, index) => (
+          <button type="button" data-step={index} aria-pressed={index === 3}>
+            <span>0{index + 1}</span>
+            {step}
+          </button>
+        ))
+      }
+    </div>
+    <div class="atelier-play-controls">
+      <button
+        type="button"
+        data-playback
+        aria-label={zh ? "播放演示" : "Play demonstration"}
+        ><Play class="play-icon" size={16} /><Pause
+          class="pause-icon"
+          size={16}
+        /></button
+      ><button
+        type="button"
+        data-replay
+        aria-label={zh ? "重播演示" : "Replay demonstration"}
+        ><RotateCcw size={16} /></button
+      >
+    </div>
+  </div>
+  <div
+    class="atelier-lenses"
+    data-motion-controls
+    hidden
+    role="group"
+    aria-label={zh ? "选择系统视角" : "Choose a system lens"}
+  >
+    {
+      lenses.map((lens, i) => (
+        <button type="button" data-lens-button={lens.id} aria-pressed={i === 0}>
+          {lens.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="atelier-details">
+    {
+      lenses.map((lens, i) => (
+        <div data-lens-detail={lens.id} hidden={i !== 0}>
+          <>
+            <a
+              href={
+                lens.path.startsWith("https:")
+                  ? lens.path
+                  : getRelativeLocaleUrl(locale, lens.path)
+              }
+            >
+              <>
+                <strong>{lens.title}</strong>
+                <ArrowUpRight size={18} />
+              </>
+            </a>
+            <p>{lens.note}</p>
+          </>
+        </div>
+      ))
+    }
+  </div>
+</atelier-motion>
+<script>
+  import "./atelier-motion";
+</script>

@@ -4,6 +4,7 @@ description: "About Wenhao Yu — how an AI Product Manager turns ambiguous busi
 ---
 
 import config from "@/config";
+import ToolStack from "@/components/ToolStack.astro";
 
 export const linkedin = config.socials.find(s => s.name === "linkedin")?.url;
 
@@ -15,7 +16,7 @@ Most of my work starts with ambiguity: a vague business need, a half-formed AI i
 
 This site is where I keep the public side of that work: notes on AI product management, ontology-driven systems, AI-assisted delivery (vibe coding), and growth experiments.
 
-Prefer the 60-second version? [There's a one-page introduction →](/AI-PM-Manifesto/)
+Prefer the 60-second version? <a href="https://wenhaoyu-bryan.github.io/AI-PM-Manifesto/" data-astro-reload>There's a one-page introduction ↗</a>
 
 ## What This Site Is
 
@@ -66,7 +67,7 @@ Outside the work itself, I like tools, long walks, good notebooks, and occasiona
 
 ## Tool Stack
 
-Claude Code, Cursor, Astro, Tailwind, React, FastAPI, Neo4j, NetworkX, WordPress, GitHub Pages, SEO/GEO research tools
+<ToolStack />
 
 Curious how these fit together day to day — which model does what, and where the edges are? See [My AI Stack](/ai-stack).
 

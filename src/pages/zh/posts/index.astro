@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -11,8 +11,10 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
 import config from "@/config";
 
-// Posts (essays), newest first — the shelf lists them all. Blog posts are
-// en-only, so every post link points at the en route.
+// Prefer authored Chinese translations; label remaining English essays.
+const ontologyEssay = await getEntry("pages", "building-ontology-os-zh");
+const translatedEssay = (id: string) =>
+  id === "building-ontology-os" ? ontologyEssay : undefined;
 const posts = getSortedPosts(
   await getCollection("posts", ({ data }) => !data.draft)
 );
@@ -137,17 +139,22 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
     <section class="mt-10">
       <h2 class="text-xl font-semibold">文章</h2>
       <p class="text-muted-foreground mt-1 text-sm">
-        关于 AI 产品管理的随笔与工作笔记（英文）。
+        关于 AI 产品管理的随笔与工作笔记；尚无译文的文章标注为英文。
       </p>
       <ul class="mt-4 space-y-2">
         {
           posts.map(post => (
-            <li class="flex items-baseline justify-between gap-3">
+            <li class="flex flex-wrap items-baseline justify-between gap-3">
               <a
-                href={getPostUrl(post.id, post.filePath, "en")}
+                href={getPostUrl(
+                  post.id,
+                  post.filePath,
+                  translatedEssay(post.id) ? "zh" : "en"
+                )}
                 class="text-accent text-sm hover:underline"
               >
-                {post.data.title}
+                {translatedEssay(post.id)?.data.title ??
+                  `${post.data.title}（英文）`}
               </a>
               <Datetime
                 pubDatetime={post.data.pubDatetime}

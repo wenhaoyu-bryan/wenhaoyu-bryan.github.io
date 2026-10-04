@@ -47,6 +47,43 @@ body > nav.app-layout {
 .app-prose h3 {
   font-style: normal;
 }
+body > .app-layout.post-reading {
+  width: min(100% - 80px, 960px);
+  max-width: 960px;
+  padding-inline: 0;
+}
+.post-reading .post-title {
+  color: var(--foreground);
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  margin: 0 0 18px;
+}
+.post-reading .post-meta {
+  color: var(--muted-foreground);
+}
+.post-language {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: 14px;
+}
+.post-language:hover {
+  text-decoration: underline;
+}
+.post-description {
+  color: var(--muted-foreground);
+  font-size: 18px;
+  line-height: 1.7;
+  margin-top: 24px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.post-reading #article {
+  max-width: none;
+}
 .app-prose code,
 .app-prose pre {
   font-family: var(--font-google-sans-code), monospace;
@@ -75,6 +112,9 @@ body > nav.app-layout {
   }
 }
 @media (max-width: 767px) {
+  body > .app-layout.post-reading {
+    width: calc(100% - 40px);
+  }
   body > header.app-layout,
   body > footer.app-layout,
   body > main.app-layout,

@@ -1,0 +1,606 @@
+/* Systems Atelier: meaningful motion on the homepage only. */
+.atelier,
+.motion-cover {
+  display: block;
+  min-width: 0;
+  color: var(--foreground);
+  background: var(--home-surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  --scene-progress: 1;
+}
+.atelier [hidden],
+.motion-cover [hidden] {
+  display: none !important;
+}
+.atelier-heading,
+.atelier-intro,
+.cover-top,
+.cover-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.atelier-heading {
+  padding: 22px 24px 0;
+}
+.atelier-wordmark,
+.atelier-demo,
+.atelier-drawing-label,
+.cover-top,
+.cover-concept,
+.cover-context,
+.brief-sheet > span {
+  font-family: var(--font-google-sans-code), monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+.atelier-wordmark {
+  color: var(--home-diagram);
+}
+.atelier-wordmark > span {
+  opacity: 0.55;
+}
+.atelier-demo {
+  font-size: 9px;
+  color: var(--muted-foreground);
+  letter-spacing: 0;
+}
+.atelier-intro {
+  padding: 18px 24px 0;
+}
+.atelier-intro p {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.atelier-intro > span {
+  color: var(--accent);
+  font-size: 26px;
+}
+.atelier-drawing {
+  padding: 4px 0 0;
+  color: var(--home-diagram);
+}
+.atelier-drawing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.atelier-drawing text {
+  fill: var(--muted-foreground);
+  stroke: none;
+  font-family: var(--font-google-sans-code), monospace;
+  font-size: 12px;
+}
+.atelier-orbits {
+  stroke: var(--border);
+  stroke-dasharray: 3 8;
+}
+.atelier-wires {
+  stroke: var(--home-diagram);
+  stroke-width: 1;
+  opacity: var(--scene-wire-opacity);
+}
+.atelier-paper rect {
+  fill: var(--home-card);
+  stroke: var(--scene-border);
+}
+.atelier-paper path {
+  stroke: var(--home-diagram);
+  opacity: 0.45;
+}
+.atelier-paper {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.atelier[data-stage="0"] .paper-a {
+  transform: translate(12px, 18px) rotate(-8deg);
+}
+.atelier[data-stage="0"] .paper-b {
+  transform: translate(-12px, 0) rotate(5deg);
+}
+.atelier[data-stage="0"] .paper-c {
+  transform: translate(20px, -15px) rotate(-4deg);
+}
+.atelier-graph circle {
+  fill: var(--home-surface);
+  stroke: var(--home-diagram);
+  stroke-width: 2;
+}
+.atelier-core circle {
+  fill: var(--home-card);
+  stroke: var(--home-diagram);
+}
+.atelier-core circle:nth-child(2) {
+  stroke: var(--border);
+}
+.atelier-core path {
+  stroke: var(--foreground);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.atelier-core .core-dot {
+  fill: var(--accent);
+  stroke: none;
+}
+.atelier-tool rect,
+.atelier-gate rect,
+.atelier-output rect {
+  fill: var(--home-card);
+  stroke: var(--home-diagram);
+}
+.atelier-tool path,
+.atelier-gate path,
+.atelier-output path {
+  stroke: var(--home-diagram);
+  stroke-width: 1.6;
+}
+.atelier-output rect {
+  fill: var(--home-soft-accent);
+  stroke: var(--accent);
+}
+.atelier-output path {
+  stroke: var(--accent);
+}
+.atelier [class*="stage-"] {
+  transition:
+    opacity 0.65s ease,
+    stroke-dashoffset 0.7s ease;
+}
+.atelier[data-stage="0"] .stage-relations,
+.atelier[data-stage="0"] .stage-action,
+.atelier[data-stage="1"] .stage-action,
+.atelier:not([data-stage="3"]) .stage-result {
+  opacity: 0.08;
+}
+.atelier-signal {
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  stroke-dasharray: 5 95;
+  stroke-dashoffset: calc(var(--scene-progress) * -200);
+}
+.atelier:not([data-playing="true"]) .atelier-signal {
+  opacity: 0;
+}
+.atelier[data-lens="ontology"] .atelier-graph circle,
+.atelier[data-lens="agent"] .atelier-tool rect,
+.atelier[data-lens="delivery"] .atelier-paper rect,
+.atelier[data-lens="governance"] .atelier-gate rect {
+  stroke: var(--accent);
+  fill: var(--home-soft-accent);
+}
+.atelier-transport {
+  display: flex;
+  padding: 0 22px 18px;
+  gap: 12px;
+  align-items: center;
+}
+.atelier-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  flex: 1;
+}
+.atelier-steps button {
+  border-top: 2px solid var(--border);
+  text-align: left;
+  padding-top: 8px;
+  color: var(--muted-foreground);
+  font-size: 9px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.atelier-steps button span {
+  display: block;
+  font:
+    9px var(--font-google-sans-code),
+    monospace;
+  margin-bottom: 3px;
+}
+.atelier-steps button[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--foreground);
+}
+.atelier-play-controls {
+  display: flex;
+  gap: 2px;
+}
+.atelier-play-controls button,
+.cover-top button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--home-card);
+  cursor: pointer;
+  color: var(--foreground);
+}
+.atelier-play-controls button:hover,
+.cover-top button:hover {
+  border-color: var(--accent);
+}
+atelier-motion .pause-icon {
+  display: none;
+}
+atelier-motion[data-playing="true"] .pause-icon {
+  display: block;
+}
+atelier-motion[data-playing="true"] .play-icon {
+  display: none;
+}
+.atelier-lenses {
+  display: flex;
+  border-top: 1px solid var(--border);
+  padding: 16px 22px 0;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.atelier-lenses button {
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  cursor: pointer;
+}
+.atelier-lenses button[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--home-soft-accent);
+}
+.atelier-details {
+  padding: 16px 24px 22px;
+  min-height: 110px;
+}
+.atelier-details a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 16px;
+}
+.atelier-details strong {
+  font-weight: 500;
+}
+.atelier-details p {
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: 7px;
+}
+.project-feature-copy {
+  display: block;
+}
+.motion-cover {
+  border-radius: 12px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+.cover-top {
+  padding: 15px 20px 0;
+  min-height: 53px;
+  color: var(--home-diagram);
+  font-size: 9px;
+}
+.cover-top button {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+.cover-art {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  overflow: hidden;
+}
+.cover-art > svg {
+  width: 100%;
+  max-height: 235px;
+}
+.cover-bottom {
+  padding: 12px 20px 17px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  gap: 10px;
+}
+.cover-concept {
+  font-size: 8px;
+  white-space: nowrap;
+  letter-spacing: 0;
+}
+.cover-grid {
+  stroke: var(--home-diagram);
+  stroke-width: 1;
+  opacity: 0.4;
+}
+.cover-dots circle {
+  fill: var(--home-card);
+  stroke: var(--home-diagram);
+  stroke-width: 1.5;
+}
+.cover-dots .dot-2 circle {
+  fill: var(--home-soft-accent);
+  stroke: var(--accent);
+}
+.cover-dots path {
+  stroke: var(--accent);
+}
+.cover-trace {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 6 94;
+  stroke-dashoffset: calc(var(--scene-progress) * -200);
+}
+.motion-cover:not([data-playing="true"]) .cover-trace {
+  opacity: 0;
+}
+.cover-dot {
+  transition: opacity 0.5s;
+}
+.cover-ontology[data-stage="0"] .cover-dot:not(.dot-0) {
+  opacity: 0.2;
+}
+.cover-ontology[data-stage="1"] .cover-dot:nth-child(n + 4) {
+  opacity: 0.25;
+}
+.cover-svg-label {
+  fill: var(--muted-foreground);
+  font-size: 13px;
+  font-family: var(--font-google-sans-code), monospace;
+}
+.cover-loop {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 220px;
+}
+.cover-loop > svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.cover-loop-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  background: var(--home-card);
+  border-radius: 7px;
+  font-size: 11px;
+  transition:
+    background 0.3s,
+    border-color 0.3s;
+}
+.cover-loop-node.think {
+  left: 50%;
+  top: 20%;
+}
+.cover-loop-node.act {
+  left: 78%;
+  top: 70%;
+}
+.cover-loop-node.observe {
+  left: 23%;
+  top: 70%;
+}
+.cover-agent[data-stage="0"] .think,
+.cover-agent[data-stage="1"] .act,
+.cover-agent[data-stage="2"] .observe {
+  border-color: var(--accent);
+  background: var(--home-soft-accent);
+}
+.cover-loop-center {
+  position: absolute;
+  top: 33%;
+  left: 45%;
+  font-size: 38px;
+  line-height: 1;
+  color: var(--home-diagram);
+  transform: rotate(calc(var(--scene-progress) * 360deg));
+}
+.cover-context {
+  position: absolute;
+  bottom: 0;
+  left: 27%;
+  width: 46%;
+  color: var(--muted-foreground);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 8px;
+}
+.cover-context > div {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+.cover-context i {
+  height: 12px;
+  flex: 1;
+  background: var(--home-diagram);
+  opacity: 0.65;
+  transition: opacity 0.5s;
+}
+.cover-agent[data-stage="0"] .cover-context i:nth-child(n + 3),
+.cover-agent[data-stage="1"] .cover-context i:nth-child(n + 6),
+.cover-agent[data-stage="2"] .cover-context i:nth-child(n + 9) {
+  opacity: 0.1;
+}
+.cover-brief {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px 24px;
+}
+.brief-question {
+  width: 60px;
+  flex-shrink: 0;
+  display: grid;
+  text-align: center;
+  gap: 8px;
+  color: var(--muted-foreground);
+}
+.brief-question > span {
+  border: 1px dashed var(--home-diagram);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 24px;
+  color: var(--home-diagram);
+}
+.brief-question small {
+  font-size: 10px;
+}
+.brief-connector {
+  color: var(--accent);
+}
+.brief-stack {
+  width: 210px;
+  height: 178px;
+  position: relative;
+}
+.brief-sheet {
+  position: absolute;
+  width: 180px;
+  height: 115px;
+  border: 1px solid var(--scene-border);
+  background: var(--home-card);
+  padding: 14px;
+  border-radius: 8px;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.brief-sheet > span {
+  font-size: 10px;
+  color: var(--home-diagram);
+}
+.brief-sheet i {
+  display: block;
+  height: 2px;
+  width: 70%;
+  background: var(--border);
+  margin-top: 9px;
+}
+.brief-sheet i:nth-of-type(2) {
+  width: 55%;
+}
+.brief-sheet b {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  color: var(--accent);
+  font-weight: 400;
+}
+.sheet-0 {
+  transform: translate(0, 0) rotate(-6deg);
+}
+.sheet-1 {
+  transform: translate(14px, 29px) rotate(2deg);
+}
+.sheet-2 {
+  transform: translate(28px, 58px) rotate(7deg);
+}
+.cover-playbook[data-stage="1"] .sheet-0 {
+  transform: translate(-12px, -8px) rotate(-12deg);
+}
+.cover-playbook[data-stage="2"] .sheet-1 {
+  transform: translate(25px, 14px) rotate(9deg);
+}
+.cover-playbook[data-stage="3"] .brief-sheet {
+  transform: translate(0, 0);
+}
+.cover-playbook[data-stage="3"] .sheet-1 {
+  transform: translate(12px, 30px);
+}
+.cover-playbook[data-stage="3"] .sheet-2 {
+  transform: translate(24px, 60px);
+}
+.project-playbook .motion-cover {
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-radius: 0;
+  height: 100%;
+  min-height: 300px;
+}
+@media (max-width: 767px) {
+  .atelier-heading {
+    padding: 18px 18px 0;
+  }
+  .atelier-intro {
+    padding-inline: 18px;
+  }
+  .atelier-transport {
+    padding-inline: 14px;
+    gap: 8px;
+  }
+  .atelier-steps {
+    gap: 5px;
+  }
+  .atelier-steps button {
+    font-size: 8px;
+  }
+  .atelier-play-controls {
+    flex-direction: column;
+  }
+  .atelier-play-controls button {
+    width: 32px;
+    height: 28px;
+  }
+  .atelier-lenses {
+    padding-inline: 14px;
+    gap: 4px;
+  }
+  .atelier-lenses button {
+    font-size: 10px;
+    padding-inline: 8px;
+  }
+  .atelier-details {
+    padding-inline: 18px;
+    min-height: 115px;
+  }
+  .atelier-details a {
+    font-size: 15px;
+  }
+  .motion-cover {
+    height: 290px;
+  }
+  .cover-bottom {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .cover-brief {
+    gap: 10px;
+    padding-inline: 14px;
+  }
+  .brief-stack {
+    width: 190px;
+  }
+  .brief-sheet {
+    width: 160px;
+  }
+  .project-playbook .motion-cover {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atelier *,
+  .motion-cover * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .atelier-signal,
+  .cover-trace {
+    display: none;
+  }
+}

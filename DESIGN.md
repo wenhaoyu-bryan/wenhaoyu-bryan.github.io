@@ -85,6 +85,19 @@ components:
 
 ## Overview
 
+### Systems Atelier homepage motion — local preview, 2026-10-04
+
+The approved scope is the hero system-generation scene and three project
+covers only. Keep the existing shared palette, fonts, navigation and remaining
+sections. The hero uses a finite clues → relations → actions → evidence sequence,
+with manual steps, pause/replay and four lenses. Project covers are conceptual
+studies, not live product telemetry; mouse hover previews and explicit buttons
+support touch and keyboard. Offscreen/hidden scenes stop; reduced-motion users
+receive a complete static scene. Use lightweight SVG/CSS and custom elements,
+without adding 3D dependencies or changing production until preview approval.
+This scope permits the finite narrative transitions beyond the legacy 150ms
+limit. `src/styles/atelier.css` owns these homepage-only motion styles.
+
 ### Site-wide visual system — 2026-10-03
 
 The user now requests the approved homepage identity on every route. This
