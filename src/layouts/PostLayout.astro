@@ -27,7 +27,7 @@ const structuredData = {
   ...(articleImage && { image: articleImage }),
   ...(description && { description }),
   url: articleURL,
-  inLanguage: "en",
+  inLanguage: Astro.currentLocale === "zh" ? "zh-CN" : "en",
   mainEntityOfPage: { "@id": `${articleURL}#webpage` },
   isPartOf: { "@id": `${site.url}#website` },
   ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),

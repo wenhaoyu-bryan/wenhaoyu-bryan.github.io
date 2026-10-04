@@ -3,6 +3,8 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { stripBase, stripLocale } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
+type Props = { currentTitle?: string };
+const { currentTitle } = Astro.props;
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
@@ -105,8 +107,12 @@ const crumbs = breadcrumbList.map((segment, index) => {
   const { label, explicit } = resolve(segment);
   return {
     segment,
-    label,
-    explicit,
+    label:
+      index + 1 === breadcrumbList.length && currentTitle
+        ? currentTitle
+        : label,
+    explicit:
+      Boolean(currentTitle && index + 1 === breadcrumbList.length) || explicit,
     index,
     isLast: index + 1 === breadcrumbList.length,
   };
@@ -127,6 +133,21 @@ const crumbs = breadcrumbList.map((segment, index) => {
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
+      ["playbook", "growth-lab"].includes(breadcrumbList[0]) && (
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, "posts/")}
+            class="underline decoration-1 underline-offset-4 opacity-80"
+          >
+            {resolve("posts").label}
+          </a>
+          <span aria-hidden="true" class="opacity-70">
+            &raquo;
+          </span>
+        </li>
+      )
+    }
+    {
       crumbs.map(crumb =>
         crumb.isLast ? (
           <li>
@@ -144,7 +165,10 @@ const crumbs = breadcrumbList.map((segment, index) => {
         ) : (
           <li>
             <a
-              href={getRelativeLocaleUrl(locale, crumb.segment)}
+              href={getRelativeLocaleUrl(
+                locale,
+                breadcrumbList.slice(0, crumb.index + 1).join("/") + "/"
+              )}
               class:list={[
                 "underline decoration-1 underline-offset-4 opacity-70",
                 crumb.explicit ? "" : "capitalize",

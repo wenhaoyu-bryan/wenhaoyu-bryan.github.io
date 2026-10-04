@@ -5,6 +5,7 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import ContactRow from "@/components/ContactRow.astro";
 import config from "@/config";
+import ToolStack from "@/components/ToolStack.astro";
 
 const linkedin = config.socials.find(s => s.name === "linkedin")?.url;
 ---
@@ -42,7 +43,8 @@ const linkedin = config.socials.find(s => s.name === "linkedin")?.url;
     </p>
     <p>
       想要 60 秒的版本？<a
-        href="/AI-PM-Manifesto/"
+        href="https://wenhaoyu-bryan.github.io/AI-PM-Manifesto/"
+        data-astro-reload
         class="text-accent hover:underline">这里有一页纸的自我介绍 →</a
       >
     </p>
@@ -141,10 +143,7 @@ const linkedin = config.socials.find(s => s.name === "linkedin")?.url;
     </p>
 
     <h2 class="mt-8 text-xl font-semibold">工具栈</h2>
-    <p>
-      Claude Code, Cursor, Astro, Tailwind, React, FastAPI, Neo4j, NetworkX,
-      WordPress, GitHub Pages, SEO/GEO 研究工具
-    </p>
+    <ToolStack />
     <p>
       想知道这些工具每天如何配合——哪个模型干哪类活、边界在哪？看
       <a href="/zh/ai-stack" class="text-accent hover:underline">

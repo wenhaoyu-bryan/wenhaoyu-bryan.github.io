@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import {
   ArrowRight,
@@ -26,6 +26,11 @@ interface Props {
 }
 const { locale } = Astro.props;
 const zh = locale === "zh";
+const ontologyEssay = zh
+  ? await getEntry("pages", "building-ontology-os-zh")
+  : undefined;
+const translatedEssay = (id: string) =>
+  id === "building-ontology-os" ? ontologyEssay : undefined;
 const url = (path: string) => getRelativeLocaleUrl(locale, path);
 const builds = getListedBuilds(locale);
 const ontology = builds.find(
@@ -316,7 +321,11 @@ const copy = zh
         {
           posts.map(post => (
             <a
-              href={getPostUrl(post.id, post.filePath, "en")}
+              href={getPostUrl(
+                post.id,
+                post.filePath,
+                translatedEssay(post.id) ? "zh" : "en"
+              )}
               class="writing-item"
             >
               <>
@@ -329,12 +338,16 @@ const copy = zh
                         year: "numeric",
                       }).format(post.data.pubDatetime)}
                     </time>
-                    <span>{copy.english}</span>
+                    <span>
+                      {translatedEssay(post.id) ? "中文" : copy.english}
+                    </span>
                   </>
                 </div>
                 <div class="writing-title-row">
                   <>
-                    <h3 lang="en">{post.data.title}</h3>
+                    <h3 lang={translatedEssay(post.id) ? "zh-CN" : "en"}>
+                      {translatedEssay(post.id)?.data.title ?? post.data.title}
+                    </h3>
                     <ArrowUpRight size={21} aria-hidden="true" />
                   </>
                 </div>

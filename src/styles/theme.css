@@ -26,6 +26,8 @@
   --home-card: #fcfcf9;
   --home-soft-accent: #f4e9df;
   --home-diagram: #536962;
+  --scene-border: #aebbb1;
+  --scene-wire-opacity: 0.8;
 }
 
 /* Dark theme values */
@@ -41,4 +43,6 @@
   --home-card: #233138;
   --home-soft-accent: #3c322d;
   --home-diagram: #a0bbb2;
+  --scene-border: var(--border);
+  --scene-wire-opacity: 0.6;
 }

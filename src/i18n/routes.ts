@@ -27,6 +27,7 @@ export const MIRRORED_ROUTES = [
   "/playbook/vibe-coding/",
   "/growth-lab/",
   "/posts/",
+  "/posts/building-ontology-os/",
   "/search/",
 ] as const;
 

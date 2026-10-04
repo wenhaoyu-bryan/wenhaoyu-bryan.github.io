@@ -1,0 +1,35 @@
+---
+const zh = Astro.currentLocale === "zh";
+---
+
+<div class="tool-stack-columns not-prose my-6 grid gap-6 sm:grid-cols-2">
+  <section class="border-border rounded-lg border p-5">
+    <h3 class="mb-3 text-lg font-semibold">
+      {zh ? "AI 工作工具" : "AI work tools"}
+    </h3>
+    <p class="text-muted-foreground leading-relaxed">Claude Code · Cursor</p>
+    <p class="text-muted-foreground mt-3 text-sm leading-relaxed">
+      {
+        zh
+          ? "用于大模型结对编程、原型实现与迭代。"
+          : "For LLM pair programming, prototyping, and iteration."
+      }
+    </p>
+  </section>
+  <section class="border-border rounded-lg border p-5">
+    <h3 class="mb-3 text-lg font-semibold">
+      {zh ? "技术与交付栈" : "Engineering & delivery stack"}
+    </h3>
+    <p class="text-muted-foreground leading-relaxed">
+      Astro · Tailwind · React · FastAPI · Neo4j · NetworkX · WordPress · GitHub
+      Pages
+    </p>
+    <p class="text-muted-foreground mt-3 text-sm leading-relaxed">
+      {
+        zh
+          ? "覆盖前端、API、图谱与站点交付；另使用 SEO/GEO 研究工具。"
+          : "Spanning frontend, APIs, graphs, and publishing, alongside SEO/GEO research tools."
+      }
+    </p>
+  </section>
+</div>

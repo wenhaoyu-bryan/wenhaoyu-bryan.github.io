@@ -83,11 +83,11 @@
 .atelier-wires {
   stroke: var(--home-diagram);
   stroke-width: 1;
-  opacity: 0.6;
+  opacity: var(--scene-wire-opacity);
 }
 .atelier-paper rect {
   fill: var(--home-card);
-  stroke: var(--border);
+  stroke: var(--scene-border);
 }
 .atelier-paper path {
   stroke: var(--home-diagram);
@@ -474,7 +474,7 @@ atelier-motion[data-playing="true"] .play-icon {
   position: absolute;
   width: 180px;
   height: 115px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--scene-border);
   background: var(--home-card);
   padding: 14px;
   border-radius: 8px;
