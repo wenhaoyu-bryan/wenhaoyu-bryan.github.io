@@ -1,0 +1,444 @@
+---
+import { Image } from "astro:assets";
+import { ArrowUpRight } from "lucide-astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+import ontologyImage from "@/assets/projects/prompt-to-ontology/dashboard.png";
+import agentImage from "@/assets/projects/agent-anatomy/hero.png";
+import playbookImage from "@/assets/projects/ai-pm-operating-playbook/homepage.png";
+
+const method = [
+  {
+    label: "Understand the work",
+    detail:
+      "Start with the people, decisions, and workarounds behind a request—not a feature list.",
+  },
+  {
+    label: "Structure the context",
+    detail:
+      "Make business concepts, relationships, evidence, and constraints legible to both people and agents.",
+  },
+  {
+    label: "Make it tangible",
+    detail:
+      "Use AI-assisted development to turn an insight into a working interface with reusable frontend components.",
+  },
+  {
+    label: "Test the boundary",
+    detail:
+      "Check what the system can do, what needs approval, and what evidence supports a decision.",
+  },
+];
+
+const studies = [
+  {
+    type: "Public prototype / ontology",
+    title: "Prompt-to-Ontology",
+    description:
+      "A working experiment in turning messy requirements and tabular data into reviewable ontology assets and a knowledge graph.",
+    href: "/projects/prompt-to-ontology/",
+    image: ontologyImage,
+    alt: "Prompt-to-Ontology dashboard showing ontology objects and review work",
+  },
+  {
+    type: "Interactive essay / agents",
+    title: "Agent Anatomy",
+    description:
+      "A visual replay of an agent run: the loop, the growing context window, and a failed page corrected step by step.",
+    href: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
+    image: agentImage,
+    alt: "Agent Anatomy interactive essay hero",
+  },
+  {
+    type: "Interactive tool / delivery",
+    title: "AI PM Operating Playbook",
+    description:
+      "A toolkit that turns an ambiguous product idea into briefs, workflow specifications, evaluation plans, and handoff materials.",
+    href: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
+    image: playbookImage,
+    alt: "AI PM Operating Playbook homepage",
+  },
+];
+---
+
+<Layout
+  title={`How I Build — ${config.site.title}`}
+  description="Wenhao Yu's product approach: from ambiguous enterprise problems to ontology context, agent workflows, and working prototypes."
+>
+  <Header />
+
+  <main id="main-content" data-pagefind-body class="app-layout manifesto-page">
+    <div class="manifesto-kicker">
+      <span>HOW I BUILD / WENHAO YU</span>
+      <a href="/zh/one-page/" lang="zh-CN"
+        >中文一页介绍 <ArrowUpRight size={15} /></a
+      >
+    </div>
+
+    <section class="manifesto-hero" aria-labelledby="manifesto-title">
+      <p class="manifesto-label">A PRODUCT LENS · A BUILDER'S PRACTICE</p>
+      <h1 id="manifesto-title">
+        From ambiguity<br />
+        <span>to systems people can use.</span>
+      </h1>
+      <p class="manifesto-lede">
+        I'm Wenhao Yu, an AI product manager. At TCL, I lead product design for
+        an enterprise agent platform and contribute to the design and research
+        of an industrial ontology platform. I work where business context, data
+        structures, interfaces, and governed execution meet.
+      </p>
+    </section>
+
+    <section class="manifesto-section" aria-labelledby="method-title">
+      <div class="manifesto-section-head">
+        <p class="manifesto-label">01 / METHOD</p>
+        <h2 id="method-title">Make the problem workable.</h2>
+      </div>
+      <div class="manifesto-method">
+        {
+          method.map((step, index) => (
+            <div class="manifesto-step">
+              <span class="manifesto-step-index">0{index + 1}</span>
+              <h3>{step.label}</h3>
+              <p>{step.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="manifesto-section" aria-labelledby="work-title">
+      <div class="manifesto-section-head">
+        <p class="manifesto-label">02 / CURRENT WORK</p>
+        <h2 id="work-title">Two connected layers.</h2>
+      </div>
+      <div class="manifesto-work">
+        <a href="/work/ontology-platform/">
+          <span class="manifesto-work-type">CONTEXT / IN PROGRESS</span>
+          <h3>Industrial ontology platform <ArrowUpRight size={18} /></h3>
+          <p>
+            I contribute to product design and research. The direction is to
+            organize enterprise data into a semantic network of entities,
+            relationships, rules, metrics, and actions that agents can use
+            within defined permissions. This work is still in progress.
+          </p>
+        </a>
+        <a href="/work/enterprise-agent-platform/">
+          <span class="manifesto-work-type">ACTION / CURRENT WORK</span>
+          <h3>Enterprise agent platform <ArrowUpRight size={18} /></h3>
+          <p>
+            I lead product design around configurable agents and real workflows,
+            with tool use, approval gates, and auditable execution built into
+            the product approach.
+          </p>
+        </a>
+      </div>
+    </section>
+
+    <section class="manifesto-section" aria-labelledby="proof-title">
+      <div class="manifesto-section-head">
+        <p class="manifesto-label">03 / PUBLIC PROOF</p>
+        <h2 id="proof-title">Ideas you can open.</h2>
+        <p>
+          Three public builds that make the thinking visible. Each can be
+          explored beyond this page.
+        </p>
+      </div>
+      <div class="manifesto-studies">
+        {
+          studies.map(study => (
+            <a href={study.href} class="manifesto-study">
+              <div class="manifesto-study-image">
+                <Image
+                  src={study.image}
+                  alt={study.alt}
+                  widths={[360, 720]}
+                  sizes="(min-width: 800px) 300px, 90vw"
+                  loading="lazy"
+                />
+              </div>
+              <div class="manifesto-study-copy">
+                <span class="manifesto-label">{study.type}</span>
+                <h3>
+                  {study.title} <ArrowUpRight size={18} />
+                </h3>
+                <p>{study.description}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="manifesto-close" aria-labelledby="close-title">
+      <p class="manifesto-label">WHAT COMES NEXT</p>
+      <h2 id="close-title">Build, inspect, learn, repeat.</h2>
+      <p>
+        I'm exploring richer agent context for data-ready enterprises,
+        AI-assisted development pipelines, and product-led growth. The question
+        stays the same: does the system help someone make a better decision or
+        get real work done?
+      </p>
+      <div class="manifesto-actions">
+        <a href="/work/">Explore my work <ArrowUpRight size={17} /></a>
+        <a href="/about/">About me <ArrowUpRight size={17} /></a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .manifesto-page {
+    padding-block: 24px 96px;
+  }
+  .manifesto-kicker,
+  .manifesto-section-head,
+  .manifesto-study-copy {
+    display: flex;
+    flex-direction: column;
+  }
+  .manifesto-kicker {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--muted-foreground);
+    font-family: var(--font-google-sans-code), monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .manifesto-kicker a,
+  .manifesto-actions a,
+  .manifesto-work h3,
+  .manifesto-study h3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .manifesto-kicker a:hover,
+  .manifesto-work a:hover h3,
+  .manifesto-study:hover h3 {
+    color: var(--accent);
+  }
+  .manifesto-hero {
+    padding-block: clamp(86px, 13vw, 160px) clamp(90px, 12vw, 140px);
+  }
+  .manifesto-label,
+  .manifesto-step-index,
+  .manifesto-work-type {
+    color: var(--home-diagram);
+    font-family: var(--font-google-sans-code), monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  .manifesto-hero h1 {
+    max-width: 900px;
+    margin-top: 26px;
+    font-size: clamp(43px, 6.8vw, 86px);
+    font-weight: 700;
+    letter-spacing: -0.064em;
+    line-height: 1.06;
+    text-wrap: balance;
+  }
+  .manifesto-hero h1 span {
+    color: var(--home-diagram);
+  }
+  .manifesto-lede {
+    max-width: 640px;
+    margin-top: 36px;
+    color: var(--muted-foreground);
+    font-size: clamp(18px, 2vw, 21px);
+    line-height: 1.7;
+  }
+  .manifesto-section {
+    border-top: 1px solid var(--border);
+    padding-block: 64px 84px;
+  }
+  .manifesto-section-head {
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .manifesto-section-head h2,
+  .manifesto-close h2 {
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 650;
+    letter-spacing: -0.05em;
+    line-height: 1.15;
+  }
+  .manifesto-section-head > p:last-child:not(.manifesto-label) {
+    max-width: 650px;
+    color: var(--muted-foreground);
+    line-height: 1.65;
+  }
+  .manifesto-method {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .manifesto-step {
+    border-top: 2px solid var(--border);
+    padding-top: 17px;
+  }
+  .manifesto-step:nth-child(2) {
+    border-color: var(--home-diagram);
+  }
+  .manifesto-step:nth-child(3) {
+    border-color: var(--accent);
+  }
+  .manifesto-step h3 {
+    margin-top: 23px;
+    font-size: 17px;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+  }
+  .manifesto-step p,
+  .manifesto-work p,
+  .manifesto-study p,
+  .manifesto-close > p:not(.manifesto-label) {
+    color: var(--muted-foreground);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .manifesto-step p {
+    margin-top: 10px;
+  }
+  .manifesto-work {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--border);
+  }
+  .manifesto-work a {
+    display: block;
+    min-height: 275px;
+    padding: 30px;
+    background: var(--background);
+  }
+  .manifesto-work h3 {
+    margin-block: 25px 14px;
+    font-size: 23px;
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+  .manifesto-studies {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .manifesto-study {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 150ms ease;
+  }
+  .manifesto-study:hover {
+    border-color: var(--home-diagram);
+  }
+  .manifesto-study-image {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background: var(--muted);
+  }
+  .manifesto-study-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 250ms ease;
+  }
+  .manifesto-study:hover img {
+    transform: scale(1.025);
+  }
+  .manifesto-study-copy {
+    gap: 12px;
+    padding: 20px;
+  }
+  .manifesto-study h3 {
+    justify-content: space-between;
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -0.035em;
+  }
+  .manifesto-close {
+    border-top: 1px solid var(--border);
+    padding-block: 64px 20px;
+  }
+  .manifesto-close h2 {
+    margin-top: 18px;
+  }
+  .manifesto-close > p:not(.manifesto-label) {
+    max-width: 650px;
+    margin-top: 18px;
+    font-size: 17px;
+  }
+  .manifesto-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  .manifesto-actions a:first-child {
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: var(--foreground);
+    color: var(--background);
+  }
+  .manifesto-actions a:last-child {
+    padding: 12px 0;
+  }
+  .manifesto-actions a:last-child:hover {
+    color: var(--accent);
+  }
+  @media (max-width: 800px) {
+    .manifesto-method,
+    .manifesto-studies {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .manifesto-work {
+      grid-template-columns: 1fr;
+    }
+    .manifesto-work a {
+      min-height: auto;
+    }
+  }
+  @media (max-width: 560px) {
+    .manifesto-page {
+      padding-block: 16px 56px;
+    }
+    .manifesto-hero {
+      padding-block: 90px 82px;
+    }
+    .manifesto-section {
+      padding-block: 48px 62px;
+    }
+    .manifesto-method,
+    .manifesto-studies {
+      grid-template-columns: 1fr;
+    }
+    .manifesto-step h3 {
+      margin-top: 12px;
+    }
+    .manifesto-work a {
+      padding: 22px;
+    }
+    .manifesto-kicker {
+      font-size: 10px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .manifesto-study,
+    .manifesto-study-image img {
+      transition: none;
+    }
+  }
+</style>
