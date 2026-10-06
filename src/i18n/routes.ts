@@ -57,5 +57,7 @@ export function getLocaleFallbackPath(path: string): string {
 
   if (normalized.startsWith("/projects/")) return "/projects/";
 
+  if (normalized === "/one-page/") return "/about/";
+
   return "/";
 }

@@ -1,0 +1,53 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`一页介绍 — ${config.site.title}`}
+  description="余文豪的中文一页介绍：工业本体平台、企业级 Agent 与 AI 辅助的产品交付。"
+>
+  <Header />
+
+  <Main pageTitle="一页介绍" class="app-prose">
+    <p class="text-lg">
+      我是余文豪，一名 AI
+      产品经理。我关心的问题是：企业已有的数据和业务知识，怎样成为 Agent
+      真正能理解、能调用、也能被人审核的上下文？
+    </p>
+
+    <p>
+      目前我在 TCL 主导企业级 Agent
+      平台的产品设计，也参与工业场景下本体平台的设计与调研。后者的目标是从企业数据平台接入数据，经过建模与抽取，形成带有实体、关系、规则、指标和可执行动作的语义网络，供
+      Agent
+      平台在明确的权限边界内使用。这是正在推进的方向，不是已经完成的产品成果。
+    </p>
+
+    <p>
+      我的工作从用户场景出发：梳理问题与需求，用 AI
+      辅助提炼洞察，再把想法做成有真实交互、可复用组件和前端架构的原型，让产品与研发团队能围绕同一件具体的东西讨论和验证。
+    </p>
+
+    <p>
+      接下来我也在探索企业 AI 的数据与上下文基础设施、AI
+      辅助的研发管线，以及产品驱动增长。对于前沿
+      AI，包括递归自我改进（RSI），我更关注它如何在真实企业场景里被评估、约束和使用。
+    </p>
+
+    <p>
+      <a href="/zh/about" class="text-accent hover:underline">阅读完整介绍 →</a>
+      <span aria-hidden="true"> · </span>
+      <a
+        href="https://wenhaoyu-bryan.github.io/AI-PM-Manifesto/"
+        data-astro-reload
+        lang="en"
+        class="text-accent hover:underline">英文版独立单页 ↗</a
+      >
+    </p>
+  </Main>
+
+  <Footer />
+</Layout>
