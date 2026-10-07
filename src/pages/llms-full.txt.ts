@@ -163,8 +163,7 @@ export const GET: APIRoute = async () => {
       "keyword planning he did with the dev team), keyword research and " +
       "keyword-to-page mapping, social-media distribution of published articles, " +
       "and Search Console/analytics measurement setup. These foundations are " +
-      "still live. No performance numbers are published here: the data belongs to " +
-      "Leiga; this lab publishes numbers only when Wenhao owns them."
+      "still live."
   );
   out.push(`Full page: ${toCanonicalUrl("/growth-lab/")}`);
   out.push("");

@@ -100,13 +100,6 @@ const flowSteps = [
       }
     </div>
 
-    <div
-      class="border-border bg-muted/30 text-muted-foreground mt-6 rounded-lg border p-4 text-sm"
-    >
-      <strong class="text-foreground">关于保密的说明。</strong
-      >这是酿造工厂里真实的工作。我描述的是问题空间、我的方法论，以及我用到的公开工具；工厂布局与运营细节、生产数据、内部系统名称都不在此列。文中的结果是方向性的，反映的是我在职期间所测得的情况。
-    </div>
-
     <!-- ─────────────────────────  1. CONTEXT  ───────────────────────── -->
     <h2 class="mt-8 text-xl font-semibold">背景</h2>
     <p>
@@ -140,7 +133,7 @@ const flowSteps = [
 
     <FlowDiagram
       steps={flowSteps}
-      caption="助手路径的抽象形态：一个自然语言问题经过覆盖结构化知识库的混合 RAG 检索，再通过 MES 对实时运营数据做接地（grounding），最终以标准化的答案格式返回。"
+      caption="助手路径示意：一个自然语言问题经过覆盖结构化知识库的混合 RAG 检索，再通过 MES 对实时运营数据做接地（grounding），最终以标准化的答案格式返回。"
     />
 
     <h3 class="mt-6 text-lg font-medium">本地模型部署</h3>
@@ -187,7 +180,7 @@ const flowSteps = [
     <!-- ─────────────────────────  5. OUTCOMES  ───────────────────────── -->
     <h2 class="mt-8 text-xl font-semibold">结果</h2>
     <p>
-      上线之后，这个助手每月为工程侧节省了数百个工时；随着对的规程变得好找、执行也更一致，知识复用大幅上升，返工大幅下降。这些都是方向性的数字，反映的是我在职期间所测得的情况——我不会公布一家前雇主的精确内部指标。
+      上线之后，这个助手每月为工程侧节省了数百个工时；随着对的规程变得好找、执行也更一致，知识复用大幅上升，返工大幅下降。
     </p>
 
     <!-- ─────────────────────────  6. LESSONS  ───────────────────────── -->

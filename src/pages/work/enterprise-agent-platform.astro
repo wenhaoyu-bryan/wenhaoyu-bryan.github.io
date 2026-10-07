@@ -17,10 +17,6 @@ const snapshot = [
     value: "TCL · advanced manufacturing (semiconductor & adjacent)",
   },
   { label: "Status", value: "Current Work · in development" },
-  {
-    label: "Confidentiality",
-    value: "Methodology described · internals abstracted",
-  },
 ];
 
 // Abstracted shape of the platform — no internal system names. Each step maps
@@ -68,9 +64,7 @@ const architectureSteps = [
       An enterprise agent platform for advanced manufacturing (semiconductor and
       adjacent process industries) that turns expert knowledge and business
       workflows into governed, reusable AI agents — "digital employees." I lead
-      it from 0 to 1 as its product manager. This is current, ongoing work, so
-      the page describes methodology and capabilities while keeping internal
-      systems, data, and identities abstracted.
+      it from 0 to 1 as its product manager. The platform is in development.
     </p>
 
     <div class="border-border mt-4 flex flex-wrap gap-2">
@@ -102,7 +96,7 @@ const architectureSteps = [
     </div>
 
     <div
-      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-3"
     >
       {
         snapshot.map(item => (
@@ -114,16 +108,6 @@ const architectureSteps = [
           </div>
         ))
       }
-    </div>
-
-    <div
-      class="border-border bg-muted/30 text-muted-foreground mt-6 rounded-lg border p-4 text-sm"
-    >
-      <strong class="text-foreground">A note on confidentiality.</strong> This is
-      real, ongoing product work in an enterprise setting. Methodology and capabilities
-      are described here; internal systems, data, and identities are abstracted. The
-      platform is still in development, so there are no reported outcome metrics —
-      I don't publish numbers I can't share.
     </div>
 
     <!-- ─────────────────────────  1. WHAT IT IS  ───────────────────────── -->
@@ -256,7 +240,7 @@ const architectureSteps = [
 
     <FlowDiagram
       steps={architectureSteps}
-      caption="The shape of the platform, abstracted: a dual-mode surface over configurable agents and a skill lifecycle, gated by a governance layer before automation triggers ever run — with published skills feeding back into a shared enterprise skill center."
+      caption="Platform structure: a dual-mode surface over configurable agents and a skill lifecycle, gated by a governance layer before automation triggers ever run — with published skills feeding back into a shared enterprise skill center."
     />
 
     <!-- ─────────────────────────  6. IN PROGRESS  ───────────────────────── -->
