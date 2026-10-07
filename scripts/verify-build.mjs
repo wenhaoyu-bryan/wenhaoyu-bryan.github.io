@@ -72,6 +72,12 @@ assert(llmsFull.length > 3000, "llms-full.txt has substantial content");
 assert(/## About/.test(llmsFull), "llms-full.txt includes About");
 assert(/## Projects/.test(llmsFull), "llms-full.txt includes Projects");
 assert(/## Posts/.test(llmsFull), "llms-full.txt includes Posts bodies");
+const llmsAbout = llmsFull.split("## About\n")[1]?.split("=".repeat(72))[0] ?? "";
+assert(/## Short Intro/.test(llmsAbout), "llms-full.txt keeps About prose");
+assert(/LinkedIn →/.test(llmsAbout), "llms-full.txt keeps visible link text");
+assert(!/^(?:import|export)\s/m.test(llmsAbout), "llms-full.txt omits MDX module code");
+assert(!/<(?:ToolStack|a)\b/.test(llmsAbout), "llms-full.txt omits MDX component markup");
+assert(!/\{linkedin\}/.test(llmsAbout), "llms-full.txt omits MDX expressions");
 
 // 4. Ask-AI deep links present on homepage
 const home = read("index.html") ?? "";

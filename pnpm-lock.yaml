@@ -54,6 +54,12 @@ importers:
       remark-collapse:
         specifier: ^0.1.2
         version: 0.1.2
+      remark-mdx:
+        specifier: ^3.1.1
+        version: 3.1.1
+      remark-parse:
+        specifier: ^11.0.0
+        version: 11.0.0
       remark-toc:
         specifier: ^9.0.0
         version: 9.0.0
@@ -72,6 +78,9 @@ importers:
       three:
         specifier: ^0.185.1
         version: 0.185.1
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.9
