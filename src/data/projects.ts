@@ -110,8 +110,8 @@ const defs: ProjectDef[] = [
       },
     },
     description: {
-      en: "A dual-mode design over configurable agents, an AI-co-created skill lifecycle, and governance by design — sandboxing, approval gates, audited runs. Methodology described; internals abstracted.",
-      zh: "覆盖可配置 Agent 的双模设计、AI 共创的 skill 生命周期，以及「治理即设计」——沙箱、审批门、可审计运行。方法论可公开，内部细节已抽象。",
+      en: "A dual-mode design over configurable agents, an AI-co-created skill lifecycle, and governance by design — sandboxing, approval gates, audited runs.",
+      zh: "覆盖可配置 Agent 的双模设计、AI 共创的 skill 生命周期，以及「治理即设计」——沙箱、审批门、可审计运行。",
     },
     tags: {
       en: [

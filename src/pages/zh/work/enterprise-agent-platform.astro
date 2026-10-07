@@ -12,7 +12,6 @@ const snapshot = [
   { label: "角色", value: "产品经理（0 → 1 主导）" },
   { label: "雇主 · 领域", value: "TCL · 先进制造（半导体及相邻流程工业）" },
   { label: "状态", value: "当前工作 · 研发中" },
-  { label: "保密", value: "方法论可公开 · 内部细节已抽象" },
 ];
 
 // 平台的抽象形态——不含任何内部系统名称。每一步都对应下方经批准内容里的一项能力。
@@ -50,8 +49,7 @@ const architectureSteps = [
     <p class="text-muted-foreground text-lg">
       一个面向先进制造（半导体及相邻流程工业）的企业级 Agent
       平台，把专家知识和业务流程转化为可治理、可复用的 AI
-      Agent——「数字员工」。我以产品经理身份主导它从 0 到
-      1。这是正在进行中的工作，因此本页只描述方法论与能力，内部系统、数据和身份都做了抽象处理。
+      Agent——「数字员工」。我以产品经理身份主导它从 0 到 1。平台仍在研发中。
     </p>
 
     <div class="border-border mt-4 flex flex-wrap gap-2">
@@ -83,7 +81,7 @@ const architectureSteps = [
     </div>
 
     <div
-      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-3"
     >
       {
         snapshot.map(item => (
@@ -95,13 +93,6 @@ const architectureSteps = [
           </div>
         ))
       }
-    </div>
-
-    <div
-      class="border-border bg-muted/30 text-muted-foreground mt-6 rounded-lg border p-4 text-sm"
-    >
-      <strong class="text-foreground">关于保密的说明。</strong
-      >这是真实的、正在进行中的企业级产品工作。这里描述的是方法论与能力；内部系统、数据和身份都做了抽象处理。平台仍在研发中，因此没有可报告的结果指标——我不会公布自己无法分享的数字。
     </div>
 
     <!-- ─────────────────────────  1. WHAT IT IS  ───────────────────────── -->
@@ -207,7 +198,7 @@ const architectureSteps = [
 
     <FlowDiagram
       steps={architectureSteps}
-      caption="平台的抽象形态：一个覆盖在可配置 Agent 与 skill 生命周期之上的双模界面，在任何自动化触发运行之前先经过治理层——发布后的 skill 又回流进共享的企业技能中心。"
+      caption="平台结构示意：一个覆盖在可配置 Agent 与 skill 生命周期之上的双模界面，在任何自动化触发运行之前先经过治理层——发布后的 skill 又回流进共享的企业技能中心。"
     />
 
     <!-- ─────────────────────────  6. IN PROGRESS  ───────────────────────── -->

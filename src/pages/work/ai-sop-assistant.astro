@@ -110,16 +110,6 @@ const flowSteps = [
       }
     </div>
 
-    <div
-      class="border-border bg-muted/30 text-muted-foreground mt-6 rounded-lg border p-4 text-sm"
-    >
-      <strong class="text-foreground">A note on confidentiality.</strong> This was
-      real work inside a brewing operation. I describe the problem space, my methodology,
-      and the named open tools I used; plant-layout and operational specifics, production
-      data, and internal system names stay out. Outcomes are directional and reflect
-      what was measured during my tenure.
-    </div>
-
     <!-- ─────────────────────────  1. CONTEXT  ───────────────────────── -->
     <h2 class="mt-8 text-xl font-semibold">Context</h2>
     <p>
@@ -172,7 +162,7 @@ const flowSteps = [
 
     <FlowDiagram
       steps={flowSteps}
-      caption="The assistant's path, abstracted: a plain-language question runs through hybrid RAG retrieval over the structured knowledge base, is grounded against live operational data via the MES, and returns in a standardized answer format."
+      caption="Assistant flow: a plain-language question runs through hybrid RAG retrieval over the structured knowledge base, is grounded against live operational data via the MES, and returns in a standardized answer format."
     />
 
     <h3 class="mt-6 text-lg font-medium">Local model deployment</h3>
@@ -240,9 +230,7 @@ const flowSteps = [
     <p>
       After rollout, the assistant saved hundreds of engineering hours each
       month; knowledge reuse rose sharply and rework fell dramatically as the
-      right procedure became easy to find and consistent to follow. These are
-      directional figures as measured during my tenure — I don't publish exact
-      internal metrics from a former employer.
+      right procedure became easy to find and consistent to follow.
     </p>
 
     <!-- ─────────────────────────  6. LESSONS  ───────────────────────── -->
