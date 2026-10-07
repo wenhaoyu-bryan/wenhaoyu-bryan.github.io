@@ -4,6 +4,54 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
 import { getWork, getBuilds } from "@/data/projects";
 import config from "@/config";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkMdx from "remark-mdx";
+
+type MdxNode = {
+  type: string;
+  value?: string;
+  children?: MdxNode[];
+  position?: { start: { offset?: number }; end: { offset?: number } };
+};
+
+// Content collection `body` is MDX source, not the rendered page. Remove only
+// MDX-only syntax so visible Markdown (including fenced code) stays intact.
+function visibleMdxMarkdown(source: string): string {
+  const tree = unified()
+    .use(remarkParse)
+    .use(remarkMdx)
+    .parse(source) as MdxNode;
+  const edits: { start: number; end: number; text: string }[] = [];
+  const plainText = (node: MdxNode): string =>
+    node.value ?? node.children?.map(plainText).join("") ?? "";
+
+  const visit = (node: MdxNode) => {
+    const start = node.position?.start.offset;
+    const end = node.position?.end.offset;
+    if (start !== undefined && end !== undefined) {
+      if (
+        node.type === "mdxjsEsm" ||
+        node.type === "mdxFlowExpression" ||
+        node.type === "mdxTextExpression" ||
+        node.type === "mdxJsxFlowElement" ||
+        node.type === "mdxJsxTextElement"
+      ) {
+        const text = node.type === "mdxJsxTextElement" ? plainText(node) : "";
+        edits.push({ start, end, text });
+        return;
+      }
+    }
+    node.children?.forEach(visit);
+  };
+  visit(tree);
+
+  let result = source;
+  for (const edit of edits.sort((a, b) => b.start - a.start)) {
+    result = result.slice(0, edit.start) + edit.text + result.slice(edit.end);
+  }
+  return result.replace(/\n{3,}/g, "\n\n").trim();
+}
 
 /**
  * llms-full.txt — the complete public content of the site in a single plain-text
@@ -50,7 +98,7 @@ export const GET: APIRoute = async () => {
   out.push("## About");
   out.push("");
   if (about) {
-    out.push(absolutizeInternalLinks(about.body?.trim() ?? ""));
+    out.push(absolutizeInternalLinks(visibleMdxMarkdown(about.body ?? "")));
     out.push("");
   }
   out.push("=".repeat(72));
