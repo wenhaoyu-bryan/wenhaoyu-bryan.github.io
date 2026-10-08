@@ -243,12 +243,13 @@ const defs: ProjectDef[] = [
     icon: "Book",
     kind: "project",
     status: "Public Tool",
-    url: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
+    path: "playbook",
+    repo: "https://github.com/wenhaoyu-bryan/AI-PM-Operating-Playbook",
     thumbnail: playbookThumb,
     thumbnailAlt: "AI PM Operating Playbook landing page and workbench",
     description: {
-      en: "A methodology-driven toolkit that turns ambiguous AI product ideas into structured product briefs, workflow specifications, evaluation plans, and coding-agent handoff materials.",
-      zh: "面向 AI 产品经理的方法论工具集，将模糊的 AI 产品想法转化为结构化产品简报、工作流规格、评估计划和编码智能体交接材料。",
+      en: "A product-method experiment: start with a real product question, make the decisions and review points explicit, then explore an optional structured workbench.",
+      zh: "一项产品方法实验：从真实的产品问题出发，拆出决策边界、工作流和审核点；需要亲手尝试时，再进入结构化工作台。",
     },
     tags: {
       en: ["AI PM", "Methodology", "Interactive Tools", "Frameworks"],

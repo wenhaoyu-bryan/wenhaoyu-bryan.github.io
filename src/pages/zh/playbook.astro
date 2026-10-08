@@ -5,12 +5,14 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import PlaybookExample from "@/components/PlaybookExample.astro";
 import config from "@/config";
 
 const locale = "zh";
 
-const PLAYBOOK_BASE =
-  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/";
+const WORKBENCH_URL =
+  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/zh-CN/workbench/";
+const caseHref = getRelativeLocaleUrl(locale, "projects/prompt-to-ontology");
 
 // Playbook 方法论页面均已有中文版，链接指向 zh 路由
 const categories = [
@@ -79,16 +81,37 @@ const categories = [
 ---
 
 <Layout
-  title={`方法论 — ${config.site.title}`}
-  description="设计、评估和交付 AI 原生产品的框架、实践笔记和实用模式。"
+  title={`产品方法实验 — ${config.site.title}`}
+  description="从 Prompt-to-Ontology 的真实产品问题出发，展示可讨论的交付物，以及 AI 产品设计、评估和交付的方法。"
 >
   <Header />
   <Breadcrumb />
 
-  <Main pageTitle="方法论" class="app-prose">
-    <p>设计、评估和交付 AI 原生产品的框架、实践笔记和实用模式。</p>
+  <Main pageTitle="从产品问题，到可讨论的交付物" class="app-prose">
+    <p>
+      我把产品方法和实践笔记放在这里。下面以已公开的 Prompt-to-Ontology
+      原型为例，复盘一个问题如何被拆成产品简报、工作流和验收检查。
+    </p>
 
-    <div class="border-border mt-6 rounded-lg border p-6">
+    <div class="mt-8">
+      <PlaybookExample locale="zh" caseHref={caseHref} />
+    </div>
+
+    <div class="mt-6 flex flex-wrap items-center gap-4">
+      <a
+        href={WORKBENCH_URL}
+        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        可选：打开结构化工作台 ↗
+      </a>
+      <span class="text-muted-foreground text-sm">
+        手动整理输入 · 浏览器本地保存 · 模板化导出 · 暂无模型调用
+      </span>
+    </div>
+
+    <div class="border-border mt-10 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">四步方法</h2>
       <p class="text-muted-foreground mt-1 text-sm">
         这套方法与我的工作有关；想先了解背景，可以读 <a
@@ -150,18 +173,7 @@ const categories = [
       </ol>
     </div>
 
-    <div class="mt-6 mb-8">
-      <a
-        href={PLAYBOOK_BASE}
-        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        打开交互工具 ↗
-      </a>
-    </div>
-
-    <div class="mt-8 space-y-8">
+    <div class="mt-10 space-y-8">
       {
         categories.map(category => (
           <section>
@@ -185,37 +197,15 @@ const categories = [
       }
     </div>
 
-    <div class="border-border mt-10 rounded-lg border p-6">
-      <h2 class="text-lg font-semibold">方法论与工具</h2>
-      <p class="text-muted-foreground mt-2 text-sm">
-        本站包含文章和框架。 AI PM Operating Playbook
-        提供将这些方法论落地的交互工具。
-      </p>
-      <div class="mt-4 flex flex-wrap gap-3">
-        <a
-          href={getRelativeLocaleUrl(locale, "posts")}
-          class="text-accent hover:underline"
-        >
-          浏览文章
-        </a>
-        <a
-          href={PLAYBOOK_BASE}
-          class="text-accent hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          打开快捷工具 ↗
-        </a>
-        <a
-          href="https://github.com/wenhaoyu-bryan/AI-PM-Operating-Playbook"
-          class="text-accent hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          查看源码 ↗
-        </a>
-      </div>
-    </div>
+    <p class="text-muted-foreground mt-10 text-sm">
+      工作台仍作为单独的实验保留原网址和
+      <a
+        class="text-accent hover:underline"
+        href="https://github.com/wenhaoyu-bryan/AI-PM-Operating-Playbook"
+        target="_blank"
+        rel="noopener noreferrer">源码仓库 ↗</a
+      >； 方法文章留在这个个人网站。
+    </p>
   </Main>
 
   <Footer />

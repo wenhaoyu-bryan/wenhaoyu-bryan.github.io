@@ -15,11 +15,16 @@ test('articles use breadcrumbs rather than a history-dependent back button', () 
   assert.ok(html.includes('aria-label="breadcrumb"'));
   assert.ok(!html.includes('id="back-button"'));
 });
-test('manifesto links resolve to the separately deployed site, not a missing local route', () => {
-  for (const route of ['playbook','zh/playbook','about','zh/about']) {
+test('methodology and About link to the integrated introduction, not the old standalone manifesto', () => {
+  for (const route of ['playbook', 'about']) {
     const html = read(route);
     assert.ok(!html.includes('href="/AI-PM-Manifesto/"'), route);
-    assert.ok(html.includes('href="https://wenhaoyu-bryan.github.io/AI-PM-Manifesto/"'), route);
+    assert.ok(html.includes('href="/about/manifesto/"'), route);
+  }
+  for (const route of ['zh/playbook', 'zh/about']) {
+    const html = read(route);
+    assert.ok(!html.includes('href="/AI-PM-Manifesto/"'), route);
+    assert.match(html, /href="\/zh\/one-page\/?"/, route);
   }
 });
 test('About separates AI tools from engineering stack in both locales', () => {

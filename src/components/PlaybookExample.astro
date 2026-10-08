@@ -1,0 +1,226 @@
+---
+interface Props {
+  locale: "en" | "zh";
+  compact?: boolean;
+  caseHref?: string;
+}
+
+const { locale, compact = false, caseHref } = Astro.props;
+const zh = locale === "zh";
+const copy = zh
+  ? {
+      source: "公开原型 / Prompt-to-Ontology",
+      input: "输入的问题",
+      question:
+        "拿到业务术语和 CSV 后，怎样在写入图谱前发现不确定的映射，并交给人审核？",
+      output: "可交付的拆解",
+      items: [
+        ["产品简报", "用户要确认什么、哪些数据可以进入图谱"],
+        ["工作流规格", "剖析 → 字段映射 → 校验 → 待审导入"],
+        ["验收检查", "低置信度候选项和 Agent 建议先进入人工审查队列"],
+      ],
+      evidence: "已公开原型：46 个本体对象、116 条关系、324 条待审项。",
+      caseLink: "看原型实景",
+    }
+  : {
+      source: "Public prototype / Prompt-to-Ontology",
+      input: "The question",
+      question:
+        "Given business terms and CSV files, how do we catch uncertain mappings before they reach the graph and route them for review?",
+      output: "A reviewable handoff",
+      items: [
+        [
+          "Product brief",
+          "What the user must decide and what may enter the graph",
+        ],
+        ["Workflow spec", "Profile → map → validate → stage import for review"],
+        [
+          "Acceptance checks",
+          "Low-confidence candidates and agent suggestions enter a human review queue",
+        ],
+      ],
+      evidence:
+        "Public prototype: 46 ontology objects, 116 relations, 324 review items.",
+      caseLink: "See the working prototype",
+    };
+---
+
+<div class:list={["playbook-example", { compact }]} lang={locale}>
+  <p class="example-source">{copy.source}</p>
+  <div class="example-flow">
+    <div class="example-question">
+      <span class="example-label">{copy.input}</span>
+      <p>{copy.question}</p>
+    </div>
+    <span class="example-arrow" aria-hidden="true">→</span>
+    <div class="example-output">
+      <span class="example-label">{copy.output}</span>
+      <ul>
+        {
+          copy.items.map(([label, detail]) => (
+            <li>
+              <>
+                <strong>{label}</strong>
+                <span>{detail}</span>
+              </>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  {
+    !compact && (
+      <p class="example-evidence">
+        {copy.evidence} {caseHref && <a href={caseHref}>{copy.caseLink} ↗</a>}
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .playbook-example {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--background);
+  }
+  .example-source,
+  .example-label {
+    font-family: var(--font-google-sans-code), monospace;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+  .example-source {
+    color: var(--muted-foreground);
+    margin: 0;
+    padding: 17px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .example-flow {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) 30px minmax(0, 1.1fr);
+    align-items: stretch;
+  }
+  .example-question,
+  .example-output {
+    padding: 28px;
+    min-width: 0;
+  }
+  .example-question {
+    background: var(--home-surface, var(--background));
+  }
+  .example-label {
+    color: var(--accent);
+  }
+  .example-question p {
+    font-size: clamp(18px, 2.2vw, 25px);
+    font-weight: 550;
+    line-height: 1.45;
+    letter-spacing: -0.035em;
+    margin: 14px 0 0;
+  }
+  .example-arrow {
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    border-inline: 1px solid var(--border);
+    font-size: 23px;
+  }
+  .example-output ul {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+  }
+  .example-output li {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 14px;
+    padding: 11px 0;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .example-output li strong {
+    font-weight: 550;
+  }
+  .example-output li span {
+    color: var(--muted-foreground);
+  }
+  .example-evidence {
+    margin: 0;
+    padding: 15px 22px;
+    border-top: 1px solid var(--border);
+    color: var(--muted-foreground);
+    font-size: 13px;
+  }
+  .example-evidence a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .compact {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .compact .example-source {
+    padding: 16px 0 10px;
+  }
+  .compact .example-flow {
+    display: block;
+  }
+  .compact .example-question,
+  .compact .example-output {
+    padding: 12px 0;
+    background: transparent;
+  }
+  .compact .example-question p {
+    font-size: 15px;
+    margin-top: 5px;
+  }
+  .compact .example-arrow {
+    display: none;
+  }
+  .compact .example-output li {
+    grid-template-columns: 76px minmax(0, 1fr);
+    font-size: 12px;
+    gap: 8px;
+    padding: 7px 0;
+  }
+  @media (max-width: 700px) {
+    .example-flow {
+      grid-template-columns: 1fr;
+    }
+    .example-arrow {
+      border-inline: 0;
+      border-block: 1px solid var(--border);
+      min-height: 34px;
+      font-size: 0;
+    }
+    .example-arrow::before {
+      content: "↓";
+      font-size: 23px;
+    }
+    .example-question,
+    .example-output {
+      padding: 22px;
+    }
+    .compact .example-question,
+    .compact .example-output {
+      padding: 12px 0;
+    }
+    .example-output li {
+      grid-template-columns: 96px minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 380px) {
+    .example-output li {
+      display: block;
+    }
+    .example-output li span {
+      display: block;
+      margin-top: 4px;
+    }
+  }
+</style>
