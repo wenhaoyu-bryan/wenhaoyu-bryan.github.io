@@ -129,6 +129,25 @@ function walk(dir) {
 }
 
 const scanFiles = walk(DIST);
+const htmlDocuments = scanFiles.filter(file => file.endsWith(".html"));
+for (const file of htmlDocuments) {
+  const html = readFileSync(file, "utf8");
+  if (!/<html\b/i.test(html)) continue;
+
+  const googleTagScript =
+    /<script\b[^>]*\bsrc="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-9079JL1TB6"[^>]*><\/script>/g;
+  const googleTagConfig =
+    /gtag\((?:'|")config(?:'|"),\s*(?:'|")G-9079JL1TB6(?:'|")\);/g;
+  assert(
+    (html.match(googleTagScript) ?? []).length === 1,
+    `${file.replace(DIST, "")} loads the Google tag exactly once`
+  );
+  assert(
+    (html.match(googleTagConfig) ?? []).length === 1,
+    `${file.replace(DIST, "")} configures the GA4 measurement ID exactly once`
+  );
+}
+
 const leaks = [];
 for (const file of scanFiles) {
   const content = readFileSync(file, "utf8");
