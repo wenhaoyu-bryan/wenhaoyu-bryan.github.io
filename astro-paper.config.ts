@@ -11,6 +11,7 @@ export default defineAstroPaperConfig({
     lang: "en",
     timezone: "Asia/Shanghai",
     dir: "ltr",
+    googleVerification: "NtAX4EiuyINCElCPgcz127o4MIhHqvtKZ9IyXYjdUyY",
     // Set to your goatcounter.com site code to enable privacy-friendly
     // analytics (e.g. "wenhaoyu"). Empty = no analytics script emitted.
     goatCounterCode: "bryanyu",

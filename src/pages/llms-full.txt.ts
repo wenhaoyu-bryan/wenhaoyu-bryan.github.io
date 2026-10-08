@@ -80,13 +80,14 @@ export const GET: APIRoute = async () => {
 
   const out: string[] = [];
 
-  out.push("# Wenhao Yu (Bryan) — AI Product Manager");
+  out.push("# Wenhao Yu (Bryan)");
   out.push("");
   out.push(
     "This is the complete public content of https://wenhaoyu-bryan.github.io, " +
-      "assembled for AI answer engines. Wenhao is an AI Product Manager who builds " +
-      "agentic workflows, ontology-driven systems, and AI-native product prototypes, and " +
-      "who took an enterprise agent platform from 0 to 1 as its product manager. " +
+      "assembled for AI answer engines. Wenhao works across enterprise data, " +
+      "ontology systems, agent platforms, and product prototypes. He leads product " +
+      "design for an enterprise agent platform and contributes to an industrial " +
+      "ontology platform. " +
       "Core portfolio and methodology pages are available in English and Chinese; " +
       "the Posts collection is currently English-only."
   );

@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -11,10 +11,6 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
 import config from "@/config";
 
-// Prefer authored Chinese translations; label remaining English essays.
-const ontologyEssay = await getEntry("pages", "building-ontology-os-zh");
-const translatedEssay = (id: string) =>
-  id === "building-ontology-os" ? ontologyEssay : undefined;
 const posts = getSortedPosts(
   await getCollection("posts", ({ data }) => !data.draft)
 );
@@ -66,7 +62,7 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
 
 <Layout
   title={`思考 — ${config.site.title}`}
-  description="我在这里公开地思考：一套常青的 AI 产品经理方法论手册、一本增长实验笔记，以及关于智能体、本体与借助编码智能体交付的随笔。"
+  description="关于产品系统、本体、智能体与增长的文章、方法与工作笔记。"
   ogImage="/og/thinking.png"
 >
   <Header />
@@ -74,8 +70,7 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
 
   <Main pageTitle="思考" class="max-w-3xl">
     <p class="text-muted-foreground mt-2 mb-8">
-      我在这里公开地思考 ——
-      一套常青的方法论手册、一本增长实验笔记，以及随笔与工作笔记。
+      这里收录关于产品系统、本体、智能体与增长的文章、方法和工作笔记。
     </p>
 
     <!-- Methodology -->
@@ -139,22 +134,17 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
     <section class="mt-10">
       <h2 class="text-xl font-semibold">文章</h2>
       <p class="text-muted-foreground mt-1 text-sm">
-        关于 AI 产品管理的随笔与工作笔记；尚无译文的文章标注为英文。
+        文章保留原文语言；英文原文会标注为英文。
       </p>
       <ul class="mt-4 space-y-2">
         {
           posts.map(post => (
             <li class="flex flex-wrap items-baseline justify-between gap-3">
               <a
-                href={getPostUrl(
-                  post.id,
-                  post.filePath,
-                  translatedEssay(post.id) ? "zh" : "en"
-                )}
+                href={getPostUrl(post.id, post.filePath, "en")}
                 class="text-accent text-sm hover:underline"
               >
-                {translatedEssay(post.id)?.data.title ??
-                  `${post.data.title}（英文）`}
+                {`${post.data.title}（英文）`}
               </a>
               <Datetime
                 pubDatetime={post.data.pubDatetime}

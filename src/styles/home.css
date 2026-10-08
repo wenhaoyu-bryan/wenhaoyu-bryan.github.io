@@ -520,9 +520,15 @@
   gap: 16px;
   margin-top: 28px;
 }
+.growth-note h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
 .growth-note p {
   font-size: 13px;
   color: var(--muted-foreground);
+  margin-top: 5px;
+  max-width: 620px;
 }
 .experience-section {
   display: grid;
