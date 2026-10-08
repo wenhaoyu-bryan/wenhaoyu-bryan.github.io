@@ -89,7 +89,7 @@ const defs: ProjectDef[] = [
     status: "Current Work",
     path: "work/enterprise-agent-platform",
     ledger: {
-      date: { en: "Current", zh: "当前" },
+      date: { en: "Current · in progress", zh: "当前 · 进行中" },
       heading: {
         en: "Product Manager — Enterprise Agent Platform (0\u00A0→\u00A01)",
         zh: "产品经理 — 企业级 Agent 平台（0\u00A0→\u00A01）",
@@ -129,7 +129,7 @@ const defs: ProjectDef[] = [
     status: "Current Work",
     path: "work/ontology-platform",
     ledger: {
-      date: { en: "Current · in progress", zh: "当前 · 探索中" },
+      date: { en: "Current · in progress", zh: "当前 · 进行中" },
       heading: {
         en: "Ontology Platform — Product Design & Development",
         zh: "本体平台 — 参与产品设计与研发",

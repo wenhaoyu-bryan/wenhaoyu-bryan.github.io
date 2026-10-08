@@ -13,12 +13,12 @@ tags:
   - Knowledge Graphs
   - Vibe Coding
   - Palantir
-description: "How a product manager used LLM pair programming to build and understand a full-stack ontology platform."
+description: "A hands-on exploration of enterprise AI platform architecture, ontology modeling, and the decisions behind a full-stack prototype."
 ---
 
 ## The Question That Started It All
 
-As an AI Product Manager working in advanced manufacturing, I needed to understand how enterprise AI platforms like Palantir AIP and Foundry actually work under the hood. Not the whitepaper version — the real version.
+Working in advanced manufacturing, I wanted to understand how enterprise AI platforms like Palantir AIP and Foundry work beneath the surface. I wanted to move beyond whitepapers and examine the product and technical choices behind them.
 
 So I decided to build one myself.
 
@@ -30,7 +30,7 @@ The key architectural insight: **Neo4j is the data source, NetworkX is the compu
 
 ## The Vibe Coding Experiment
 
-This was a PM-led rapid prototyping experiment: I defined product intent, architecture boundaries, and design constraints, while using LLM pair programming (Claude) to accelerate implementation, debugging, and iteration.
+For this prototype, I defined the product intent, architecture boundaries, and design constraints, then used LLM pair programming to speed up implementation, debugging, and iteration.
 
 The most valuable output isn't code. It's the cognitive framework for understanding ontology-driven systems: the difference between data models, schemas, and ontologies; the distinction between "viewing a graph" and "operating a business through a graph."
 

@@ -13,7 +13,7 @@ import config from "@/config";
  * pages keep the shared default OG image.
  */
 const PAGE_TITLES: Record<string, string> = {
-  home: "Wenhao Yu — AI Product Manager",
+  home: "Wenhao Yu (Bryan)",
   work: "Work — Wenhao Yu",
   projects: "Projects — Wenhao Yu",
   thinking: "Thinking — Wenhao Yu",

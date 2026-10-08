@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import {
   ArrowRight,
@@ -26,11 +26,6 @@ interface Props {
 }
 const { locale } = Astro.props;
 const zh = locale === "zh";
-const ontologyEssay = zh
-  ? await getEntry("pages", "building-ontology-os-zh")
-  : undefined;
-const translatedEssay = (id: string) =>
-  id === "building-ontology-os" ? ontologyEssay : undefined;
 const url = (path: string) => getRelativeLocaleUrl(locale, path);
 const builds = getListedBuilds(locale);
 const ontology = builds.find(
@@ -47,7 +42,7 @@ const posts = getSortedPosts(await getCollection("posts"))
 const copy = zh
   ? {
       name: "余文豪",
-      role: "AI 产品经理",
+      byline: "Bryan",
       headline: ["把模糊问题，", "变成 AI 系统。"],
       intro:
         "我关注智能体、知识系统与 AI 产品交付，把复杂业务问题变成可探索、可验证的产品。",
@@ -57,12 +52,14 @@ const copy = zh
       currentText:
         "主导企业级 Agent 平台的产品设计，同时参与本体平台的设计与研发。",
       currentLink: "查看当前工作",
-      workTitle: "想法，可以亲手探索。",
+      workTitle: "知识如何成形，Agent 如何行动。",
       allProjects: "所有项目",
-      ontologyCategory: "知识系统 / 产品原型",
-      anatomyCategory: "交互式解释 / AI 系统",
-      growthTitle: "也在探索，产品如何被发现。",
-      growthLink: "进入 Growth Lab",
+      ontologyCategory: "上下文 / 本体系统",
+      anatomyCategory: "行动 / Agent 系统",
+      growthTitle: "产品增长实验",
+      growthDescription:
+        "记录我在 SEO 与 AI 搜索发现上的实践，包括问题、验证过程和后续观察。",
+      growthLink: "查看 Growth Lab",
       anatomyVisual: "Agent 的一次循环",
       model: "模型",
       tool: "工具",
@@ -80,13 +77,13 @@ const copy = zh
       writingIntro: "关于 AI 产品、系统设计，以及与编码智能体一起工作的实践。",
       contactTitle: "聊聊你正在思考的 AI 产品。",
       contactDescription:
-        "开放 AI 产品经理职位机会与合作。无论你正在组建团队、构建产品，还是想交流一个问题，都欢迎联系。",
+        "欢迎交流产品、团队与真实业务问题，也欢迎联系我讨论合作机会。",
       ai: "也可以用 AI 了解我的经历",
       now: "我现在在做什么",
     }
   : {
       name: "Wenhao Yu",
-      role: "AI Product Manager",
+      byline: "Bryan",
       headline: ["From ambiguity", "to AI systems."],
       intro:
         "I build across agents, knowledge systems, and product delivery, turning complex business problems into things you can explore and test.",
@@ -96,12 +93,14 @@ const copy = zh
       currentText:
         "Leading agent platform product design and contributing to an ontology platform.",
       currentLink: "Read current work",
-      workTitle: "Ideas you can explore.",
+      workTitle: "Knowledge context. Agent action.",
       allProjects: "All projects",
-      ontologyCategory: "Knowledge systems / Prototype",
-      anatomyCategory: "Interactive essay / AI systems",
-      growthTitle: "And how does a product get discovered?",
-      growthLink: "Explore the Growth Lab",
+      ontologyCategory: "Context / Ontology systems",
+      anatomyCategory: "Action / Agent systems",
+      growthTitle: "Growth experiments",
+      growthDescription:
+        "Notes on SEO and how AI search is changing product discovery, with the questions, tests, and follow-up behind each experiment.",
+      growthLink: "Read the Growth Lab",
       anatomyVisual: "Inside the agent loop",
       model: "Model",
       tool: "Tool",
@@ -120,7 +119,7 @@ const copy = zh
         "Notes on AI products, system design, and working with coding agents.",
       contactTitle: "Let’s talk AI products.",
       contactDescription:
-        "I’m open to AI PM roles and collaborations. Get in touch if you’re building a team, working on a product, or thinking through an interesting problem.",
+        "I’m open to product roles and collaborations. Get in touch to talk about a team, a product, or a real problem worth solving.",
       ai: "Ask an AI about my work",
       now: "What I’m doing now",
     };
@@ -128,9 +127,9 @@ const copy = zh
 
 <Layout
   portfolio
-  title={zh ? "Wenhao Yu — AI 产品经理" : "Wenhao Yu — AI Product Manager"}
+  title="Wenhao Yu (Bryan)"
   description={zh
-    ? "余文豪的 AI 产品经理个人网站，关注 Agent 工作流、本体驱动系统、AI 产品交付和 SEO/GEO 增长。"
+    ? "余文豪（Bryan）的个人作品与思考，关注企业数据、本体系统、Agent 产品与增长。"
     : undefined}
   ogImage="/og/home.png"
 >
@@ -153,7 +152,7 @@ const copy = zh
             height="52"
             loading="eager"
           /><div>
-            <h1 id="home-name">{copy.name}</h1><span>{copy.role}</span>
+            <h1 id="home-name">{copy.name}</h1><span>{copy.byline}</span>
           </div>
         </div>
         <p class="hero-statement">
@@ -222,9 +221,10 @@ const copy = zh
         </article>
       </div>
       <div class="growth-note">
-        <p>{copy.growthTitle}</p><a
-          href={growth.href}
-          class="portfolio-text-link"
+        <div>
+          <h3>{copy.growthTitle}</h3>
+          <p>{copy.growthDescription}</p>
+        </div><a href={growth.href} class="portfolio-text-link"
           >{copy.growthLink}<ArrowUpRight size={17} aria-hidden="true" /></a
         >
       </div>
@@ -301,11 +301,7 @@ const copy = zh
         {
           posts.map(post => (
             <a
-              href={getPostUrl(
-                post.id,
-                post.filePath,
-                translatedEssay(post.id) ? "zh" : "en"
-              )}
+              href={getPostUrl(post.id, post.filePath, "en")}
               class="writing-item"
             >
               <>
@@ -318,16 +314,12 @@ const copy = zh
                         year: "numeric",
                       }).format(post.data.pubDatetime)}
                     </time>
-                    <span>
-                      {translatedEssay(post.id) ? "中文" : copy.english}
-                    </span>
+                    <span>{copy.english}</span>
                   </>
                 </div>
                 <div class="writing-title-row">
                   <>
-                    <h3 lang={translatedEssay(post.id) ? "zh-CN" : "en"}>
-                      {translatedEssay(post.id)?.data.title ?? post.data.title}
-                    </h3>
+                    <h3 lang="en">{post.data.title}</h3>
                     <ArrowUpRight size={21} aria-hidden="true" />
                   </>
                 </div>

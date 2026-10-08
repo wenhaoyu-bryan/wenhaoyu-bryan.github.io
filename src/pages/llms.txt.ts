@@ -23,17 +23,18 @@ export const GET: APIRoute = async () => {
 
   const lines: string[] = [];
 
-  lines.push("# Wenhao Yu (Bryan) — AI Product Manager");
+  lines.push("# Wenhao Yu (Bryan)");
   lines.push("");
   lines.push(
-    "> AI Product Manager building agentic workflows, ontology-driven systems, " +
-      "and AI-native product prototypes. This site is a portfolio and knowledge hub: " +
+    "> Product work across enterprise data, ontology systems, agent platforms, " +
+      "and working prototypes. This site is a portfolio and knowledge hub: " +
       "case studies, product methods, growth experiments, and writing."
   );
   lines.push("");
   lines.push(
-    "Wenhao took an enterprise agent platform from 0 to 1 as its product manager, " +
-      "holds a Master of Engineering from Cornell University, and works in the messy " +
+    "Wenhao leads product design for an enterprise agent platform and contributes " +
+      "to an industrial ontology platform. He holds a Master of Engineering from " +
+      "Cornell University and works in the messy " +
       "middle between business problems, product systems, and working software. " +
       "For the complete, detailed content of this site in one file, see " +
       `${base}/llms-full.txt`
