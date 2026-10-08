@@ -126,7 +126,21 @@ const hreflangAlternates = isMirroredRoute(basePath)
         window.dataLayer.push(arguments);
       }
       gtag("js", new Date());
-      gtag("config", "G-9079JL1TB6");
+      gtag("config", "G-9079JL1TB6", { send_page_view: false });
+
+      let previousPageLocation = document.referrer;
+      document.addEventListener("astro:page-load", () => {
+        const pageLocation = window.location.href;
+        const pageView = {
+          page_title: document.title,
+          page_location: pageLocation,
+        };
+        if (previousPageLocation) {
+          pageView.page_referrer = previousPageLocation;
+        }
+        gtag("event", "page_view", pageView);
+        previousPageLocation = pageLocation;
+      });
     </script>
     <link
       rel="icon"
