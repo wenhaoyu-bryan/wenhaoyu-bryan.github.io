@@ -10,9 +10,28 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
-const WORKBENCH_URL =
-  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
 const caseHref = getRelativeLocaleUrl(locale, "projects/prompt-to-ontology");
+
+const handoffChecks = [
+  {
+    label: "Decision",
+    detail: "Who is making which decision, and what stays out of scope?",
+  },
+  {
+    label: "Evidence",
+    detail:
+      "Can a reviewer inspect the source behind each mapping or recommendation?",
+  },
+  {
+    label: "Review boundary",
+    detail: "What can move automatically, and what must wait for a person?",
+  },
+  {
+    label: "Acceptance",
+    detail:
+      "Which conflict, missing-source, or low-confidence case would fail the test?",
+  },
+];
 
 const categories = [
   {
@@ -79,40 +98,46 @@ const categories = [
 ---
 
 <Layout
-  title={`Product method experiment — ${config.site.title}`}
-  description="A real product question from Prompt-to-Ontology, the reviewable outputs it led to, and practical methods for AI product work."
+  title={`Methodology — ${config.site.title}`}
+  description="Product methods behind Prompt-to-Ontology and Agent Anatomy: from a concrete question to evidence, review boundaries, and testable acceptance checks."
   ogImage="/og/playbook.png"
 >
   <Header />
   <Breadcrumb />
 
-  <Main
-    pageTitle="From a product question to a reviewable handoff"
-    class="app-prose"
-  >
+  <Main pageTitle="Methods behind the work" class="app-prose">
     <p>
-      I keep my AI product methods and field notes here. The example below
-      revisits my public Prompt-to-Ontology prototype: one product question,
-      broken into a brief, workflow, and acceptance checks.
+      The public projects show the systems; this page keeps the working notes
+      behind them. Below, I revisit Prompt-to-Ontology as one concrete product
+      question, then spell out what I would check before handing the design to a
+      team.
     </p>
 
     <div class="mt-8">
       <PlaybookExample locale="en" caseHref={caseHref} />
     </div>
 
-    <div class="mt-6 flex flex-wrap items-center gap-4">
-      <a
-        href={WORKBENCH_URL}
-        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        target="_blank"
-        rel="noopener noreferrer"
+    <section class="mt-10" aria-labelledby="handoff-title">
+      <h2 id="handoff-title" class="text-xl font-semibold">
+        Review the handoff
+      </h2>
+      <p class="text-muted-foreground mt-2 text-sm">
+        A brief is useful only if the next person can question its assumptions.
+        I use these checks for ontology mappings and agent actions alike.
+      </p>
+      <div
+        class="border-border bg-border mt-5 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
       >
-        Open the optional workbench ↗
-      </a>
-      <span class="text-muted-foreground text-sm">
-        Manual inputs · local save · template-based exports · no model call
-      </span>
-    </div>
+        {
+          handoffChecks.map(check => (
+            <div class="bg-background p-5">
+              <h3 class="font-medium">{check.label}</h3>
+              <p class="text-muted-foreground mt-2 text-sm">{check.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
 
     <div class="border-border mt-10 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">The four-step method</h2>
@@ -205,13 +230,15 @@ const categories = [
     </div>
 
     <p class="text-muted-foreground mt-10 text-sm">
-      The workbench remains a separate experiment with its own URL and
+      These are working methods, not another product. See them tested in
+      <a href={caseHref} class="text-accent hover:underline"
+        >Prompt-to-Ontology</a
+      >
+      and explored visually in
       <a
-        class="text-accent hover:underline"
-        href="https://github.com/wenhaoyu-bryan/AI-PM-Operating-Playbook"
-        target="_blank"
-        rel="noopener noreferrer">source repository ↗</a
-      >. The longer explanations stay here on the personal site.
+        href="https://wenhaoyu-bryan.github.io/agent-anatomy/"
+        class="text-accent hover:underline">Agent Anatomy ↗</a
+      >.
     </p>
   </Main>
 

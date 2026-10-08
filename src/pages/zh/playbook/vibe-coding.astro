@@ -10,16 +10,13 @@ import config from "@/config";
 
 const locale = "zh";
 
-const PLAYBOOK_BASE =
-  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
-
 const workflowSteps = [
   { label: "产品意图", note: "定义为什么" },
   { label: "约束与非目标", note: "圈定范围" },
   { label: "可运行原型", note: "小步生成", emphasis: true },
   { label: "行为评审", note: "不只看代码" },
   { label: "可复用模式", note: "重构沉淀" },
-  { label: "Playbook", note: "文档化学习", emphasis: true },
+  { label: "工作笔记", note: "记录经验", emphasis: true },
 ];
 ---
 
@@ -41,13 +38,12 @@ const workflowSteps = [
     </p>
 
     <p class="text-muted-foreground text-lg">
-      在本 Playbook 里，Vibe Coding 指的是 PM
-      主导、编码智能体辅助的原型开发。你与 Claude Code 或 Cursor
-      这样的工具结对，用自然语言构建可运行的原型 ——
+      这里说的 Vibe Coding，指的是 PM 主导、编码智能体辅助的原型开发。你与
+      Claude Code 或 Cursor 这样的工具结对，用自然语言构建可运行的原型 ——
       目的不是交付生产代码，而是更快地发现、验证和沟通产品想法。
     </p>
 
-    <h2 class="mt-8 text-xl font-semibold">它在本 Playbook 里的含义</h2>
+    <h2 class="mt-8 text-xl font-semibold">我如何理解 Vibe Coding</h2>
     <p>
       「Vibe Coding」这个词常被泛泛地用来指代任何 LLM
       辅助的编码。在这里，它有一个具体的含义：PM
@@ -65,7 +61,7 @@ const workflowSteps = [
     </p>
     <FlowDiagram
       steps={workflowSteps}
-      caption="每一轮循环都以文档化、可复用的模式收尾 —— 原型是副产品，Playbook 才是资产。"
+      caption="每一轮循环都留下可复用的工作方法，而不只是一个原型。"
     />
 
     <h2 class="mt-6 text-xl font-semibold">适用场景</h2>
@@ -196,14 +192,6 @@ const workflowSteps = [
         > —— 用这套循环从零到一构建的全栈本体原型。
       </li>
       <li>
-        <a
-          href="https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/"
-          class="text-accent hover:underline"
-          target="_blank"
-          rel="noopener noreferrer">AI PM Operating Playbook</a
-        > —— 交互式工具集，本身也是 Vibe Coding 的产物。
-      </li>
-      <li>
         本网站 —— 通过 PM 主导的 LLM Pair Programming 在 Astro
         上设计、构建和迭代。
       </li>
@@ -212,24 +200,10 @@ const workflowSteps = [
       过去单独放在「Prototype Lab」里的公开原型实验，现已并入这套方法论本身。
     </p>
 
-    <h2 class="mt-6 text-xl font-semibold">与交互工具的关联</h2>
+    <h2 class="mt-6 text-xl font-semibold">先写清楚问题</h2>
     <p>
-      AI PM Operating Playbook
-      帮助你从一个想法走到结构化的产品简报和编码智能体交接文档。对 Vibe Coding
-      来说，这意味着你从一个结构化的界定出发，而不是一个开放式的提示 ——
-      这会更快地产出更好的原型。
+      打开编码智能体前，先写清用户是谁、界面要支持什么决策、可用数据有哪些，以及什么结果值得拿去测试。再用原型找出哪些假设不成立；一个精致的页面本身并不等于学到了东西。
     </p>
-
-    <div class="mt-8 mb-8">
-      <a
-        href={PLAYBOOK_BASE}
-        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        把一个想法变成结构化的产品简报与交接文档 ↗
-      </a>
-    </div>
 
     <div class="border-border mt-8 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">相关</h2>

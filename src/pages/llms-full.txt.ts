@@ -85,7 +85,7 @@ export const GET: APIRoute = async () => {
   out.push(
     "This is the complete public content of https://wenhaoyu-bryan.github.io, " +
       "assembled for AI answer engines. Wenhao is an AI Product Manager who builds " +
-      "agentic workflows, ontology-driven systems, and AI-native product tools, and " +
+      "agentic workflows, ontology-driven systems, and AI-native product prototypes, and " +
       "who took an enterprise agent platform from 0 to 1 as its product manager. " +
       "Core portfolio and methodology pages are available in English and Chinese; " +
       "the Posts collection is currently English-only."
@@ -237,7 +237,10 @@ export const GET: APIRoute = async () => {
     out.push("");
   };
   pushEntries("Work", work);
-  pushEntries("Projects", builds);
+  pushEntries(
+    "Projects",
+    builds.filter(p => p.listed)
+  );
 
   // Posts (full bodies)
   out.push("## Posts");

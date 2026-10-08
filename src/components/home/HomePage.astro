@@ -14,10 +14,9 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import ContactRow from "@/components/ContactRow.astro";
 import AskAI from "@/components/AskAI.astro";
-import PlaybookExample from "@/components/PlaybookExample.astro";
 import SystemsAtelier from "./SystemsAtelier.astro";
 import ProjectCover from "./ProjectCover.astro";
-import { getWork, getListedBuilds } from "@/data/projects";
+import { getWork, getBuilds, getListedBuilds } from "@/data/projects";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
 import "@/styles/home.css";
@@ -38,10 +37,7 @@ const ontology = builds.find(
   project => project.title === "Prompt-to-Ontology"
 )!;
 const anatomy = builds.find(project => project.title === "Agent Anatomy")!;
-const playbook = builds.find(
-  project => project.title === "AI PM Operating Playbook"
-)!;
-const growth = builds.find(
+const growth = getBuilds(locale).find(
   project => project.title === "SEO/GEO Growth Experiments"
 )!;
 const work = getWork(locale);
@@ -65,7 +61,6 @@ const copy = zh
       allProjects: "所有项目",
       ontologyCategory: "知识系统 / 产品原型",
       anatomyCategory: "交互式解释 / AI 系统",
-      playbookCategory: "产品方法实验 / 公开原型",
       growthTitle: "也在探索，产品如何被发现。",
       growthLink: "进入 Growth Lab",
       anatomyVisual: "Agent 的一次循环",
@@ -105,7 +100,6 @@ const copy = zh
       allProjects: "All projects",
       ontologyCategory: "Knowledge systems / Prototype",
       anatomyCategory: "Interactive essay / AI systems",
-      playbookCategory: "Product-method experiment / Public prototype",
       growthTitle: "And how does a product get discovered?",
       growthLink: "Explore the Growth Lab",
       anatomyVisual: "Inside the agent loop",
@@ -225,20 +219,6 @@ const copy = zh
               />
             </div><p>{anatomy.description}</p>
           </a>
-        </article>
-        <article class="project-playbook">
-          <ProjectCover kind="playbook" locale={locale} />
-          <div class="playbook-copy">
-            <span class="portfolio-meta">{copy.playbookCategory}</span>
-            <h3><a href={playbook.href}>{playbook.title}</a></h3>
-            <p>{playbook.description}</p>
-            <PlaybookExample locale={locale} compact />
-            <a href={playbook.href} class="project-open"
-              >{
-                zh ? "看完整示例与方法" : "See the example and method"
-              }<ArrowUpRight size={20} aria-hidden="true" /></a
-            >
-          </div>
         </article>
       </div>
       <div class="growth-note">

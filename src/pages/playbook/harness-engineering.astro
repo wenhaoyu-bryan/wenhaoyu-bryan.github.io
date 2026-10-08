@@ -8,9 +8,6 @@ import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
-
-const PLAYBOOK_BASE =
-  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
 ---
 
 <Layout
@@ -193,28 +190,13 @@ const PLAYBOOK_BASE =
       </li>
     </ul>
 
-    <h2 class="mt-6 text-xl font-semibold">
-      Connection to AI PM Operating Playbook
-    </h2>
+    <h2 class="mt-6 text-xl font-semibold">What belongs in the handoff</h2>
     <p>
-      The AI PM Operating Playbook's Coding-Agent Handoff tool operationalizes
-      harness engineering. It generates structured documents that define
-      context, constraints, acceptance criteria, and test expectations — the
-      exact inputs an agent needs to work productively. If you are new to
-      harness engineering, starting with a generated handoff is a practical way
-      to see what a well-defined harness looks like.
+      Before a coding agent starts, I write down the user problem, relevant
+      context, constraints, acceptance checks, and how the result will be
+      reviewed. The handoff should make uncertain assumptions visible; a
+      generated document alone does not validate them.
     </p>
-
-    <div class="mt-8 mb-8">
-      <a
-        href={PLAYBOOK_BASE}
-        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Generate a coding-agent handoff with AI PM Operating Playbook ↗
-      </a>
-    </div>
 
     <div class="border-border mt-8 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">Related</h2>

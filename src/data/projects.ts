@@ -1,6 +1,5 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import ontologyThumb from "@/assets/projects/prompt-to-ontology/dashboard.png";
-import playbookThumb from "@/assets/projects/ai-pm-operating-playbook/homepage.png";
 import agentAnatomyThumb from "@/assets/projects/agent-anatomy/hero.png";
 
 type Locale = "en" | "zh";
@@ -12,7 +11,6 @@ export interface Project {
   kind: "work" | "project";
   status:
     | "Public"
-    | "Public Tool"
     | "Ongoing"
     | "Public · Ep. 01"
     | "Current Work"
@@ -239,29 +237,12 @@ const defs: ProjectDef[] = [
     },
   },
   {
-    title: "AI PM Operating Playbook",
-    icon: "Book",
-    kind: "project",
-    status: "Public Tool",
-    path: "playbook",
-    repo: "https://github.com/wenhaoyu-bryan/AI-PM-Operating-Playbook",
-    thumbnail: playbookThumb,
-    thumbnailAlt: "AI PM Operating Playbook landing page and workbench",
-    description: {
-      en: "A product-method experiment: start with a real product question, make the decisions and review points explicit, then explore an optional structured workbench.",
-      zh: "一项产品方法实验：从真实的产品问题出发，拆出决策边界、工作流和审核点；需要亲手尝试时，再进入结构化工作台。",
-    },
-    tags: {
-      en: ["AI PM", "Methodology", "Interactive Tools", "Frameworks"],
-      zh: ["AI PM", "方法论", "交互工具", "框架"],
-    },
-  },
-  {
     title: "SEO/GEO Growth Experiments",
     icon: "TrendingUp",
     kind: "project",
     status: "Ongoing",
     path: "growth-lab",
+    listed: false,
     description: {
       en: "Experiments on content systems, B2B websites, and AI-search-aware growth loops — connecting SEO fundamentals with GEO visibility.",
       zh: "关于内容系统、B2B 网站增长和 AI 搜索可见性的长期笔记与实验空间。",

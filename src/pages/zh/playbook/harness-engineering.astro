@@ -8,9 +8,6 @@ import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
 const locale = "zh";
-
-const PLAYBOOK_BASE =
-  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
 ---
 
 <Layout
@@ -170,28 +167,10 @@ const PLAYBOOK_BASE =
       </li>
     </ul>
 
-    <h2 class="mt-6 text-xl font-semibold">
-      与 AI PM Operating Playbook 的关联
-    </h2>
+    <h2 class="mt-6 text-xl font-semibold">交接材料要写清什么</h2>
     <p>
-      AI PM Operating Playbook 中的 Coding-Agent Handoff 工具，把 Harness
-      Engineering
-      落到了实处。它会生成结构化文档，定义上下文、约束、验收标准和测试预期 ——
-      也就是智能体高效工作所需要的那些输入。如果你刚接触 Harness
-      Engineering，从一份生成好的交接文档入手，是直观理解「一个定义良好的
-      Harness 长什么样」的实用方式。
+      编码智能体开始工作前，我会写清用户问题、相关上下文、约束、验收检查，以及结果由谁审核。交接材料还应该让不确定的假设显露出来；生成一份格式完整的文档，并不等于验证了这些假设。
     </p>
-
-    <div class="mt-8 mb-8">
-      <a
-        href={PLAYBOOK_BASE}
-        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        用 AI PM Operating Playbook 生成一份编码智能体交接文档 ↗
-      </a>
-    </div>
 
     <div class="border-border mt-8 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">相关</h2>

@@ -10,9 +10,14 @@ import config from "@/config";
 
 const locale = "zh";
 
-const WORKBENCH_URL =
-  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/zh-CN/workbench/";
 const caseHref = getRelativeLocaleUrl(locale, "projects/prompt-to-ontology");
+
+const handoffChecks = [
+  { label: "决策", detail: "谁要决定什么？哪些需求暂时不做？" },
+  { label: "证据", detail: "每条映射和建议，审核人能否追到原始依据？" },
+  { label: "审核边界", detail: "哪些步骤可以自动流转，哪些必须等人确认？" },
+  { label: "验收", detail: "冲突、缺少来源或低置信度时，什么情况算失败？" },
+];
 
 // Playbook 方法论页面均已有中文版，链接指向 zh 路由
 const categories = [
@@ -81,35 +86,41 @@ const categories = [
 ---
 
 <Layout
-  title={`产品方法实验 — ${config.site.title}`}
-  description="从 Prompt-to-Ontology 的真实产品问题出发，展示可讨论的交付物，以及 AI 产品设计、评估和交付的方法。"
+  title={`方法论 — ${config.site.title}`}
+  description="Prompt-to-Ontology 与 Agent Anatomy 背后的产品方法：从具体问题出发，明确证据、审核边界和可验证的验收条件。"
 >
   <Header />
   <Breadcrumb />
 
-  <Main pageTitle="从产品问题，到可讨论的交付物" class="app-prose">
+  <Main pageTitle="项目背后的方法" class="app-prose">
     <p>
-      我把产品方法和实践笔记放在这里。下面以已公开的 Prompt-to-Ontology
-      原型为例，复盘一个问题如何被拆成产品简报、工作流和验收检查。
+      公开项目展示系统本身；这里记录构建时用到的判断。下面以已公开的
+      Prompt-to-Ontology 原型为例，复盘一个产品问题如何被拆成可讨论的交付物。
     </p>
 
     <div class="mt-8">
       <PlaybookExample locale="zh" caseHref={caseHref} />
     </div>
 
-    <div class="mt-6 flex flex-wrap items-center gap-4">
-      <a
-        href={WORKBENCH_URL}
-        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        target="_blank"
-        rel="noopener noreferrer"
+    <section class="mt-10" aria-labelledby="handoff-title">
+      <h2 id="handoff-title" class="text-xl font-semibold">交付前检查</h2>
+      <p class="text-muted-foreground mt-2 text-sm">
+        简报有价值，不是因为格式完整，而是因为接手的人能质疑其中的假设。我会用这些问题检查本体映射和
+        Agent 动作设计。
+      </p>
+      <div
+        class="border-border bg-border mt-5 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
       >
-        可选：打开结构化工作台 ↗
-      </a>
-      <span class="text-muted-foreground text-sm">
-        手动整理输入 · 浏览器本地保存 · 模板化导出 · 暂无模型调用
-      </span>
-    </div>
+        {
+          handoffChecks.map(check => (
+            <div class="bg-background p-5">
+              <h3 class="font-medium">{check.label}</h3>
+              <p class="text-muted-foreground mt-2 text-sm">{check.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
 
     <div class="border-border mt-10 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">四步方法</h2>
@@ -198,13 +209,16 @@ const categories = [
     </div>
 
     <p class="text-muted-foreground mt-10 text-sm">
-      工作台仍作为单独的实验保留原网址和
+      这些是工作方法，不是另一个产品。你可以在
+      <a href={caseHref} class="text-accent hover:underline"
+        >Prompt-to-Ontology</a
+      >
+      中看到它们如何落到原型，也可以在
       <a
-        class="text-accent hover:underline"
-        href="https://github.com/wenhaoyu-bryan/AI-PM-Operating-Playbook"
-        target="_blank"
-        rel="noopener noreferrer">源码仓库 ↗</a
-      >； 方法文章留在这个个人网站。
+        href="https://wenhaoyu-bryan.github.io/agent-anatomy/"
+        class="text-accent hover:underline">Agent Anatomy ↗</a
+      >
+      里探索智能体运行过程。
     </p>
   </Main>
 

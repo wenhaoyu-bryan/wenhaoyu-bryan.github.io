@@ -73,7 +73,7 @@ These three frameworks operate at different levels:
 - **Loop engineering** designs how that environment evolves over repeated iterations.
 - **Vibe coding** is a specific application — discovery prototyping — that benefits from both.
 
-The AI PM Operating Playbook's interactive tools operationalize these ideas. The Coding-Agent Handoff tool generates the structured context documents that harness engineering requires. The Evaluation step supports the evaluation loop. The product brief workflow supports vibe coding from idea to structured handoff.
+I use the same questions across all three: what context does the agent need, what would count as a failed run, and what did the prototype teach us about the user's actual task? A handoff document is useful when it makes those answers reviewable—not simply because a template produced it.
 
 ## Start Here
 

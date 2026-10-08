@@ -8,9 +8,6 @@ import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
 const locale = "zh";
-
-const PLAYBOOK_BASE =
-  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
 ---
 
 <Layout
@@ -177,7 +174,7 @@ const PLAYBOOK_BASE =
         <a
           href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
           class="text-accent hover:underline">Prompt-to-Ontology</a
-        > —— 通过反复的实现循环构建，方法论本身也被沉淀为 Playbook 里的产物和一篇长文复盘。
+        > —— 通过反复的实现循环构建，并把过程中形成的方法整理成可复用的笔记。
       </li>
       <li>
         <a
@@ -189,26 +186,12 @@ const PLAYBOOK_BASE =
       </li>
     </ul>
 
-    <h2 class="mt-6 text-xl font-semibold">
-      与 AI PM Operating Playbook 的关联
-    </h2>
+    <h2 class="mt-6 text-xl font-semibold">把下一轮测试写清楚</h2>
     <p>
-      AI PM Operating Playbook
-      中的「评估与风险」步骤，正是评估循环的直接应用。它帮助 PM
-      定义要衡量什么、如何衡量，以及拿结果做什么。它生成的产物 ——
-      评估计划、风险评估、验收标准 —— 都是为反哺后续迭代而设计的。
+      每轮迭代都应留下一个可复查的测试场景：输入是什么、预期行为是什么、审核人能看到什么证据、什么情况算失败。对
+      Agent
+      而言，还要覆盖缺失来源、证据冲突，以及必须等待人工批准的建议。把失败过的场景留下，才能在更换模型或工作流前做回归检查。
     </p>
-
-    <div class="mt-8 mb-8">
-      <a
-        href={PLAYBOOK_BASE}
-        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        在 AI PM Operating Playbook 中构建一套评估与反馈计划 ↗
-      </a>
-    </div>
 
     <div class="border-border mt-8 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">相关</h2>

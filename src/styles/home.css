@@ -513,59 +513,6 @@
   text-align: center;
   color: var(--muted-foreground);
 }
-.project-playbook {
-  grid-column: 1/-1;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  background: var(--home-surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-.playbook-media {
-  padding: 28px 0 0 28px;
-  height: 284px;
-  overflow: hidden;
-}
-.playbook-media img {
-  width: 125%;
-  max-width: none;
-  height: auto;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  transition: transform 250ms;
-}
-.project-playbook:hover .playbook-media img {
-  transform: translateY(-5px);
-}
-.playbook-copy {
-  padding: 36px;
-  align-self: center;
-}
-.playbook-copy h3 {
-  font-size: 28px;
-  font-weight: 550;
-  line-height: 1.2;
-  letter-spacing: -0.04em;
-  margin-top: 12px;
-  max-width: 320px;
-}
-.playbook-copy > p {
-  font-size: 13px;
-  color: var(--muted-foreground);
-  margin-top: 14px;
-}
-.project-open {
-  display: inline-flex;
-  gap: 12px;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 550;
-  margin-top: 20px;
-}
-.project-playbook:hover .project-open {
-  color: var(--accent);
-}
 .growth-note {
   display: flex;
   flex-wrap: wrap;
@@ -938,23 +885,6 @@
   .project-title-row h3 {
     font-size: 24px;
   }
-  .project-playbook {
-    grid-template-columns: 1fr;
-  }
-  .playbook-media {
-    height: 230px;
-    padding: 22px 22px 0;
-  }
-  .playbook-media img {
-    width: 100%;
-  }
-  .playbook-copy {
-    padding: 26px;
-  }
-  .playbook-copy h3 {
-    max-width: none;
-    font-size: 26px;
-  }
   .growth-note {
     flex-direction: column;
     gap: 6px;
@@ -1054,8 +984,5 @@
     animation: none !important;
     transition: none !important;
   }
-  .project-feature:hover .ontology-media img,
-  .project-playbook:hover .playbook-media img {
-    transform: none;
-  }
+  .project-feature: hover .ontology-media img;
 }

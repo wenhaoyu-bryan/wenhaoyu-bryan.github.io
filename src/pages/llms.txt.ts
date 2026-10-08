@@ -27,8 +27,8 @@ export const GET: APIRoute = async () => {
   lines.push("");
   lines.push(
     "> AI Product Manager building agentic workflows, ontology-driven systems, " +
-      "and AI-native product tools. This site is a portfolio and knowledge hub: " +
-      "case studies, an AI PM methodology playbook, growth experiments, and writing."
+      "and AI-native product prototypes. This site is a portfolio and knowledge hub: " +
+      "case studies, product methods, growth experiments, and writing."
   );
   lines.push("");
   lines.push(
@@ -51,7 +51,7 @@ export const GET: APIRoute = async () => {
     `- [Work](${toCanonicalUrl("/work/")}): Professional work — enterprise agent platform product leadership, ongoing participation in ontology platform design and development, and a concluded AI-SOP assistant case study at AB InBev.`
   );
   lines.push(
-    `- [Projects](${toCanonicalUrl("/projects/")}): Self-directed builds shipped in the open — ontology systems, interactive explainers, an AI PM toolkit, and growth experiments.`
+    `- [Projects](${toCanonicalUrl("/projects/")}): Two featured public builds — Prompt-to-Ontology and Agent Anatomy. Growth experiments live in the Growth Lab.`
   );
   lines.push(
     `- [Thinking](${toCanonicalUrl("/posts/")}): The thinking hub — the AI PM Methodology section, the Growth Lab, and essays and working notes, in one place.`
@@ -103,7 +103,7 @@ export const GET: APIRoute = async () => {
   lines.push("");
 
   lines.push("## Projects");
-  for (const p of builds) {
+  for (const p of builds.filter(p => p.listed)) {
     const url = toCanonicalUrl(p.href);
     const repo = p.repo ? ` Source: ${p.repo}` : "";
     lines.push(`- [${p.title}](${url}): ${p.description}${repo}`);

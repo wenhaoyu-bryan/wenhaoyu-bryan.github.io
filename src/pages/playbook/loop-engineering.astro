@@ -8,9 +8,6 @@ import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
-
-const PLAYBOOK_BASE =
-  "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/en/workbench/";
 ---
 
 <Layout
@@ -211,27 +208,14 @@ const PLAYBOOK_BASE =
       </li>
     </ul>
 
-    <h2 class="mt-6 text-xl font-semibold">
-      Connection to AI PM Operating Playbook
-    </h2>
+    <h2 class="mt-6 text-xl font-semibold">Make the next test explicit</h2>
     <p>
-      The AI PM Operating Playbook's Evaluation and Risk step is a direct
-      application of the evaluation loop. It helps PMs define what to measure,
-      how to measure it, and what to do with the results. The generated
-      artifacts — evaluation plans, risk assessments, acceptance criteria — are
-      designed to feed back into subsequent iterations.
+      Each iteration should leave behind a test case: the input, the expected
+      behavior, the evidence a reviewer can inspect, and a concrete failure
+      condition. For an agent, that includes missing sources, conflicting
+      evidence, and recommendations that must wait for human approval. Keep the
+      failed cases as regression checks before changing the workflow or model.
     </p>
-
-    <div class="mt-8 mb-8">
-      <a
-        href={PLAYBOOK_BASE}
-        class="bg-accent text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Build an evaluation and feedback plan in AI PM Operating Playbook ↗
-      </a>
-    </div>
 
     <div class="border-border mt-8 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">Related</h2>

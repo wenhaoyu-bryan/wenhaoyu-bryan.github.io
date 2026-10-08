@@ -7,7 +7,6 @@ import Footer from "@/components/Footer.astro";
 import config from "@/config";
 import ontologyImage from "@/assets/projects/prompt-to-ontology/dashboard.png";
 import agentImage from "@/assets/projects/agent-anatomy/hero.png";
-import playbookImage from "@/assets/projects/ai-pm-operating-playbook/homepage.png";
 
 const method = [
   {
@@ -50,15 +49,6 @@ const studies = [
     href: "https://wenhaoyu-bryan.github.io/agent-anatomy/",
     image: agentImage,
     alt: "Agent Anatomy interactive essay hero",
-  },
-  {
-    type: "Interactive tool / delivery",
-    title: "AI PM Operating Playbook",
-    description:
-      "A toolkit that turns an ambiguous product idea into briefs, workflow specifications, evaluation plans, and handoff materials.",
-    href: "https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/",
-    image: playbookImage,
-    alt: "AI PM Operating Playbook homepage",
   },
 ];
 ---
@@ -142,8 +132,8 @@ const studies = [
         <p class="manifesto-label">03 / PUBLIC PROOF</p>
         <h2 id="proof-title">Ideas you can open.</h2>
         <p>
-          Three public builds that make the thinking visible. Each can be
-          explored beyond this page.
+          Two public builds that make the thinking visible. Each can be explored
+          beyond this page.
         </p>
       </div>
       <div class="manifesto-studies">
@@ -332,7 +322,7 @@ const studies = [
   }
   .manifesto-studies {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
   }
   .manifesto-study {
