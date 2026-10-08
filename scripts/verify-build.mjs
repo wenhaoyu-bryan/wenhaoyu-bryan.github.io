@@ -137,7 +137,13 @@ for (const file of htmlDocuments) {
   const googleTagScript =
     /<script\b[^>]*\bsrc="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-9079JL1TB6"[^>]*><\/script>/g;
   const googleTagConfig =
-    /gtag\((?:'|")config(?:'|"),\s*(?:'|")G-9079JL1TB6(?:'|")\);/g;
+    /gtag\((?:'|")config(?:'|"),\s*(?:'|")G-9079JL1TB6(?:'|")/g;
+  const manualPageViewConfig =
+    /gtag\((?:'|")config(?:'|"),\s*(?:'|")G-9079JL1TB6(?:'|"),\s*\{\s*send_page_view:\s*false,?\s*\}\);/g;
+  const astroPageLoadListener =
+    /let previousPageLocation = document\.referrer;\s*document\.addEventListener\((?:'|")astro:page-load(?:'|"),/g;
+  const virtualPageView =
+    /gtag\((?:'|")event(?:'|"),\s*(?:'|")page_view(?:'|"),\s*pageView\)/g;
   assert(
     (html.match(googleTagScript) ?? []).length === 1,
     `${file.replace(DIST, "")} loads the Google tag exactly once`
@@ -145,6 +151,18 @@ for (const file of htmlDocuments) {
   assert(
     (html.match(googleTagConfig) ?? []).length === 1,
     `${file.replace(DIST, "")} configures the GA4 measurement ID exactly once`
+  );
+  assert(
+    (html.match(manualPageViewConfig) ?? []).length === 1,
+    `${file.replace(DIST, "")} disables the automatic initial page view`
+  );
+  assert(
+    (html.match(astroPageLoadListener) ?? []).length === 1,
+    `${file.replace(DIST, "")} listens for Astro page navigation exactly once`
+  );
+  assert(
+    (html.match(virtualPageView) ?? []).length === 1,
+    `${file.replace(DIST, "")} sends one virtual page view per Astro navigation`
   );
 }
 
