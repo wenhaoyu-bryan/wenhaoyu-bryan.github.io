@@ -2,8 +2,7 @@
 
 AI Product Manager — agentic workflows, ontology-driven systems, and
 AI-assisted delivery. Personal profile site and knowledge hub for Wenhao Yu
-(Bryan): case studies, an AI-native product playbook, blog posts, and growth
-experiments.
+(Bryan): case studies, product methods, blog posts, and growth experiments.
 
 **Live site:** <https://wenhaoyu-bryan.github.io>
 
@@ -13,13 +12,11 @@ experiments.
 | ---------- | ------------- | ---------------------------------------------------------------------------------------- |
 | Home       | `/`           | Hero, featured case studies, focus areas, latest writing                                 |
 | Projects   | `/projects`   | Case studies (Problem → Role → Approach → Outcome)                                       |
-| Playbook   | `/playbook`   | AI PM methodology pages (vibe coding, harness/loop engineering, AI-native PRD, ontology) |
+| Methods    | `/playbook`   | AI PM methodology pages (vibe coding, harness/loop engineering, AI-native PRD, ontology) |
 | Writing    | `/posts`      | Blog posts (markdown content collection)                                                 |
 | Growth Lab | `/growth-lab` | SEO/GEO experiments                                                                      |
 | About      | `/about`      | Narrative intro and background                                                           |
 | 中文       | `/zh/...`     | Chinese versions of core pages                                                           |
-
-Companion project: [AI PM Operating Playbook](https://wenhaoyu-bryan.github.io/AI-PM-Operating-Playbook/) — interactive tools that apply the playbook methods.
 
 ## Tech Stack
 
