@@ -83,7 +83,7 @@ export const GET: APIRoute = async () => {
     `- Agentic Workflows: Designing agent systems with tools, memory, and governance. Proof: Agent Anatomy (https://wenhaoyu-bryan.github.io/agent-anatomy/).`
   );
   lines.push(
-    `- Ontology-Driven AI Products: Knowledge graphs and structured ontologies that make enterprise AI reliable. Proof: ${toCanonicalUrl("/projects/prompt-to-ontology/")}`
+    `- Operational Ontology Prototype: A runnable Pet Food reference for typed graph data, rule evidence, human review, and reversible agent suggestions. Scope: learning project, not production deployment. ${toCanonicalUrl("/projects/prompt-to-ontology/")}`
   );
   lines.push(
     `- AI-Assisted Delivery: Harness Engineering, Loop Engineering, and Vibe Coding — the systems through which PMs ship with coding agents. Proof: ${toCanonicalUrl("/posts/three-frameworks-ai-assisted-product-delivery/")}, ${toCanonicalUrl("/playbook/")}`

@@ -10,6 +10,8 @@ import ScreenshotGallery from "@/components/ScreenshotGallery.astro";
 import type { Shot } from "@/components/ScreenshotGallery.astro";
 import config from "@/config";
 
+const locale = Astro.currentLocale ?? config.site.lang;
+
 import dashboard from "@/assets/projects/prompt-to-ontology/dashboard.png";
 import dataPipeline from "@/assets/projects/prompt-to-ontology/data-pipeline.png";
 import ontologyManager from "@/assets/projects/prompt-to-ontology/ontology-manager.png";
@@ -22,61 +24,64 @@ const walkthrough: Shot[] = [
     src: dashboard,
     alt: "Operational ontology runtime dashboard",
     caption:
-      "Operational runtime — 46 ontology objects, 116 relations, 5 risk rules, 324 review items live: enough scale for real review-queue and conflict-resolution problems to show up, not a toy graph.",
+      "Pet Food demo dashboard — an overview of the sample ontology and review workflow.",
   },
   {
     src: dataPipeline,
     alt: "Data pipeline: select, profile, map, validate, import",
     caption:
-      "Data pipeline — profile raw CSV, map fields to ontology types, and stage reviewable import plans.",
+      "Data Pipeline — profile sample CSV, map fields to ontology types, validate candidates, and prepare an import plan.",
   },
   {
     src: ontologyManager,
     alt: "Ontology schema manager with object types, relations, rules, actions",
     caption:
-      "Ontology schema — 6 object types, relationship types, validation rules, and action definitions.",
+      "Ontology Manager — inspect object and relationship types, constraints, rules, and actions defined in the schema.",
   },
   {
     src: graph,
     alt: "Interactive knowledge graph explorer",
     caption:
-      "Graph explorer — the inferred knowledge graph rendered as typed objects and relationships.",
+      "Graph Explorer — inspect typed objects, relationships, and rule evidence in the runtime graph.",
   },
   {
     src: analystAgent,
     alt: "Analyst agent answering questions via ontology tools",
     caption:
-      "Analyst agent — answers by calling ontology tools, not guessing; proposes reviewable actions only.",
+      "Analyst Agent — uses ontology tools, records a trace, and proposes changes for review rather than writing directly to the graph.",
   },
   {
     src: reviewQueue,
     alt: "Human-in-the-loop review queue",
     caption:
-      "Review queue — low-confidence candidates and agent suggestions wait for human approval before write.",
+      "Review Queue — proposed imports and agent suggestions can be approved or rejected before application.",
   },
 ];
 
 const architectureSteps = [
-  { label: "Raw CSV / Requirements", note: "messy input" },
-  { label: "LLM Schema Inference", note: "reasoning layer", emphasis: true },
-  { label: "Ontology Schema", note: "entities · relations · constraints" },
-  { label: "Neo4j Graph", note: "data source" },
-  { label: "NetworkX", note: "compute engine" },
-  { label: "ReAct Agent", note: "queries + suggestions", emphasis: true },
-  { label: "Human-in-the-Loop", note: "approved actions" },
+  { label: "Sample CSV", note: "ready data" },
+  { label: "Profile & Map", note: "typed candidates" },
+  { label: "Import Plan", note: "human review", emphasis: true },
+  { label: "Runtime Graph", note: "objects · links" },
+  { label: "Rules & Evidence", note: "four result states" },
+  { label: "Analyst Agent", note: "tool use · trace", emphasis: true },
+  { label: "Governance", note: "snapshot · diff · rollback" },
 ];
 
 const snapshot = [
-  { label: "Type", value: "Public case study / working prototype" },
-  { label: "Stack", value: "Neo4j · NetworkX · LLM · ReAct Agent" },
-  { label: "Status", value: "Public repo, actively extended" },
-  { label: "Role", value: "Product Manager & solo builder" },
+  {
+    label: "Type",
+    value: "Learning project · runnable reference implementation",
+  },
+  { label: "Stack", value: "React · FastAPI · Neo4j · YAML rules" },
+  { label: "Scope", value: "Pet Food sample domain · local guided demo" },
+  { label: "Status", value: "Open source · maintenance-focused" },
 ];
 ---
 
 <Layout
   title={`Prompt-to-Ontology — ${config.site.title}`}
-  description="A case study in turning messy requirements and CSV data into an operational knowledge graph with ontology inference, Neo4j, and human-approved agent actions."
+  description="A runnable Pet Food reference for operational ontologies: typed graph objects, explicit rule evidence, reviewed imports and agent suggestions, and reversible changes."
   ogImage="/og/prompt-to-ontology.png"
 >
   <Header />
@@ -93,26 +98,26 @@ const snapshot = [
     </p>
 
     <p class="text-muted-foreground text-lg">
-      A public experiment on transforming messy product requirements, prompts,
-      and business concepts into structured ontology assets for enterprise AI
-      systems.
+      A learning-by-building reference for operational ontologies. The Pet Food
+      demo connects structured data to typed graph objects, explicit rules,
+      human review, and an ontology-grounded Analyst Agent.
     </p>
 
     <div class="border-border mt-4 flex flex-wrap gap-2">
       <span class="rounded-full border px-3 py-1 text-xs font-medium">
-        Knowledge Graphs
+        Typed ontology
       </span>
       <span class="rounded-full border px-3 py-1 text-xs font-medium">
         Neo4j
       </span>
       <span class="rounded-full border px-3 py-1 text-xs font-medium">
-        NetworkX
+        Rule evidence
       </span>
       <span class="rounded-full border px-3 py-1 text-xs font-medium">
-        ReAct Agent
+        Human review
       </span>
       <span class="rounded-full border px-3 py-1 text-xs font-medium">
-        LLM Pair Programming
+        Snapshot &amp; rollback
       </span>
     </div>
 
@@ -131,46 +136,32 @@ const snapshot = [
       }
     </div>
 
-    <h2 class="mt-8 text-xl font-semibold">The Problem</h2>
+    <h2 class="mt-8 text-xl font-semibold">The question</h2>
     <p>
-      Enterprise AI systems often fail because the underlying data model doesn't
-      match how the business actually works. Traditional data models show tables
-      and columns, but miss the relationships, constraints, and operations that
-      define real business logic. When you build an AI agent on top of a bad
-      data model, the agent reasons about a fictional version of your business.
-    </p>
-    <p>
-      An ontology captures not just entities and attributes, but relationships,
-      constraints, and the actions those entities enable. For enterprise AI,
-      this is the difference between a chatbot that gives generic answers and an
-      agent that can actually operate on your business context.
+      What has to happen between a CSV file and an agent action for a graph to
+      carry usable business meaning? I built one sample workflow to examine the
+      product decisions behind that question: what gets typed, which rules can
+      be evaluated, what evidence an answer needs, and who approves a change.
     </p>
 
-    <h2 class="mt-6 text-xl font-semibold">Approach: What I Built</h2>
+    <h2 class="mt-6 text-xl font-semibold">What the reference implements</h2>
     <p>
-      Prompt-to-Ontology takes raw CSV data and transforms it into an
-      interactive knowledge graph. An LLM infers the ontology schema — entities,
-      relationships, constraints — then writes it into a Neo4j graph database. A
-      ReAct agent sits on top, ready to query the graph and suggest business
-      actions with human-in-the-loop approval.
-    </p>
-    <p>
-      The architecture separates three concerns: <strong>Neo4j</strong> as the data
-      source, <strong>NetworkX</strong> as the compute engine, and the <strong
-        >LLM</strong
-      > as the reasoning layer. Three decoupled systems that can be independently
-      replaced.
+      The Pet Food demo profiles structured data and maps it against a YAML
+      schema of object types, relationships, constraints, rules, and actions. A
+      reviewable import plan comes before graph writes. In the runtime, people
+      can inspect objects, explore links, run rule simulations, and see evidence
+      attached to results. The Analyst Agent queries through ontology tools and
+      proposes updates; the Review Queue controls whether they are applied.
     </p>
     <FlowDiagram
       steps={architectureSteps}
-      caption="End-to-end pipeline: from raw tabular data to human-approved business actions. Highlighted stages are where the LLM does the reasoning."
+      caption="The guided Pet Food demo follows one path from sample data to reviewed, traceable graph changes."
     />
 
-    <h2 class="mt-8 text-xl font-semibold">Product Walkthrough</h2>
+    <h2 class="mt-8 text-xl font-semibold">Product walkthrough</h2>
     <p>
-      A working prototype, built end-to-end. Click any screen to enlarge — this
-      is the pet-food ontology demo running the full pipeline from raw data to
-      agent-suggested, human-approved actions.
+      These screens are from the runnable local demo. Click a screenshot to see
+      how data preparation, graph inspection, agent traces, and review connect.
     </p>
     <ScreenshotGallery images={walkthrough} />
 
@@ -192,57 +183,44 @@ const snapshot = [
       </a>
     </div>
 
-    <h2 class="mt-8 text-xl font-semibold">Key Insights</h2>
-    <p>
-      Fact tables are nodes, not edges. An order isn't a relationship between a
-      customer and a product — it's an independent entity connected to both via
-      separate edges. Get this wrong and your entire graph topology collapses.
-    </p>
-    <p>
-      A knowledge graph without action buttons is just a pretty picture. Every
-      node type has context-sensitive operations calculated from its current
-      state — a low inventory node lights up a "Create Purchase Order" button.
-    </p>
-
-    <h2 class="mt-6 text-xl font-semibold">My Role & Process</h2>
-    <p>
-      I ran this as a PM-led build: I defined the product intent, the
-      architecture boundaries, and the design constraints, then used LLM pair
-      programming (Claude Code) to accelerate implementation, debugging, and
-      iteration. Every architectural decision — what the graph models, where
-      compute lives, what the agent is allowed to do — was a product decision I
-      made and can defend.
-    </p>
-
-    <h2 class="mt-6 text-xl font-semibold">Outcome & Signals</h2>
+    <h2 class="mt-8 text-xl font-semibold">The decisions I wanted to test</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        A working full-stack prototype: CSV in, operational knowledge graph with
-        agent-suggested actions out — in a public GitHub repository.
+        <strong>Make rules inspectable.</strong> A result can be triggered, passed,
+        not evaluable, or not applicable. Missing data should remain visible rather
+        than becoming a false claim of safety.
       </li>
       <li>
-        A reusable cognitive framework: the difference between data models,
-        schemas, and ontologies; the distinction between "viewing a graph" and
-        "operating a business through a graph."
+        <strong>Put review before mutation.</strong> Imports and agent suggestions
+        go through a human approval step. Snapshots, diffs, and rollback make graph
+        changes traceable and reversible.
       </li>
       <li>
-        The methodology was extracted into the
-        <a
-          href={getRelativeLocaleUrl(
-            config.site.lang,
-            "playbook/prompt-to-ontology"
-          )}
-          class="text-accent hover:underline">Prompt-to-Ontology methodology</a
-        > and documented in a
-        <a
-          href={getRelativeLocaleUrl(
-            config.site.lang,
-            "posts/building-ontology-os"
-          )}
-          class="text-accent hover:underline">long-form write-up</a
-        >.
+        <strong>Keep the agent grounded.</strong> It uses ontology tools and a structured
+        trace. The demo runs in deterministic fallback mode without an external LLM
+        key; LLM-powered reasoning is optional.
       </li>
     </ul>
+
+    <h2 class="mt-6 text-xl font-semibold">Scope and next steps</h2>
+    <p>
+      This is a learning project with one Pet Food sample domain, not a
+      production deployment or proof that the design works across industries.
+      The repository includes a guided demo, module checks, and frontend smoke
+      tests. I am maintaining it as a reference rather than expanding it into a
+      general-purpose enterprise platform.
+    </p>
+    <p>
+      The related <a
+        href={getRelativeLocaleUrl(locale, "posts/building-ontology-os")}
+        class="text-accent hover:underline">build note</a
+      >
+      explains the product tradeoffs in more detail; the <a
+        href={getRelativeLocaleUrl(locale, "playbook/prompt-to-ontology")}
+        class="text-accent hover:underline">method note</a
+      >
+      turns those decisions into a reusable checklist.
+    </p>
 
     <div class="mt-6 flex flex-wrap gap-3">
       <a

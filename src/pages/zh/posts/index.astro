@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -8,19 +8,14 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import Datetime from "@/components/Datetime.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
-import { getPostUrl } from "@/utils/getPostPaths";
+import { getPostSlug, getPostUrl } from "@/utils/getPostPaths";
 import config from "@/config";
 
 const posts = getSortedPosts(
   await getCollection("posts", ({ data }) => !data.draft)
 );
 
-// The live Methodology pages (mirrors zh/playbook.astro).
 const playbookItems = [
-  {
-    label: "Vibe Coding for Product Discovery",
-    href: getRelativeLocaleUrl("zh", "playbook/vibe-coding"),
-  },
   {
     label: "Harness Engineering",
     href: getRelativeLocaleUrl("zh", "playbook/harness-engineering"),
@@ -30,26 +25,42 @@ const playbookItems = [
     href: getRelativeLocaleUrl("zh", "playbook/loop-engineering"),
   },
   {
-    label: "AI-Native PRD",
-    href: getRelativeLocaleUrl("zh", "playbook/ai-native-prd"),
-  },
-  {
-    label: "PRD 到原型工作流",
-    href: getRelativeLocaleUrl("zh", "playbook/prd-to-prototype"),
-  },
-  {
-    label: "Agent 产品设计框架",
-    href: getRelativeLocaleUrl("zh", "playbook/agent-product-design"),
-  },
-  {
     label: "Prompt-to-Ontology",
     href: getRelativeLocaleUrl("zh", "playbook/prompt-to-ontology"),
   },
+];
+
+const ontologyTranslation = await getEntry("pages", "building-ontology-os-zh");
+const featured = [
   {
-    label: "SEO to GEO",
-    href: getRelativeLocaleUrl("zh", "playbook/seo-to-geo"),
+    slug: "building-ontology-os",
+    title: ontologyTranslation?.data.title ?? "构建可审查的本体原型",
+    summary:
+      "从 Pet Food 演示出发，记录规则证据、人工审核和图谱回滚为什么要进入产品流程。",
+    href: getRelativeLocaleUrl("zh", "posts/building-ontology-os"),
+    project: getRelativeLocaleUrl("zh", "projects/prompt-to-ontology"),
+  },
+  {
+    slug: "three-frameworks-ai-assisted-product-delivery",
+    summary: "用 Harness、Loop 和 Vibe Coding 三个视角拆解 AI 辅助的产品交付。",
+  },
+  {
+    slug: "what-changes-when-pm-meets-ai-agents",
+    summary: "从制造业场景出发，讨论智能体产品需要怎样的上下文、权限与评估。",
   },
 ];
+const featuredPosts = featured.flatMap(item => {
+  const post = posts.find(
+    post => getPostSlug(post.id, post.filePath) === `/${item.slug}`
+  );
+  return post ? [{ ...item, post }] : [];
+});
+const otherPosts = posts.filter(
+  post =>
+    !featured.some(
+      item => `/${item.slug}` === getPostSlug(post.id, post.filePath)
+    )
+);
 
 // Growth Lab status chip — derived from the experiment list (00 concluded,
 // 01 instrumented and collecting a baseline).
@@ -73,8 +84,67 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
       这里收录关于产品系统、本体、智能体与增长的文章、方法和工作笔记。
     </p>
 
-    <!-- Methodology -->
+    <!-- Essays first, with the available Chinese translation linked directly. -->
     <section>
+      <h2 class="text-xl font-semibold">精选文章</h2>
+      <p class="text-muted-foreground mt-1 text-sm">
+        从具体项目和问题出发的复盘。英文原文会标注语言。
+      </p>
+      <div class="mt-4 space-y-3">
+        {
+          featuredPosts.map(item => (
+            <article class="border-border rounded-lg border p-4">
+              <a
+                href={
+                  item.href ??
+                  getPostUrl(item.post.id, item.post.filePath, "en")
+                }
+                class="text-accent font-medium hover:underline"
+              >
+                {item.title ?? `${item.post.data.title}（英文）`}
+              </a>
+              <p class="text-muted-foreground mt-2 text-sm">{item.summary}</p>
+              <div class="text-muted-foreground mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+                <Datetime
+                  pubDatetime={item.post.data.pubDatetime}
+                  modDatetime={item.post.data.modDatetime}
+                  size="sm"
+                />
+                {item.project && (
+                  <a href={item.project} class="text-accent hover:underline">
+                    查看相关项目 →
+                  </a>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <h3 class="mt-8 font-semibold">更多文章</h3>
+      <ul class="mt-3 space-y-3">
+        {
+          otherPosts.map(post => (
+            <li class="flex flex-wrap items-baseline justify-between gap-2">
+              <a
+                href={getPostUrl(post.id, post.filePath, "en")}
+                class="text-accent text-sm hover:underline"
+              >
+                {`${post.data.title}（英文）`}
+              </a>
+              <Datetime
+                pubDatetime={post.data.pubDatetime}
+                modDatetime={post.data.modDatetime}
+                size="sm"
+                class="text-muted-foreground shrink-0 text-xs"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- A few entry points; the complete index remains on the method page. -->
+    <section class="mt-10">
       <div class="flex items-baseline justify-between gap-4">
         <h2 class="text-xl font-semibold">方法论</h2>
         <a
@@ -85,7 +155,7 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
         </a>
       </div>
       <p class="text-muted-foreground mt-1 text-sm">
-        常青方法论：我如何开展 AI 辅助的产品工作。
+        这些方法从项目实践中整理出来，完整目录在方法论页面。
       </p>
       <ul class="mt-4 grid gap-2 sm:grid-cols-2">
         {
@@ -128,34 +198,6 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
           {growthChip}
         </span>
       </a>
-    </section>
-
-    <!-- Posts -->
-    <section class="mt-10">
-      <h2 class="text-xl font-semibold">文章</h2>
-      <p class="text-muted-foreground mt-1 text-sm">
-        文章保留原文语言；英文原文会标注为英文。
-      </p>
-      <ul class="mt-4 space-y-2">
-        {
-          posts.map(post => (
-            <li class="flex flex-wrap items-baseline justify-between gap-3">
-              <a
-                href={getPostUrl(post.id, post.filePath, "en")}
-                class="text-accent text-sm hover:underline"
-              >
-                {`${post.data.title}（英文）`}
-              </a>
-              <Datetime
-                pubDatetime={post.data.pubDatetime}
-                modDatetime={post.data.modDatetime}
-                size="sm"
-                class="text-muted-foreground shrink-0 text-xs"
-              />
-            </li>
-          ))
-        }
-      </ul>
     </section>
   </Main>
 
