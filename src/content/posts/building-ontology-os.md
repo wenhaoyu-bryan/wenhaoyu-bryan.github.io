@@ -1,43 +1,44 @@
 ---
-title: "Building Ontology OS: A Vibe-Coded AIP Exploration"
+title: "Building a Reviewable Ontology Prototype"
 author: "Wenhao Yu"
 pubDatetime: 2026-04-20T00:00:00Z
-modDatetime: 2026-04-20T00:00:00Z
+modDatetime: 2026-10-25T00:00:00Z
 slug: "building-ontology-os"
 featured: false
 draft: false
 tags:
-  - AI PM
   - Ontology
   - AI Agents
   - Knowledge Graphs
-  - Vibe Coding
-  - Palantir
-description: "A hands-on exploration of enterprise AI platform architecture, ontology modeling, and the decisions behind a full-stack prototype."
+description: "Product decisions from building Prompt-to-Ontology: typed data, four-state rule evidence, human review, and reversible graph changes."
 ---
 
-## The Question That Started It All
+## Why I built it
 
-Working in advanced manufacturing, I wanted to understand how enterprise AI platforms like Palantir AIP and Foundry work beneath the surface. I wanted to move beyond whitepapers and examine the product and technical choices behind them.
+I wanted to understand what sits between enterprise data and an agent that can act on it. Public writing about ontology platforms gave me the concepts, but I needed a workflow I could inspect and question. [Prompt-to-Ontology](/projects/prompt-to-ontology/) became a learning project with one Pet Food sample domain, rather than an attempt to reproduce an enterprise platform.
 
-So I decided to build one myself.
+The repository shows the runnable reference and its screens. Here are the product decisions that changed my understanding while building it.
 
-## What Is Ontology OS?
+## Define meaning before importing data
 
-Ontology OS transforms raw CSV data into interactive knowledge graphs. Upload your data, and an LLM infers the ontology schema — entities, relationships, constraints — then writes it all into a Neo4j graph database. A ReAct agent sits on top, ready to query the graph and suggest business actions with human-in-the-loop approval.
+A CSV column is not automatically an object type. I used a declared YAML schema for object types, relationships, constraints, rules, and actions. The Data Pipeline profiles sample data and prepares a mapping, but the import plan waits for review before it changes the graph.
 
-The key architectural insight: **Neo4j is the data source, NetworkX is the compute engine, and the LLM is the reasoning layer.** Three decoupled systems that can be independently replaced.
+That extra step matters because an uncertain mapping becomes hard to notice once it looks like a valid graph object. I would rather expose the decision while it is still a candidate than ask someone to repair a convincing but incorrect graph later.
 
-## The Vibe Coding Experiment
+## A rule result needs a reason
 
-For this prototype, I defined the product intent, architecture boundaries, and design constraints, then used LLM pair programming to speed up implementation, debugging, and iteration.
+A simple pass/fail result would hide two different situations: the rule could not be evaluated because data was missing, or the rule did not apply to this object. The reference uses four states: **triggered, passed, not evaluable, and not applicable**. Results carry evidence so someone can inspect what the rule actually used.
 
-The most valuable output isn't code. It's the cognitive framework for understanding ontology-driven systems: the difference between data models, schemas, and ontologies; the distinction between "viewing a graph" and "operating a business through a graph."
+This is a product distinction, not just a technical enum. If a missing value quietly becomes “passed,” the interface can make an unsupported claim look safe.
 
-## Key Technical Decisions
+## An agent suggestion is not a graph write
 
-**Fact tables are nodes, not edges.** An order isn't a relationship between a customer and a product — it's an independent entity connected to both via separate edges. Get this wrong and your entire graph topology collapses.
+The Analyst Agent uses ontology tools to retrieve objects, follow relationships, evaluate rules, and record a structured trace. It can suggest an update, but the suggestion goes to the Review Queue. A person decides whether to apply it. The default demo works in deterministic fallback mode without an external LLM key, so the review boundary is testable without depending on model output.
 
-**Actions over visualization.** A knowledge graph without action buttons is just a pretty picture. Every node type has context-sensitive operations calculated from its current state — a low inventory node lights up a "Create Purchase Order" button.
+I also added snapshots, diffs, and rollback. Review before a change and an audit trail after it answer different questions; both matter when a graph is used as working context.
 
-Read the full architecture and code on [GitHub](https://github.com/wenhaoyu-bryan/prompt-to-ontology).
+## What this does and does not show
+
+The Pet Food demo makes one end-to-end workflow inspectable. It has not been validated across industries, does not include enterprise identity and access management, and is not a production deployment. Those limits are part of the lesson: a useful reference implementation can surface design questions without pretending to have solved rollout at enterprise scale.
+
+Explore the [project walkthrough](/projects/prompt-to-ontology/), the [method checklist](/playbook/prompt-to-ontology/), or the [source repository](https://github.com/wenhaoyu-bryan/Prompt-to-Ontology).

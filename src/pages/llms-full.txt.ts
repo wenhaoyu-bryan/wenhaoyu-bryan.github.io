@@ -152,8 +152,8 @@ export const GET: APIRoute = async () => {
       "governance. Proof: Agent Anatomy (https://wenhaoyu-bryan.github.io/agent-anatomy/)."
   );
   out.push(
-    "2. Ontology-Driven AI Products — knowledge graphs and structured ontologies " +
-      `that make enterprise AI reliable. Proof: ${toCanonicalUrl("/projects/prompt-to-ontology/")}`
+    "2. Operational Ontology Prototype — a runnable Pet Food reference for " +
+      `typed graph data, rule evidence, human review, and reversible agent suggestions. Learning project, not production deployment. ${toCanonicalUrl("/projects/prompt-to-ontology/")}`
   );
   out.push(
     "3. AI-Assisted Delivery — Harness Engineering, Loop Engineering, and Vibe " +

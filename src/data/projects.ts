@@ -228,12 +228,12 @@ const defs: ProjectDef[] = [
     thumbnail: ontologyThumb,
     thumbnailAlt: "Prompt-to-Ontology operational runtime dashboard",
     description: {
-      en: "A public experiment turning messy requirements and business concepts into ontology assets: entities, relationships, constraints, and action-ready knowledge graphs for enterprise AI systems. The working demo runs a live pipeline of 46 ontology objects, 116 relations, and 324 review items — large enough to surface real review-queue and conflict-resolution problems rather than a toy graph.",
-      zh: "把模糊需求、业务概念和表格数据转化为结构化本体资产和知识图谱的公开实验。可运行的 Demo 跑通完整流程：46 个本体对象、116 条关系、324 条待审项——规模足以暴露真实的审查队列与冲突消解问题，而不是一个玩具图谱。",
+      en: "A runnable Pet Food reference for operational ontologies. It profiles structured data, reviews an import plan, evaluates rules with explicit evidence, and routes agent suggestions through human approval. Graph changes can be inspected and rolled back.",
+      zh: "一个可运行的 Pet Food 本体参考实现：剖析结构化数据、审核导入计划、评估有明确证据的规则，并由人确认 Agent 的修改建议；图谱变更可检查、可回滚。",
     },
     tags: {
-      en: ["Ontology", "Knowledge Graphs", "Neo4j", "NetworkX", "ReAct Agent"],
-      zh: ["Ontology", "Knowledge Graphs", "Neo4j", "NetworkX", "ReAct Agent"],
+      en: ["Ontology", "Rule Evidence", "Human Review", "Neo4j"],
+      zh: ["本体", "规则证据", "人工审核", "Neo4j"],
     },
   },
   {

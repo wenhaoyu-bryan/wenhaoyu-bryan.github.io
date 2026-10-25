@@ -12,97 +12,89 @@ const locale = Astro.currentLocale ?? config.site.lang;
 
 <Layout
   title={`Prompt-to-Ontology — ${config.site.title}`}
-  description="A method for converting messy business language, requirements, and process concepts into structured entities, relationships, constraints, and actions for enterprise AI."
+  description="A practical checklist from the Pet Food reference: define types and rules, review imports, inspect evidence, and keep agent suggestions reversible."
 >
   <Header />
   <Breadcrumb />
 
   <Main pageTitle="Prompt-to-Ontology" class="app-prose">
     <p class="text-muted-foreground text-lg">
-      Prompt-to-Ontology is a method for converting messy business language,
-      requirements, and process concepts into structured entities,
-      relationships, constraints, and actions.
+      A checklist drawn from the Pet Food reference implementation: decide what
+      the data means, make rule results inspectable, and keep graph changes
+      under review.
     </p>
 
-    <h2 class="mt-8 text-xl font-semibold">Why Ontology Matters</h2>
+    <h2 class="mt-8 text-xl font-semibold">The starting question</h2>
     <p>
-      Most enterprise AI projects fail at the data modeling layer. Not because
-      the model is bad, but because the system doesn't understand the business.
-      An ontology forces you to define what exists, how things are connected,
-      and what operations are possible. Without this, agents reason about a
-      fictional version of your business.
+      Before an agent queries a graph, someone has to decide which objects and
+      relationships the source data represents, which rules apply, and what
+      happens when the evidence is incomplete. Those are product decisions as
+      much as modeling decisions.
     </p>
 
-    <h2 class="mt-6 text-xl font-semibold">From Requirement to Ontology</h2>
+    <h2 class="mt-6 text-xl font-semibold">From data to a reviewable graph</h2>
     <ol class="mt-2 list-inside list-decimal space-y-3">
       <li>
-        <strong>Extract entities</strong> — What are the nouns? Orders, customers,
-        products, machines, incidents. Name them explicitly.
+        <strong>Declare the types</strong> — Which object and relationship types exist
+        in this domain? Define them in a versioned schema.
       </li>
       <li>
-        <strong>Identify relationships</strong> — How do entities connect? Customers
-        place orders. Orders contain products. Machines produce batches.
+        <strong>Profile the data</strong> — Inspect the columns, missing values, identifiers,
+        and candidate mappings before import.
       </li>
       <li>
-        <strong>Define attributes</strong> — What properties does each entity have?
-        Status, timestamp, quantity, priority, owner.
+        <strong>Review the import plan</strong> — Which candidates can be applied,
+        which require a person to resolve a mapping, and what gets rejected?
       </li>
       <li>
-        <strong>Add constraints</strong> — What rules govern the domain? An order
-        can't ship before payment. A machine can't run two batches simultaneously.
+        <strong>Define rules and evidence</strong> — Record what a rule used and distinguish
+        triggered, passed, not evaluable, and not applicable.
       </li>
       <li>
-        <strong>Map possible actions</strong> — What operations can be performed on
-        each entity? Create, update, approve, cancel, escalate.
+        <strong>Bound agent tools</strong> — Which objects, relationships, and rule
+        results can the agent inspect? Where do its suggestions wait for review?
       </li>
       <li>
-        <strong>Connect to agent workflows</strong> — How does the ontology power
-        agent reasoning? Entities become tool inputs, actions become tool outputs,
-        constraints become guardrails.
+        <strong>Plan for correction</strong> — Can a reviewer inspect a trace, compare
+        graph snapshots, and roll back a mistaken change?
       </li>
     </ol>
 
-    <h2 class="mt-6 text-xl font-semibold">Example Pattern</h2>
-    <p>
-      A messy requirement like "the system should help manage inventory"
-      becomes:
-    </p>
+    <h2 class="mt-6 text-xl font-semibold">Pet Food example</h2>
+    <p>The public demo tests this checklist with one sample domain:</p>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Entities:</strong> InventoryItem, Warehouse, PurchaseOrder, Supplier,
-        ReorderRule
+        <strong>Schema:</strong> object types, link types, constraints, rules, and
+        actions declared in YAML
       </li>
       <li>
-        <strong>Relationships:</strong> InventoryItem stored_in Warehouse, PurchaseOrder
-        supplied_by Supplier
+        <strong>Import:</strong> sample CSV profiling and a reviewable plan before
+        graph writes
       </li>
       <li>
-        <strong>Constraints:</strong> InventoryItem.quantity below threshold triggers
-        ReorderRule
+        <strong>Runtime:</strong> typed objects, relationships, rule evidence, and
+        an Analyst Agent trace
       </li>
       <li>
-        <strong>Actions:</strong> CreatePurchaseOrder, UpdateInventoryCount, EscalateToManager
+        <strong>Governance:</strong> human approval, snapshots, diffs, and rollback
       </li>
     </ul>
     <p>
-      This structured representation is what the agent actually reasons over.
-      Get it right, and the agent almost builds itself.
+      The example is inspectable, but it has not been validated beyond Pet Food.
     </p>
 
-    <h2 class="mt-6 text-xl font-semibold">Common Mistakes</h2>
+    <h2 class="mt-6 text-xl font-semibold">Checks before calling it useful</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        Treating fact tables as edges — an order is not a relationship between a
-        customer and a product. It is an independent entity connected to both
-        via separate edges.
+        Can a reviewer see the source and mapping behind an imported object?
       </li>
       <li>
-        Building visualization without actions — a knowledge graph without
-        action buttons is just a pretty picture.
+        Does a missing value produce “not evaluable” rather than an unsupported
+        pass result?
       </li>
       <li>
-        Skipping constraints — entities without rules lead to agents that
-        produce impossible states.
+        Can an agent proposal be rejected, and can an applied graph change be
+        inspected and reversed?
       </li>
     </ul>
 
