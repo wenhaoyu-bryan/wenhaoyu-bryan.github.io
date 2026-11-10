@@ -2,6 +2,7 @@
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
+import { personIdentity, personSameAs } from "@/utils/personStructuredData";
 import { getAssetPath } from "@/utils/withBase";
 import { isMirroredRoute, normalizeRoutePath } from "@/i18n/routes";
 import config from "@/config";
@@ -39,10 +40,7 @@ const currentLocale = Astro.currentLocale ?? config.site.lang;
 // Person schema: establishes the author entity for search engines and AI search
 const personJsonLd = JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": `${site.url}#person`,
-  name: site.author,
-  url: site.url,
+  ...personIdentity,
   jobTitle: "AI Product Manager",
   description:
     "Wenhao Yu works across enterprise data, ontology systems, agent products, and practical product delivery.",
@@ -55,9 +53,7 @@ const personJsonLd = JSON.stringify({
     "Vibe Coding",
     "Industrial & B2B AI",
   ],
-  sameAs: config.socials
-    .map(s => s.url)
-    .filter(url => !url.startsWith("mailto:")),
+  sameAs: personSameAs,
 });
 
 const normalizedPath = normalizeRoutePath(Astro.url.pathname);
@@ -79,12 +75,7 @@ const webSiteJsonLd = JSON.stringify({
   url: site.url,
   description: site.description,
   inLanguage: Astro.currentLocale ?? site.lang,
-  author: {
-    "@type": "Person",
-    "@id": `${site.url}#person`,
-    name: site.author,
-    url: site.profile ?? site.url,
-  },
+  author: personIdentity,
 });
 
 const webPageJsonLd = JSON.stringify({
@@ -96,6 +87,7 @@ const webPageJsonLd = JSON.stringify({
   description,
   inLanguage: currentLocale,
   isPartOf: { "@id": `${site.url}#website` },
+  ...(isAbout && { mainEntity: { "@id": personIdentity["@id"] } }),
 });
 
 const hreflangAlternates = isMirroredRoute(basePath)
