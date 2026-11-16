@@ -1,0 +1,42 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`隐私说明 — ${config.site.title}`}
+  description="了解本站使用的访问统计工具，以及如何就隐私问题联系我。"
+>
+  <Header />
+
+  <Main pageTitle="隐私说明" class="app-prose">
+    <p>本页面介绍本站使用的访问统计工具，以及如何就隐私问题联系我。</p>
+
+    <h2>网站访问统计</h2>
+    <p>
+      本站使用 Google Analytics
+      了解访问情况、改进网站。页面浏览事件可能包含页面标题、页面网址以及可获取时的来源页面。
+      更多信息请参阅 <a href="https://policies.google.com/privacy"
+        >Google 隐私权政策</a
+      >。
+    </p>
+
+    <h2>Agent Anatomy</h2>
+    <p>
+      Agent Anatomy 栏目使用 GoatCounter 统计页面访问。关于该服务，请参阅
+      <a href="https://www.goatcounter.com/help/privacy"
+        >GoatCounter 的隐私说明</a
+      >。
+    </p>
+
+    <h2>联系方式</h2>
+    <p>
+      如果有隐私相关问题，请通过<a href="/zh/#contact">联系方式</a>与我联系。
+    </p>
+  </Main>
+
+  <Footer />
+</Layout>

@@ -18,6 +18,18 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
 
+// Agent Anatomy is deployed separately under this site's origin, so Astro
+// cannot discover its routes. Keep this list in sync with that project's
+// prerendered landing page and published episodes.
+const agentAnatomyPaths = [
+  "/agent-anatomy/",
+  "/agent-anatomy/episodes/how-an-agent-works/",
+  "/agent-anatomy/episodes/where-agents-go-wrong/",
+  "/agent-anatomy/episodes/how-ai-reads-the-web/",
+  "/agent-anatomy/episodes/how-agents-remember/",
+  "/agent-anatomy/episodes/how-agents-work-together/",
+];
+
 export default defineConfig({
   site: config.site.url,
   devToolbar: {
@@ -43,6 +55,9 @@ export default defineConfig({
     mdx(),
     react(),
     sitemap({
+      customPages: agentAnatomyPaths.map(
+        path => new URL(path, config.site.url).href
+      ),
       filter: page => {
         const pathname = new URL(page).pathname;
         const utilityPage = /^\/(?:zh\/)?(?:search|tags|archives)(?:\/|$)/;

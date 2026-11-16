@@ -45,9 +45,10 @@ const copy = zh
       byline: "Bryan",
       headline: ["把模糊问题，", "变成 AI 系统。"],
       intro:
-        "我关注智能体、知识系统与 AI 产品交付，把复杂业务问题变成可探索、可验证的产品。",
+        "我是一名 AI 产品经理，设计企业级智能体平台并构建可验证的本体原型，把复杂业务问题转化为可探索的工作流程。",
       explore: "看我做过什么",
       about: "认识我",
+      contact: "联系我",
       current: "目前在 TCL",
       currentText:
         "主导企业级 Agent 平台的产品设计，同时参与本体平台的设计与研发。",
@@ -86,9 +87,10 @@ const copy = zh
       byline: "Bryan",
       headline: ["From ambiguity", "to AI systems."],
       intro:
-        "I build across agents, knowledge systems, and product delivery, turning complex business problems into things you can explore and test.",
+        "I'm an AI product manager designing enterprise agent platforms and building operational ontology prototypes for reviewable workflows.",
       explore: "Explore my work",
       about: "About me",
+      contact: "Contact",
       current: "Currently at TCL",
       currentText:
         "Leading agent platform product design and contributing to an ontology platform.",
@@ -127,10 +129,12 @@ const copy = zh
 
 <Layout
   portfolio
-  title="Wenhao Yu (Bryan)"
+  title={zh
+    ? "余文豪（Bryan）| AI 产品经理与构建者"
+    : "Wenhao Yu (Bryan) | AI Product Manager & Builder"}
   description={zh
-    ? "余文豪（Bryan）的个人作品与思考，关注企业数据、本体系统、Agent 产品与增长。"
-    : undefined}
+    ? "余文豪（Bryan）是一名 AI 产品经理，探索企业智能体平台、可验证的本体原型，以及 AI 产品与协作实践。"
+    : "AI product manager designing enterprise agent platforms and building operational ontology prototypes. Explore projects, case studies, and practical notes."}
   ogImage="/og/home.png"
 >
   <Header />
@@ -164,6 +168,8 @@ const copy = zh
             >{copy.explore}<ArrowRight size={18} aria-hidden="true" /></a
           ><a href={url("about")} class="portfolio-text-link"
             >{copy.about}<ArrowUpRight size={17} aria-hidden="true" /></a
+          ><a href="#contact" class="portfolio-text-link"
+            >{copy.contact}<ArrowRight size={17} aria-hidden="true" /></a
           >
         </div>
       </div>

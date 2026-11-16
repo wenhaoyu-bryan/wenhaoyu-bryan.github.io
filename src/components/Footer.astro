@@ -37,6 +37,12 @@ const nowLabel = locale === "zh" ? "Now · 我在做什么" : "Now";
       >
         {nowLabel}
       </a>
+      <a
+        href={getRelativeLocaleUrl(locale, "privacy")}
+        class="text-accent hover:underline"
+      >
+        {locale === "zh" ? "隐私说明" : "Privacy"}
+      </a>
     </div>
   </div>
 </footer>

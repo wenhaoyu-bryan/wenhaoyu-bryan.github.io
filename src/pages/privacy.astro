@@ -1,0 +1,48 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`Privacy — ${config.site.title}`}
+  description="How this site uses analytics and how to contact me with privacy questions."
+>
+  <Header />
+
+  <Main pageTitle="Privacy" class="app-prose">
+    <p>
+      This page explains the analytics tools used on this site and how to
+      contact me about privacy questions.
+    </p>
+
+    <h2>Site analytics</h2>
+    <p>
+      This site uses Google Analytics to understand visits and improve the site.
+      Page-view events can include the page title, page URL, and referring page
+      when available. Learn more in the <a
+        href="https://policies.google.com/privacy">Google Privacy Policy</a
+      >.
+    </p>
+
+    <h2>Agent Anatomy</h2>
+    <p>
+      The Agent Anatomy section uses GoatCounter to measure page visits. See
+      <a href="https://www.goatcounter.com/help/privacy"
+        >GoatCounter's privacy information</a
+      >
+      for details about the service.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      For privacy questions, please use the <a href="/#contact"
+        >contact section</a
+      > to reach me.
+    </p>
+  </Main>
+
+  <Footer />
+</Layout>

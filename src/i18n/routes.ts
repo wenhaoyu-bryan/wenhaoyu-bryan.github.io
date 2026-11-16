@@ -10,6 +10,7 @@ export const MIRRORED_ROUTES = [
   "/about/",
   "/ai-stack/",
   "/now/",
+  "/privacy/",
   "/work/",
   "/work/enterprise-agent-platform/",
   "/work/ontology-platform/",
