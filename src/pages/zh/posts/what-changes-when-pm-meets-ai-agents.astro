@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+import PostPage from "@/pages/posts/[...slug]/index.astro";
+const post = await getEntry("posts", "what-changes-when-pm-meets-ai-agents");
+const translation = await getEntry(
+  "pages",
+  "what-changes-when-pm-meets-ai-agents-zh"
+);
+if (!post || !translation)
+  throw new Error(
+    "Missing essay or translation: what-changes-when-pm-meets-ai-agents"
+  );
+---
+
+<PostPage {post} {translation} prevPost={null} nextPost={null} />

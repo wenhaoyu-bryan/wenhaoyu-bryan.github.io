@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+import PostPage from "@/pages/posts/[...slug]/index.astro";
+const post = await getEntry("posts", "why-ai-pms-should-learn-vibe-coding");
+const translation = await getEntry(
+  "pages",
+  "why-ai-pms-should-learn-vibe-coding-zh"
+);
+if (!post || !translation)
+  throw new Error(
+    "Missing essay or translation: why-ai-pms-should-learn-vibe-coding"
+  );
+---
+
+<PostPage {post} {translation} prevPost={null} nextPost={null} />

@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+import PostPage from "@/pages/posts/[...slug]/index.astro";
+const post = await getEntry("posts", "from-prd-to-prototype-new-workflow");
+const translation = await getEntry(
+  "pages",
+  "from-prd-to-prototype-new-workflow-zh"
+);
+if (!post || !translation)
+  throw new Error(
+    "Missing essay or translation: from-prd-to-prototype-new-workflow"
+  );
+---
+
+<PostPage {post} {translation} prevPost={null} nextPost={null} />

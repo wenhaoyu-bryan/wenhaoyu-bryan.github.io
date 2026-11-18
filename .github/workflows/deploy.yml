@@ -8,6 +8,10 @@ permissions:
 on:
   push:
     branches: [main]
+  # Agent Anatomy is a separate Pages deployment. Refresh the published
+  # episode roster even when this repository has no new commits.
+  schedule:
+    - cron: "17 4 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -21,6 +25,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6
@@ -36,8 +42,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Sync published Agent Anatomy sitemap routes
+        run: python3 scripts/sync-agent-anatomy-sitemap.py "$RUNNER_TEMP/agent-anatomy-sitemap.json"
+
       - name: Build the project
         run: pnpm run build
+        env:
+          AGENT_ANATOMY_SITEMAP_FILE: ${{ runner.temp }}/agent-anatomy-sitemap.json
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

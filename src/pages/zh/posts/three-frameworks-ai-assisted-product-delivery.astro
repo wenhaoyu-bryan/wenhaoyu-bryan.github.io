@@ -1,0 +1,18 @@
+---
+import { getEntry } from "astro:content";
+import PostPage from "@/pages/posts/[...slug]/index.astro";
+const post = await getEntry(
+  "posts",
+  "three-frameworks-ai-assisted-product-delivery"
+);
+const translation = await getEntry(
+  "pages",
+  "three-frameworks-ai-assisted-product-delivery-zh"
+);
+if (!post || !translation)
+  throw new Error(
+    "Missing essay or translation: three-frameworks-ai-assisted-product-delivery"
+  );
+---
+
+<PostPage {post} {translation} prevPost={null} nextPost={null} />

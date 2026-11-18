@@ -15,6 +15,15 @@ const posts = getSortedPosts(
   await getCollection("posts", ({ data }) => !data.draft)
 );
 
+// Localized content entries use the English post slug plus a -zh suffix.
+const translations = new Map(
+  (await getCollection("pages"))
+    .filter(page => page.id.endsWith("-zh"))
+    .map(page => [page.id.slice(0, -3), page])
+);
+const translationFor = (post: (typeof posts)[number]) =>
+  translations.get(getPostSlug(post.id, post.filePath).replace(/^\//, ""));
+
 const playbookItems = [
   {
     label: "Harness Engineering",
@@ -88,7 +97,7 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
     <section>
       <h2 class="text-xl font-semibold">精选文章</h2>
       <p class="text-muted-foreground mt-1 text-sm">
-        从具体项目和问题出发的复盘。英文原文会标注语言。
+        从具体项目和问题出发的复盘。暂未翻译的文章会标注英文。
       </p>
       <div class="mt-4 space-y-3">
         {
@@ -96,12 +105,14 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
             <article class="border-border rounded-lg border p-4">
               <a
                 href={
-                  item.href ??
-                  getPostUrl(item.post.id, item.post.filePath, "en")
+                  translationFor(item.post)
+                    ? getPostUrl(item.post.id, item.post.filePath, "zh")
+                    : getPostUrl(item.post.id, item.post.filePath, "en")
                 }
                 class="text-accent font-medium hover:underline"
               >
-                {item.title ?? `${item.post.data.title}（英文）`}
+                {translationFor(item.post)?.data.title ??
+                  `${item.post.data.title}（英文）`}
               </a>
               <p class="text-muted-foreground mt-2 text-sm">{item.summary}</p>
               <div class="text-muted-foreground mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
@@ -126,10 +137,15 @@ const growthChip = `${growthExperiments.length} 个实验 · ${activeCount} 个�
           otherPosts.map(post => (
             <li class="flex flex-wrap items-baseline justify-between gap-2">
               <a
-                href={getPostUrl(post.id, post.filePath, "en")}
+                href={getPostUrl(
+                  post.id,
+                  post.filePath,
+                  translationFor(post) ? "zh" : "en"
+                )}
                 class="text-accent text-sm hover:underline"
               >
-                {`${post.data.title}（英文）`}
+                {translationFor(post)?.data.title ??
+                  `${post.data.title}（英文）`}
               </a>
               <Datetime
                 pubDatetime={post.data.pubDatetime}

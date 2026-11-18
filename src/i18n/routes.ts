@@ -2,7 +2,7 @@
  * Routes that have authored pages in both locales.
  *
  * Keep this list as the single source of truth for the language switcher and
- * hreflang output. English blog posts, tag archives, and the interactive
+ * hreflang output. Untranslated blog posts, tag archives, and the interactive
  * ontology graph intentionally fall back to the nearest localized hub.
  */
 export const MIRRORED_ROUTES = [
@@ -29,6 +29,11 @@ export const MIRRORED_ROUTES = [
   "/growth-lab/",
   "/posts/",
   "/posts/building-ontology-os/",
+  "/posts/from-prd-to-prototype-new-workflow/",
+  "/posts/seo-to-geo-how-ai-search-changes-growth/",
+  "/posts/three-frameworks-ai-assisted-product-delivery/",
+  "/posts/what-changes-when-pm-meets-ai-agents/",
+  "/posts/why-ai-pms-should-learn-vibe-coding/",
   "/search/",
 ] as const;
 

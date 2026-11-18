@@ -19,7 +19,7 @@ description: "Three practical frameworks — Harness Engineering, Loop Engineeri
 
 AI coding agents change how products get built. Claude Code, Cursor, and similar tools let PMs prototype ideas, generate structured handoffs, and validate workflows without waiting for a sprint cycle. But most PMs interact with these tools without a framework. They prompt, get output, and hope for the best.
 
-I have been developing three frameworks to make this work more structured. None of these are established industry terms — they are working concepts I use when thinking about AI-assisted product delivery. Here is a summary of each.
+I use three perspectives to make this work more structured. Harness engineering and vibe coding are terms used more broadly; loop engineering is a personal working concept for thinking about iteration. Here is my product delivery perspective on each.
 
 ## 1. Harness Engineering: Designing the Agent's Environment
 
@@ -49,7 +49,7 @@ I think about five loops:
 - **User-feedback loop**: Usage, observation, insight, product update.
 - **Context update loop**: Learnings, updated docs, better next iteration.
 
-The critical pattern: each loop must produce artifacts that feed into the next cycle. Without artifacts, every iteration starts from zero. The most common failure mode is loops that do not close — teams generate output but never feed results back into the process.
+The critical pattern is to carry useful results into the next cycle. Without a shared record, teams can lose lessons between iterations. A common failure mode is loops that do not close — teams generate output but do not feed results back into the process.
 
 [Read the full framework: Loop Engineering for AI Product Development](/playbook/loop-engineering)
 
@@ -69,7 +69,7 @@ The most important skill is not prompt crafting — it is product definition. Be
 
 These three frameworks operate at different levels:
 
-- **Harness engineering** designs the environment for a single agent run.
+- **Harness engineering** shapes the environment in which agents work.
 - **Loop engineering** designs how that environment evolves over repeated iterations.
 - **Vibe coding** is a specific application — discovery prototyping — that benefits from both.
 

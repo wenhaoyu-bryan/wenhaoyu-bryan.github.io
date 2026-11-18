@@ -13,6 +13,7 @@ import ShareLinks from "./_components/ShareLinks.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
+import ArticleContents from "@/components/ArticleContents.astro";
 import config from "@/config";
 import { isMirroredRoute } from "@/i18n/routes";
 
@@ -74,7 +75,17 @@ const {
 } = post.data;
 const { title, description } = translation?.data ?? post.data;
 
-const { Content } = await render(translation ?? post);
+const article = translation ?? post;
+const { Content, headings } = await render(article);
+// Estimate reading time from the published language, without counting link URLs.
+const readingText = (article.body ?? "")
+  .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+  .replace(/https?:\/\/\S+/g, "");
+const hanCount = (readingText.match(/\p{Script=Han}/gu) ?? []).length;
+const wordCount = (
+  readingText.replace(/\p{Script=Han}/gu, " ").match(/[\p{L}\p{N}]+/gu) ?? []
+).length;
+const readingMinutes = Math.max(1, Math.ceil(hanCount / 400 + wordCount / 220));
 
 let ogImageUrl: string | undefined;
 
@@ -123,6 +134,20 @@ const ogImage = ogImageUrl
       >
         {config.site.author}
       </a>
+      {
+        readingText && (
+          <>
+            <span aria-hidden="true" class="text-muted-foreground">
+              ·
+            </span>
+            <span class="text-muted-foreground text-sm">
+              {zh
+                ? `约 ${readingMinutes} 分钟阅读`
+                : `${readingMinutes} min read`}
+            </span>
+          </>
+        )
+      }
       <span
         aria-hidden="true"
         class:list={[
@@ -147,6 +172,8 @@ const ogImage = ogImageUrl
       )
     }
     <p class="post-description">{description}</p>
+
+    <ArticleContents {headings} {locale} />
 
     <article
       id="article"

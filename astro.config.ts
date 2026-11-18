@@ -17,11 +17,11 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
+import { readFileSync } from "node:fs";
 
-// Agent Anatomy is deployed separately under this site's origin, so Astro
-// cannot discover its routes. Keep this list in sync with that project's
-// prerendered landing page and published episodes.
-const agentAnatomyPaths = [
+// Local builds work offline with this last known roster. The Pages workflow
+// supplies an updated roster generated from the separately deployed project.
+const defaultAgentAnatomyPaths = [
   "/agent-anatomy/",
   "/agent-anatomy/episodes/how-an-agent-works/",
   "/agent-anatomy/episodes/where-agents-go-wrong/",
@@ -29,6 +29,26 @@ const agentAnatomyPaths = [
   "/agent-anatomy/episodes/how-agents-remember/",
   "/agent-anatomy/episodes/how-agents-work-together/",
 ];
+
+const rosterFile = process.env.AGENT_ANATOMY_SITEMAP_FILE;
+const agentAnatomyPaths: string[] = rosterFile
+  ? JSON.parse(readFileSync(rosterFile, "utf8"))
+  : defaultAgentAnatomyPaths;
+if (
+  !Array.isArray(agentAnatomyPaths) ||
+  !agentAnatomyPaths.includes("/agent-anatomy/") ||
+  !agentAnatomyPaths.some(path =>
+    /^\/agent-anatomy\/episodes\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(path)
+  ) ||
+  agentAnatomyPaths.some(
+    path =>
+      typeof path !== "string" ||
+      (path !== "/agent-anatomy/" &&
+        !/^\/agent-anatomy\/episodes\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(path))
+  )
+) {
+  throw new Error("Invalid Agent Anatomy sitemap roster");
+}
 
 export default defineConfig({
   site: config.site.url,
