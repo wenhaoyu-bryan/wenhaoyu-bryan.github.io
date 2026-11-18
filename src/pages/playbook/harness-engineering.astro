@@ -12,7 +12,7 @@ const locale = Astro.currentLocale ?? config.site.lang;
 
 <Layout
   title={`Harness Engineering — ${config.site.title}`}
-  description="Designing the context, tools, constraints, tests, and feedback systems that guide AI coding agents — rather than writing code yourself."
+  description="Designing the context, tools, constraints, tests, and feedback that help AI coding agents produce work people can inspect and review."
 >
   <Header />
   <Breadcrumb />
@@ -23,10 +23,17 @@ const locale = Astro.currentLocale ?? config.site.lang;
   >
     <p class="text-muted-foreground text-lg">
       Harness Engineering means designing the environment around an AI coding
-      agent — the context it receives, the tools it can use, the boundaries it
-      must respect, and the feedback it gets — rather than writing code
-      yourself. The agent generates code. The harness makes sure it generates
-      the right code.
+      agent: the context it receives, the tools it can use, the boundaries it
+      must respect, and the feedback it gets. It helps make the agent's work
+      inspectable and testable; people still review the result, decide what to
+      ship, and may write code themselves.
+    </p>
+    <p class="mt-3">
+      This page applies the idea to product delivery. For an engineering team's
+      account of the approach, see OpenAI's <a
+        href="https://openai.com/index/harness-engineering/"
+        class="text-accent hover:underline">Harness engineering</a
+      > article.
     </p>
 
     <h2 class="mt-8 text-xl font-semibold">Model vs. Agent Loop vs. Harness</h2>
@@ -53,8 +60,7 @@ const locale = Astro.currentLocale ?? config.site.lang;
       </li>
     </ul>
     <p class="mt-3">
-      Most frustration with AI coding agents comes from neglecting the harness.
-      A good model in a bad harness produces unreliable results.
+      An underspecified harness can make even a capable model unreliable.
     </p>
 
     <h2 class="mt-8 text-xl font-semibold">Context</h2>
@@ -116,9 +122,10 @@ const locale = Astro.currentLocale ?? config.site.lang;
 
     <h2 class="mt-6 text-xl font-semibold">State and Handoff</h2>
     <p>
-      AI agents do not remember what happened in a previous session unless you
-      give them a way to. State must be persisted in artifacts: CLAUDE.md files,
-      project documentation, structured task descriptions, Git history.
+      Agents need a way to recover relevant context between sessions. Some tools
+      offer persistent memory; project files, documentation, structured task
+      descriptions, and Git history can also make decisions reviewable and
+      available to other people and tools.
     </p>
     <p class="mt-2">
       The CLAUDE.md pattern — a project-level file that documents conventions,
@@ -197,6 +204,24 @@ const locale = Astro.currentLocale ?? config.site.lang;
       reviewed. The handoff should make uncertain assumptions visible; a
       generated document alone does not validate them.
     </p>
+    <p class="mt-2">For example, a hypothetical handoff might specify:</p>
+    <ul class="mt-2 space-y-2">
+      <li><strong>Goal:</strong> help readers find an article by title.</li>
+      <li>
+        <strong>Context:</strong> the existing search page and article list.
+      </li>
+      <li>
+        <strong>Constraints:</strong> keep the existing URLs and navigation.
+      </li>
+      <li>
+        <strong>Checks:</strong> an exact title returns the matching article; an unknown
+        title shows an empty state.
+      </li>
+      <li>
+        <strong>Review evidence:</strong> test results and a view of both states for
+        a person to inspect.
+      </li>
+    </ul>
 
     <div class="border-border mt-8 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">Related</h2>

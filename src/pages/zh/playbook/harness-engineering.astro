@@ -12,7 +12,7 @@ const locale = "zh";
 
 <Layout
   title={`面向 AI 辅助产品交付的 Harness Engineering — ${config.site.title}`}
-  description="设计 AI 编码智能体所处的上下文、工具、约束、测试与反馈系统，而不是自己动手写代码。"
+  description="设计 AI 编码智能体所需的上下文、工具、约束、测试与反馈，让工作成果更易检查和审核。"
 >
   <Header />
   <Breadcrumb />
@@ -32,9 +32,14 @@ const locale = "zh";
 
     <p class="text-muted-foreground text-lg">
       Harness Engineering 指的是设计 AI 编码智能体所处的整个环境 ——
-      它接收到的上下文、可以使用的工具、必须遵守的边界，以及它获得的反馈 ——
-      而不是自己动手写代码。智能体负责生成代码，Harness
-      负责确保它生成的是正确的代码。
+      它接收到的上下文、可以使用的工具、必须遵守的边界，以及它获得的反馈。
+      这些设计让智能体的工作更易检查和测试；人仍然审核结果、决定是否发布，也可以自己编写代码。
+    </p>
+    <p class="mt-3">
+      本文从产品交付视角应用这一概念。有关工程团队的实践，可参考 OpenAI 的<a
+        href="https://openai.com/index/harness-engineering/"
+        class="text-accent hover:underline">《Harness engineering》文章</a
+      >。
     </p>
 
     <h2 class="mt-8 text-xl font-semibold">模型 vs. 智能体循环 vs. Harness</h2>
@@ -55,8 +60,7 @@ const locale = "zh";
       </li>
     </ul>
     <p class="mt-3">
-      人们对 AI 编码智能体的大部分挫败感，都来自忽视了 Harness。
-      再好的模型，放进糟糕的 Harness 里，也只会产出不可靠的结果。
+      如果 Harness 的设计不够明确，即使模型能力很强，结果也可能不可靠。
     </p>
 
     <h2 class="mt-8 text-xl font-semibold">上下文（Context）</h2>
@@ -105,9 +109,8 @@ const locale = "zh";
 
     <h2 class="mt-6 text-xl font-semibold">状态与交接</h2>
     <p>
-      除非你给它一种办法，否则 AI
-      智能体不会记得上一次会话发生了什么。状态必须被持久化到产物中：CLAUDE.md
-      文件、项目文档、结构化的任务描述、Git 历史。
+      智能体需要一种方式在不同会话之间恢复相关上下文。有些工具提供持久记忆；项目文件、文档、结构化任务描述和
+      Git 历史也能让决策可供他人和其他工具查看与审查。
     </p>
     <p class="mt-2">
       CLAUDE.md 模式 —— 一份记录了规范、架构决策和当前上下文的项目级文件 —— 正是
@@ -171,6 +174,17 @@ const locale = "zh";
     <p>
       编码智能体开始工作前，我会写清用户问题、相关上下文、约束、验收检查，以及结果由谁审核。交接材料还应该让不确定的假设显露出来；生成一份格式完整的文档，并不等于验证了这些假设。
     </p>
+    <p class="mt-2">例如，一份假设性的交接材料可以写明：</p>
+    <ul class="mt-2 space-y-2">
+      <li><strong>目标：</strong>让读者能按标题找到文章。</li>
+      <li><strong>上下文：</strong>现有搜索页面和文章列表。</li>
+      <li><strong>约束：</strong>保留现有网址与导航。</li>
+      <li>
+        <strong>验收检查：</strong
+        >输入准确标题能找到文章；输入不存在的标题显示空状态。
+      </li>
+      <li><strong>审核证据：</strong>提供测试结果和两种页面状态，供人检查。</li>
+    </ul>
 
     <div class="border-border mt-8 rounded-lg border p-6">
       <h2 class="text-lg font-semibold">相关</h2>
