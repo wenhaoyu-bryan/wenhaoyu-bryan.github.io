@@ -11,7 +11,7 @@ import config from "@/config";
 const snapshot = [
   { label: "角色", value: "产品经理（0 → 1 主导）" },
   { label: "雇主 · 领域", value: "TCL · 先进制造（半导体及相邻流程工业）" },
-  { label: "状态", value: "当前工作 · 研发中" },
+  { label: "状态", value: "已向集团内部客户交付 · 持续研发" },
 ];
 
 // 平台的抽象形态——不含任何内部系统名称。每一步都对应下方经批准内容里的一项能力。
@@ -49,7 +49,9 @@ const architectureSteps = [
     <p class="text-muted-foreground text-lg">
       一个面向先进制造（半导体及相邻流程工业）的企业级 Agent
       平台，把专家知识和业务流程转化为可治理、可复用的 AI
-      Agent——「数字员工」。我以产品经理身份主导它从 0 到 1。平台仍在研发中。
+      Agent——「数字员工」。我以产品经理身份主导它从 0 到
+      1。平台已向集团内部客户交付，并有内部工程师使用；外部客户交付正在筹备，信创适配也在推进。为平台定制的
+      RAGFlow 方案也已向客户交付。
     </p>
 
     <div class="border-border mt-4 flex flex-wrap gap-2">
@@ -122,6 +124,9 @@ const architectureSteps = [
 
     <!-- ─────────────────────────  3. CAPABILITIES  ───────────────────────── -->
     <h2 class="mt-8 text-xl font-semibold">平台能力</h2>
+    <p>
+      以下能力和控制描述平台的整体设计，不代表每项能力都已部署到每个客户环境。
+    </p>
 
     <h3 class="mt-6 text-lg font-medium">Agent 配置</h3>
     <p>每个 Agent 都由一组可组合的部件拼装而成：</p>

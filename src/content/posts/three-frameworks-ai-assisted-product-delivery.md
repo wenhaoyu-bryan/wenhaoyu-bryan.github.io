@@ -2,7 +2,7 @@
 title: "Three Frameworks for AI-Assisted Product Delivery"
 author: "Wenhao Yu"
 pubDatetime: 2026-06-26T00:00:00Z
-modDatetime: 2026-06-26T00:00:00Z
+modDatetime: 2026-11-18T02:20:19Z
 slug: "three-frameworks-ai-assisted-product-delivery"
 featured: false
 draft: false

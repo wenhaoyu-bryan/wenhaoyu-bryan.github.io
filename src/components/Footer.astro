@@ -38,6 +38,12 @@ const nowLabel = locale === "zh" ? "Now · 我在做什么" : "Now";
         {nowLabel}
       </a>
       <a
+        href={`${getRelativeLocaleUrl(locale, "")}#contact`}
+        class="text-accent hover:underline"
+      >
+        {locale === "zh" ? "联系我" : "Contact"}
+      </a>
+      <a
         href={getRelativeLocaleUrl(locale, "privacy")}
         class="text-accent hover:underline"
       >

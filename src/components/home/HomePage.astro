@@ -19,6 +19,7 @@ import ProjectCover from "./ProjectCover.astro";
 import { getWork, getBuilds, getListedBuilds } from "@/data/projects";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
+import { isMirroredRoute } from "@/i18n/routes";
 import "@/styles/home.css";
 import "@/styles/atelier.css";
 interface Props {
@@ -39,6 +40,21 @@ const work = getWork(locale);
 const posts = getSortedPosts(await getCollection("posts"))
   .filter(({ data }) => !data.featured)
   .slice(0, 3);
+const translations = zh ? await getCollection("pages") : [];
+const postCards = posts.map(post => {
+  const englishUrl = getPostUrl(post.id, post.filePath, "en");
+  const translation =
+    zh && isMirroredRoute(englishUrl)
+      ? translations.find(page => page.id === `${post.id}-zh`)
+      : undefined;
+
+  return {
+    post,
+    title: translation?.data.title ?? post.data.title,
+    href: translation ? getPostUrl(post.id, post.filePath, "zh") : englishUrl,
+    lang: translation ? "zh" : "en",
+  };
+});
 const copy = zh
   ? {
       name: "余文豪",
@@ -305,11 +321,8 @@ const copy = zh
       </div>
       <div class="writing-list">
         {
-          posts.map(post => (
-            <a
-              href={getPostUrl(post.id, post.filePath, "en")}
-              class="writing-item"
-            >
+          postCards.map(({ post, title, href, lang }) => (
+            <a {href} class="writing-item">
               <>
                 <div class="writing-meta">
                   <>
@@ -320,12 +333,12 @@ const copy = zh
                         year: "numeric",
                       }).format(post.data.pubDatetime)}
                     </time>
-                    <span>{copy.english}</span>
+                    <span>{lang === "zh" ? "文章" : copy.english}</span>
                   </>
                 </div>
                 <div class="writing-title-row">
                   <>
-                    <h3 lang="en">{post.data.title}</h3>
+                    <h3 {lang}>{title}</h3>
                     <ArrowUpRight size={21} aria-hidden="true" />
                   </>
                 </div>
