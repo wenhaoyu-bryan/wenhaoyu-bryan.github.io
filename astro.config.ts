@@ -18,6 +18,7 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
 import { readFileSync } from "node:fs";
+import { copyFile } from "node:fs/promises";
 
 // Local builds work offline with this last known roster. The Pages workflow
 // supplies an updated roster generated from the separately deployed project.
@@ -84,6 +85,19 @@ export default defineConfig({
         return !utilityPage.test(pathname);
       },
     }),
+    {
+      // Keep the conventional filename in sync with every generated index,
+      // including when the sitemap integration emits multiple child files.
+      name: "sitemap-index-alias",
+      hooks: {
+        "astro:build:done": async ({ dir }) => {
+          await copyFile(
+            new URL("sitemap-index.xml", dir),
+            new URL("sitemap.xml", dir)
+          );
+        },
+      },
+    },
   ],
   i18n: {
     locales: ["en", "zh"],

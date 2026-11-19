@@ -42,6 +42,16 @@ for (const f of expectedFiles) {
   assert(existsSync(join(DIST, f)), `emitted: ${f}`);
 }
 
+// The conventional sitemap filename must always mirror the generated index.
+const sitemapIndex = read("sitemap-index.xml");
+const sitemapAlias = read("sitemap.xml");
+assert(sitemapIndex !== null, "emitted: sitemap-index.xml");
+assert(sitemapAlias !== null, "emitted: sitemap.xml");
+assert(
+  sitemapIndex !== null && sitemapAlias === sitemapIndex,
+  "sitemap.xml matches the generated index"
+);
+
 // 2. Page content markers
 const aiStack = read("ai-stack/index.html") ?? "";
 assert(
