@@ -11,7 +11,7 @@ import config from "@/config";
 const snapshot = [
   { label: "角色", value: "供应链与物流卓越管培生（SET）" },
   { label: "公司", value: "AB InBev · 百威武汉酿造工厂" },
-  { label: "时间", value: "2025 年 3–12 月 · 已结束" },
+  { label: "时间", value: "2025 年 3–12 月 · 我的参与时间" },
   { label: "范围", value: "0 → 1 · AI 知识助手 + 数据治理" },
 ];
 
@@ -23,10 +23,10 @@ const flowSteps = [
     note: "结构化知识库 · 工厂规程",
     emphasis: true,
   },
-  { label: "实时运营数据", note: "MES 集成" },
+  { label: "运营数据", note: "MES 集成工作" },
   {
     label: "标准化答案",
-    note: "格式一致、可信赖",
+    note: "格式一致",
     emphasis: true,
   },
 ];
@@ -34,7 +34,7 @@ const flowSteps = [
 
 <Layout
   title={`百威（AB InBev）AI-SOP 助手（0 → 1）— ${config.site.title}`}
-  description="AB InBev 百威武汉酿造工厂的一段已结束案例研究：本地部署的 RAG 助手，覆盖工厂规程与维护文档，并包含 IoT 治理、Grafana 与 MES 集成。"
+  description="AB InBev 百威武汉酿造工厂案例：面向物流与工程知识的内部 RAG 助手评估，以及 IoT 数据治理和系统集成工作。"
   ogImage="/og/ai-sop-assistant.png"
 >
   <Header />
@@ -51,17 +51,16 @@ const flowSteps = [
     </p>
 
     <p class="text-muted-foreground text-lg">
-      在百威武汉酿造工厂（AB InBev），我做了一个内部 AI
-      助手：让一线的物流和工程人员用自然语言提问，就能拿回一个标准化的答案——答案来自工厂自己的操作规程和实时运营数据。这是一个已经结束的
-      0 → 1
-      项目，本页描述问题、我的解法，以及我从中带走了什么，而不暴露任何运营细节。
+      在百威武汉酿造工厂（AB InBev），我参与了面向物流与工程知识问答的内部 AI
+      助手。2025
+      年我参与期间，项目处于评估验证阶段，相关部门资料已经上传；内部指标部门预估潜在节省每月数百工时。原始数据未公开，无法独立核验。
     </p>
 
     <div class="border-border mt-4 flex flex-wrap gap-2">
       <span
         class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
       >
-        案例研究 · 2025 年 12 月结束
+        案例研究 · 我的参与截至 2025 年 12 月
       </span>
       <span
         class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
@@ -101,7 +100,7 @@ const flowSteps = [
     </div>
 
     <!-- ─────────────────────────  1. CONTEXT  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">背景</h2>
+    <h2 id="背景" class="mt-8 text-xl font-semibold">团队面临什么问题？</h2>
     <p>
       有两个问题反复出现。其一，设备一旦故障，响应就慢：诊断和处置所需的知识散落在各种文档和人的脑子里，于是有人去翻找的时候，时间就在流逝。其二，标准操作规程（SOP）很难找——一个操作员或工程师要用到对的
       SOP，得在各自维护着自己那套资料的物流和工程部门之间来回翻。
@@ -119,41 +118,48 @@ const flowSteps = [
     </p>
 
     <!-- ─────────────────────────  3. WHAT I BUILT  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">我做了什么</h2>
+    <h2 id="我做了什么" class="mt-8 text-xl font-semibold">助手如何工作？</h2>
 
     <h3 class="mt-6 text-lg font-medium">知识架构</h3>
     <p>
-      我用工厂完整的规程与维护文档，搭起了一个结构化知识库。这意味着要定义分块（chunking）规则、标注规范和一套分类体系（taxonomy），让检索有一份干净的东西可以对着工作——正是这些不起眼的数据工作，决定了一个答案对不对。
+      我基于项目已上传的物流与工程资料，参与搭建结构化知识库。这意味着要定义分块（chunking）规则、标注规范和一套分类体系（taxonomy），为检索找到相关资料打好基础。
     </p>
 
     <h3 class="mt-6 text-lg font-medium">检索流程</h3>
     <p>
-      流程本身一句话就能讲清：一个自然语言问题经过混合检索，以标准化的答案格式返回。标准化和检索一样重要——正是这种一致的形态，让一线用户敢信任输出、敢照着做，而不用反复揣度。
+      流程本身一句话就能讲清：一个自然语言问题经过混合检索，以标准化的答案格式返回。标准化和检索一样重要：一致的格式旨在帮助一线用户更清楚地审阅和使用输出。
+    </p>
+
+    <p class="mt-2">
+      例如，一线人员可能会询问某种故障应参考哪份规程；助手可以检索相关资料，再以一致的格式呈现答案，供人员审阅。这是示意性的问题。有关检索增强生成的技术背景，可参阅
+      <a
+        href="https://arxiv.org/abs/2005.11401"
+        class="text-accent hover:underline">Lewis 等人 2020 年发表的 RAG 论文</a
+      >。
     </p>
 
     <FlowDiagram
       steps={flowSteps}
-      caption="助手路径示意：一个自然语言问题经过覆盖结构化知识库的混合 RAG 检索，再通过 MES 对实时运营数据做接地（grounding），最终以标准化的答案格式返回。"
+      caption="助手路径示意：一个自然语言问题经过覆盖结构化知识库的混合 RAG 检索，并涉及 MES 集成工作，最终以标准化的答案格式返回。"
     />
 
     <h3 class="mt-6 text-lg font-medium">本地模型部署</h3>
     <p>
       因为数据不能离开厂区，我协调了一个开源模型——DeepSeek——的本地（on-premise）部署，而不是直接去用托管
-      API。它以 Streamlit
-      应用的形式交付，同时覆盖桌面端和移动端，让助手在人们干活的地方就能用到，而不是把他们拴在一台工作站前。
+      API。我参与了桌面端和移动端的 Streamlit 界面工作，以适应不同的使用场景。
     </p>
 
     <h3 class="mt-6 text-lg font-medium">IoT 数据治理</h3>
     <p>
       与此同时，我端到端主导了工厂 IoT
       传感器集群的数据治理：采集、清洗、格式标准化、质量校验，把一条嘈杂的传感器数据流，变成可信赖的时序数据资产。在这份数据之上，我搭建了面向能源管理和预测性维护的
-      Grafana 看板，工厂管理层实际在用。
+      Grafana 看板。
     </p>
 
-    <h3 class="mt-6 text-lg font-medium">实时数据集成</h3>
+    <h3 class="mt-6 text-lg font-medium">MES 集成工作</h3>
     <p>
-      最后，我推动了助手与工厂 MES
-      的集成，让答案反映的是实时运营数据，而不是文档的一张静态快照。一条规程有没有用，取决于它有没有和工厂此刻正在做的事对上。
+      我还推动了助手与工厂 MES
+      的集成工作，探索如何用运营数据补充文档检索。我参与期间，助手仍处于评估验证阶段。
     </p>
 
     <!-- ─────────────────────────  4. DECISIONS  ───────────────────────── -->
@@ -180,7 +186,9 @@ const flowSteps = [
     <!-- ─────────────────────────  5. OUTCOMES  ───────────────────────── -->
     <h2 class="mt-8 text-xl font-semibold">结果</h2>
     <p>
-      上线之后，这个助手每月为工程侧节省了数百个工时；随着对的规程变得好找、执行也更一致，知识复用大幅上升，返工大幅下降。
+      我参与期间，项目处于评估验证阶段。已上传的资料覆盖物流部门的承运商车辆管理、交接班问数、运营
+      SOP 查询，以及工程技术部门的设备维修异常、可靠性维护检测、Data Factory
+      点位日常查询和数据治理等知识问答。内部指标部门预估，这些场景每月有节省数百工时的潜力。原始数据未公开，无法独立核验；这不是已实现节省的实测值。
     </p>
 
     <!-- ─────────────────────────  6. LESSONS  ───────────────────────── -->
@@ -201,7 +209,7 @@ const flowSteps = [
     </p>
     <p>
       <strong>从第一天就为交接而构建。</strong>写下那份维护 SOP
-      的那一刻，这个工具才从一个个人项目变成了基础设施。一个撑不过「作者离开」的系统，从来就没算做完。
+      有助于交接，让工作不只依赖某一个人。一个撑不过「作者离开」的系统，从来就没算做完。
     </p>
 
     <div

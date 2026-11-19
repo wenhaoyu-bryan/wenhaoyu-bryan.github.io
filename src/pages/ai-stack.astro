@@ -18,18 +18,18 @@ const workflow = [
   },
   {
     stage: "Prototyping",
-    tools: "Claude Code CLI (primary) + Cursor (secondary)",
-    note: "Spec-driven builds: brainstorm → written plan → implementation → review, mostly inside Claude Code with a structured skill workflow.",
+    tools: "Codex (primary) + Claude Code (support)",
+    note: "Use coding agents to turn a scoped product idea into a prototype that can be inspected and tested.",
   },
   {
     stage: "Hard debugging",
-    tools: "Claude Opus / frontier reasoning models",
-    note: "When a bug survives two rounds, I switch to the strongest code model available instead of brute-forcing.",
+    tools: "Coding agents + reasoning models",
+    note: "Investigate failures, test changes, and review the evidence before deciding what is resolved.",
   },
   {
     stage: "Frontend & CMS pages",
     tools: "Codex app",
-    note: "Marketing pages and CMS-flavored work where fast visual iteration beats deep reasoning.",
+    note: "Develop and review frontend and CMS work with code and visual checks.",
   },
   {
     stage: "Daily operations",
@@ -59,14 +59,14 @@ const models = [
     why: "A second, differently-biased opinion for exploration.",
   },
   {
-    model: "Claude (Opus-class)",
-    role: "Hard debugging & code review",
-    why: "Best code quality when the problem is genuinely difficult.",
+    model: "Claude",
+    role: "Supporting coding work",
+    why: "Claude Code is a supporting tool alongside my primary Codex workflow.",
   },
   {
     model: "DeepSeek",
     role: "Cost-efficient code generation",
-    why: "Excellent output at a fraction of frontier pricing — good default for routine coding.",
+    why: "An option for tasks where cost is a consideration.",
   },
   {
     model: "Kimi",
@@ -102,7 +102,7 @@ const boundaries = [
   {
     area: "AI tool orchestration",
     current:
-      "Seamless switching across 3 coding tools, several agent platforms, and 7+ models.",
+      "Using Codex as my primary coding agent, with Claude Code in a supporting role.",
     next: "Automated routing policies and cost-effectiveness tracking.",
   },
   {
@@ -130,8 +130,7 @@ const boundaries = [
     </p>
     <h2 class="mt-8 text-xl font-semibold">The Workflow</h2>
     <p>
-      Every project moves through the same pipeline. Different tools own
-      different stages:
+      These stages are a practical outline; the tools and checks vary by task:
     </p>
     <FlowDiagram steps={flowSteps} />
     <div class="mt-4 space-y-3">
@@ -156,21 +155,15 @@ const boundaries = [
     <h2 class="mt-8 text-xl font-semibold">Coding Tools</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Claude Code CLI — primary.</strong> Runs most frontend and backend
-        work with an 80+ skill setup and a structured brainstorm-plan-implement-review
-        workflow. This site and
-        <a
-          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
-          class="text-accent hover:underline">Prompt-to-Ontology</a
-        > were built primarily with it.
+        <strong>Codex — primary.</strong> My main coding agent for product work.
       </li>
       <li>
-        <strong>Cursor — secondary.</strong> Auto mode for quick prototype passes,
-        with manual model switching when a scenario needs a specific strength.
+        <strong>Claude Code CLI — support.</strong> A supporting coding tool alongside
+        Codex.
       </li>
       <li>
-        <strong>Codex app — situational.</strong> Frontend and CMS page work where
-        visual iteration speed matters more than architectural depth.
+        <strong>Cursor — additional editor.</strong> An editor available for prototype
+        work when useful.
       </li>
     </ul>
 

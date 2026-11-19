@@ -49,7 +49,7 @@ export const GET: APIRoute = async () => {
     `- [My AI Stack](${toCanonicalUrl("/ai-stack/")}): How he orchestrates coding agents, chat models, and self-built tools, plus 0-to-1 agent platform product design and honest capability boundaries.`
   );
   lines.push(
-    `- [Work](${toCanonicalUrl("/work/")}): Professional work — enterprise agent platform product leadership, ongoing participation in ontology platform design and development, and a concluded AI-SOP assistant case study at AB InBev.`
+    `- [Work](${toCanonicalUrl("/work/")}): Professional work — enterprise agent platform product leadership, ongoing participation in ontology platform design and development, and a 2025 AI-SOP assistant case study at AB InBev.`
   );
   lines.push(
     `- [Projects](${toCanonicalUrl("/projects/")}): Two featured public builds — Prompt-to-Ontology and Agent Anatomy. Growth experiments live in the Growth Lab.`

@@ -16,7 +16,7 @@ const snapshot = [
     value: "Supply Chain & Logistics Excellence Trainee (SET)",
   },
   { label: "Company", value: "AB InBev · Budweiser brewing operations, Wuhan" },
-  { label: "Timeline", value: "Mar–Dec 2025 · Concluded" },
+  { label: "Timeline", value: "Mar–Dec 2025 · My involvement" },
   {
     label: "Scope",
     value: "0 → 1 · AI knowledge assistant + data governance",
@@ -31,10 +31,10 @@ const flowSteps = [
     note: "structured KB · plant procedures",
     emphasis: true,
   },
-  { label: "Live operational data", note: "MES integration" },
+  { label: "Operational data", note: "MES integration work" },
   {
     label: "Standardized answer",
-    note: "consistent, trustworthy format",
+    note: "consistent format",
     emphasis: true,
   },
 ];
@@ -42,7 +42,7 @@ const flowSteps = [
 
 <Layout
   title={`AI-SOP Assistant at AB InBev (0 → 1) — ${config.site.title}`}
-  description="A concluded AB InBev case study: an on-prem RAG assistant for plant procedures and maintenance, with IoT governance, Grafana, and MES integration."
+  description="An AB InBev case study: an internal RAG assistant evaluated for logistics and engineering knowledge, alongside IoT data governance and integration work."
   ogImage="/og/ai-sop-assistant.png"
 >
   <Header />
@@ -59,19 +59,19 @@ const flowSteps = [
     </p>
 
     <p class="text-muted-foreground text-lg">
-      At AB InBev's Budweiser brewing operations in Wuhan, I built an internal
-      AI assistant that let frontline logistics and engineering staff ask a
-      question in plain language and get back a standardized answer drawn from
-      the plant's own procedures and live operational data. This is a concluded
-      0 → 1 project; the page describes the problem, how I approached it, and
-      what I carry forward — without exposing operational specifics.
+      At AB InBev's Budweiser brewing operations in Wuhan, I worked on an
+      internal AI knowledge assistant for logistics and engineering questions.
+      During my involvement in 2025, the project was being evaluated and
+      validated. Departmental materials had been uploaded; an internal metrics
+      team estimated potential savings of hundreds of hours per month. The
+      underlying data is not publicly available for independent verification.
     </p>
 
     <div class="border-border mt-4 flex flex-wrap gap-2">
       <span
         class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
       >
-        Case Study · Concluded Dec 2025
+        Case Study · Involvement through Dec 2025
       </span>
       <span
         class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
@@ -111,7 +111,9 @@ const flowSteps = [
     </div>
 
     <!-- ─────────────────────────  1. CONTEXT  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">Context</h2>
+    <h2 id="context" class="mt-8 text-xl font-semibold">
+      What problem did the team face?
+    </h2>
     <p>
       Two problems kept surfacing. First, when equipment failed, the response
       was slow: the knowledge needed to diagnose and act was scattered across
@@ -141,14 +143,17 @@ const flowSteps = [
     </p>
 
     <!-- ─────────────────────────  3. WHAT I BUILT  ───────────────────────── -->
-    <h2 class="mt-8 text-xl font-semibold">What I built</h2>
+    <h2 id="what-i-built" class="mt-8 text-xl font-semibold">
+      How did the assistant work?
+    </h2>
 
     <h3 class="mt-6 text-lg font-medium">Knowledge architecture</h3>
     <p>
-      I built a structured knowledge base from the plant's full procedure and
-      maintenance corpus. That meant defining chunking rules, annotation
-      standards, and a taxonomy so retrieval had something clean to work against
-      — the unglamorous data work that decides whether an answer is right.
+      I worked on a structured knowledge base using logistics and engineering
+      materials uploaded for the project. That meant defining chunking rules,
+      annotation standards, and a taxonomy so retrieval had something clean to
+      work against — the foundational data work that helps retrieval find the
+      relevant material.
     </p>
 
     <h3 class="mt-6 text-lg font-medium">Retrieval flow</h3>
@@ -156,22 +161,31 @@ const flowSteps = [
       The flow itself is simple to state: a natural-language question goes
       through hybrid retrieval and comes back in a standardized answer format.
       The standardization mattered as much as the retrieval — a consistent shape
-      is what let frontline users trust the output and act on it without
-      second-guessing.
+      was intended to help frontline users review and use the output
+      consistently.
+    </p>
+
+    <p class="mt-2">
+      For an illustrative example, an operator might ask which procedure applies
+      to a particular fault; the assistant could retrieve relevant procedures
+      and present the answer in a consistent format for review. For background
+      on retrieval-augmented generation, see the <a
+        href="https://arxiv.org/abs/2005.11401"
+        class="text-accent hover:underline">RAG paper by Lewis et al. (2020)</a
+      >.
     </p>
 
     <FlowDiagram
       steps={flowSteps}
-      caption="Assistant flow: a plain-language question runs through hybrid RAG retrieval over the structured knowledge base, is grounded against live operational data via the MES, and returns in a standardized answer format."
+      caption="Assistant flow: a plain-language question runs through hybrid RAG retrieval over the structured knowledge base, includes work on MES integration, and returns a standardized answer."
     />
 
     <h3 class="mt-6 text-lg font-medium">Local model deployment</h3>
     <p>
       Because the data couldn't leave the site, I coordinated the on-premise
       deployment of an open-source model — DeepSeek — rather than reaching for a
-      hosted API. It shipped as Streamlit apps on both desktop and mobile, so
-      the assistant met people where they worked instead of tethering them to a
-      workstation.
+      hosted API. I worked on Streamlit interfaces for desktop and mobile to
+      make the assistant accessible in different working settings.
     </p>
 
     <h3 class="mt-6 text-lg font-medium">IoT data governance</h3>
@@ -180,15 +194,14 @@ const flowSteps = [
       fleet: collection, cleaning, format standardization, and quality
       validation, turning a noisy sensor stream into trustworthy time-series
       data assets. On top of that data I built Grafana dashboards for energy
-      management and predictive-maintenance views that plant management used.
+      management and predictive-maintenance views.
     </p>
 
-    <h3 class="mt-6 text-lg font-medium">Live-data integration</h3>
+    <h3 class="mt-6 text-lg font-medium">MES integration work</h3>
     <p>
-      Finally, I drove the integration between the assistant and the plant's
-      MES, so answers reflected live operational data rather than a static
-      snapshot of documents. A procedure is only as useful as its grounding in
-      what the plant is actually doing right now.
+      I also worked on integrating the assistant with the plant's MES to explore
+      how operational data could complement document retrieval. The assistant
+      remained in evaluation during my involvement.
     </p>
 
     <!-- ─────────────────────────  4. DECISIONS  ───────────────────────── -->
@@ -228,9 +241,14 @@ const flowSteps = [
     <!-- ─────────────────────────  5. OUTCOMES  ───────────────────────── -->
     <h2 class="mt-8 text-xl font-semibold">Outcomes</h2>
     <p>
-      After rollout, the assistant saved hundreds of engineering hours each
-      month; knowledge reuse rose sharply and rework fell dramatically as the
-      right procedure became easy to find and consistent to follow.
+      During my involvement, the project was in evaluation and validation.
+      Logistics and engineering materials had been uploaded, covering carrier
+      vehicle management, shift-handover queries, operating procedures,
+      maintenance and reliability knowledge, and Data Factory point queries and
+      data governance. An internal metrics team estimated potential savings of
+      hundreds of hours per month across these areas. The underlying data is not
+      publicly available for independent verification; the estimate is not a
+      measurement of realized savings.
     </p>
 
     <!-- ─────────────────────────  6. LESSONS  ───────────────────────── -->
@@ -254,7 +272,7 @@ const flowSteps = [
     </p>
     <p>
       <strong>Build for handover from day one.</strong> Writing the maintenance SOP
-      was the moment the tool became infrastructure instead of a personal project.
+      helped make the work easier to hand over instead of depending on one person.
       A system that can't survive its builder leaving was never finished.
     </p>
 

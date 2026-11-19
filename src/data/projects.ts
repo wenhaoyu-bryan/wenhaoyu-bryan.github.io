@@ -180,8 +180,8 @@ const defs: ProjectDef[] = [
       },
     },
     description: {
-      en: "An on-prem AI assistant that turned the plant's full procedure and maintenance corpus into standardized, retrievable answers, plus end-to-end governance of the plant's IoT sensor fleet and MES integration. Local DeepSeek deployment for data residency; Streamlit on desktop + mobile; Grafana for plant management.",
-      zh: "一个本地部署的 AI 助手，把工厂完整的规程与维护文档转化为标准化、可检索的答案，并端到端治理工厂的 IoT 传感器集群、打通 MES。出于数据合规本地部署 DeepSeek；Streamlit 覆盖桌面与移动端；用 Grafana 服务工厂管理层。",
+      en: "An internal AI-SOP assistant under evaluation, built around uploaded logistics and engineering reference materials for retrieval. The work also included IoT sensor governance, MES integration, and Grafana dashboards. The assistant uses a locally deployed DeepSeek model and a Streamlit interface.",
+      zh: "一个仍在内部评估阶段的 AI-SOP 助手，基于已上传的物流和工程技术资料提供检索；工作还包括 IoT 传感器治理、MES 集成及 Grafana 看板。助手使用本地部署的 DeepSeek 模型和 Streamlit 界面。",
     },
     tags: {
       en: [

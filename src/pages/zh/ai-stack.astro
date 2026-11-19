@@ -18,18 +18,18 @@ const workflow = [
   },
   {
     stage: "原型开发",
-    tools: "Claude Code CLI（主力）+ Cursor（辅助）",
-    note: "规格驱动的构建流程：头脑风暴 → 书面计划 → 实现 → 评审，大部分在 Claude Code 的结构化技能工作流里完成。",
+    tools: "Codex（主力）+ Claude Code（辅助）",
+    note: "借助编码智能体，把范围明确的产品想法变成可检查、可测试的原型。",
   },
   {
     stage: "高难度 Debug",
-    tools: "Claude Opus / 前沿推理模型",
-    note: "一个 bug 撑过两轮修复还没解决，就切换到手头最强的代码模型，而不是硬试。",
+    tools: "编码智能体 + 推理模型",
+    note: "调查失败原因、测试修改并审查证据，再判断问题是否解决。",
   },
   {
     stage: "前端与 CMS 页面",
     tools: "Codex app",
-    note: "营销页和 CMS 类工作，视觉迭代速度比深度推理更重要。",
+    note: "通过代码和视觉检查开发、评审前端与 CMS 页面。",
   },
   {
     stage: "日常运转",
@@ -59,14 +59,14 @@ const models = [
     why: "提供一个偏好不同的第二意见，用于探索。",
   },
   {
-    model: "Claude（Opus 级）",
-    role: "高难度 Debug 与代码评审",
-    why: "问题真正困难时，代码质量最好。",
+    model: "Claude",
+    role: "辅助编码工作",
+    why: "Claude Code 是 Codex 主力工作流之外的辅助工具。",
   },
   {
     model: "DeepSeek",
     role: "高性价比代码生成",
-    why: "输出出色而价格只有前沿模型的零头——常规编码的默认选择。",
+    why: "需要考虑成本的任务中可选用的模型。",
   },
   {
     model: "Kimi",
@@ -98,7 +98,7 @@ const boundaries = [
   },
   {
     area: "AI 工具编排",
-    current: "3 个编程工具、多个 Agent 平台、7+ 模型之间无缝切换。",
+    current: "以 Codex 为主力编码智能体，Claude Code 作为辅助。",
     next: "自动路由策略与成本效益量化追踪。",
   },
   {
@@ -130,7 +130,7 @@ const boundaries = [
       ：让每个工具做它最擅长的事，并设计好工具之间的交接。这个页面记录我每天真实在跑的工具栈——以及它的边界在哪里。
     </p>
     <h2 class="mt-8 text-xl font-semibold">工作流</h2>
-    <p>每个项目都经过同一条流水线，不同工具负责不同阶段：</p>
+    <p>以下阶段是工作流程的示意，具体使用的工具和检查会因任务而异：</p>
     <FlowDiagram steps={flowSteps} />
     <div class="mt-4 space-y-3">
       {
@@ -154,21 +154,13 @@ const boundaries = [
     <h2 class="mt-8 text-xl font-semibold">编程工具</h2>
     <ul class="mt-2 space-y-2">
       <li>
-        <strong>Claude Code CLI —— 主力。</strong>
-        承担大部分前后端工作，配有 80+ 技能和「头脑风暴-计划-实现-评审」的结构化工作流。本站、
-        <a
-          href={getRelativeLocaleUrl(locale, "projects/prompt-to-ontology")}
-          class="text-accent hover:underline">Prompt-to-Ontology</a
-        >
-        都主要用它构建。
+        <strong>Codex —— 主力。</strong>产品工作中主要使用的编码智能体。
       </li>
       <li>
-        <strong>Cursor —— 辅助。</strong>
-        Auto 模式做快速原型迭代，特定场景手动切换到对应强项的模型。
+        <strong>Claude Code CLI —— 辅助。</strong>Codex 之外的辅助编码工具。
       </li>
       <li>
-        <strong>Codex app —— 场景化。</strong>
-        前端和 CMS 页面工作，视觉迭代速度比架构深度更重要的时候用它。
+        <strong>Cursor —— 补充编辑器。</strong>需要时用于原型工作的编辑器。
       </li>
     </ul>
 

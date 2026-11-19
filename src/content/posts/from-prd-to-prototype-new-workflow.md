@@ -2,7 +2,7 @@
 title: "From PRD to Prototype: An AI PM Workflow"
 author: "Wenhao Yu"
 pubDatetime: 2026-04-15T00:00:00Z
-modDatetime: 2026-04-15T00:00:00Z
+modDatetime: 2026-11-19T01:36:19Z
 slug: "from-prd-to-prototype-new-workflow"
 featured: false
 draft: false
@@ -11,31 +11,64 @@ tags:
   - AI Agents
   - Vibe Coding
   - PRD
-description: "The traditional PRD-to-engineering handoff breaks down in AI-native product work. Here's a workflow that actually works."
+description: "A product workflow that pairs domain modeling, an inspectable AI-assisted prototype, and engineering review."
 ---
+
+For a domain-heavy AI product, I use a short loop: clarify the relevant domain,
+build a prototype of the core workflow, and review its behavior and limits with
+engineering. The prototype makes assumptions testable; it is not proof that a
+production system is ready.
 
 ## The Problem with Traditional PRDs
 
-A traditional PRD describes what to build. In AI product work, the "what" depends heavily on "what the model can do" — which changes every month. Static PRDs become obsolete before engineering finishes reading them.
+A PRD describes the problem, requirements, and desired behavior. In AI product
+work, some of those requirements depend on model capabilities that need to be
+tested and can change. A static document alone may leave important assumptions
+about data, model behavior, and failure handling unresolved.
 
 ## A Better Workflow
 
-Instead of writing a PRD and handing it off, I've started using a three-step loop:
+I use a three-step loop alongside the PRD to make those assumptions easier to
+inspect:
 
 ### 1. Define the Ontology First
 
-Before writing any requirements, model the domain. What entities exist? What relationships matter? What operations are possible? This becomes the shared language between PM, engineering, and the AI system.
+For domain-heavy workflows, identify the concepts needed for the first
+scenario: what entities exist, which relationships matter, and what operations
+are allowed? This provides a starting language for product and engineering; the
+model can evolve as the team tests it.
 
 ### 2. Prototype with Vibe Coding
 
-Use Claude Code or Cursor to build a working prototype that demonstrates the core workflow. Not a mockup — a functional system that proves the data flow, the agent logic, and the user interaction pattern.
+Use a coding agent to build a working prototype that demonstrates the core
+workflow. Test the data flow, the agent behavior, and the interaction against
+explicit examples. A prototype may use synthetic data or simplified services,
+so it does not establish production reliability or integration readiness.
 
 ### 3. Iterate with Engineering
 
-Bring the prototype and ontology to engineering reviews. Instead of debating requirements in the abstract, you're discussing a working system with real data models.
+Bring the prototype, domain model, and unresolved questions to engineering
+review. Show what was tested, what was simulated, and what still needs a
+decision.
+
+### An illustrative example
+
+Suppose the team is exploring an assistant for operating procedures:
+
+1. **Model:** identify a procedure, its source, and the equipment it applies to.
+2. **Prototype:** let a user ask a question and inspect the returned source.
+3. **Check:** try a question for which the source is missing and expect the
+   prototype to say so, rather than invent an answer.
+4. **Review:** show the result to engineering and discuss access control,
+   evaluation, and integration work that the prototype has not established.
+
+This is an illustrative scenario, not a reported project result.
 
 ## Why This Works
 
-The prototype makes requirements concrete. The ontology makes the domain explicit. Together, they eliminate the ambiguity that kills AI product timelines.
+The prototype gives the team something concrete to inspect; the domain model
+makes its assumptions visible. Together they can expose ambiguity earlier, but
+they do not replace user research, engineering validation, or production
+testing.
 
 This is how [Prompt-to-Ontology](/projects/prompt-to-ontology) was built — ontology first, prototype through vibe coding, then iteration.

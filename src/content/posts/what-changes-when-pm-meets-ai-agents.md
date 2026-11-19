@@ -2,7 +2,7 @@
 title: "What Changes When a Product Manager Meets AI Agents"
 author: "Wenhao Yu"
 pubDatetime: 2026-05-01T00:00:00Z
-modDatetime: 2026-05-01T00:00:00Z
+modDatetime: 2026-11-19T01:36:19Z
 slug: "what-changes-when-pm-meets-ai-agents"
 featured: true
 draft: false
@@ -15,26 +15,50 @@ tags:
 description: "Reflections from building agent systems in semiconductor manufacturing — how the PM role evolves when your product can reason."
 ---
 
+An AI agent changes a product manager's work because the product can choose
+among actions, use tools, and encounter uncertain results. Alongside features,
+the PM must define boundaries, evaluation, and when a person should review an
+action. My perspective comes from designing agent workflows for industrial
+settings, where the cost of an unsuitable recommendation matters.
+
 ## The Traditional PM Playbook Breaks
 
-In traditional software, the PM defines requirements, engineers build, users use. The system does exactly what it's told. When you introduce AI agents — systems that reason, plan, and take actions — every assumption in that playbook needs to be rethought.
+Traditional product work still matters: define the user problem, design a
+workflow, and test the result. An agent adds uncertainty in how it interprets
+context and chooses actions, so the team also needs to decide what behavior is
+acceptable and how failures will be handled.
 
 ## What Actually Changes
 
-**Requirements become constraints.** Instead of specifying "the system should do X," you define boundaries: "the system may do X, Y, or Z, but never W." You're writing guardrails, not feature specs.
+**Requirements include constraints.** Alongside specifying what a system
+should do, define what it may do, what it must not do, and what requires
+approval. These boundaries complement feature specifications rather than
+replace them.
 
-**Error handling becomes product design.** When an agent makes a wrong decision, what happens? In my semiconductor fab context, a wrong recommendation could mean millions in wafer damage. The HITL (Human-in-the-Loop) approval flow isn't a nice-to-have — it's the core product experience.
+**Error handling becomes product design.** What happens when an agent makes
+an unsuitable recommendation? In semiconductor manufacturing, an error can
+have serious operational consequences. For consequential actions, a
+human-in-the-loop approval flow can give an expert a chance to inspect the
+evidence before proceeding. [OpenAI's practical guide to building agents](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/)
+also recommends human oversight for high-risk actions.
 
-**The ontology IS the product.** The most impactful product decision isn't which buttons to show — it's how to model the domain. Define the wrong entity types, and your agent reasons about a fictional business. Get the ontology right, and the agent almost builds itself.
+**The domain model is part of the product.** How entities and relationships
+are modeled affects the context an agent receives. A clearer ontology can make
+the workflow easier to design and inspect, but it does not build or validate
+the agent by itself.
 
 ## Three Things I've Learned
 
-1. **Start with the ontology, not the UI.** Map the domain before writing a single wireframe.
-2. **Prompt engineering is product design.** Every prompt is a product decision with measurable outcomes.
-3. **Vibe Coding changes what PMs can ship.** A PM who can define architecture and iterate with an LLM can deliver full-stack prototypes without an engineering team.
+1. **Make the domain explicit.** Map the concepts and relationships relevant to
+   the workflow, and use early interface sketches to test them with people.
+2. **Treat prompts as product decisions.** Prompt changes can affect behavior;
+   evaluate them against representative examples instead of assuming an outcome.
+3. **Use coding agents to explore.** A PM can use them to build a prototype more
+   independently; production engineering and review still need the right team.
 
 ## The Bigger Picture
 
-The AI Product Manager role isn't just "PM + AI knowledge." It's a fundamentally different way of thinking about products — one where you design systems that think, not just systems that execute.
+The AI product manager's role builds on product fundamentals while adding
+responsibility for context, boundaries, evaluation, and human oversight.
 
 For a concrete build, see [Ontology OS](https://github.com/wenhaoyu-bryan/prompt-to-ontology) — the project that taught me most of this.
