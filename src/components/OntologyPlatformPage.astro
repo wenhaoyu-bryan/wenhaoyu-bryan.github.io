@@ -1,4 +1,6 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { ArrowRight } from "lucide-astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
@@ -14,6 +16,7 @@ interface Props {
 }
 const { locale } = Astro.props;
 const zh = locale === "zh";
+const contactHref = `${getRelativeLocaleUrl(locale, "")}#contact`;
 const copy = zh
   ? {
       title: "本体平台",
@@ -21,7 +24,10 @@ const copy = zh
         "参与本体平台设计与研发：借助 Codex 推进数据接入、图谱探索、证据问答与会话恢复原型，并与算法同事协作探索 DDL 建模。",
       caseFacts: [
         { label: "团队", value: "TCL · 先进制造" },
-        { label: "我的职责", value: "工作流设计、原型推进与交互验收" },
+        {
+          label: "我的职责",
+          value: "设计图谱核查流程，验证返回后能继续原问答。",
+        },
         { label: "阶段", value: "探索中 · 已用合成数据验证原型交互" },
       ],
       caseDecision: "查看图谱证据后，回到原来的问答",
@@ -130,7 +136,8 @@ const copy = zh
         { label: "Team", value: "TCL · advanced manufacturing" },
         {
           label: "My role",
-          value: "Workflow design, prototyping and acceptance criteria",
+          value:
+            "Designed the graph evidence review flow and verified Q&A recovery on return.",
         },
         {
           label: "Status",
@@ -345,6 +352,17 @@ const links = [
     }
     <h2 id="case-validation" tabindex="-1">{copy.boundaryTitle}</h2>
     <p>{copy.boundary}</p>
+    <div class="not-prose border-border mt-6 border-t pt-4">
+      <a
+        href={contactHref}
+        class="text-accent inline-flex min-h-9 items-center gap-2 text-sm font-semibold underline-offset-4 hover:underline"
+      >
+        {zh ? "联系交流" : "Get in touch"}<ArrowRight
+          size={16}
+          aria-hidden="true"
+        />
+      </a>
+    </div>
   </Main>
   <Footer />
 </Layout>

@@ -53,7 +53,7 @@
   display: block;
   width: 100%;
   height: auto;
-  max-height: 300px;
+  max-height: 264px;
   overflow: visible;
 }
 .atelier-drawing text {
@@ -546,6 +546,9 @@ atelier-motion[data-playing="true"] .play-icon {
   min-height: 300px;
 }
 @media (max-width: 767px) {
+  .atelier-drawing svg {
+    max-height: 300px;
+  }
   .atelier-intro,
   .atelier-explore summary {
     padding-inline: 18px;

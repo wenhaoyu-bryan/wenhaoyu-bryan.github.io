@@ -31,7 +31,7 @@ const github = findSocial("github");
 // "mail"/"linkedin"/"github" from that config makes the matching link here
 // disappear silently — re-add it to the config rather than hardcoding it here.
 
-const emailLabel = zh ? "邮箱" : "Email";
+const emailLabel = zh ? "复制邮箱" : "Copy email";
 const copiedLabel = zh ? "已复制！" : "Copied!";
 const copyTitle = zh ? "点击复制邮箱地址" : "Click to copy email address";
 
@@ -92,7 +92,7 @@ const linkClass =
         const label = btn.querySelector<HTMLElement>(
           "[data-contact-email-label]"
         );
-        const idle = btn.dataset.idleLabel ?? "Email";
+        const idle = btn.dataset.idleLabel ?? "Copy email";
         const copied = btn.dataset.copiedLabel ?? "Copied!";
 
         btn.addEventListener("click", async () => {
