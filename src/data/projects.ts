@@ -46,6 +46,8 @@ export interface Project {
     tech?: string;
     /** Accent arrow link label. */
     cta: string;
+    /** A short contribution summary for the homepage. */
+    featured?: { title: string; stage: string; contribution: string };
   };
 }
 
@@ -78,6 +80,11 @@ interface ProjectDef {
     context: Record<Locale, string>;
     tech?: Record<Locale, string>;
     cta: Record<Locale, string>;
+    featured?: {
+      title: Record<Locale, string>;
+      stage: Record<Locale, string>;
+      contribution: Record<Locale, string>;
+    };
   };
 }
 
@@ -105,6 +112,14 @@ const defs: ProjectDef[] = [
       cta: {
         en: "Read the current work page →",
         zh: "阅读当前工作页面 →",
+      },
+      featured: {
+        title: { en: "Enterprise Agent Platform", zh: "企业级 Agent 平台" },
+        stage: { en: "Delivered within TCL", zh: "集团内交付" },
+        contribution: {
+          en: "I lead product design from 0 to 1. The platform serves engineers within the group.",
+          zh: "主导从 0 到 1 的产品设计，平台供集团内工程师使用。",
+        },
       },
     },
     description: {
@@ -140,6 +155,14 @@ const defs: ProjectDef[] = [
         zh: "语义建模 · DDL 映射 · 图谱证据 · 人工审核",
       },
       cta: { en: "Explore the work →", zh: "查看工作实践 →" },
+      featured: {
+        title: { en: "Ontology Platform", zh: "本体平台" },
+        stage: { en: "Prototype validation", zh: "原型验证" },
+        contribution: {
+          en: "I prototype evidence-backed Q&A and verify that people can inspect the graph and return to the same session.",
+          zh: "参与产品设计与研发，推进证据问答原型，并验证图谱跳转后的会话恢复。",
+        },
+      },
     },
     description: {
       en: "I contribute to an ontology platform through Codex-assisted prototypes: preview and validate data before graph import, inspect answers alongside evidence paths, and preserve Q&A context across graph navigation. I also collaborate with algorithm colleagues on DDL-based modeling. Prototype validation, not a production-outcome claim.",
@@ -276,6 +299,13 @@ export function getProjects(locale: string): Project[] {
           context: def.ledger.context[loc],
           tech: def.ledger.tech?.[loc],
           cta: def.ledger.cta[loc],
+          featured: def.ledger.featured
+            ? {
+                title: def.ledger.featured.title[loc],
+                stage: def.ledger.featured.stage[loc],
+                contribution: def.ledger.featured.contribution[loc],
+              }
+            : undefined,
         }
       : undefined,
   }));

@@ -33,6 +33,17 @@ class AtelierMotion extends HTMLElement {
       () => this.play(true),
       { signal }
     );
+    const details = this.querySelector("details");
+    details?.addEventListener(
+      "toggle",
+      () => {
+        if (details.open) return;
+        this.pause();
+        this.elapsed = this.duration;
+        this.render();
+      },
+      { signal }
+    );
     this.querySelectorAll<HTMLButtonElement>("[data-step]").forEach(button => {
       button.addEventListener(
         "click",
@@ -98,7 +109,6 @@ class AtelierMotion extends HTMLElement {
       entries => {
         this.visible = entries[0].isIntersecting;
         if (!this.visible) this.pause();
-        else if (hero && !this.started && !this.reduce.matches) this.play(true);
       },
       { threshold: 0.2 }
     );

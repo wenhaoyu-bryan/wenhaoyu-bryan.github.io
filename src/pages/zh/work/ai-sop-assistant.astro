@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import FlowDiagram from "@/components/FlowDiagram.astro";
+import WorkCaseLead from "@/components/WorkCaseLead.astro";
 import config from "@/config";
 
 const snapshot = [
@@ -50,54 +51,18 @@ const flowSteps = [
       </a>
     </p>
 
+    <WorkCaseLead
+      facts={snapshot}
+      decision="用自然语言提问，检索现场操作规程"
+      steps={[flowSteps[0], flowSteps[1], flowSteps[3]]}
+      caption="面向物流和工程知识的内部助手检索方案，当时处于评估阶段。"
+    />
+
     <p class="text-muted-foreground text-lg">
       在百威武汉酿造工厂（AB InBev），我参与了面向物流与工程知识问答的内部 AI
       助手。2025
       年我参与期间，项目处于评估验证阶段，相关部门资料已经上传；内部指标部门预估潜在节省每月数百工时。原始数据未公开，无法独立核验。
     </p>
-
-    <div class="border-border mt-4 flex flex-wrap gap-2">
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        案例研究 · 我的参与截至 2025 年 12 月
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        RAG
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        本地 LLM
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        数据治理
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        工业 AI
-      </span>
-    </div>
-
-    <div
-      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
-    >
-      {
-        snapshot.map(item => (
-          <div class="bg-background p-4">
-            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-              {item.label}
-            </p>
-            <p class="mt-1 text-sm">{item.value}</p>
-          </div>
-        ))
-      }
-    </div>
 
     <!-- ─────────────────────────  1. CONTEXT  ───────────────────────── -->
     <h2 id="背景" class="mt-8 text-xl font-semibold">团队面临什么问题？</h2>

@@ -7,6 +7,7 @@ import { getAssetPath } from "@/utils/withBase";
 import { isMirroredRoute, normalizeRoutePath } from "@/i18n/routes";
 import config from "@/config";
 import BackToTop from "@/components/BackToTop.astro";
+import { themeModes, themePreferenceKey } from "@/scripts/appearance-options";
 import "@/styles/global.css";
 
 type Props = {
@@ -137,7 +138,7 @@ const hreflangAlternates = isMirroredRoute(basePath)
     <link
       rel="icon"
       type="image/svg+xml"
-      href={`${getAssetPath("favicon.svg")}?v=wy-2`}
+      href={`${getAssetPath("favicon.svg")}?v=wy-3`}
     />
     <link
       rel="apple-touch-icon"
@@ -222,22 +223,19 @@ const hreflangAlternates = isMirroredRoute(basePath)
       )
     }
 
-    <!-- Static defaults so browser chrome matches the background on first paint
-         (before JS runs), keyed to the OS scheme. theme.ts then fills the
-         id="theme-color" tag with the actually-selected background so a manual
-         toggle that disagrees with the OS preference still matches. An empty
-         content value is ignored by browsers, so the media tags win pre-JS. -->
+    <!-- The first valid theme color wins. The media tags are the fallback
+         before the bootstrap and theme controls resolve the actual scheme. -->
+    <meta id="theme-color" name="theme-color" content="" />
     <meta
       name="theme-color"
-      content="#f8f9f6"
+      content="#f6f8fd"
       media="(prefers-color-scheme: light)"
     />
     <meta
       name="theme-color"
-      content="#182127"
+      content="#17191f"
       media="(prefers-color-scheme: dark)"
     />
-    <meta id="theme-color" name="theme-color" content="" />
 
     <!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->
     <slot name="head" />
@@ -255,26 +253,21 @@ const hreflangAlternates = isMirroredRoute(basePath)
       Inline FOUC-prevention script: sets data-theme on <html> before
       the browser paints. Runs synchronously, no defer/async.
     -->
-    <script is:inline>
+    <script is:inline data-appearance-bootstrap define:vars={{ themeModes, themePreferenceKey }}>
       (function () {
+        const { dataset } = document.documentElement;
+        if (dataset.themePreference) return;
+
         let stored;
         try {
-          stored = localStorage.getItem("theme");
+          stored = localStorage.getItem(themePreferenceKey);
         } catch {
-          /* Storage is optional. */
+          /* Follow the system if storage is unavailable. */
         }
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-        const theme =
-          stored === "dark" || stored === "light"
-            ? stored
-            : prefersDark
-              ? "dark"
-              : "light";
-        document.firstElementChild?.setAttribute("data-theme", theme);
-        // Expose value so theme.ts can skip re-detection.
-        window.__theme = { value: theme };
+        dataset.themePreference = themeModes.includes(stored) ? stored : "system";
+        dataset.theme = dataset.themePreference === "system"
+          ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+          : dataset.themePreference;
       })();
     </script>
 

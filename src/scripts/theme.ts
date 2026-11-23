@@ -1,81 +1,73 @@
-const THEME_KEY = "theme";
-const LIGHT = "light";
-const DARK = "dark";
+import { themeModes, themePreferenceKey } from "./appearance-options";
 
-function readPreference(): string | null {
-  try {
-    const stored = localStorage.getItem(THEME_KEY);
-    return stored === LIGHT || stored === DARK ? stored : null;
-  } catch {
-    return null;
-  }
-}
-let preference = readPreference();
-function getPreferredTheme(): string {
-  if (preference) return preference;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? DARK
-    : LIGHT;
-}
+const darkMode = window.matchMedia("(prefers-color-scheme: dark)");
+let preference =
+  themeModes.find(
+    mode => mode === document.documentElement.dataset.themePreference
+  ) ?? "system";
 
-// Resolve with the same validated preference rules as the inline pre-paint script.
-let themeValue = getPreferredTheme();
-
-function persist(): void {
-  preference = themeValue;
-  try {
-    localStorage.setItem(THEME_KEY, themeValue);
-  } catch {
-    /* Theme switching still works when browser storage is unavailable. */
-  }
-  reflect();
+function applyToRoot(root: HTMLElement): void {
+  root.dataset.themePreference = preference;
+  const systemTheme = darkMode.matches ? "dark" : "light";
+  root.dataset.theme = preference === "system" ? systemTheme : preference;
 }
 
 function reflect(): void {
-  document.firstElementChild?.setAttribute("data-theme", themeValue);
-  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+  applyToRoot(document.documentElement);
 
-  // Fill <meta name="theme-color"> with the computed background colour so
-  // Android's browser chrome matches the page background.
-  const bg = window.getComputedStyle(document.body).backgroundColor;
-  document.querySelector("meta#theme-color")?.setAttribute("content", bg);
+  for (const input of document.querySelectorAll<HTMLInputElement>(
+    "input[data-appearance-choice]"
+  )) {
+    input.checked = input.value === preference;
+  }
+
+  const color = window.getComputedStyle(document.body).backgroundColor;
+  document.querySelector("meta#theme-color")?.setAttribute("content", color);
 }
 
-function setup(): void {
+document.addEventListener("change", event => {
+  const input = event.target;
+  if (
+    !(input instanceof HTMLInputElement) ||
+    !input.hasAttribute("data-appearance-choice")
+  )
+    return;
+
+  const mode = themeModes.find(value => value === input.value);
+  if (!mode) return;
+  preference = mode;
+
+  try {
+    if (mode === "system") localStorage.removeItem(themePreferenceKey);
+    else localStorage.setItem(themePreferenceKey, mode);
+  } catch {
+    /* The theme still applies to the open site if storage is blocked. */
+  }
   reflect();
-  document.querySelector("#theme-btn")?.addEventListener("click", () => {
-    themeValue = themeValue === LIGHT ? DARK : LIGHT;
-    persist();
-  });
-}
+});
 
-setup();
+reflect();
+document.addEventListener("astro:after-swap", reflect);
 
-// Re-run after View Transitions navigation.
-document.addEventListener("astro:after-swap", setup);
-
-// Carry the theme-color value across View Transitions to prevent the
-// Android navigation bar from flashing during page transitions.
 document.addEventListener("astro:before-swap", event => {
-  (event as { newDocument: Document }).newDocument.documentElement.setAttribute(
-    "data-theme",
-    themeValue
-  );
+  const { newDocument } = event as { newDocument: Document };
+  applyToRoot(newDocument.documentElement);
+
   const color = document
     .querySelector("meta#theme-color")
     ?.getAttribute("content");
-  if (color) {
-    (event as { newDocument: Document }).newDocument
+  if (color)
+    newDocument
       .querySelector("meta#theme-color")
       ?.setAttribute("content", color);
-  }
 });
 
-// Sync with OS-level dark/light preference changes.
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", ({ matches }) => {
-    if (preference) return;
-    themeValue = matches ? DARK : LIGHT;
-    reflect();
-  });
+darkMode.addEventListener("change", () => {
+  if (preference === "system") reflect();
+});
+
+window.addEventListener("storage", event => {
+  if (event.key !== themePreferenceKey && event.key !== null) return;
+  preference = themeModes.find(mode => mode === event.newValue) ?? "system";
+  reflect();
+});

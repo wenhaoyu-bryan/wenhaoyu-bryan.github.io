@@ -1,4 +1,4 @@
-/* Systems Atelier: meaningful motion on the homepage only. */
+/* Workflow scene and project previews. */
 .atelier,
 .motion-cover {
   display: block;
@@ -14,8 +14,6 @@
 .motion-cover [hidden] {
   display: none !important;
 }
-.atelier-heading,
-.atelier-intro,
 .cover-top,
 .cover-bottom {
   display: flex;
@@ -23,10 +21,6 @@
   justify-content: space-between;
   gap: 16px;
 }
-.atelier-heading {
-  padding: 22px 24px 0;
-}
-.atelier-wordmark,
 .atelier-demo,
 .atelier-drawing-label,
 .cover-top,
@@ -37,28 +31,19 @@
   font-size: 10px;
   letter-spacing: 0.06em;
 }
-.atelier-wordmark {
-  color: var(--home-diagram);
-}
-.atelier-wordmark > span {
-  opacity: 0.55;
-}
 .atelier-demo {
-  font-size: 9px;
-  color: var(--muted-foreground);
-  letter-spacing: 0;
+  color: var(--home-diagram);
+  font-size: 11px;
 }
 .atelier-intro {
-  padding: 18px 24px 0;
+  padding: 16px 22px 0;
 }
 .atelier-intro p {
+  margin-top: 3px;
   font-size: clamp(18px, 1.6vw, 22px);
-  font-weight: 500;
+  font-weight: 620;
+  line-height: 1.25;
   letter-spacing: -0.035em;
-}
-.atelier-intro > span {
-  color: var(--accent);
-  font-size: 26px;
 }
 .atelier-drawing {
   padding: 4px 0 0;
@@ -68,6 +53,7 @@
   display: block;
   width: 100%;
   height: auto;
+  max-height: 300px;
   overflow: visible;
 }
 .atelier-drawing text {
@@ -175,9 +161,37 @@
   stroke: var(--accent);
   fill: var(--home-soft-accent);
 }
+.atelier-explore {
+  border-top: 1px solid var(--border);
+}
+.atelier-explore summary {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 22px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+}
+.atelier-explore summary::-webkit-details-marker {
+  display: none;
+}
+.atelier-explore summary:hover {
+  background: var(--home-soft-accent);
+}
+.atelier-explore summary:focus-visible {
+  outline-offset: -4px;
+}
+.atelier-explore[open] summary > svg {
+  transform: rotate(180deg);
+}
 .atelier-transport {
   display: flex;
-  padding: 0 22px 18px;
+  padding: 10px 22px 14px;
   gap: 12px;
   align-items: center;
 }
@@ -188,11 +202,11 @@
   flex: 1;
 }
 .atelier-steps button {
-  border-top: 2px solid var(--border);
+  border-top: 2px solid var(--scene-border);
   text-align: left;
   padding-top: 8px;
   color: var(--muted-foreground);
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.5;
   cursor: pointer;
 }
@@ -206,6 +220,7 @@
 .atelier-steps button[aria-pressed="true"] {
   border-color: var(--accent);
   color: var(--foreground);
+  font-weight: 700;
 }
 .atelier-play-controls {
   display: flex;
@@ -276,12 +291,9 @@ atelier-motion[data-playing="true"] .play-icon {
   line-height: 1.7;
   margin-top: 7px;
 }
-.project-feature-copy {
-  display: block;
-}
 .motion-cover {
   border-radius: 12px;
-  height: 320px;
+  height: clamp(238px, 26vw, 300px);
   display: flex;
   flex-direction: column;
 }
@@ -362,7 +374,8 @@ atelier-motion[data-playing="true"] .play-icon {
   position: relative;
   width: 100%;
   max-width: 420px;
-  height: 220px;
+  height: 100%;
+  max-height: 220px;
 }
 .cover-loop > svg {
   position: absolute;
@@ -533,10 +546,8 @@ atelier-motion[data-playing="true"] .play-icon {
   min-height: 300px;
 }
 @media (max-width: 767px) {
-  .atelier-heading {
-    padding: 18px 18px 0;
-  }
-  .atelier-intro {
+  .atelier-intro,
+  .atelier-explore summary {
     padding-inline: 18px;
   }
   .atelier-transport {
@@ -547,7 +558,7 @@ atelier-motion[data-playing="true"] .play-icon {
     gap: 5px;
   }
   .atelier-steps button {
-    font-size: 8px;
+    font-size: 10px;
   }
   .atelier-play-controls {
     flex-direction: column;
@@ -572,7 +583,7 @@ atelier-motion[data-playing="true"] .play-icon {
     font-size: 15px;
   }
   .motion-cover {
-    height: 290px;
+    height: clamp(230px, 68vw, 290px);
   }
   .cover-bottom {
     flex-wrap: wrap;
@@ -600,7 +611,9 @@ atelier-motion[data-playing="true"] .play-icon {
     transition: none !important;
   }
   .atelier-signal,
-  .cover-trace {
+  .cover-trace,
+  .atelier-play-controls,
+  .cover-top button:not([hidden]) {
     display: none;
   }
 }

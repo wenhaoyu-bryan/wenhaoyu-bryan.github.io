@@ -1,0 +1,134 @@
+---
+import { Image } from "astro:assets";
+import { ArrowRight, ArrowUpRight } from "lucide-astro";
+import type { Project } from "@/data/projects";
+import ProjectCover from "./ProjectCover.astro";
+
+interface Props {
+  projects: Project[];
+  locale: "en" | "zh";
+  heading?: "h2" | "h3";
+}
+
+const { projects, locale, heading: Heading = "h2" } = Astro.props;
+const zh = locale === "zh";
+const previews: Partial<
+  Record<string, { kind: "ontology" | "agent"; type: string; link: string }>
+> = {
+  "Prompt-to-Ontology": {
+    kind: "ontology",
+    type: zh ? "可运行原型" : "Runnable prototype",
+    link: zh ? "查看原型与源码" : "Explore the prototype",
+  },
+  "Agent Anatomy": {
+    kind: "agent",
+    type: zh ? "交互文章" : "Interactive essay",
+    link: zh ? "阅读交互文章" : "Read the interactive essay",
+  },
+};
+---
+
+<div class="project-showcase not-prose">
+  {
+    projects.map(project => {
+      const preview = previews[project.title];
+      const Arrow = project.external ? ArrowUpRight : ArrowRight;
+      return (
+        <article class="project-preview">
+          <div class="project-preview-heading">
+            <Heading>{project.title}</Heading>
+            <span>{preview?.type ?? project.status}</span>
+          </div>
+          {preview ? (
+            <ProjectCover kind={preview.kind} {locale} />
+          ) : (
+            project.thumbnail && (
+              <Image
+                src={project.thumbnail}
+                alt={project.thumbnailAlt ?? ""}
+                widths={[400, 800]}
+                sizes="(min-width: 48rem) 42vw, 90vw"
+                loading="lazy"
+              />
+            )
+          )}
+          <p>{project.description}</p>
+          <a href={project.href} class="project-preview-link">
+            {preview?.link ?? (zh ? "查看项目" : "View the project")}
+            <Arrow size={17} aria-hidden="true" />
+          </a>
+        </article>
+      );
+    })
+  }
+</div>
+
+<style>
+  .project-showcase {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 3vw, 40px);
+  }
+  .project-preview {
+    display: grid;
+    min-width: 0;
+    grid-template-rows: auto auto 1fr auto;
+    align-items: start;
+    gap: 16px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+  .project-preview-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 14px;
+  }
+  .project-preview .project-preview-heading :is(h2, h3) {
+    margin: 0;
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-style: normal;
+    font-weight: 650;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+  }
+  .project-preview-heading > span {
+    color: var(--muted-foreground);
+    font-size: 0.78rem;
+  }
+  .project-preview p {
+    max-width: 60ch;
+    margin: 0;
+    color: var(--muted-foreground);
+    font-size: 0.925rem;
+    line-height: 1.65;
+  }
+  .project-preview img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 12px;
+  }
+  .project-preview .project-preview-link {
+    display: inline-flex;
+    min-height: 36px;
+    width: fit-content;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .project-preview-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  @media (max-width: 767px) {
+    .project-showcase {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

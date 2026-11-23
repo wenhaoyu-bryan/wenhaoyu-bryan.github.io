@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import FlowDiagram from "@/components/FlowDiagram.astro";
+import WorkCaseLead from "@/components/WorkCaseLead.astro";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
@@ -63,6 +64,17 @@ const architectureSteps = [
       </a>
     </p>
 
+    <WorkCaseLead
+      facts={snapshot}
+      decision="Configure agents once. Use them in the business workspace."
+      steps={[
+        architectureSteps[1],
+        architectureSteps[3],
+        { label: "Use in the business workspace" },
+      ]}
+      caption="Design overview of shared agent assets, controls and the operator-facing workspace."
+    />
+
     <p class="text-muted-foreground text-lg">
       An enterprise agent platform for advanced manufacturing (semiconductor and
       adjacent process industries) that turns expert knowledge and business
@@ -73,49 +85,6 @@ const architectureSteps = [
       IT ecosystem is in progress. A customized RAGFlow solution developed for
       the platform has also been delivered to customers.
     </p>
-
-    <div class="border-border mt-4 flex flex-wrap gap-2">
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        Current Work
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        Agent Platform
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        Enterprise AI
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        0 → 1
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        Governance by Design
-      </span>
-    </div>
-
-    <div
-      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-3"
-    >
-      {
-        snapshot.map(item => (
-          <div class="bg-background p-4">
-            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-              {item.label}
-            </p>
-            <p class="mt-1 text-sm">{item.value}</p>
-          </div>
-        ))
-      }
-    </div>
 
     <!-- ─────────────────────────  1. WHAT IT IS  ───────────────────────── -->
     <h2 id="what-it-is" class="mt-8 text-xl font-semibold">

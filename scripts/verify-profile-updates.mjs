@@ -43,5 +43,5 @@ test("new WY favicon is served with a cache revision", () => {
   assert.ok(read("favicon.svg").includes("WY"));
   assert.ok(!read("favicon.svg").includes("<rect"));
   assert.ok(read("favicon.svg").includes("prefers-color-scheme"));
-  assert.ok(read("zh/index.html").includes("favicon.svg?v=wy-2"));
+  assert.ok(read("zh/index.html").includes("favicon.svg?v=wy-3"));
 });

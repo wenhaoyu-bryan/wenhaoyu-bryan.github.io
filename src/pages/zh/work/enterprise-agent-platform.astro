@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import FlowDiagram from "@/components/FlowDiagram.astro";
+import WorkCaseLead from "@/components/WorkCaseLead.astro";
 import config from "@/config";
 
 const snapshot = [
@@ -46,6 +47,17 @@ const architectureSteps = [
       </a>
     </p>
 
+    <WorkCaseLead
+      facts={snapshot}
+      decision="让配置好的 Agent 进入业务工作台"
+      steps={[
+        architectureSteps[1],
+        architectureSteps[3],
+        { label: "在业务工作台使用" },
+      ]}
+      caption="平台设计示意，展示 Agent 配置、治理控制和面向业务的工作台。"
+    />
+
     <p class="text-muted-foreground text-lg">
       一个面向先进制造（半导体及相邻流程工业）的企业级 Agent
       平台，把专家知识和业务流程转化为可治理、可复用的 AI
@@ -53,49 +65,6 @@ const architectureSteps = [
       1。平台已向集团内部客户交付，并有内部工程师使用；外部客户交付正在筹备，信创适配也在推进。为平台定制的
       RAGFlow 方案也已向客户交付。
     </p>
-
-    <div class="border-border mt-4 flex flex-wrap gap-2">
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        当前工作
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        Agent 平台
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        企业 AI
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        0 → 1
-      </span>
-      <span
-        class="text-foreground rounded-full border px-3 py-1 text-xs font-medium"
-      >
-        治理即设计
-      </span>
-    </div>
-
-    <div
-      class="border-border bg-border mt-6 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-3"
-    >
-      {
-        snapshot.map(item => (
-          <div class="bg-background p-4">
-            <p class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-              {item.label}
-            </p>
-            <p class="mt-1 text-sm">{item.value}</p>
-          </div>
-        ))
-      }
-    </div>
 
     <!-- ─────────────────────────  1. WHAT IT IS  ───────────────────────── -->
     <h2 id="这是什么" class="mt-8 text-xl font-semibold">

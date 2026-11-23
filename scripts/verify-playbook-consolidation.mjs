@@ -11,8 +11,15 @@ test("only two public builds are featured as projects", () => {
   assert.match(projects, /title: "SEO\/GEO Growth Experiments"[\s\S]*?listed: false/);
   assert.doesNotMatch(home, /project-playbook|PlaybookExample|kind="playbook"/);
   assert.doesNotMatch(manifesto, /AI PM Operating Playbook/);
-  assert.match(home, /kind="ontology"/);
-  assert.match(home, /kind="agent"/);
+  for (const prefix of ["", "zh/"]) {
+    for (const path of ["index.html", "projects/index.html"]) {
+      const html = read(`dist/${prefix}${path}`);
+      const covers = [...html.matchAll(/data-project-cover="([^"]+)"/g)]
+        .map(([, kind]) => kind)
+        .sort();
+      assert.deepEqual(covers, ["agent", "ontology"], prefix + path);
+    }
+  }
   assert.match(home, /getBuilds\(locale\)\.find\(\s*project => project\.title === "SEO\/GEO Growth Experiments"/);
 });
 

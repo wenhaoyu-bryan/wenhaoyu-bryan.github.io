@@ -1,0 +1,237 @@
+---
+import { Check, Moon, Sun, X } from "lucide-astro";
+import { themeModes } from "@/scripts/appearance-options";
+
+interface Props {
+  locale: "en" | "zh";
+}
+
+const zh = Astro.props.locale === "zh";
+const title = zh ? "外观设置" : "Appearance settings";
+const labels = zh ? ["跟随系统", "浅色", "深色"] : ["System", "Light", "Dark"];
+---
+
+<button
+  id="theme-btn"
+  type="button"
+  class="appearance-trigger"
+  title={title}
+  aria-label={title}
+  aria-controls="appearance-panel"
+  popovertarget="appearance-panel"
+>
+  <Moon size={21} class="dark:hidden" aria-hidden="true" />
+  <Sun size={22} class="hidden dark:block" aria-hidden="true" />
+  <span class="appearance-trigger-label">{zh ? "外观" : "Appearance"}</span>
+</button>
+
+<section
+  id="appearance-panel"
+  class="appearance-panel"
+  popover="auto"
+  aria-labelledby="appearance-title"
+>
+  <div class="appearance-heading">
+    <h2 id="appearance-title">{title}</h2>
+    <button
+      class="appearance-close"
+      type="button"
+      aria-label={zh ? "关闭外观设置" : "Close appearance settings"}
+      popovertarget="appearance-panel"
+      popovertargetaction="hide"
+    >
+      <X size={18} aria-hidden="true" />
+    </button>
+  </div>
+
+  <fieldset class="appearance-field">
+    <legend class="sr-only">{zh ? "主题模式" : "Theme mode"}</legend>
+    <div class="appearance-options">
+      {
+        themeModes.map((value, index) => (
+          <label class="appearance-option">
+            <input
+              type="radio"
+              class="sr-only"
+              name="theme"
+              {value}
+              data-appearance-choice
+              checked={index === 0}
+            />
+            <span class="appearance-choice">
+              {labels[index]}
+              <Check size={14} class="appearance-check" aria-hidden="true" />
+            </span>
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+</section>
+
+<style>
+  .appearance-trigger,
+  .appearance-close {
+    display: inline-flex;
+    min-inline-size: 36px;
+    min-block-size: 36px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border-radius: 6px;
+  }
+  .appearance-trigger:hover,
+  .appearance-close:hover {
+    color: var(--accent);
+    background: var(--muted);
+  }
+  .appearance-panel {
+    position: fixed;
+    z-index: 60;
+    inline-size: min(276px, calc(100% - 32px));
+    max-block-size: calc(100vh - 32px);
+    max-block-size: calc(100dvh - 32px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 14px 16px;
+    border: 1px solid var(--scene-border);
+    border-radius: 12px;
+    background: var(--home-card);
+    color: var(--foreground);
+  }
+  .appearance-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .appearance-heading h2 {
+    font-size: 16px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+  .appearance-field {
+    min-inline-size: 0;
+  }
+  .appearance-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .appearance-option {
+    position: relative;
+    cursor: pointer;
+  }
+  .appearance-choice {
+    position: relative;
+    display: flex;
+    min-block-size: 36px;
+    height: 100%;
+    align-items: center;
+    padding: 7px 19px 7px 7px;
+    border: 1px solid var(--scene-border);
+    border-radius: 7px;
+    background: var(--background);
+    font-size: 12px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  .appearance-option:hover .appearance-choice,
+  .appearance-option input:checked + .appearance-choice {
+    border-color: var(--accent);
+  }
+  .appearance-option input:checked + .appearance-choice {
+    background: var(--home-soft-accent);
+    font-weight: 650;
+  }
+  .appearance-option input:focus-visible + .appearance-choice {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .appearance-check {
+    visibility: hidden;
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: 4px;
+    translate: 0 -50%;
+    color: var(--accent);
+  }
+  .appearance-option input:checked + .appearance-choice .appearance-check {
+    visibility: visible;
+  }
+  @media (min-width: 768px) {
+    .appearance-trigger-label {
+      display: none;
+    }
+    @supports (position-area: block-end span-inline-start) {
+      .appearance-panel {
+        inset: auto;
+        margin: 8px 0 0;
+        position-area: block-end span-inline-start;
+        position-try-fallbacks:
+          flip-block,
+          flip-inline,
+          flip-block flip-inline;
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    .appearance-trigger {
+      padding-inline: 8px;
+    }
+    .appearance-panel {
+      inset: auto 0 12px;
+      margin: 0 auto;
+    }
+  }
+  @supports not selector(:popover-open) {
+    .appearance-panel {
+      inset: 0;
+      margin: auto;
+      block-size: fit-content;
+    }
+    .appearance-panel:not([data-open]) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  if (!("popover" in HTMLElement.prototype)) {
+    function setOpen(open: boolean, restoreFocus = false) {
+      const panel = document.getElementById("appearance-panel");
+      const trigger = document.getElementById("theme-btn");
+      if (!panel || !trigger) return;
+
+      panel.toggleAttribute("data-open", open);
+      trigger.setAttribute("aria-expanded", String(open));
+      if (restoreFocus) trigger.focus();
+    }
+
+    setOpen(false);
+    document.addEventListener("astro:after-swap", () => setOpen(false));
+
+    document.addEventListener("click", event => {
+      const panel = document.getElementById("appearance-panel");
+      const target = event.target;
+      if (!panel || !(target instanceof Element)) return;
+
+      if (target.closest("#theme-btn")) {
+        setOpen(!panel.hasAttribute("data-open"));
+      } else if (panel.hasAttribute("data-open")) {
+        const closeButton = Boolean(target.closest(".appearance-close"));
+        if (closeButton || !panel.contains(target)) setOpen(false, closeButton);
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (
+        event.key === "Escape" &&
+        document.getElementById("appearance-panel")?.hasAttribute("data-open")
+      ) {
+        setOpen(false, true);
+      }
+    });
+  }
+</script>

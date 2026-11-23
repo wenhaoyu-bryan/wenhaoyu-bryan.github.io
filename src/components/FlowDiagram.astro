@@ -13,19 +13,31 @@ interface Step {
 interface Props {
   steps: Step[];
   caption?: string;
+  compact?: boolean;
 }
 
-const { steps, caption } = Astro.props;
+const { steps, caption, compact = false } = Astro.props;
 ---
 
-<figure class="border-border mt-4 rounded-lg border p-4 sm:p-5">
-  <div class="flex flex-wrap items-stretch gap-2">
+<figure
+  class:list={[
+    "border-border rounded-lg border",
+    compact ? "bg-background mt-3 p-3" : "mt-4 p-4 sm:p-5",
+  ]}
+>
+  <div
+    class:list={[
+      "flex items-stretch gap-2",
+      compact ? "flex-col sm:flex-row" : "flex-wrap",
+    ]}
+  >
     {
       steps.map((step, i) => (
         <>
           <div
             class:list={[
-              "border-border flex min-w-28 flex-1 basis-32 flex-col justify-center rounded-md border px-3 py-2 text-center",
+              "border-border flex flex-1 flex-col justify-center rounded-md border px-3 py-2 text-center",
+              compact ? "min-w-0" : "min-w-28 basis-32",
               step.emphasis ? "bg-muted/40" : "bg-background",
             ]}
           >
@@ -40,10 +52,12 @@ const { steps, caption } = Astro.props;
           </div>
           {i < steps.length - 1 && (
             <div
-              class="text-muted-foreground flex items-center text-sm"
+              class="text-muted-foreground flex items-center justify-center text-sm"
               aria-hidden="true"
             >
-              &rarr;
+              <span class:list={[compact && "rotate-90 sm:rotate-0"]}>
+                &rarr;
+              </span>
             </div>
           )}
         </>
@@ -52,7 +66,12 @@ const { steps, caption } = Astro.props;
   </div>
   {
     caption && (
-      <figcaption class="text-muted-foreground mt-3 text-xs">
+      <figcaption
+        class:list={[
+          "text-muted-foreground mt-3 text-xs",
+          compact && "opacity-100",
+        ]}
+      >
         {caption}
       </figcaption>
     )

@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
+import ProjectShowcase from "@/components/home/ProjectShowcase.astro";
 import config from "@/config";
 import { getListedBuilds } from "@/data/projects";
 
@@ -28,11 +29,7 @@ const projects = getListedBuilds("zh");
       </a>
     </p>
 
-    <p>
-      我在开放环境下自主构建并维护的东西 —— Prompt-to-Ontology
-      探索如何构建可审查的知识系统；Agent Anatomy
-      把智能体的运行过程变成可以亲手探索的视觉解释。
-    </p>
+    <p>一个可运行的本体原型，一篇可以动手探索 Agent 循环的文章。</p>
 
     <p class="text-muted-foreground text-sm">
       想看我的职业经历？那些放在
@@ -43,35 +40,8 @@ const projects = getListedBuilds("zh");
       板块。
     </p>
 
-    <div class="mt-8 grid gap-6">
-      {
-        projects.map(project => (
-          <a
-            href={project.href}
-            class="border-border group hover:bg-accent/5 rounded-lg border p-6 transition-colors"
-            {...(project.href.startsWith("http")
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
-          >
-            <div class="flex items-center justify-between">
-              <h2 class="group-hover:text-accent text-xl font-semibold">
-                {project.title}
-              </h2>
-              <span class="text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs">
-                {project.status}
-              </span>
-            </div>
-            <p class="text-muted-foreground mt-2">{project.description}</p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              {project.tags.map(tag => (
-                <span class="bg-muted rounded-full px-2.5 py-0.5 text-xs">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </a>
-        ))
-      }
+    <div class="mt-8">
+      <ProjectShowcase {projects} locale="zh" />
     </div>
   </Main>
 

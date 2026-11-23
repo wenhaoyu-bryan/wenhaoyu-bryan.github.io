@@ -1,6 +1,13 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { ArrowUpRight, Pause, Play, RotateCcw } from "lucide-astro";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  Pause,
+  Play,
+  RotateCcw,
+} from "lucide-astro";
+import "@/styles/atelier.css";
 interface Props {
   locale: "en" | "zh";
 }
@@ -56,16 +63,12 @@ const steps = zh
   data-lens="ontology"
   data-zh={String(zh)}
 >
-  <div class="atelier-heading">
-    <span class="atelier-wordmark">SYSTEMS ATELIER <span> / WY</span></span
-    ><span class="atelier-demo"
-      >{zh ? "概念演示" : "Concept demonstration"}</span
-    >
-  </div>
   <div class="atelier-intro">
+    <span class="atelier-demo">{zh ? "概念演示" : "Concept demonstration"}</span
+    >
     <p>
-      {zh ? "一个问题，如何成为系统？" : "How does a question become a system?"}
-    </p><span aria-hidden="true">↘</span>
+      {zh ? "从问题到可追溯的答案" : "From a question to a traceable answer"}
+    </p>
   </div>
   <div
     class="atelier-drawing"
@@ -173,76 +176,86 @@ const steps = zh
       >
     </svg>
   </div>
-  <div class="atelier-transport" data-motion-controls hidden>
+  <details class="atelier-explore">
+    <summary>
+      {zh ? "探索这条工作流程" : "Explore the workflow"}
+      <ChevronDown size={17} aria-hidden="true" />
+    </summary>
+    <div class="atelier-transport" data-motion-controls hidden>
+      <div
+        class="atelier-steps"
+        role="group"
+        aria-label={zh ? "演示步骤" : "Demonstration steps"}
+      >
+        {
+          steps.map((step, index) => (
+            <button type="button" data-step={index} aria-pressed={index === 3}>
+              <span>0{index + 1}</span>
+              {step}
+            </button>
+          ))
+        }
+      </div>
+      <div class="atelier-play-controls">
+        <button
+          type="button"
+          data-playback
+          aria-label={zh ? "播放演示" : "Play demonstration"}
+          ><Play class="play-icon" size={16} /><Pause
+            class="pause-icon"
+            size={16}
+          /></button
+        ><button
+          type="button"
+          data-replay
+          aria-label={zh ? "重播演示" : "Replay demonstration"}
+          ><RotateCcw size={16} /></button
+        >
+      </div>
+    </div>
     <div
-      class="atelier-steps"
+      class="atelier-lenses"
+      data-motion-controls
+      hidden
       role="group"
-      aria-label={zh ? "演示步骤" : "Demonstration steps"}
+      aria-label={zh ? "选择系统视角" : "Choose a system lens"}
     >
       {
-        steps.map((step, index) => (
-          <button type="button" data-step={index} aria-pressed={index === 3}>
-            <span>0{index + 1}</span>
-            {step}
+        lenses.map((lens, i) => (
+          <button
+            type="button"
+            data-lens-button={lens.id}
+            aria-pressed={i === 0}
+          >
+            {lens.label}
           </button>
         ))
       }
     </div>
-    <div class="atelier-play-controls">
-      <button
-        type="button"
-        data-playback
-        aria-label={zh ? "播放演示" : "Play demonstration"}
-        ><Play class="play-icon" size={16} /><Pause
-          class="pause-icon"
-          size={16}
-        /></button
-      ><button
-        type="button"
-        data-replay
-        aria-label={zh ? "重播演示" : "Replay demonstration"}
-        ><RotateCcw size={16} /></button
-      >
+    <div class="atelier-details">
+      {
+        lenses.map((lens, i) => (
+          <div data-lens-detail={lens.id} hidden={i !== 0}>
+            <>
+              <a
+                href={
+                  lens.path.startsWith("https:")
+                    ? lens.path
+                    : getRelativeLocaleUrl(locale, lens.path)
+                }
+              >
+                <>
+                  <strong>{lens.title}</strong>
+                  <ArrowUpRight size={18} />
+                </>
+              </a>
+              <p>{lens.note}</p>
+            </>
+          </div>
+        ))
+      }
     </div>
-  </div>
-  <div
-    class="atelier-lenses"
-    data-motion-controls
-    hidden
-    role="group"
-    aria-label={zh ? "选择系统视角" : "Choose a system lens"}
-  >
-    {
-      lenses.map((lens, i) => (
-        <button type="button" data-lens-button={lens.id} aria-pressed={i === 0}>
-          {lens.label}
-        </button>
-      ))
-    }
-  </div>
-  <div class="atelier-details">
-    {
-      lenses.map((lens, i) => (
-        <div data-lens-detail={lens.id} hidden={i !== 0}>
-          <>
-            <a
-              href={
-                lens.path.startsWith("https:")
-                  ? lens.path
-                  : getRelativeLocaleUrl(locale, lens.path)
-              }
-            >
-              <>
-                <strong>{lens.title}</strong>
-                <ArrowUpRight size={18} />
-              </>
-            </a>
-            <p>{lens.note}</p>
-          </>
-        </div>
-      ))
-    }
-  </div>
+  </details>
 </atelier-motion>
 <script>
   import "./atelier-motion";

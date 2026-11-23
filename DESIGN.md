@@ -85,6 +85,17 @@ components:
 
 ## Overview
 
+### Portfolio palette and case studies — 2026-11-23
+
+The shared palette in `src/styles/theme.css` uses mist white (#f6f8fd), ink
+blue (#172541) and ultramarine (#304cc4) in light mode. Dark mode uses
+graphite (#17191f), soft gray text (#ced7e6), and a pale violet accent
+(#c8bdf9). The appearance panel supports system, light, and dark modes.
+The homepage puts TCL work before public projects, with the workflow
+diagram alongside the introduction on desktop and below the cases on
+mobile. Its animation starts on demand. Public project cards share the
+same previews on the homepage and Projects.
+
 ### Systems Atelier homepage motion — local preview, 2026-10-04
 
 The approved scope is the hero system-generation scene and three project
