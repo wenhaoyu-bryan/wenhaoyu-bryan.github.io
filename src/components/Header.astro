@@ -69,7 +69,10 @@ const isThinkingActive =
   class="app-layout flex flex-col items-center justify-between sm:flex-row"
 >
   <div
-    class="border-border bg-background relative flex w-full items-baseline justify-between gap-x-4 border-b py-4 sm:items-center sm:gap-x-8 sm:py-6"
+    class:list={[
+      "border-border bg-background relative flex w-full items-baseline justify-between gap-x-4 border-b py-4 sm:items-center sm:gap-x-8 sm:py-6",
+      { "header-theme-row": features.lightAndDarkMode },
+    ]}
   >
     <a
       href={getRelativeLocaleUrl(locale, "")}
@@ -174,17 +177,35 @@ const isThinkingActive =
             </li>
           )
         }
-        {
-          features.lightAndDarkMode && (
-            <li class="col-span-2 flex items-center justify-center">
-              <AppearanceControl {locale} />
-            </li>
-          )
-        }
       </ul>
     </nav>
+    {
+      features.lightAndDarkMode && (
+        <div class="header-theme-action">
+          <AppearanceControl {locale} />
+        </div>
+      )
+    }
   </div>
 </header>
+
+<style>
+  @media (min-width: 768px) {
+    .header-theme-row #nav-menu {
+      margin-inline-start: auto;
+    }
+  }
+  @media (max-width: 767px) {
+    .header-theme-action {
+      position: absolute;
+      inset-block-start: 20px;
+      inset-inline-end: 0;
+    }
+    .header-theme-row #menu-btn {
+      margin-inline-end: 40px;
+    }
+  }
+</style>
 
 <script>
   function toggleNav() {

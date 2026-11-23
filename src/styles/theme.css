@@ -18,16 +18,16 @@
   color-scheme: light;
   --background: #f6f8fd;
   --foreground: #172541;
-  --accent: #304cc4;
+  --accent: #285a7e;
   --accent-foreground: #ffffff;
   --muted: #e7edf8;
   --muted-foreground: #4e5d78;
   --border: #ccd6ea;
-  --home-surface: #eaf0fd;
+  --home-surface: #e9eff7;
   --home-card: #fcfdff;
-  --home-soft-accent: #dce5ff;
-  --home-diagram: #4a6099;
-  --scene-border: #8d9ec4;
+  --home-soft-accent: #dcebf5;
+  --home-diagram: #466b87;
+  --scene-border: #819bae;
   --scene-wire-opacity: 0.8;
 }
 
@@ -36,15 +36,15 @@
   color-scheme: dark;
   --background: #17191f;
   --foreground: #ced7e6;
-  --accent: #c8bdf9;
-  --accent-foreground: #251d42;
+  --accent: #a6c8df;
+  --accent-foreground: #182731;
   --muted: #2a2e38;
   --muted-foreground: #acb8cd;
   --border: #3c4252;
   --home-surface: #20232c;
   --home-card: #252936;
-  --home-soft-accent: #363050;
-  --home-diagram: #aaafd3;
-  --scene-border: #72799b;
+  --home-soft-accent: #293b4b;
+  --home-diagram: #9eb8cc;
+  --scene-border: #71869a;
   --scene-wire-opacity: 0.72;
 }

@@ -7,7 +7,11 @@ import { getAssetPath } from "@/utils/withBase";
 import { isMirroredRoute, normalizeRoutePath } from "@/i18n/routes";
 import config from "@/config";
 import BackToTop from "@/components/BackToTop.astro";
-import { themeModes, themePreferenceKey } from "@/scripts/appearance-options";
+import {
+  defaultTheme,
+  themeModes,
+  themePreferenceKey,
+} from "@/scripts/appearance-options";
 import "@/styles/global.css";
 
 type Props = {
@@ -138,7 +142,7 @@ const hreflangAlternates = isMirroredRoute(basePath)
     <link
       rel="icon"
       type="image/svg+xml"
-      href={`${getAssetPath("favicon.svg")}?v=wy-3`}
+      href={`${getAssetPath("favicon.svg")}?v=wy-4`}
     />
     <link
       rel="apple-touch-icon"
@@ -223,19 +227,7 @@ const hreflangAlternates = isMirroredRoute(basePath)
       )
     }
 
-    <!-- The first valid theme color wins. The media tags are the fallback
-         before the bootstrap and theme controls resolve the actual scheme. -->
-    <meta id="theme-color" name="theme-color" content="" />
-    <meta
-      name="theme-color"
-      content="#f6f8fd"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#17191f"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta id="theme-color" name="theme-color" content="#f6f8fd" />
 
     <!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->
     <slot name="head" />
@@ -253,21 +245,22 @@ const hreflangAlternates = isMirroredRoute(basePath)
       Inline FOUC-prevention script: sets data-theme on <html> before
       the browser paints. Runs synchronously, no defer/async.
     -->
-    <script is:inline data-appearance-bootstrap define:vars={{ themeModes, themePreferenceKey }}>
+    <script
+      is:inline
+      data-appearance-bootstrap
+      define:vars={{ defaultTheme, themeModes, themePreferenceKey }}
+    >
       (function () {
         const { dataset } = document.documentElement;
-        if (dataset.themePreference) return;
+        if (dataset.theme) return;
 
         let stored;
         try {
           stored = localStorage.getItem(themePreferenceKey);
         } catch {
-          /* Follow the system if storage is unavailable. */
+          /* Use the default if storage is unavailable. */
         }
-        dataset.themePreference = themeModes.includes(stored) ? stored : "system";
-        dataset.theme = dataset.themePreference === "system"
-          ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-          : dataset.themePreference;
+        dataset.theme = themeModes.includes(stored) ? stored : defaultTheme;
       })();
     </script>
 

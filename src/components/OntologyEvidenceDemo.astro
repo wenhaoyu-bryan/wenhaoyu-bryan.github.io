@@ -1,0 +1,451 @@
+---
+import { ArrowLeft, ArrowRight, Check } from "lucide-astro";
+
+interface Props {
+  locale: "en" | "zh";
+}
+
+const zh = Astro.props.locale === "zh";
+const order = "WO-204";
+const asset = "P-17";
+const alarm = "AL-083";
+const copy = zh
+  ? {
+      example: "合成数据演示",
+      question: `工单 ${order} 为什么需要复核？`,
+      answer: `这张工单关联的泵 ${asset} 有一条未关闭的振动告警 ${alarm}。`,
+      choose: "选择一条证据",
+      order: "工单",
+      asset: "泵设备",
+      alarm: "振动告警",
+      orderSource: "工单记录",
+      alarmSource: "告警记录",
+      orderRelation: "关联设备",
+      alarmRelation: "存在告警",
+      orderDetail: `工单 ${order} 的设备字段指向泵 ${asset}。`,
+      alarmDetail: `告警 ${alarm} 来自泵 ${asset}，当前状态为未关闭。`,
+      openGraph: "查看图谱",
+      graph: "图谱中的证据路径",
+      back: "返回问答",
+    }
+  : {
+      example: "Synthetic data demo",
+      question: `Why does work order ${order} need review?`,
+      answer: `The work order is linked to pump ${asset}, which has an open vibration alert, ${alarm}.`,
+      choose: "Choose an evidence source",
+      order: "Work order",
+      asset: "Pump",
+      alarm: "Vibration alert",
+      orderSource: "Work order record",
+      alarmSource: "Alert record",
+      orderRelation: "Linked asset",
+      alarmRelation: "Has alert",
+      orderDetail: `The asset field on work order ${order} points to pump ${asset}.`,
+      alarmDetail: `Alert ${alarm} was recorded for pump ${asset} and is still open.`,
+      openGraph: "View graph",
+      graph: "Evidence path in the graph",
+      back: "Back to Q&A",
+    };
+
+const evidence = [
+  {
+    id: "order",
+    code: order,
+    name: copy.orderSource,
+    relation: copy.orderRelation,
+    detail: copy.orderDetail,
+  },
+  {
+    id: "alarm",
+    code: alarm,
+    name: copy.alarmSource,
+    relation: copy.alarmRelation,
+    detail: copy.alarmDetail,
+  },
+];
+const nodes = [
+  { id: "order", label: copy.order, code: order },
+  { id: "asset", label: copy.asset, code: asset },
+  { id: "alarm", label: copy.alarm, code: alarm },
+];
+const initialEvidence = "alarm";
+---
+
+<ontology-evidence-demo>
+  <p class="demo-label">{copy.example}</p>
+
+  <div data-answer-view>
+    <h3>{copy.question}</h3>
+    <p class="demo-answer">{copy.answer}</p>
+
+    <fieldset class="evidence-sources">
+      <legend>{copy.choose}</legend>
+      <div class="evidence-choices">
+        {
+          evidence.map(item => (
+            <div class="evidence-choice">
+              <input
+                id={`ontology-demo-${item.id}`}
+                class="sr-only"
+                type="radio"
+                name="ontology-demo-evidence"
+                value={item.id}
+                checked={item.id === initialEvidence}
+              />
+              <label for={`ontology-demo-${item.id}`}>
+                <span class="source-title">
+                  <>
+                    <span>{item.name}</span>
+                    <span class="record-code">{item.code}</span>
+                  </>
+                </span>
+                <span class="source-detail">{item.detail}</span>
+                <Check class="choice-check" size={16} aria-hidden="true" />
+              </label>
+            </div>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <div class="demo-actions">
+      <button class="graph-action" type="button" data-open-graph hidden>
+        {copy.openGraph}<ArrowRight size={16} aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+
+  <div data-graph-view data-selected={initialEvidence} hidden>
+    <div class="graph-heading">
+      <h3 data-graph-heading tabindex="-1">{copy.graph}</h3>
+      <button class="graph-back" type="button" data-return-answer>
+        <ArrowLeft size={16} aria-hidden="true" />{copy.back}
+      </button>
+    </div>
+
+    <ol class="graph-path" role="list" aria-label={copy.graph}>
+      {
+        nodes.map((node, index) => {
+          const edge = evidence[index];
+          return (
+            <>
+              <li class="graph-node" data-node={node.id}>
+                <span>{node.label}</span>
+                <strong class="record-code">{node.code}</strong>
+              </li>
+              {edge && (
+                <li class="graph-edge">
+                  <button
+                    type="button"
+                    value={edge.id}
+                    data-graph-edge
+                    aria-pressed={edge.id === initialEvidence}
+                  >
+                    {edge.relation}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </button>
+                </li>
+              )}
+            </>
+          );
+        })
+      }
+    </ol>
+
+    <div class="graph-source" aria-live="polite">
+      {
+        evidence.map(item => (
+          <div data-graph-source={item.id} hidden={item.id !== initialEvidence}>
+            <p class="source-title">
+              {item.name}
+              <span class="record-code">{item.code}</span>
+            </p>
+            <p class="source-detail">{item.detail}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</ontology-evidence-demo>
+
+<script>
+  class OntologyEvidenceDemo extends HTMLElement {
+    private events?: AbortController;
+
+    connectedCallback() {
+      const answer = this.querySelector<HTMLElement>("[data-answer-view]");
+      const graph = this.querySelector<HTMLElement>("[data-graph-view]");
+      const graphHeading = this.querySelector<HTMLElement>(
+        "[data-graph-heading]"
+      );
+      const open = this.querySelector<HTMLButtonElement>("[data-open-graph]");
+      const back = this.querySelector<HTMLButtonElement>(
+        "[data-return-answer]"
+      );
+      if (this.events || !answer || !graph || !graphHeading || !open || !back)
+        return;
+
+      this.events = new AbortController();
+      const { signal } = this.events;
+      const edges =
+        graph.querySelectorAll<HTMLButtonElement>("[data-graph-edge]");
+      const sources = graph.querySelectorAll<HTMLElement>(
+        "[data-graph-source]"
+      );
+
+      const selectGraphEvidence = (id: string) => {
+        graph.dataset.selected = id;
+        for (const edge of edges) {
+          edge.setAttribute("aria-pressed", String(edge.value === id));
+        }
+        for (const source of sources) {
+          source.hidden = source.dataset.graphSource !== id;
+        }
+      };
+
+      open.addEventListener(
+        "click",
+        () => {
+          const evidence =
+            answer.querySelector<HTMLInputElement>("input:checked");
+          if (evidence) selectGraphEvidence(evidence.value);
+          graph.hidden = false;
+          answer.hidden = true;
+          graphHeading.focus();
+        },
+        { signal }
+      );
+
+      for (const edge of edges) {
+        edge.addEventListener("click", () => selectGraphEvidence(edge.value), {
+          signal,
+        });
+      }
+
+      back.addEventListener(
+        "click",
+        () => {
+          answer.hidden = false;
+          graph.hidden = true;
+          open.focus();
+        },
+        { signal }
+      );
+
+      open.hidden = false;
+    }
+
+    disconnectedCallback() {
+      this.events?.abort();
+      this.events = undefined;
+    }
+  }
+
+  if (!customElements.get("ontology-evidence-demo")) {
+    customElements.define("ontology-evidence-demo", OntologyEvidenceDemo);
+  }
+</script>
+
+<style>
+  ontology-evidence-demo {
+    display: block;
+    margin-top: 12px;
+    padding: clamp(13px, 2.4vw, 20px);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--background);
+  }
+  ontology-evidence-demo [hidden] {
+    display: none;
+  }
+  .demo-label,
+  .source-detail,
+  .graph-node > span {
+    color: var(--muted-foreground);
+  }
+  .demo-label {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  ontology-evidence-demo h3 {
+    margin: 0;
+    font-size: clamp(16px, 2vw, 19px);
+    font-weight: 650;
+    line-height: 1.35;
+    text-wrap: pretty;
+  }
+  .demo-answer {
+    margin: 6px 0 12px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .evidence-sources {
+    min-inline-size: 0;
+  }
+  .evidence-sources legend {
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .evidence-choices {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .evidence-choice {
+    position: relative;
+  }
+  .evidence-choice label {
+    position: relative;
+    display: grid;
+    height: 100%;
+    gap: 3px;
+    padding: 8px 31px 8px 9px;
+    border: 1px solid var(--scene-border);
+    border-radius: 6px;
+    background: var(--home-card);
+    cursor: pointer;
+  }
+  .evidence-choice label:hover,
+  .evidence-choice input:checked + label,
+  .graph-edge button[aria-pressed="true"] {
+    border-color: var(--accent);
+    background: var(--home-soft-accent);
+  }
+  .evidence-choice input:focus-visible + label {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .source-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 7px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.4;
+  }
+  .record-code {
+    font-family: var(--font-google-sans-code), monospace;
+    white-space: nowrap;
+  }
+  .source-detail {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .choice-check {
+    position: absolute;
+    inset-block-start: 8px;
+    inset-inline-end: 8px;
+    visibility: hidden;
+    color: var(--accent);
+  }
+  input:checked + label .choice-check {
+    visibility: visible;
+  }
+  .demo-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  .graph-action,
+  .graph-back,
+  .graph-edge button {
+    display: inline-flex;
+    min-block-size: 36px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .graph-action {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+  .graph-action:hover,
+  .graph-back:hover,
+  .graph-edge button:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .graph-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 12px;
+  }
+  .graph-back {
+    color: var(--accent);
+  }
+  .graph-path {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(
+        0,
+        1fr
+      );
+    align-items: center;
+    gap: 6px;
+    margin: 12px 0 8px;
+    padding: 0;
+    list-style: none;
+  }
+  .graph-node {
+    display: grid;
+    gap: 2px;
+    min-inline-size: 0;
+    padding: 9px 6px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--home-card);
+    text-align: center;
+  }
+  .graph-node > span {
+    font-size: 12px;
+  }
+  .graph-node > strong {
+    font-size: 15px;
+  }
+  [data-selected="order"] :is([data-node="order"], [data-node="asset"]),
+  [data-selected="alarm"] :is([data-node="asset"], [data-node="alarm"]) {
+    border-color: var(--accent);
+  }
+  .graph-edge button {
+    color: var(--muted-foreground);
+    border: 1px solid transparent;
+    font-size: 12px;
+  }
+  .graph-edge button[aria-pressed="true"] {
+    color: var(--accent);
+  }
+  .graph-source {
+    padding: 8px 10px;
+    border-inline-start: 2px solid var(--accent);
+    background: var(--home-surface);
+  }
+  @media (max-width: 639px) {
+    .evidence-choices,
+    .graph-path {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .graph-edge {
+      text-align: center;
+    }
+    .graph-edge button svg {
+      rotate: 90deg;
+    }
+  }
+  @media (pointer: coarse) {
+    .graph-action,
+    .graph-back,
+    .graph-edge button {
+      min-block-size: 44px;
+    }
+  }
+</style>

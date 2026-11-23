@@ -5,8 +5,8 @@ import FlowDiagram from "@/components/FlowDiagram.astro";
 interface Props {
   facts: { label: string; value: string }[];
   decision: string;
-  steps: ComponentProps<typeof FlowDiagram>["steps"];
-  caption: string;
+  steps?: ComponentProps<typeof FlowDiagram>["steps"];
+  caption?: string;
 }
 
 const { facts, decision, steps, caption } = Astro.props;
@@ -23,8 +23,11 @@ const { facts, decision, steps, caption } = Astro.props;
       ))
     }
   </dl>
+  <slot name="navigation" />
   <h2 id="case-decision">{decision}</h2>
-  <FlowDiagram {steps} {caption} compact />
+  <slot>
+    {steps && <FlowDiagram {steps} {caption} compact />}
+  </slot>
 </section>
 
 <style>

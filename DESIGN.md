@@ -88,9 +88,9 @@ components:
 ### Portfolio palette and case studies — 2026-11-23
 
 The shared palette in `src/styles/theme.css` uses mist white (#f6f8fd), ink
-blue (#172541) and ultramarine (#304cc4) in light mode. Dark mode uses
-graphite (#17191f), soft gray text (#ced7e6), and a pale violet accent
-(#c8bdf9). The appearance panel supports system, light, and dark modes.
+blue (#172541) and slate blue (#285a7e) in light mode. Dark mode uses
+graphite (#17191f), soft gray text (#ced7e6), and a mist blue accent
+(#a6c8df). The header button switches between light and dark in one click.
 The homepage puts TCL work before public projects, with the workflow
 diagram alongside the introduction on desktop and below the cases on
 mobile. Its animation starts on demand. Public project cards share the
@@ -162,8 +162,8 @@ engineering collaborators who value substance over flash.
 ## Colors
 
 The site uses **CSS custom properties** to switch between light and dark themes
-at the `:root` / `[data-theme="dark"]` level. Theme is persisted in
-localStorage with system preference as default.
+at the `:root` / `[data-theme="dark"]` level. Light is the default. The header
+button saves the visitor's choice in localStorage.
 
 ### Light theme
 

@@ -19,29 +19,29 @@ function boot(saved = {}, { blocked = false, prefersDark = false } = {}) {
   const dataset = {};
   const events = {};
   const windowEvents = {};
-  const media = {
-    matches: prefersDark,
-    addEventListener(_, fn) { this.change = fn; },
-  };
+  class Toggle {
+    dataset = {
+      labelLight: "Switch to light mode",
+      labelDark: "Switch to dark mode",
+    };
 
-  class Choice {
-    constructor(name, value) {
-      this.name = name;
-      this.value = value;
+    closest(selector) {
+      return selector === "#theme-btn" ? this : null;
     }
-    hasAttribute(name) { return name === "data-appearance-choice"; }
-  }
 
-  class Reset {
-    closest(selector) { return selector === "[data-appearance-reset]" ? this : null; }
+    setAttribute(name, value) {
+      this[name] = value;
+    }
   }
+  const toggle = new Toggle();
 
   const context = {
+    defaultTheme: options.defaultTheme,
     themeModes: options.themeModes,
     themePreferenceKey: options.themePreferenceKey,
     exports: {},
     require: () => options,
-    HTMLInputElement: Choice,
+    Element: Toggle,
     localStorage: {
       getItem(key) {
         if (blocked) throw new Error("storage blocked");
@@ -51,21 +51,16 @@ function boot(saved = {}, { blocked = false, prefersDark = false } = {}) {
         if (blocked) throw new Error("storage blocked");
         stored.set(key, value);
       },
-      removeItem(key) {
-        if (blocked) throw new Error("storage blocked");
-        stored.delete(key);
-      },
     },
     window: {
-      matchMedia: () => media,
+      matchMedia: () => ({ matches: prefersDark, addEventListener() {} }),
       getComputedStyle: () => ({ backgroundColor: "white" }),
       addEventListener: (name, fn) => { windowEvents[name] = fn; },
     },
     document: {
       documentElement: { dataset },
       body: {},
-      querySelector: () => null,
-      querySelectorAll: () => [],
+      querySelector: selector => (selector === "#theme-btn" ? toggle : null),
       addEventListener: (name, fn) => { events[name] = fn; },
     },
   };
@@ -77,8 +72,8 @@ function boot(saved = {}, { blocked = false, prefersDark = false } = {}) {
     dataset,
     initial,
     stored,
-    choose: (name, value) => events.change({ target: new Choice(name, value) }),
-    setSystemDark: matches => { media.matches = matches; media.change(); },
+    click: () => events.click({ target: toggle }),
+    label: () => toggle["aria-label"],
     fromAnotherTab: (key, newValue) => windowEvents.storage({ key, newValue }),
     incomingPage: () => {
       const next = {};
@@ -90,43 +85,53 @@ function boot(saved = {}, { blocked = false, prefersDark = false } = {}) {
   };
 }
 
-test("existing manual theme choices survive an OS change", () => {
-  const page = boot({ theme: "light" });
-  page.setSystemDark(true);
+test("the first visit starts light even when the system prefers dark", () => {
+  const page = boot({}, { prefersDark: true });
+  assert.deepEqual(page.initial, { theme: "light" });
   assert.equal(page.dataset.theme, "light");
+  assert.equal(page.stored.has("theme"), false);
 });
 
-test("System follows the OS without storing an override", () => {
-  const page = boot({ theme: "light" });
-  page.choose("theme", "system");
-  page.setSystemDark(true);
+test("one click switches theme and updates the next action", () => {
+  const page = boot();
+  assert.equal(page.label(), "Switch to dark mode");
+  page.click();
   assert.equal(page.dataset.theme, "dark");
-  assert.equal(page.stored.has("theme"), false);
+  assert.equal(page.stored.get("theme"), "dark");
+  assert.equal(page.label(), "Switch to light mode");
+
+  page.click();
+  assert.equal(page.dataset.theme, "light");
+  assert.equal(page.stored.get("theme"), "light");
+  assert.equal(page.label(), "Switch to dark mode");
+
+  const reloaded = boot(Object.fromEntries(page.stored), { prefersDark: true });
+  assert.equal(reloaded.initial.theme, "light");
 });
 
 test("a saved dark choice applies before paint and across navigation", () => {
   const page = boot({ theme: "dark" });
-  const expected = { themePreference: "dark", theme: "dark" };
+  const expected = { theme: "dark" };
   assert.deepEqual(page.initial, expected);
   assert.deepEqual(page.incomingPage(), expected);
 });
 
 test("blocked storage still lets visitors switch themes for the current visit", () => {
   const page = boot({}, { blocked: true });
-  page.choose("theme", "dark");
+  page.click();
   assert.equal(page.dataset.theme, "dark");
   assert.equal(page.incomingPage().theme, "dark");
 });
 
-test("invalid themes follow the system and preview palette settings are ignored", () => {
+test("legacy theme settings fall back to light", () => {
   const page = boot({
-    theme: "bad",
+    theme: "system",
     "portfolio-dark-palette": "pine",
     "portfolio-text-tone": "warm",
   }, { prefersDark: true });
-  assert.deepEqual(page.dataset, { themePreference: "system", theme: "dark" });
+  assert.deepEqual(page.dataset, { theme: "light" });
   page.fromAnotherTab("portfolio-dark-palette", "navy");
-  assert.deepEqual(page.dataset, { themePreference: "system", theme: "dark" });
+  assert.deepEqual(page.dataset, { theme: "light" });
 });
 
 test("another tab's theme change is reflected", () => {
@@ -134,6 +139,5 @@ test("another tab's theme change is reflected", () => {
   page.fromAnotherTab("theme", "dark");
   assert.equal(page.dataset.theme, "dark");
   page.fromAnotherTab("theme", null);
-  assert.equal(page.dataset.themePreference, "system");
-  assert.equal(page.dataset.theme, "dark");
+  assert.equal(page.dataset.theme, "light");
 });

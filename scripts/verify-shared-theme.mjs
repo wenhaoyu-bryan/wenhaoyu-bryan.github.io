@@ -5,8 +5,8 @@ const theme = read("src/styles/theme.css");
 const layout = read("src/layouts/Layout.astro");
 for (const [scheme, background] of [["light", "#f6f8fd"], ["dark", "#17191f"]]) {
   assert.ok(theme.includes(`--background: ${background}`), `shared ${scheme} palette`);
-  assert.match(layout, new RegExp(`content="${background}"\\s+media="\\(prefers-color-scheme: ${scheme}\\)"`));
 }
+assert.match(layout, /<meta id="theme-color" name="theme-color" content="#f6f8fd"\s*\/>/);
 assert.match(theme, /\[data-theme="dark"\]\s*\{[^}]*--foreground: #ced7e6/);
 assert.doesNotMatch(theme, /\[data-(palette|text-tone)=/);
 assert.ok(!read("src/styles/home.css").includes("--background:"), "homepage must not own a second palette");
